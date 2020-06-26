@@ -31,4 +31,5 @@ This thesis could be the starting point for a PhD on using formal methods to val
 [SciHub for free paper](https://sci-hub.tw/)
 
 ## Historic of the project
-1. 25-06-2020 - / : read paper and documentation about the project
+1. 25-06-2020 - / : read paper and documentation about the project. 
+2. 25-06-2020 - / : reproduce paper with draft 29 instead of 18 as in the paper and compare result
