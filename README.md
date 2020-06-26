@@ -29,3 +29,6 @@ This thesis could be the starting point for a PhD on using formal methods to val
 [Trello link](https://trello.com/invite/b/umxKNP0a/a23a28a91982965e8f4071172df443dc/toward-verification-of-quic-extensions)  
 [BibTex online](https://www.bibme.org/bibtex)  
 [SciHub for free paper](https://sci-hub.tw/)
+
+## Historic of the project
+1. 25-06-2020 - / : read paper and documentation about the project
