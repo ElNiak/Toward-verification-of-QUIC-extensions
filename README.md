@@ -13,9 +13,11 @@ This thesis could be the starting point for a PhD on using formal methods to val
 
 ## QUIC overview
 ### Sending FSM
-![alt text](https://github.com/ElNiak/Toward-verification-of-QUIC-extensions/blob/master/rapport/rcvdFSM.PNG)
-### Receiving FSM
 ![alt text](https://github.com/ElNiak/Toward-verification-of-QUIC-extensions/blob/master/rapport/sentFSM.PNG)
+
+### Receiving FSM
+![alt text](https://github.com/ElNiak/Toward-verification-of-QUIC-extensions/blob/master/rapport/rcvdFSM.PNG)
+
 ## How to
 
 ## Useful links
