@@ -26,4 +26,5 @@ This thesis could be the starting point for a PhD on using formal methods to val
 
 ## Useful links
 [Overleaf link](https://www.overleaf.com/4756785148nycvgbzrpcrb)  
-[Trello link](https://trello.com/invite/b/umxKNP0a/a23a28a91982965e8f4071172df443dc/toward-verification-of-quic-extensions)
+[Trello link](https://trello.com/invite/b/umxKNP0a/a23a28a91982965e8f4071172df443dc/toward-verification-of-quic-extensions)  
+[BibTex online](https://www.bibme.org/bibtex)  
