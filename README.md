@@ -13,7 +13,7 @@ This thesis could be the starting point for a PhD on using formal methods to val
 
 ## How to
 Source: http://microsoft.github.io/ivy/install.html
-### Installation
+### Installation - Already done here
 This installs Ivy into your home directory, so you don’t need sudo. In fact, **be careful *not* to use sudo when installing in your home directory**, as the files will be owned by root. Also put the first command in your .profile script, so Python will find Ivy in the future.
 ```shell
 #Prerequisites
@@ -66,5 +66,5 @@ Ivy should print out a counterexample trace.
 [SciHub for free paper](https://sci-hub.tw/)
 
 ## Historic of the project
-1. 25-06-2020 - / : read paper and documentation about the project. 
-2. 25-06-2020 - / : reproduce paper with draft 29 instead of 18 as in the paper and compare result
+1. `25-06-2020 - /` : read paper and documentation about the project. 
+2. `25-06-2020 - /` : reproduce paper with draft 29 instead of 18 as in the paper and compare result
