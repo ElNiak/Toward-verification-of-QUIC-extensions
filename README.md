@@ -37,6 +37,13 @@ python setup.py develop --prefix=~
 # [Optionally, build the experimental Ivy v2.0 compiler:]
 python build_v2_compiler.py
 ```
+
+(**Easiest way**) For Binary releases, do with sudo
+```shell
+ sudo apt-get install python python-pip g++ python-ply python-pygraphviz python-tk tix libssl-dev
+ sudo pip install ms-ivy
+```
+Then clone the repository to have some examples and other interesting stuffs
 ### Usage
 Run Ivy on an example, like this:
 ```shell
