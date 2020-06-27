@@ -11,6 +11,43 @@ This thesis could be the starting point for a PhD on using formal methods to val
 [3] https://www.multipath-quic.org  
 [4] https://www.pquic.org
 
+## How to
+Source: http://microsoft.github.io/ivy/install.html
+### Installation
+This installs Ivy into your home directory, so you don’t need sudo. In fact, **be careful *not* to use sudo when installing in your home directory**, as the files will be owned by root. Also put the first command in your .profile script, so Python will find Ivy in the future.
+```shell
+#Prerequisites
+sudo apt-get install python python-pip g++ cmake python-ply python-pygraphviz git python-tk tix pkg-config libssl-dev
+
+# Install IVy
+#Get the source like this:
+git clone --recurse-submodules https://github.com/ElNiak/ivy.git
+cd ivy
+
+## Build the submodules like this (it takes a while):
+python build_submodules.py
+
+## Install into your local Python like this:
+sudo python setup.py install
+
+## If you want to run from the source tree for development purposes, do this instead:
+export PYTHONPATH=~/lib/python2.7/site-packages:$PYTHONPATH
+python setup.py develop --prefix=~
+
+# [Optionally, build the experimental Ivy v2.0 compiler:]
+python build_v2_compiler.py
+```
+### Usage
+Run Ivy on an example, like this:
+```shell
+cd doc/examples
+ivy client_server_example.ivy
+```
+Or, if you only want to use Ivy on the command line, test it like this:
+```shell
+ivy_check trace=true doc/examples/client_server_example_new.ivy
+```
+Ivy should print out a counterexample trace.
 ## QUIC overview
 ### Sending FSM
 ![alt text](https://github.com/ElNiak/Toward-verification-of-QUIC-extensions/blob/master/rapport/sentFSM.PNG)
@@ -21,8 +58,6 @@ This thesis could be the starting point for a PhD on using formal methods to val
 ## Dependancies
 ### Ivy - Microsoft
 [Github link](https://github.com/microsoft/ivy/tree/master/doc/examples/quic)
-
-## How to
 
 ## Useful links
 [Overleaf link](https://www.overleaf.com/4756785148nycvgbzrpcrb)  
