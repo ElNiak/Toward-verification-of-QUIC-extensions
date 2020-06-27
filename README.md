@@ -43,7 +43,7 @@ python build_v2_compiler.py
  sudo apt-get install python python-pip g++ python-ply python-pygraphviz python-tk tix libssl-dev
  sudo pip install ms-ivy
 ```
-Then clone the repository to have some examples and other interesting stuffs
+Then clone the repository to have some examples and other interesting stuffs. ** After that proceed to the installation in https://github.com/microsoft/ivy/tree/master/doc/examples/quic **
 ### Usage
 Run Ivy on an example, like this:
 ```shell
