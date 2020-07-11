@@ -28,7 +28,7 @@ all_file="${file}.*"
 echo 'Files generated:'
 ls $all_file
 g++ -o $file "${file}.cpp" -lpthread
-./$file
+ivy $file_ivy & ./$file
 
 rm "${file}.cpp" #TODO
 rm "${file}.h"
