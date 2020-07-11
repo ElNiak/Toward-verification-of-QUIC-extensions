@@ -83,4 +83,5 @@ Source: http://www.brendangregg.com/blog/2019-01-01/learn-ebpf-tracing.html?fbcl
 
 ## Historic of the project
 1. `25-06-2020 - /` : read paper and documentation about the project. 
+2. `25-06-2020 - /` : reproduce paper with draft 18 as in the paper and compare result
 2. `25-06-2020 - /` : reproduce paper with draft 29 instead of 18 as in the paper and compare result
