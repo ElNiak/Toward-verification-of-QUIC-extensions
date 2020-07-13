@@ -1,0 +1,55 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/niak/Desktop/Christophe/Toward-verification-of-QUIC-extensions/picoquic/picoquic/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_7989f/fast"
+/usr/bin/make -f CMakeFiles/cmTC_7989f.dir/build.make CMakeFiles/cmTC_7989f.dir/build
+make[1]: Entering directory '/home/niak/Desktop/Christophe/Toward-verification-of-QUIC-extensions/picoquic/picoquic/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_7989f.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_7989f.dir/CheckSymbolExists.c.o   -c /home/niak/Desktop/Christophe/Toward-verification-of-QUIC-extensions/picoquic/picoquic/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_7989f
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7989f.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_7989f.dir/CheckSymbolExists.c.o  -o cmTC_7989f 
+CMakeFiles/cmTC_7989f.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_7989f.dir/build.make:97: recipe for target 'cmTC_7989f' failed
+make[1]: *** [cmTC_7989f] Error 1
+make[1]: Leaving directory '/home/niak/Desktop/Christophe/Toward-verification-of-QUIC-extensions/picoquic/picoquic/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_7989f/fast' failed
+make: *** [cmTC_7989f/fast] Error 2
+
+File /home/niak/Desktop/Christophe/Toward-verification-of-QUIC-extensions/picoquic/picoquic/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/niak/Desktop/Christophe/Toward-verification-of-QUIC-extensions/picoquic/picoquic/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_98e6e/fast"
+/usr/bin/make -f CMakeFiles/cmTC_98e6e.dir/build.make CMakeFiles/cmTC_98e6e.dir/build
+make[1]: Entering directory '/home/niak/Desktop/Christophe/Toward-verification-of-QUIC-extensions/picoquic/picoquic/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_98e6e.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_98e6e.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_98e6e
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_98e6e.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_98e6e.dir/CheckFunctionExists.c.o  -o cmTC_98e6e -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_98e6e.dir/build.make:97: recipe for target 'cmTC_98e6e' failed
+make[1]: *** [cmTC_98e6e] Error 1
+make[1]: Leaving directory '/home/niak/Desktop/Christophe/Toward-verification-of-QUIC-extensions/picoquic/picoquic/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_98e6e/fast' failed
+make: *** [cmTC_98e6e/fast] Error 2
+
+
