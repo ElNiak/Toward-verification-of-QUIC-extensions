@@ -5,8 +5,8 @@ isolate clock = {
     action incr(inp:this) returns (out:this)
 
     specification {
-        property [transitivity] X:this < Y & Y < Z -> X < Z
-        property [antisymmetry] ~(X:this < Y & Y < X)
+        property [transitivity] X:this < Y & Y < Z -> X < Z #when deleted, wrong diagnose
+        property [antisymmetry] ~(X:this < Y & Y < X) #When deleten seems to not change so much
 
         after incr {
             ensure inp < out
@@ -14,7 +14,7 @@ isolate clock = {
     }
 
     implementation {
-        interpret clock -> int
+        interpret clock -> int #Needed, if not => wrong diagnose
 
         implement incr {
 	    out := inp + 1

@@ -23,13 +23,14 @@ action disconnect(x:client,y:server) = {
   semaphore(y) := true
 }
 
-invariant ~(X ~= Z & link(X,Y) & link(Z,Y))
+invariant ~(X ~= Z & link(X,Y) & link(Z,Y)) 
+#Should allow 1 client connecting at the server at any time
 
 export connect
 export disconnect
 
 # Add this to prove the invariant
-
-#private {
-#    invariant ~(link(X,Y) & semaphore(Y))
-#}
+#This says that there is no client X and server Y such that X is linked to Y and the semaphore at Y is up
+private {
+   # invariant ~(link(X,Y) & semaphore(Y))
+}
