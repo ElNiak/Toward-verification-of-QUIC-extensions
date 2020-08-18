@@ -28,10 +28,10 @@ printf "\n\n"
 printf "###### Downloading QUIC implementations:\n\n"
 mkdir quic
 cd quic
-git clone https://github.com/h2o/picotls.git
-git clone https://github.com/private-octopus/picoquic.git
-git clone https://github.com/NTAP/quant.git
-wget https://golang.org/dl/go1.15.linux-amd64.tar.gz
+[ -f /home/chris/TVOQE_18/quic/picotls ] && git clone https://github.com/h2o/picotls.git
+[ -f /home/chris/TVOQE_18/quic/picoquic ] && git clone https://github.com/private-octopus/picoquic.git
+[ -f /home/chris/TVOQE_18/quic/quant ] && git clone https://github.com/NTAP/quant.git
+[ -f /home/chris/TVOQE_18/quic/go1.15.linux-amd64.tar.gz ] && wget https://golang.org/dl/go1.15.linux-amd64.tar.gz
 mkdir go
 
 

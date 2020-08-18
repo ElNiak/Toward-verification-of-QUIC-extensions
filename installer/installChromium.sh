@@ -8,9 +8,9 @@ echo export PATH="$PATH:/home/chris/TVOQE_18/quic/depot_tools" >> ~/.profile
 #Install chromium
 mkdir chromium
 cd chromium
-fetch --nohooks chromium
+[ -f /home/chris/TVOQE_18/quic/chromium/src ] && fetch --nohooks chromium
 cd src
-./build/install-build-deps.sh
-gclient runhooks
-gn gen out/Default
+[ -f /home/chris/TVOQE_18/quic/chromium/src ] && ./build/install-build-deps.sh
+[ -f /home/chris/TVOQE_18/quic/chromium/src ] && gclient runhooks
+[ -f /home/chris/TVOQE_18/quic/chromium/src/out/Default ] && gn gen out/Default
 autoninja -C out/Default chrome
