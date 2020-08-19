@@ -13,4 +13,5 @@ cd src
 [ -f /home/chris/TVOQE_18/quic/chromium/src ] && ./build/install-build-deps.sh
 [ -f /home/chris/TVOQE_18/quic/chromium/src ] && gclient runhooks
 [ -f /home/chris/TVOQE_18/quic/chromium/src/out/Default ] && gn gen out/Default
-autoninja -C out/Default chrome
+#autoninja -C out/Default chrome
+ninja -C out/Default quic_server quic_client
