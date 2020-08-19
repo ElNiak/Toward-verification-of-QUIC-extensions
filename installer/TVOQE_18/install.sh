@@ -7,7 +7,7 @@ sudo apt-get install doxygen
 sudo apt-get install pkg-config
 sudo apt-get install faketime libscope-guard-perl libtest-tcp-perl
 sudo apt-get install libbrotli-dev
-
+sudo apt install libev-dev libssl-dev libhttp-parser-dev libbsd-dev doxygen gperf
 
 #Install ivy
 printf "\n\n"
@@ -28,10 +28,10 @@ printf "\n\n"
 printf "###### Downloading QUIC implementations:\n\n"
 mkdir quic
 cd quic
-[ -f /home/chris/TVOQE_18/quic/picotls ] && git clone https://github.com/h2o/picotls.git
-[ -f /home/chris/TVOQE_18/quic/picoquic ] && git clone https://github.com/private-octopus/picoquic.git
-[ -f /home/chris/TVOQE_18/quic/quant ] && git clone https://github.com/NTAP/quant.git
-[ -f /home/chris/TVOQE_18/quic/go1.15.linux-amd64.tar.gz ] && wget https://golang.org/dl/go1.15.linux-amd64.tar.gz
+[ ! -f picotls/ ] &&  git clone https://github.com/h2o/picotls.git
+[ ! -f picoquic/ ] &&  git clone https://github.com/private-octopus/picoquic.git 
+[ ! -f quant/ ] &&  git clone https://github.com/NTAP/quant.git
+[ ! -f go1.15.linux-amd64.tar.gz ] &&  wget https://golang.org/dl/go1.15.linux-amd64.tar.gz
 mkdir go
 
 
@@ -63,7 +63,6 @@ printf "\n\n"
 printf "###### Installing Quant:\n\n"
 cd ../quant/
 git checkout 18
-sudo apt install libev-dev libssl-dev libhttp-parser-dev libbsd-dev doxygen gperf
 git submodule update --init --recursive
 mkdir Debug 
 cd Debug
