@@ -1,7 +1,7 @@
 cd /home/chris/TVOQE_18/quic/
 
 #Install depot_tools
-git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+[ -f /home/chris/TVOQE_18/quic/depot_tools ] && git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
 export PATH="$PATH:/home/chris/TVOQE_18/quic/depot_tools"
 echo export PATH="$PATH:/home/chris/TVOQE_18/quic/depot_tools" >> ~/.profile 
 
