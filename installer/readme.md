@@ -1,6 +1,6 @@
 # Installation of project
 
-1. copy folder in `/homeh` directory 
+1. copy folder in `/home` directory 
 
 2. launch `install.sh`
 
