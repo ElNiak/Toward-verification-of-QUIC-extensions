@@ -1,4 +1,4 @@
-#Installation of project
+# Installation of project
 
 1. copy folder in `/homeh` directory 
 
@@ -6,6 +6,6 @@
 
 3. launch `installChromium.sh` (take long time) 
 
-#How to test 
+# How to test 
 
 Launch `testAll.sh` :)
