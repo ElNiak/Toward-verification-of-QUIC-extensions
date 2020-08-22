@@ -26,7 +26,7 @@ servers = [
     ['quant',['..',scdir + '/quant/Debug/bin/server -d . -c leaf_cert.pem -k leaf_cert.key -p 4443 -t 3600']],
     ['winquic',['..','true']],
     ['minq',['..','go run '+ scdir + '/go/src/github.com/ekr/minq/bin/server/main.go']],
-    ['chromium',[scdir + '/chromium/src','./out/Debug/quic_server \
+    ['chromium',[scdir + '/chromium/src','./out/Default/quic_server \
   --quic_response_cache_dir=/tmp/quic-data/www.example.org \
   --certificate_file=net/tools/quic/certs/out/leaf_cert.pem \
   --key_file=net/tools/quic/certs/out/leaf_cert.pkcs8 --quic-enable-version-99']]

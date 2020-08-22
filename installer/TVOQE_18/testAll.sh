@@ -1,6 +1,6 @@
 #!/bin/bash
 
-servers=(#picoquic 
+servers=(picoquic 
          quant 
          chromium
          winquic
@@ -14,6 +14,16 @@ tests_server=(quic_server_test_stream
               quic_server_test_connection_close
               quic_server_test_reset_stream)
 
+mkdir /tmp/quic-data
+cd /tmp/quic-data
+wget -p --save-headers https://www.example.org
+
+cd /home/chris/TVOQE_18/quic/chromium/src/
+cd net/tools/quic/certs
+./generate-certs.sh
+cd -
+
+cd /home/chris/TVOQE_18
 rm ivy/doc/examples/quic/test/test.py
 cp test.py ivy/doc/examples/quic/test/
 cd ivy/doc/examples/quic/
