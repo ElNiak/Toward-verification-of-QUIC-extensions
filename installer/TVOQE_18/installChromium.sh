@@ -14,4 +14,5 @@ cd src
 [ ! -f src/ ] && gclient runhooks
 [ ! -f src/out/Default ] && gn gen out/Default
 #autoninja -C out/Default chrome
-ninja -C out/Default quic_server quic_client
+ninja -C out/Default quic_server 
+ninja -C out/Default quic_client
