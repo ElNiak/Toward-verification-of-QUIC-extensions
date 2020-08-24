@@ -12,9 +12,11 @@ sudo apt install libev-dev libssl-dev libhttp-parser-dev libbsd-dev doxygen gper
 #Install ivy
 printf "\n\n"
 printf "###### Installing Ivy:\n\n"
-git clone --recurse-submodules https://github.com/Microsoft/ivy.git
+git clone  https://github.com/Microsoft/ivy.git #--recurse-submodules
 cd ivy/
-git checkout quic16_multi && git pull origin quic16_multi
+git checkout quic15_merge_temp
+#quic18_client
+#11f9cd8d7d55b4fafcd53386a5cfc99f7aba7e6b #anomaly23 quic16
 mkdir doc/examples/quic/build
 mkdir doc/examples/quic/test/temp
 cd ..
@@ -28,18 +30,30 @@ printf "\n\n"
 printf "###### Downloading QUIC implementations:\n\n"
 mkdir quic
 cd quic
+#[ ! -f z3/ ] &&  git clone https://github.com/Z3Prover/z3.git
 [ ! -f picotls/ ] &&  git clone https://github.com/h2o/picotls.git
 [ ! -f picoquic/ ] &&  git clone https://github.com/private-octopus/picoquic.git 
 [ ! -f quant/ ] &&  git clone https://github.com/NTAP/quant.git
 [ ! -f go1.15.linux-amd64.tar.gz ] &&  wget https://golang.org/dl/go1.15.linux-amd64.tar.gz
 mkdir go
 
+#Install z3
+printf "\n\n"
+printf "###### Installing Z3:\n\n"
+#cd z3/
+#mkdir build
+#cd build
+#cmake -G "Ninja" ../
+#ninja
+
 
 #Install picotls
 printf "\n\n"
 printf "###### Installing PicoTLS:\n\n"
 cd picotls/
-git checkout 4e6080b6a1ede0d3b23c72a8be73b46ecaf1a084
+git checkout 1c8daa82bed17e36226036e4a7ef347835373f89 # Dec 10, 2018
+#8443c09c0f091482679e0b32c4f238928b7f5c1e #Oct 4, 2018
+#502690178d9ae570da6689e27209b6569f70d035 # Aug 14, 2018
 git submodule init
 git submodule update
 cmake .

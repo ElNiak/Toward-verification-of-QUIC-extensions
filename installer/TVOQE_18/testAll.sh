@@ -51,7 +51,7 @@ for j in "${tests_server[@]}"; do :
     printf "Server => $j  " 
     for i in "${servers[@]}"; do : 
        printf "\n\nTesting => $i \n" 
-       python test.py iters=1 server=$i test=$j
+       python test.py iters=1 server=$i test=$j stats=true
     done
 done
 
@@ -60,6 +60,6 @@ for j in "${tests_client[@]}"; do :
     printf "Client => $j  " 
     for i in "${servers[@]}"; do : 
        printf "\n\nTesting => $i \n" 
-       python test.py iters=1 client=$i test=$j
+       python test.py iters=1 client=$i test=$j stats=true
     done
 done

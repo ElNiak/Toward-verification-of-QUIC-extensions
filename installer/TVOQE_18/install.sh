@@ -1,9 +1,10 @@
 #install deps
 printf "###### Installing dependencies:\n\n"
 sudo apt-get install python python-pip g++ cmake python-ply python-pygraphviz git python-tk tix gperf pkg-config libssl-dev
-pip install pexpect
-pip install gperf
+pip install pexpect chardet
+pip install gperf 
 sudo apt-get install doxygen
+sudo apt-get install mercurial
 sudo apt-get install pkg-config
 sudo apt-get install faketime libscope-guard-perl libtest-tcp-perl
 sudo apt-get install libbrotli-dev
@@ -28,10 +29,10 @@ printf "\n\n"
 printf "###### Downloading QUIC implementations:\n\n"
 mkdir quic
 cd quic
-[ ! -f picotls/ ] &&  git clone https://github.com/h2o/picotls.git
-[ ! -f picoquic/ ] &&  git clone https://github.com/private-octopus/picoquic.git 
-[ ! -f quant/ ] &&  git clone https://github.com/NTAP/quant.git
-[ ! -f go1.15.linux-amd64.tar.gz ] &&  wget https://golang.org/dl/go1.15.linux-amd64.tar.gz
+[ ! -f /home/chris/TVOQE_18/quic/picotls ] &&  git clone https://github.com/h2o/picotls.git
+[ ! -f /home/chris/TVOQE_18/quic/picoquic ] &&  git clone https://github.com/private-octopus/picoquic.git 
+[ ! -f /home/chris/TVOQE_18/quic/quant ] &&  git clone https://github.com/NTAP/quant.git
+[ ! -f /home/chris/TVOQE_18/quic/go1.15.linux-amd64.tar.gz ] &&  wget https://golang.org/dl/go1.15.linux-amd64.tar.gz
 mkdir go
 
 
@@ -62,13 +63,23 @@ make
 printf "\n\n"
 printf "###### Installing Quant:\n\n"
 cd ../quant/
-git checkout 18
+#git checkout 18
+git checkout b55051011a3a040ccc93e83add29dec46eceda54 #+- good
+#git checkout 317163cd599f9c33e3d0473a338ad2ac03527f26
+#git checkout 0f02be60467689878fc31135d9dbc5e1d623e902
+
+#quic17
+#git checkout 4ed3af4
+
 git submodule update --init --recursive
 mkdir Debug 
 cd Debug
 cmake ..
 make
-
+#mkdir Release
+#cd Release
+#cmake -DCMAKE_BUILD_TYPE=Release ..
+#make
 
 #Install go 
 printf "\n\n"

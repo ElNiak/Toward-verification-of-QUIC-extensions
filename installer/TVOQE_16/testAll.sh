@@ -6,8 +6,7 @@ servers=(picoquic
          winquic
          minq)
 
-tests_client=(quic_client_test_stream 
-              quic_client_test_max)
+tests_client=()
 
 tests_server=(quic_server_test_stream 
               quic_server_test_max 
@@ -18,19 +17,19 @@ mkdir /tmp/quic-data
 cd /tmp/quic-data
 wget -p --save-headers https://www.example.org
 
-cd /home/chris/TVOQE_18/quic/chromium/src/
+cd /home/chris/TVOQE_16/quic/chromium/src/
 cd net/tools/quic/certs
 ./generate-certs.sh
 cd -
 
-cd /home/chris/TVOQE_18
+cd /home/chris/TVOQE_16
 rm ivy/doc/examples/quic/test/test.py
 cp test.py ivy/doc/examples/quic/test/
 cd ivy/doc/examples/quic/
 
 export PATH=$PATH:/usr/local/go/bin
 export GOROOT=/usr/local/go
-export GOPATH=/home/chris/TVOQE_18/quic/go
+export GOPATH=/home/chris/TVOQE_16/quic/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 printf "BUILDING TEST \n" 
