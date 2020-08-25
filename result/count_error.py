@@ -12,7 +12,7 @@ for line in file:
     val = lines[line]
     lines[line] = val + 1
   elif line:
-    lines[line] = 0
+    lines[line] = 1
 
 file.close()
 
