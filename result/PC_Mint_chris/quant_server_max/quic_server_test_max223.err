@@ -1,0 +1,273 @@
+[0m[0m0.042[0m [44m [0m [35mq_init[30m [34mquic.c:587 [0mquant/socket 0.0.18/b550510 with libev/epoll 4.22 ready
+[0m      [44m [0m [35mq_init[30m [34mquic.c:588 [0msubmit bug reports at https://github.com/NTAP/quant/issues
+[0m[0m0.044[0m [46m [0m [35mq_init[30m [34mquic.c:607 [0mdebug build, storing fuzzer corpus data
+[0m      [44m [0m [35mq_bind[30m [34mquic.c:429 [0mbound serv socket to port 4443
+[0m      [42m [0m [35mmain[30m [34mserver.c:265 [0mserver waiting on lo port 4443
+[0m      [43m [0m [35mq_rx_ready[30m [34mquic.c:798 [0mwaiting for conn to get ready to rx
+[0m[0m0.250[0m [46m [0m [35mrx_pkts[30m [34mconn.c:1055 [0mnew serv conn on port 4443 from 127.0.0.1:5434 w/cid=0:00000000000001bf
+[0m      [42m [0m [35mnew_conn[30m [34mconn.c:1619 [0mserv conn 0:00000000000001bf on port 4443 created
+[0m      [42m [0m [35mnew_conn[30m [34mconn.c:1621 [0mserv conn 0:00000000000001bf state conn_clsd -> [31mconn_idle[0m
+[0m[1m0.251[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:102 [0m[1m[34mRX[0m from=127.0.0.1:5434 len=1216 0xc0=[34mInitial [0mvers=0xff000012 dcid=00000000000001bf scid=00000000000001be tok= len=1207 nr=[34m0
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:133 [0m[1m[34mCRYPTO[0m off=0 len=267 [seq]
+[0m      [44m [0m [35mdec_frames[30m [34mframe.c:1035 [0m[1m[34mPADDING[0m len=918
+[0m      [42m [0m [35mrx_pkt[30m [34mconn.c:819 [0mserv conn 0:00000000000001bf state conn_idle -> [31mconn_opng[0m
+[0m      [46m [0m [35mupdate_act_scid[30m [34mconn.c:575 [0mhshk switch to scid 0:f9f73764c6206d0f for conn_opng serv conn (was 0:00000000000001bf)
+[0m      [44m [0m [35mon_ch[30m [34mtls.c:291 [0m	SNI = servername
+[0m      [43m [0m [35mon_ch[30m [34mtls.c:314 [0m	ALPN = hq-17 (and maybe others, none supported, ignoring)
+[0m      [44m [0m [35mchk_tp[30m [34mtls.c:495 [0m	initial_max_stream_data_bidi_local = 8192
+[0m      [44m [0m [35mchk_tp[30m [34mtls.c:507 [0m	initial_max_data = 16384
+[0m      [44m [0m [35mchk_tp[30m [34mtls.c:524 [0m	idle_timeout = 60
+[0m      [44m [0m [35mchk_tp[30m [34mtls.c:502 [0m	initial_max_stream_data_bidi_remote = 8192
+[0m      [44m [0m [35mchk_tp[30m [34mtls.c:489 [0m	initial_max_stream_data_uni = 8192
+[0m[0m0.254[0m [42m [0m [35mrx_crypto[30m [34mconn.c:682 [0mserv conn 0:f9f73764c6206d0f state conn_opng -> [31mconn_estb[0m
+[0m[1m0.254[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:152 [0m[1m[32mTX[0m to=127.0.0.1:5434 0xc0=[32mInitial [0mvers=0xff000012 dcid=00000000000001be scid=f9f73764c6206d0f tok=c44984c6846e9f8eb003f320496dfd923e60af5e9d14eb6601caeb28a5b8626ef9f73764c6206d0f len=0 nr=[32m0
+[0m      [44m [0m [35menc_ack_frame[30m [34mframe.c:1313 [0m[1m[32mACK[0m 0x02= lg=[34m0[0m delay=0 (0 usec) cnt=0 block=0 [[34m0[0m]
+[0m      [44m [0m [35menc_padding_frame[30m [34mframe.c:1239 [0m[1m[32mPADDING[0m len=17
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:133 [0m[1m[32mCRYPTO[0m off=0 len=155 
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=219 ([32m+219[0m), cwnd[0m=12000 ([32m+12000[0m), ssthresh=0 (+0[0m), srtt=0.000 (+0.000[0m), rttvar=0.000 (+0.000[0m)
+[0m[1m0.254[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:161 [0m[1m[32mTX[0m to=127.0.0.1:5434 0xe0=[32mHandshake [0mvers=0xff000012 dcid=00000000000001be scid=f9f73764c6206d0f len=0 nr=[32m0
+[0m      [44m [0m [35menc_padding_frame[30m [34mframe.c:1239 [0m[1m[32mPADDING[0m len=23
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:133 [0m[1m[32mCRYPTO[0m off=0 len=1188 
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1471 ([32m+1252[0m), cwnd[0m=12000 (+0[0m), ssthresh=0 (+0[0m), srtt=0.000 (+0.000[0m), rttvar=0.000 (+0.000[0m)
+[0m[1m0.254[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:161 [0m[1m[32mTX[0m to=127.0.0.1:5434 0xe0=[32mHandshake [0mvers=0xff000012 dcid=00000000000001be scid=f9f73764c6206d0f len=0 nr=[32m1
+[0m      [44m [0m [35menc_padding_frame[30m [34mframe.c:1239 [0m[1m[32mPADDING[0m len=23
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:133 [0m[1m[32mCRYPTO[0m off=1188 len=205 
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1740 ([32m+269[0m), cwnd[0m=12000 (+0[0m), ssthresh=0 (+0[0m), srtt=0.000 (+0.000[0m), rttvar=0.000 (+0.000[0m)
+[0m      [42m [0m [35mcoalesce[30m [34mpkt.c:199 [0mcoalescing 269-byte Handshake pkt behind 219-byte Initial pkt
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 0 unacked: [7m[1m[32m0[0m[0m 
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 2 unacked: [7m[1m[32m0[0m[0m [7m[1m[32m1[0m[0m 
+[0m[0m0.396[0m [42m [0m [35mabandon_pn[30m [34mpn.c:122 [0mabandon serv epoch 0 processing
+[0m      [42m [0m [35mdec_pkt_hdr_remainder[30m [34mpkt.c:898 [0mclnt path validated
+[0m[1m0.396[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:111 [0m[1m[34mRX[0m from=127.0.0.1:5434 len=96 0xe0=[34mHandshake [0mvers=0xff000012 dcid=f9f73764c6206d0f scid=00000000000001be len=88 nr=[34m0
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:133 [0m[1m[34mCRYPTO[0m off=0 len=52 [seq]
+[0m      [44m [0m [35mdec_frames[30m [34mframe.c:1035 [0m[1m[34mPADDING[0m len=15
+[0m[1m0.397[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:161 [0m[1m[32mTX[0m to=127.0.0.1:5434 0xe0=[32mHandshake [0mvers=0xff000012 dcid=00000000000001be scid=f9f73764c6206d0f len=0 nr=[32m2
+[0m      [44m [0m [35menc_ack_frame[30m [34mframe.c:1313 [0m[1m[32mACK[0m 0x02= lg=[34m0[0m delay=0 (0 usec) cnt=0 block=0 [[34m0[0m]
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 2 unacked: [7m[1m[32m0[0m[0m [7m[1m[32m1[0m[0m [32m2[0m[0m 
+[0m[0m0.451[0m [42m [0m [35mon_ld_alarm[30m [34mrecovery.c:248 [0mcrypto RTX #1 on serv conn 0:f9f73764c6206d0f
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:227 [0mserv Handshake pkt [32m0[0m considered lost
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:227 [0mserv Handshake pkt [32m1[0m considered lost
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:227 [0mserv Handshake pkt [32m2[0m considered lost
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:232 [0min_flight=0 ([31m-1740[0m), cwnd[0m=12000 (+0[0m), ssthresh=0 (+0[0m), srtt=0.000 (+0.000[0m), rttvar=0.000 (+0.000[0m)
+[0m[1m0.451[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:161 [0m[1m[32mTX[0m to=127.0.0.1:5434 0xe0=[32mHandshake [0mvers=0xff000012 dcid=00000000000001be scid=f9f73764c6206d0f len=1228 nr=[32m3
+[0m      [44m [0m [35menc_padding_frame[30m [34mframe.c:1239 [0m[1m[32mPADDING[0m len=19
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:133 [0m[1m[32mCRYPTO[0m off=0 len=1188 [7m[1m[32m[RTX][0m 
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1252 ([32m+1252[0m), cwnd[0m=12000 (+0[0m), ssthresh=0 (+0[0m), srtt=0.000 (+0.000[0m), rttvar=0.000 (+0.000[0m)
+[0m[1m0.451[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:161 [0m[1m[32mTX[0m to=127.0.0.1:5434 0xe0=[32mHandshake [0mvers=0xff000012 dcid=00000000000001be scid=f9f73764c6206d0f len=245 nr=[32m4
+[0m      [44m [0m [35menc_padding_frame[30m [34mframe.c:1239 [0m[1m[32mPADDING[0m len=18
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:133 [0m[1m[32mCRYPTO[0m off=1188 len=205 [7m[1m[32m[RTX][0m 
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1521 ([32m+269[0m), cwnd[0m=12000 (+0[0m), ssthresh=0 (+0[0m), srtt=0.000 (+0.000[0m), rttvar=0.000 (+0.000[0m)
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 2 unacked: [7m[1m[32m4[0m[0m [7m[1m[32m3[0m[0m 
+[0m[1m0.487[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:120 [0m[1m[34mRX[0m from=127.0.0.1:5434 len=30 0x60=[34mShort [0mkyph=0 spin=1 dcid=f9f73764c6206d0f nr=[34m0
+[0m      [44m [0m [35mdec_stop_sending_frame[30m [34mframe.c:808 [0m[1m[34mSTOP_SENDING[0m id=[1m[33m4[0m err=[31m0x347a[0m
+[0m      [42m [0m [35mnew_stream[30m [34mstream.c:104 [0mserv conn 0:f9f73764c6206d0f strm [1m[33m4[0m (bi, clnt) state strm_idle -> [33mstrm_open[0m
+[0m      [44m [0m [35mdec_frames[30m [34mframe.c:1035 [0m[1m[34mPADDING[0m len=15
+[0m[0m0.513[0m [42m [0m [35mack_alarm[30m [34mconn.c:1457 [0mACK timer fired on serv conn 0:f9f73764c6206d0f
+[0m[1m0.513[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:170 [0m[1m[32mTX[0m to=127.0.0.1:5434 0x40=[32mShort [0mkyph=0 spin=0 dcid=00000000000001be nr=[32m0
+[0m      [44m [0m [35menc_ack_frame[30m [34mframe.c:1313 [0m[1m[32mACK[0m 0x02= lg=[34m0[0m delay=3181 (25448 usec) cnt=0 block=0 [[34m0[0m]
+[0m      [44m [0m [35menc_new_token_frame[30m [34mframe.c:1630 [0m[1m[32mNEW_TOKEN[0m len=40 tok=c44984c6846e9f8eb003f320496dfd923e60af5e9d14eb6601caeb28a5b8626ef9f73764c6206d0f
+[0m      [44m [0m [35menc_new_cid_frame[30m [34mframe.c:1609 [0m[1m[32mNEW_CONNECTION_ID[0m seq=1 len=8 cid=1:00b2fa5dc47da558 srt=ac756a4de4f04b8e465b95dabc0206e0
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1622 ([32m+101[0m), cwnd[0m=12000 (+0[0m), ssthresh=0 (+0[0m), srtt=0.000 (+0.000[0m), rttvar=0.000 (+0.000[0m)
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 1/3 unacked: [1m[32m0[0m[0m 
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 2 unacked: [7m[1m[32m4[0m[0m [7m[1m[32m3[0m[0m 
+[0m[1m0.602[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:111 [0m[1m[34mRX[0m from=127.0.0.1:5434 len=46 0xe0=[34mHandshake [0mvers=0xff000012 dcid=f9f73764c6206d0f scid=00000000000001be len=38 nr=[34m2
+[0m      [44m [0m [35mdec_ack_frame[30m [34mframe.c:476 [0m[1m[34mACK[0m 0x02= lg=[32m0[0m delay=0 (0 usec) cnt=0 block=0 [[32m0[0m]
+[0m      [44m [0m [35mdec_frames[30m [34mframe.c:1035 [0m[1m[34mPADDING[0m len=15
+[0m[0m0.851[0m [42m [0m [35mon_ld_alarm[30m [34mrecovery.c:248 [0mcrypto RTX #2 on serv conn 0:f9f73764c6206d0f
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:227 [0mserv Handshake pkt [32m4[0m considered lost
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:227 [0mserv Handshake pkt [32m3[0m considered lost
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:232 [0min_flight=101 ([31m-1521[0m), cwnd[0m=12000 (+0[0m), ssthresh=0 (+0[0m), srtt=0.000 (+0.000[0m), rttvar=0.000 (+0.000[0m)
+[0m[1m0.852[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:161 [0m[1m[32mTX[0m to=127.0.0.1:5434 0xe0=[32mHandshake [0mvers=0xff000012 dcid=00000000000001be scid=f9f73764c6206d0f len=1228 nr=[32m5
+[0m      [44m [0m [35menc_ack_frame[30m [34mframe.c:1313 [0m[1m[32mACK[0m 0x02= lg=[34m2[0m delay=31202 (249616 usec) cnt=1 block=0 [[34m2[0m]
+[0m      [44m [0m [35menc_ack_frame[30m [34mframe.c:1304 [0m[1m[32mACK[0m gap=0 block=0 [[34m0[0m]
+[0m      [44m [0m [35menc_padding_frame[30m [34mframe.c:1239 [0m[1m[32mPADDING[0m len=9
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:133 [0m[1m[32mCRYPTO[0m off=0 len=1188 [7m[1m[32m[RTX][0m 
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1353 ([32m+1252[0m), cwnd[0m=12000 (+0[0m), ssthresh=0 (+0[0m), srtt=0.000 (+0.000[0m), rttvar=0.000 (+0.000[0m)
+[0m[1m0.852[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:161 [0m[1m[32mTX[0m to=127.0.0.1:5434 0xe0=[32mHandshake [0mvers=0xff000012 dcid=00000000000001be scid=f9f73764c6206d0f len=245 nr=[32m6
+[0m      [44m [0m [35menc_padding_frame[30m [34mframe.c:1239 [0m[1m[32mPADDING[0m len=18
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:133 [0m[1m[32mCRYPTO[0m off=1188 len=205 [7m[1m[32m[RTX][0m 
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1622 ([32m+269[0m), cwnd[0m=12000 (+0[0m), ssthresh=0 (+0[0m), srtt=0.000 (+0.000[0m), rttvar=0.000 (+0.000[0m)
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 1/3 unacked: [1m[32m0[0m[0m 
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 2 unacked: [7m[1m[32m5[0m[0m [7m[1m[32m6[0m[0m 
+[0m[0m0.945[0m [46m [0m [35mrx_pkts[30m [34mconn.c:1216 [0mpkt from new peer 127.0.0.1:5433, nr [34m2[0m > max [34m0[0m, probing
+[0m[1m0.945[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:120 [0m[1m[34mRX[0m from=127.0.0.1:5433 len=59 0x60=[34mShort [0mkyph=0 spin=1 dcid=f9f73764c6206d0f nr=[34m2
+[0m      [44m [0m [35mdec_stop_sending_frame[30m [34mframe.c:808 [0m[1m[34mSTOP_SENDING[0m id=[1m[33m4[0m err=[31m0xc51f[0m
+[0m      [44m [0m [35mdec_stop_sending_frame[30m [34mframe.c:808 [0m[1m[34mSTOP_SENDING[0m id=[1m[33m4[0m err=[31m0x4ffd[0m
+[0m      [44m [0m [35mdec_ack_frame[30m [34mframe.c:476 [0m[1m[34mACK[0m 0x02= lg=[32m0[0m delay=0 (0 usec) cnt=0 block=0 [[32m0[0m]
+[0m      [46m [0m [35mdec_ack_frame[30m [34mframe.c:536 [0mECN verification failed for serv conn 0:f9f73764c6206d0f
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:232 [0min_flight=1521 ([31m-101[0m), cwnd[0m=12101 ([32m+101[0m), ssthresh=0 (+0[0m), srtt=0.432 ([32m+0.432[0m), rttvar=0.216 ([32m+0.216[0m)
+[0m[1m0.945[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:170 [0m[1m[32mTX[0m to=127.0.0.1:5433 0x40=[32mShort [0mkyph=0 spin=0 dcid=00000000000001be nr=[32m1
+[0m      [44m [0m [35menc_path_challenge_frame[30m [34mframe.c:1581 [0m[1m[32mPATH_CHALLENGE[0m data=980756ba33723e8f
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1556 ([32m+35[0m), cwnd[0m=12101 (+0[0m), ssthresh=0 (+0[0m), srtt=0.432 (+0.000[0m), rttvar=0.216 (+0.000[0m)
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 1/3 unacked: [1m[32m1[0m[0m 
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 2 unacked: [7m[1m[32m5[0m[0m [7m[1m[32m6[0m[0m 
+[0m      [42m [0m [35mdec_stream_or_crypto_frame[30m [34mframe.c:323 [0mserv conn 0:f9f73764c6206d0f strm [1m[33m4[0m (bi, clnt) state strm_open -> [33mstrm_hcrm[0m
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:128 [0m[1m[34mSTREAM[0m 0x0f=FIN|LEN|OFF id=[1m[33m4[0m/20 off=0/65535 len=16 coff=16/393210 [seq]
+[0m      [44m [0m [35mdec_frames[30m [34mframe.c:1035 [0m[1m[34mPADDING[0m len=15
+[0m      [42m [0m [35mrx[30m [34mconn.c:1330 [0mq_rx_ready(0, 0) done, exiting event loop
+[0m      [43m [0m [35mq_rx_ready[30m [34mquic.c:806 [0mserv conn 0:f9f73764c6206d0f ready to rx
+[0m      [43m [0m [35mq_accept[30m [34mquic.c:484 [0mserv conn 0:f9f73764c6206d0f accepted from clnt 127.0.0.1:5434, cipher AES256-GCM
+[0m      [43m [0m [35mq_read[30m [34mquic.c:337 [0mnon-blocking read on serv conn 0:f9f73764c6206d0f
+[0m      [43m [0m [35mq_read[30m [34mquic.c:378 [0mread 16 bytes in 0.000 sec (199.067 Mb/s) on serv conn 0:f9f73764c6206d0f strm [1m[33m4[0m
+[0m      [44m [0m [35mserve_cb[30m [34mserver.c:127 [0mconn 0:f9f73764c6206d0f str 4 serving URL /index.html
+[0m      [43m [0m [35mq_write[30m [34mquic.c:265 [0mwriting 4 bytes in 1 buf on serv conn 0:f9f73764c6206d0f strm [1m[33m4[0m and closing
+[0m[1m0.946[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:170 [0m[1m[32mTX[0m to=127.0.0.1:5433 0x40=[32mShort [0mkyph=0 spin=0 dcid=00000000000001be nr=[32m2
+[0m      [44m [0m [35menc_ack_frame[30m [34mframe.c:1313 [0m[1m[32mACK[0m 0x02= lg=[34m2[0m delay=111 (888 usec) cnt=0 block=0 [[34m2[0m]
+[0m      [44m [0m [35menc_path_challenge_frame[30m [34mframe.c:1581 [0m[1m[32mPATH_CHALLENGE[0m data=980756ba33723e8f
+[0m      [44m [0m [35menc_padding_frame[30m [34mframe.c:1239 [0m[1m[32mPADDING[0m len=23
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:128 [0m[1m[32mSTREAM[0m 0x0b=FIN|LEN id=[1m[33m4[0m/20 off=0/8192 len=4 coff=0/16384 
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1624 ([32m+68[0m), cwnd[0m=12101 (+0[0m), ssthresh=0 (+0[0m), srtt=0.432 (+0.000[0m), rttvar=0.216 (+0.000[0m)
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 1/3 unacked: [1m[32m1[0m[0m [7m[1m[32m2[0m[0m 
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 2 unacked: [7m[1m[32m5[0m[0m [7m[1m[32m6[0m[0m 
+[0m[1m1.137[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:111 [0m[1m[34mRX[0m from=127.0.0.1:5434 len=46 0xe0=[34mHandshake [0mvers=0xff000012 dcid=f9f73764c6206d0f scid=00000000000001be len=38 nr=[34m3
+[0m      [44m [0m [35mdec_ack_frame[30m [34mframe.c:476 [0m[1m[34mACK[0m 0x02= lg=[32m3[0m delay=0 (0 usec) cnt=0 block=0 [[32m3[0m]
+[0m      [44m [0m [35mdec_frames[30m [34mframe.c:1035 [0m[1m[34mPADDING[0m len=15
+[0m[1m1.654[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:120 [0m[1m[34mRX[0m from=127.0.0.1:5434 len=56 0x60=[34mShort [0mkyph=0 spin=1 dcid=f9f73764c6206d0f nr=[34m3
+[0m      [44m [0m [35mdec_path_response_frame[30m [34mframe.c:843 [0m[1m[34mPATH_RESPONSE[0m data=980756ba33723e8f
+[0m      [46m [0m [35mdec_path_response_frame[30m [34mframe.c:872 [0mmigration from 127.0.0.1:5434 to 127.0.0.1:5433 complete
+[0m      [44m [0m [35mdec_stop_sending_frame[30m [34mframe.c:808 [0m[1m[34mSTOP_SENDING[0m id=[1m[33m4[0m err=[31m0xa296[0m
+[0m      [44m [0m [35mdec_stop_sending_frame[30m [34mframe.c:808 [0m[1m[34mSTOP_SENDING[0m id=[1m[33m4[0m err=[31m0x51cf[0m
+[0m      [44m [0m [35mdec_stop_sending_frame[30m [34mframe.c:808 [0m[1m[34mSTOP_SENDING[0m id=[1m[33m4[0m err=[31m0xe46e[0m
+[0m      [44m [0m [35mdec_ack_frame[30m [34mframe.c:476 [0m[1m[34mACK[0m 0x02= lg=[32m2[0m delay=0 (0 usec) cnt=0 block=0 [[32m2[0m]
+[0m      [42m [0m [35mon_pkt_acked[30m [34mrecovery.c:455 [0mq_write(c, s) done, exiting event loop
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:232 [0min_flight=1556 ([31m-68[0m), cwnd[0m=12169 ([32m+68[0m), ssthresh=0 (+0[0m), srtt=0.467 ([32m+0.035[0m), rttvar=0.231 ([32m+0.015[0m)
+[0m      [44m [0m [35mdec_stop_sending_frame[30m [34mframe.c:808 [0m[1m[34mSTOP_SENDING[0m id=[1m[33m4[0m err=[31m0xee0a[0m
+[0m      [44m [0m [35mdec_frames[30m [34mframe.c:1035 [0m[1m[34mPADDING[0m len=15
+[0m      [42m [0m [35mq_write[30m [34mquic.c:309 [0mserv conn 0:f9f73764c6206d0f strm [1m[33m4[0m (bi, clnt) state strm_hcrm -> [33mstrm_clsd[0m
+[0m      [43m [0m [35mq_write[30m [34mquic.c:316 [0mwrote 4 bytes in 0.709 sec (45.134 b/s) on serv conn 0:f9f73764c6206d0f strm [1m[33m4[0m and closed
+[0m      [42m [0m [35mfree_stream[30m [34mstream.c:145 [0mfreeing strm [1m[33m4[0m on serv conn 0:f9f73764c6206d0f
+[0m      [43m [0m [35mq_read[30m [34mquic.c:337 [0mnon-blocking read on serv conn 0:f9f73764c6206d0f
+[0m      [43m [0m [35mq_read[30m [34mquic.c:378 [0mread 0 bytes in 0.000 sec (0.000 b/s) on serv conn 0:f9f73764c6206d0f strm [1m[33m-1[0m
+[0m      [43m [0m [35mq_rx_ready[30m [34mquic.c:798 [0mwaiting for conn to get ready to rx
+[0m[0m1.680[0m [42m [0m [35mack_alarm[30m [34mconn.c:1457 [0mACK timer fired on serv conn 0:f9f73764c6206d0f
+[0m[1m1.680[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:170 [0m[1m[32mTX[0m to=127.0.0.1:5433 0x60=[32mShort [0mkyph=0 spin=1 dcid=00000000000001be nr=[32m3
+[0m      [44m [0m [35menc_ack_frame[30m [34mframe.c:1313 [0m[1m[32mACK[0m 0x02= lg=[34m3[0m delay=3227 (25816 usec) cnt=0 block=0 [[34m3[0m]
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 1/3 unacked: [1m[32m1[0m[0m [32m3[0m[0m 
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 2 unacked: [7m[1m[32m5[0m[0m [7m[1m[32m6[0m[0m 
+[0m[0m1.785[0m [42m [0m [35mon_ld_alarm[30m [34mrecovery.c:248 [0mcrypto RTX #1 on serv conn 0:f9f73764c6206d0f
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:227 [0mserv Handshake pkt [32m5[0m considered lost
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:227 [0mserv Handshake pkt [32m6[0m considered lost
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:232 [0min_flight=35 ([31m-1521[0m), cwnd[0m=12169 (+0[0m), ssthresh=0 (+0[0m), srtt=0.467 (+0.000[0m), rttvar=0.231 (+0.000[0m)
+[0m[1m1.786[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:161 [0m[1m[32mTX[0m to=127.0.0.1:5433 0xe0=[32mHandshake [0mvers=0xff000012 dcid=00000000000001be scid=f9f73764c6206d0f len=1228 nr=[32m7
+[0m      [44m [0m [35menc_ack_frame[30m [34mframe.c:1297 [0m[1m[32mACK[0m 0x02= lg=[34m3[0m delay=81105 (648840 usec) cnt=1 block=1 [[34m2[0m..[34m3[0m]
+[0m      [44m [0m [35menc_ack_frame[30m [34mframe.c:1304 [0m[1m[32mACK[0m gap=0 block=0 [[34m0[0m]
+[0m      [44m [0m [35menc_padding_frame[30m [34mframe.c:1239 [0m[1m[32mPADDING[0m len=9
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:133 [0m[1m[32mCRYPTO[0m off=0 len=1188 [7m[1m[32m[RTX][0m 
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1287 ([32m+1252[0m), cwnd[0m=12169 (+0[0m), ssthresh=0 (+0[0m), srtt=0.467 (+0.000[0m), rttvar=0.231 (+0.000[0m)
+[0m[1m1.786[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:161 [0m[1m[32mTX[0m to=127.0.0.1:5433 0xe0=[32mHandshake [0mvers=0xff000012 dcid=00000000000001be scid=f9f73764c6206d0f len=245 nr=[32m8
+[0m      [44m [0m [35menc_padding_frame[30m [34mframe.c:1239 [0m[1m[32mPADDING[0m len=18
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:133 [0m[1m[32mCRYPTO[0m off=1188 len=205 [7m[1m[32m[RTX][0m 
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1556 ([32m+269[0m), cwnd[0m=12169 (+0[0m), ssthresh=0 (+0[0m), srtt=0.467 (+0.000[0m), rttvar=0.231 (+0.000[0m)
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 1/3 unacked: [1m[32m1[0m[0m [32m3[0m[0m 
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 2 unacked: [7m[1m[32m8[0m[0m [7m[1m[32m7[0m[0m 
+[0m[1m2.487[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:120 [0m[1m[34mRX[0m from=127.0.0.1:5433 len=109 0x60=[34mShort [0mkyph=0 spin=1 dcid=f9f73764c6206d0f nr=[34m11
+[0m      [44m [0m [35mdec_path_response_frame[30m [34mframe.c:843 [0m[1m[34mPATH_RESPONSE[0m data=980756ba33723e8f
+[0m      [46m [0m [35mdec_path_response_frame[30m [34mframe.c:847 [0munexpected PATH_RESPONSE 980756ba33723e8f, ignoring
+[0m      [44m [0m [35mdec_stop_sending_frame[30m [34mframe.c:808 [0m[1m[34mSTOP_SENDING[0m id=[1m[33m4[0m err=[31m0x385f[0m
+[0m      [46m [0m [35mget_and_validate_strm[30m [34mframe.c:165 [0mignoring 0x05 frame for closed strm [1m[33m4[0m on serv conn 0:f9f73764c6206d0f
+[0m[1m2.943[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:102 [0m[1m[34mRX[0m from=127.0.0.1:5434 len=2020 0xc1=[34mInitial [0mvers=0xff000012 dcid=f9f73764c6206d0f scid=00000000000001be tok= len=1207 nr=[34m0
+[0m      [44m [0m [35mrx_pkts[30m [34mconn.c:1142 [0mignoring 2020-byte Initial pkt due to abandoned processing
+[0m[0m3.323[0m [46m [0m [35mrx_pkts[30m [34mconn.c:1216 [0mpkt from new peer 127.0.0.1:5434, nr [34m17[0m > max [34m3[0m, probing
+[0m[1m3.323[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:120 [0m[1m[34mRX[0m from=127.0.0.1:5434 len=1216 0x40=[34mShort [0mkyph=0 spin=0 dcid=f9f73764c6206d0f nr=[34m17
+[0m      [44m [0m [35mdec_max_data_frame[30m [34mframe.c:714 [0m[1m[34mMAX_DATA[0m max=40
+[0m      [46m [0m [35mdec_max_data_frame[30m [34mframe.c:721 [0mMAX_DATA 40 < current value 16384
+[0m      [44m [0m [35mdec_stop_sending_frame[30m [34mframe.c:808 [0m[1m[34mSTOP_SENDING[0m id=[1m[33m4[0m err=[31m0x1bee[0m
+[0m      [46m [0m [35mget_and_validate_strm[30m [34mframe.c:165 [0mignoring 0x05 frame for closed strm [1m[33m4[0m on serv conn 0:f9f73764c6206d0f
+[0m[1m3.323[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:170 [0m[1m[32mTX[0m to=127.0.0.1:5434 0x40=[32mShort [0mkyph=0 spin=0 dcid=00000000000001be nr=[32m4
+[0m      [44m [0m [35menc_path_challenge_frame[30m [34mframe.c:1581 [0m[1m[32mPATH_CHALLENGE[0m data=3b7100121a9b1273
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1591 ([32m+35[0m), cwnd[0m=12169 (+0[0m), ssthresh=0 (+0[0m), srtt=0.467 (+0.000[0m), rttvar=0.231 (+0.000[0m)
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 1/3 unacked: [1m[32m4[0m[0m [1m[32m1[0m[0m [32m3[0m[0m 
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 2 unacked: [7m[1m[32m8[0m[0m [7m[1m[32m7[0m[0m 
+[0m[0m3.653[0m [42m [0m [35mon_ld_alarm[30m [34mrecovery.c:248 [0mcrypto RTX #2 on serv conn 0:f9f73764c6206d0f
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:227 [0mserv Handshake pkt [32m8[0m considered lost
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:227 [0mserv Handshake pkt [32m7[0m considered lost
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:232 [0min_flight=70 ([31m-1521[0m), cwnd[0m=12169 (+0[0m), ssthresh=0 (+0[0m), srtt=0.467 (+0.000[0m), rttvar=0.231 (+0.000[0m)
+[0m[1m3.653[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:161 [0m[1m[32mTX[0m to=127.0.0.1:5434 0xe0=[32mHandshake [0mvers=0xff000012 dcid=00000000000001be scid=f9f73764c6206d0f len=1228 nr=[32m9
+[0m      [44m [0m [35menc_padding_frame[30m [34mframe.c:1239 [0m[1m[32mPADDING[0m len=19
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:133 [0m[1m[32mCRYPTO[0m off=0 len=1188 [7m[1m[32m[RTX][0m 
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1322 ([32m+1252[0m), cwnd[0m=12169 (+0[0m), ssthresh=0 (+0[0m), srtt=0.467 (+0.000[0m), rttvar=0.231 (+0.000[0m)
+[0m[1m3.653[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:161 [0m[1m[32mTX[0m to=127.0.0.1:5434 0xe0=[32mHandshake [0mvers=0xff000012 dcid=00000000000001be scid=f9f73764c6206d0f len=245 nr=[32m10
+[0m      [44m [0m [35menc_padding_frame[30m [34mframe.c:1239 [0m[1m[32mPADDING[0m len=18
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:133 [0m[1m[32mCRYPTO[0m off=1188 len=205 [7m[1m[32m[RTX][0m 
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1591 ([32m+269[0m), cwnd[0m=12169 (+0[0m), ssthresh=0 (+0[0m), srtt=0.467 (+0.000[0m), rttvar=0.231 (+0.000[0m)
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 1/3 unacked: [1m[32m4[0m[0m [1m[32m1[0m[0m [32m3[0m[0m 
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 2 unacked: [7m[1m[32m9[0m[0m [7m[1m[32m10[0m[0m 
+[0m[1m3.917[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:120 [0m[1m[34mRX[0m from=127.0.0.1:5433 len=1216 0x42=[34mShort [0mkyph=0 spin=0 dcid=f9f73764c6206d0f nr=[34m5
+[0m      [44m [0m [35mdec_ack_frame[30m [34mframe.c:476 [0m[1m[34mACK[0m 0x02= lg=[32m4[0m delay=0 (0 usec) cnt=0 block=0 [[32m4[0m]
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:227 [0mserv Short pkt [32m1[0m considered lost
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:227 [0mserv Short pkt [32m3[0m considered lost
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:232 [0min_flight=1521 ([31m-70[0m), cwnd[0m=6102 ([31m-6067[0m), ssthresh=6102 ([32m+6102[0m), srtt=0.483 ([32m+0.016[0m), rttvar=0.205 ([31m-0.026[0m)
+[0m      [44m [0m [35mdec_stop_sending_frame[30m [34mframe.c:808 [0m[1m[34mSTOP_SENDING[0m id=[1m[33m4[0m err=[31m0xc988[0m
+[0m      [46m [0m [35mget_and_validate_strm[30m [34mframe.c:165 [0mignoring 0x05 frame for closed strm [1m[33m4[0m on serv conn 0:f9f73764c6206d0f
+[0m[1m4.282[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:120 [0m[1m[34mRX[0m from=127.0.0.1:5434 len=1216 0x40=[34mShort [0mkyph=0 spin=0 dcid=f9f73764c6206d0f nr=[34m4
+[0m      [44m [0m [35mdec_path_response_frame[30m [34mframe.c:843 [0m[1m[34mPATH_RESPONSE[0m data=3b7100121a9b1273
+[0m      [46m [0m [35mdec_path_response_frame[30m [34mframe.c:872 [0mmigration from 127.0.0.1:5433 to 127.0.0.1:5434 complete
+[0m      [44m [0m [35mdec_stop_sending_frame[30m [34mframe.c:808 [0m[1m[34mSTOP_SENDING[0m id=[1m[33m4[0m err=[31m0x190b[0m
+[0m      [46m [0m [35mget_and_validate_strm[30m [34mframe.c:165 [0mignoring 0x05 frame for closed strm [1m[33m4[0m on serv conn 0:f9f73764c6206d0f
+[0m[0m4.618[0m [42m [0m [35mon_ld_alarm[30m [34mrecovery.c:248 [0mcrypto RTX #1 on serv conn 0:f9f73764c6206d0f
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:227 [0mserv Handshake pkt [32m9[0m considered lost
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:227 [0mserv Handshake pkt [32m10[0m considered lost
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:232 [0min_flight=0 ([31m-1521[0m), cwnd[0m=6102 (+0[0m), ssthresh=6102 (+0[0m), srtt=0.483 (+0.000[0m), rttvar=0.205 (+0.000[0m)
+[0m[1m4.618[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:161 [0m[1m[32mTX[0m to=127.0.0.1:5434 0xe0=[32mHandshake [0mvers=0xff000012 dcid=00000000000001be scid=f9f73764c6206d0f len=1228 nr=[32m11
+[0m      [44m [0m [35menc_padding_frame[30m [34mframe.c:1239 [0m[1m[32mPADDING[0m len=19
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:133 [0m[1m[32mCRYPTO[0m off=0 len=1188 [7m[1m[32m[RTX][0m 
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1252 ([32m+1252[0m), cwnd[0m=6102 (+0[0m), ssthresh=6102 (+0[0m), srtt=0.483 (+0.000[0m), rttvar=0.205 (+0.000[0m)
+[0m[1m4.619[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:161 [0m[1m[32mTX[0m to=127.0.0.1:5434 0xe0=[32mHandshake [0mvers=0xff000012 dcid=00000000000001be scid=f9f73764c6206d0f len=245 nr=[32m12
+[0m      [44m [0m [35menc_padding_frame[30m [34mframe.c:1239 [0m[1m[32mPADDING[0m len=18
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:133 [0m[1m[32mCRYPTO[0m off=1188 len=205 [7m[1m[32m[RTX][0m 
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1521 ([32m+269[0m), cwnd[0m=6102 (+0[0m), ssthresh=6102 (+0[0m), srtt=0.483 (+0.000[0m), rttvar=0.205 (+0.000[0m)
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 2 unacked: [7m[1m[32m12[0m[0m [7m[1m[32m11[0m[0m 
+[0m[0m4.823[0m [46m [0m [35mrx_pkts[30m [34mconn.c:1216 [0mpkt from new peer 127.0.0.1:5433, nr [34m20[0m > max [34m3[0m, probing
+[0m[1m4.824[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:120 [0m[1m[34mRX[0m from=127.0.0.1:5433 len=1216 0x40=[34mShort [0mkyph=0 spin=0 dcid=f9f73764c6206d0f nr=[34m20
+[0m      [44m [0m [35mdec_stop_sending_frame[30m [34mframe.c:808 [0m[1m[34mSTOP_SENDING[0m id=[1m[33m4[0m err=[31m0x5933[0m
+[0m      [46m [0m [35mget_and_validate_strm[30m [34mframe.c:165 [0mignoring 0x05 frame for closed strm [1m[33m4[0m on serv conn 0:f9f73764c6206d0f
+[0m[1m4.824[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:170 [0m[1m[32mTX[0m to=127.0.0.1:5433 0x40=[32mShort [0mkyph=0 spin=0 dcid=00000000000001be nr=[32m5
+[0m      [44m [0m [35menc_path_challenge_frame[30m [34mframe.c:1581 [0m[1m[32mPATH_CHALLENGE[0m data=d98c2b9b5c907d74
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1556 ([32m+35[0m), cwnd[0m=6102 (+0[0m), ssthresh=6102 (+0[0m), srtt=0.483 (+0.000[0m), rttvar=0.205 (+0.000[0m)
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 1/3 unacked: [1m[32m5[0m[0m 
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 2 unacked: [7m[1m[32m12[0m[0m [7m[1m[32m11[0m[0m 
+[0m[1m5.717[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:111 [0m[1m[34mRX[0m from=127.0.0.1:5434 len=46 0xe0=[34mHandshake [0mvers=0xff000012 dcid=f9f73764c6206d0f scid=00000000000001be len=38 nr=[34m6
+[0m      [44m [0m [35mdec_ack_frame[30m [34mframe.c:476 [0m[1m[34mACK[0m 0x02= lg=[32m8[0m delay=0 (0 usec) cnt=0 block=0 [[32m8[0m]
+[0m      [44m [0m [35mdec_frames[30m [34mframe.c:1035 [0m[1m[34mPADDING[0m len=15
+[0m[1m6.280[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:120 [0m[1m[34mRX[0m from=127.0.0.1:5433 len=31 0x60=[34mShort [0mkyph=0 spin=1 dcid=f9f73764c6206d0f nr=[34m12
+[0m      [44m [0m [35mdec_ack_frame[30m [34mframe.c:476 [0m[1m[34mACK[0m 0x02= lg=[32m5[0m delay=0 (0 usec) cnt=0 block=0 [[32m5[0m]
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:232 [0min_flight=1521 ([31m-35[0m), cwnd[0m=6108 ([32m+6[0m), ssthresh=6102 (+0[0m), srtt=0.604 ([32m+0.122[0m), rttvar=0.397 ([32m+0.192[0m)
+[0m      [42m [0m [35mon_ld_alarm[30m [34mrecovery.c:248 [0mcrypto RTX #1 on serv conn 0:f9f73764c6206d0f
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:227 [0mserv Handshake pkt [32m12[0m considered lost
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:227 [0mserv Handshake pkt [32m11[0m considered lost
+[0m      [42m [0m [35mdetect_lost_pkts[30m [34mrecovery.c:232 [0min_flight=0 ([31m-1521[0m), cwnd[0m=6108 (+0[0m), ssthresh=6102 (+0[0m), srtt=0.604 (+0.000[0m), rttvar=0.397 (+0.000[0m)
+[0m[1m6.280[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:161 [0m[1m[32mTX[0m to=127.0.0.1:5433 0xe0=[32mHandshake [0mvers=0xff000012 dcid=00000000000001be scid=f9f73764c6206d0f len=1228 nr=[32m13
+[0m      [44m [0m [35menc_ack_frame[30m [34mframe.c:1313 [0m[1m[32mACK[0m 0x02= lg=[34m6[0m delay=70318 (562544 usec) cnt=2 block=0 [[34m6[0m]
+[0m      [44m [0m [35menc_ack_frame[30m [34mframe.c:1288 [0m[1m[32mACK[0m gap=1 block=1 [[34m2[0m..[34m3[0m]
+[0m      [44m [0m [35menc_ack_frame[30m [34mframe.c:1304 [0m[1m[32mACK[0m gap=0 block=0 [[34m0[0m]
+[0m      [44m [0m [35menc_padding_frame[30m [34mframe.c:1239 [0m[1m[32mPADDING[0m len=7
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:133 [0m[1m[32mCRYPTO[0m off=0 len=1188 [7m[1m[32m[RTX][0m 
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1252 ([32m+1252[0m), cwnd[0m=6108 (+0[0m), ssthresh=6102 (+0[0m), srtt=0.604 (+0.000[0m), rttvar=0.397 (+0.000[0m)
+[0m[1m6.280[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:161 [0m[1m[32mTX[0m to=127.0.0.1:5433 0xe0=[32mHandshake [0mvers=0xff000012 dcid=00000000000001be scid=f9f73764c6206d0f len=245 nr=[32m14
+[0m      [44m [0m [35menc_padding_frame[30m [34mframe.c:1239 [0m[1m[32mPADDING[0m len=18
+[0m      [44m [0m [35mlog_stream_or_crypto_frame[30m [34mframe.c:133 [0m[1m[32mCRYPTO[0m off=1188 len=205 [7m[1m[32m[RTX][0m 
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1521 ([32m+269[0m), cwnd[0m=6108 (+0[0m), ssthresh=6102 (+0[0m), srtt=0.604 (+0.000[0m), rttvar=0.397 (+0.000[0m)
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 2 unacked: [7m[1m[32m13[0m[0m [7m[1m[32m14[0m[0m 
+[0m      [44m [0m [35mdec_frames[30m [34mframe.c:1035 [0m[1m[34mPADDING[0m len=15
+[0m[1m6.727[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:120 [0m[1m[34mRX[0m from=127.0.0.1:5434 len=39 0x60=[34mShort [0mkyph=0 spin=1 dcid=f9f73764c6206d0f nr=[34m28
+[0m      [44m [0m [35mdec_path_response_frame[30m [34mframe.c:843 [0m[1m[34mPATH_RESPONSE[0m data=d98c2b9b5c907d74
+[0m      [46m [0m [35mdec_path_response_frame[30m [34mframe.c:872 [0mmigration from 127.0.0.1:5434 to 127.0.0.1:5433 complete
+[0m      [44m [0m [35mdec_stop_sending_frame[30m [34mframe.c:808 [0m[1m[34mSTOP_SENDING[0m id=[1m[33m4[0m err=[31m0x99f5[0m
+[0m      [46m [0m [35mget_and_validate_strm[30m [34mframe.c:165 [0mignoring 0x05 frame for closed strm [1m[33m4[0m on serv conn 0:f9f73764c6206d0f
+[0m[0m7.464[0m [46m [0m [35mrx_pkts[30m [34mconn.c:1216 [0mpkt from new peer 127.0.0.1:5434, nr [34m14[0m > max [34m12[0m, probing
+[0m[1m7.464[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:120 [0m[1m[34mRX[0m from=127.0.0.1:5434 len=58 0x60=[34mShort [0mkyph=0 spin=1 dcid=f9f73764c6206d0f nr=[34m14
+[0m      [44m [0m [35mdec_stop_sending_frame[30m [34mframe.c:808 [0m[1m[34mSTOP_SENDING[0m id=[1m[33m4[0m err=[31m0x11af[0m
+[0m      [46m [0m [35mget_and_validate_strm[30m [34mframe.c:165 [0mignoring 0x05 frame for closed strm [1m[33m4[0m on serv conn 0:f9f73764c6206d0f
+[0m[1m7.464[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:170 [0m[1m[32mTX[0m to=127.0.0.1:5434 0x60=[32mShort [0mkyph=0 spin=1 dcid=00000000000001be nr=[32m6
+[0m      [44m [0m [35menc_ack_frame[30m [34mframe.c:1313 [0m[1m[32mACK[0m 0x02= lg=[34m12[0m delay=148020 (1184160 usec) cnt=1 block=0 [[34m12[0m]
+[0m      [44m [0m [35menc_ack_frame[30m [34mframe.c:1304 [0m[1m[32mACK[0m gap=7 block=0 [[34m3[0m]
+[0m      [44m [0m [35menc_path_challenge_frame[30m [34mframe.c:1581 [0m[1m[32mPATH_CHALLENGE[0m data=5e82e6032b0f9b33
+[0m      [42m [0m [35mon_pkt_sent[30m [34mrecovery.c:325 [0min_flight=1566 ([32m+45[0m), cwnd[0m=6108 (+0[0m), ssthresh=6102 (+0[0m), srtt=0.604 (+0.000[0m), rttvar=0.397 (+0.000[0m)
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 1/3 unacked: [1m[32m6[0m[0m 
+[0m      [42m [0m [35mlog_sent_pkts[30m [34mconn.c:260 [0mserv epoch 2 unacked: [7m[1m[32m13[0m[0m [7m[1m[32m14[0m[0m 
+[0m[1m7.834[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:120 [0m[1m[34mRX[0m from=127.0.0.1:5434 len=30 0x60=[34mShort [0mkyph=0 spin=1 dcid=f9f73764c6206d0f nr=[34m30
+[0m      [44m [0m [35mdec_stop_sending_frame[30m [34mframe.c:808 [0m[1m[34mSTOP_SENDING[0m id=[1m[33m4[0m err=[31m0x8a94[0m
+[0m      [46m [0m [35mget_and_validate_strm[30m [34mframe.c:165 [0mignoring 0x05 frame for closed strm [1m[33m4[0m on serv conn 0:f9f73764c6206d0f
+[0m[1m8.154[0m [46m [0m [35mlog_pkt[30m [34mpkt.c:120 [0m[1m[34mRX[0m from=127.0.0.1:5434 len=29 0x60=[34mShort [0mkyph=0 spin=1 dcid=f9f73764c6206d0f nr=[34m6
+[0m      [44m [0m [35mdec_max_stream_data_frame[30m [34mframe.c:655 [0m[1m[34mMAX_STREAM_DATA[0m id=[1m[33m4[0m max=32
+[0m      [46m [0m [35mget_and_validate_strm[30m [34mframe.c:165 [0mignoring 0x11 frame for closed strm [1m[33m4[0m on serv conn 0:f9f73764c6206d0f

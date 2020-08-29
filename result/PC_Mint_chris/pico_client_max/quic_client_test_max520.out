@@ -1,0 +1,68 @@
+Starting PicoQUIC connection to server IP = localhost, port = 4443
+No root crt list specified, certificate will not be verified.
+a56ae7e1dcf1a58a: Sending packet type: 2 (initial), S0, Version ff000012,
+a56ae7e1dcf1a58a:     <a56ae7e1dcf1a58a>, <4e1231983729129f>, Seq: 0, pl: 1227
+a56ae7e1dcf1a58a:     Token length: 0
+a56ae7e1dcf1a58a:     Prepared 1207 bytes
+a56ae7e1dcf1a58a:     Crypto HS frame, offset 0, length 305: 0100012d0303f402...
+a56ae7e1dcf1a58a:     padding, 898 bytes
+
+a56ae7e1dcf1a58a: Sending 1252 bytes to 127.0.0.1:4443 at T=0.000000 (5adb22bb74767)
+oquic/picoquic/sender.c:1123 [picoquic_retransmit_needed]: Retransmit packet type 2, pc=2, seq = 0, is_client = 1
+
+a56ae7e1dcf1a58a: Sending packet type: 2 (initial), S0, Version ff000012,
+a56ae7e1dcf1a58a:     <a56ae7e1dcf1a58a>, <4e1231983729129f>, Seq: 1, pl: 1227
+a56ae7e1dcf1a58a:     Token length: 0
+a56ae7e1dcf1a58a:     Prepared 1207 bytes
+a56ae7e1dcf1a58a:     Crypto HS frame, offset 0, length 305: 0100012d0303f402...
+a56ae7e1dcf1a58a:     padding, 898 bytes
+
+a56ae7e1dcf1a58a: Sending 1252 bytes to 127.0.0.1:4443 at T=1.000915 (5adb22bc68d3a)
+Select returns 1232, from length 16
+Local address updated
+a56ae7e1dcf1a58a: Receiving 1232 bytes from 127.0.0.1:4443 at T=1.115011 (5adb22bc84aea)
+a56ae7e1dcf1a58a: Receiving packet type: 2 (initial), S0, Version ff000012,
+a56ae7e1dcf1a58a:     <4e1231983729129f>, <0000000000000412>, Seq: 0, pl: 1207
+a56ae7e1dcf1a58a:     Token length: 0
+a56ae7e1dcf1a58a:     Decrypted 1190 bytes
+a56ae7e1dcf1a58a:     ACK (nb=0), 1
+a56ae7e1dcf1a58a:     Crypto HS frame, offset 0, length 155: 0200009703033226...
+a56ae7e1dcf1a58a:     padding, 1026 bytes
+
+Processed 1232 bytes, state = 7 (client_handshake_start), return 0
+
+a56ae7e1dcf1a58a: Sending packet type: 2 (initial), S0, Version ff000012,
+a56ae7e1dcf1a58a:     <0000000000000412>, <4e1231983729129f>, Seq: 2, pl: 25
+a56ae7e1dcf1a58a:     Token length: 0
+a56ae7e1dcf1a58a:     Prepared 5 bytes
+a56ae7e1dcf1a58a:     ACK (nb=0), 0
+
+a56ae7e1dcf1a58a: Sending 50 bytes to 127.0.0.1:4443 at T=1.115195 (5adb22bc84ba2)
+Select returns 1412, from length 16
+a56ae7e1dcf1a58a: Receiving 1412 bytes from 127.0.0.1:4443 at T=1.240196 (5adb22bca33eb)
+a56ae7e1dcf1a58a: Receiving packet type: 4 (handshake), S0, Version ff000012,
+a56ae7e1dcf1a58a:     <4e1231983729129f>, <0000000000000412>, Seq: 0, pl: 1388
+a56ae7e1dcf1a58a:     Decrypted 1371 bytes
+a56ae7e1dcf1a58a:     Crypto HS frame, offset 0, length 1346: 0800003d003b0000...
+a56ae7e1dcf1a58a:     application_close, Error 0xea92, Reason length 1
+a56ae7e1dcf1a58a:         Reason: .
+a56ae7e1dcf1a58a:     padding, 16 bytes
+
+quic/picoquic/quicctx.c:2079 [picoquic_connection_error]: Protocol error a
+oquic/picoquic/packet.c:1762 [picoquic_incoming_segment]: Packet (1) dropped, t: 4, e: 2, pc: 1, pn: 0, l: 1412, ret : 415
+
+Processed 1412 bytes, state = 9 (handshake_failure), return 0
+
+Received a request to close the connection.
+a56ae7e1dcf1a58a: Sending packet type: 2 (initial), S0, Version ff000012,
+a56ae7e1dcf1a58a:     <0000000000000412>, <4e1231983729129f>, Seq: 3, pl: 31
+a56ae7e1dcf1a58a:     Token length: 0
+a56ae7e1dcf1a58a:     Prepared 11 bytes
+a56ae7e1dcf1a58a:     ACK (nb=0), 0
+a56ae7e1dcf1a58a:     connection_close, Error 0x000a, Offending frame 1d
+Reason length 0
+
+a56ae7e1dcf1a58a: Sending 56 bytes to 127.0.0.1:4443 at T=1.240235 (5adb22bca3412)
+quic/picoquic/quicctx.c:841 [picoquic_delete_path]: delete path[0] (f3e2f340)
+
+Client exit with code = 0
