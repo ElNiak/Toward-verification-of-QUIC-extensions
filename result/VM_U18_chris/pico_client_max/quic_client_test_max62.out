@@ -1,0 +1,37 @@
+Starting PicoQUIC connection to server IP = localhost, port = 4443
+No root crt list specified, certificate will not be verified.
+07084da1e3c81ff9: Sending packet type: 2 (initial), S0, Version ff000012,
+07084da1e3c81ff9:     <07084da1e3c81ff9>, <a510586713cb5da8>, Seq: 0, pl: 1227
+07084da1e3c81ff9:     Token length: 0
+07084da1e3c81ff9:     Prepared 1207 bytes
+07084da1e3c81ff9:     Crypto HS frame, offset 0, length 305: 0100012d03034f77...
+07084da1e3c81ff9:     padding, 898 bytes
+
+07084da1e3c81ff9: Sending 1252 bytes to 127.0.0.1:4443 at T=0.000000 (5adff6250d08c)
+Select returns 62, from length 16
+Local address updated
+oquic/picoquic/packet.c:412 [picoquic_remove_header_protection]: PN dec not ready, type: 4, epoch: 2, pc: 1, pn: -1
+
+07084da1e3c81ff9: Receiving packet type: 4 (handshake), S0, Version ff000012,
+07084da1e3c81ff9:     <a510586713cb5da8>, <000000000000007c>, Seq: -1, pl: 38
+07084da1e3c81ff9:    Header or encryption error: 403.
+
+oquic/picoquic/packet.c:1762 [picoquic_incoming_segment]: Packet (1) dropped, t: 4, e: 2, pc: 1, pn: -1, l: 62, ret : 403
+
+Processed 62 bytes, state = 1 (client_init_sent), return 0
+
+Select returns 1232, from length 16
+07084da1e3c81ff9: Receiving 1232 bytes from 127.0.0.1:4443 at T=0.249678 (5adff62549fda)
+07084da1e3c81ff9: Receiving packet type: 2 (initial), S0, Version ff000012,
+07084da1e3c81ff9:     <a510586713cb5da8>, <000000000000007c>, Seq: 0, pl: 1207
+07084da1e3c81ff9:     Token length: 0
+07084da1e3c81ff9:     Decrypted 1190 bytes
+07084da1e3c81ff9:     ACK (nb=0), 0
+07084da1e3c81ff9:     padding, 1185 bytes
+
+Processed 1232 bytes, state = 7 (client_handshake_start), return 0
+
+Received a request to close the connection.
+quic/picoquic/quicctx.c:841 [picoquic_delete_path]: delete path[0] (934dff40)
+
+Client exit with code = 1044

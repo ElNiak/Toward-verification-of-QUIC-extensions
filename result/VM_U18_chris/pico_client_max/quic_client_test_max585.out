@@ -1,0 +1,45 @@
+Starting PicoQUIC connection to server IP = localhost, port = 4443
+No root crt list specified, certificate will not be verified.
+77a08ab5441ab31e: Sending packet type: 2 (initial), S0, Version ff000012,
+77a08ab5441ab31e:     <77a08ab5441ab31e>, <8c0944e7405a202f>, Seq: 0, pl: 1227
+77a08ab5441ab31e:     Token length: 0
+77a08ab5441ab31e:     Prepared 1207 bytes
+77a08ab5441ab31e:     Crypto HS frame, offset 0, length 305: 0100012d0303eb60...
+77a08ab5441ab31e:     padding, 898 bytes
+
+77a08ab5441ab31e: Sending 1252 bytes to 127.0.0.1:4443 at T=0.000000 (5adff82366dfe)
+Select returns 63, from length 16
+Local address updated
+oquic/picoquic/packet.c:412 [picoquic_remove_header_protection]: PN dec not ready, type: 4, epoch: 2, pc: 1, pn: -1
+
+77a08ab5441ab31e: Receiving packet type: 4 (handshake), S0, Version ff000012,
+77a08ab5441ab31e:     <8c0944e7405a202f>, <0000000000000492>, Seq: -1, pl: 39
+77a08ab5441ab31e:    Header or encryption error: 403.
+
+oquic/picoquic/packet.c:1762 [picoquic_incoming_segment]: Packet (1) dropped, t: 4, e: 2, pc: 1, pn: -1, l: 63, ret : 403
+
+Processed 63 bytes, state = 1 (client_init_sent), return 0
+
+Select returns 1232, from length 16
+77a08ab5441ab31e: Receiving 1232 bytes from 127.0.0.1:4443 at T=0.415457 (5adff823cc4df)
+77a08ab5441ab31e: Receiving packet type: 2 (initial), S0, Version ff000012,
+77a08ab5441ab31e:     <8c0944e7405a202f>, <0000000000000492>, Seq: 0, pl: 1207
+77a08ab5441ab31e:     Token length: 0
+77a08ab5441ab31e:     Decrypted 1190 bytes
+77a08ab5441ab31e:     ACK (nb=0), 0
+77a08ab5441ab31e:     Crypto HS frame, offset 0, length 155: 0200009703034afc...
+77a08ab5441ab31e:     padding, 1026 bytes
+
+Processed 1232 bytes, state = 7 (client_handshake_start), return 0
+
+77a08ab5441ab31e: Sending packet type: 2 (initial), S0, Version ff000012,
+77a08ab5441ab31e:     <0000000000000492>, <8c0944e7405a202f>, Seq: 1, pl: 25
+77a08ab5441ab31e:     Token length: 0
+77a08ab5441ab31e:     Prepared 5 bytes
+77a08ab5441ab31e:     ACK (nb=0), 0
+
+77a08ab5441ab31e: Sending 50 bytes to 127.0.0.1:4443 at T=0.415635 (5adff823cc591)
+Received a request to close the connection.
+quic/picoquic/quicctx.c:841 [picoquic_delete_path]: delete path[0] (312ecf40)
+
+Client exit with code = 1044
