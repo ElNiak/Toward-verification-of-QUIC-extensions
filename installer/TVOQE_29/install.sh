@@ -9,12 +9,35 @@ sudo apt-get install faketime libscope-guard-perl libtest-tcp-perl
 sudo apt-get install libbrotli-dev
 sudo apt install libev-dev libssl-dev libhttp-parser-dev libbsd-dev doxygen gperf
 
+
+sudo apt remove cmake
+sudo snap install cmake --classic
+
+#sudo cp cmake-3.12.4-Linux-x86_64.sh /opt/
+#cd /opt/
+#sudo chmod +x /opt/cmake-3.12.4-Linux-x86_64.sh
+#sudo bash /opt/cmake-3.12.4-Linux-x86_64.sh
+#sudo ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cmake /usr/local/bin
+#sudo ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/ccmake /usr/local/bin
+#sudo ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cmake-gui /usr/local/bin
+#sudo ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cpack /usr/local/bin
+#sudo ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/ctest /usr/local/bin
+
+#sudo ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cmake /usr/bin
+#sudo ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/ccmake /usr/bin
+#sudo ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cmake-gui /usr/bin
+#sudo ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cpack /usr/bin
+#sudo ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/ctest /usr/bin
+
+cmake --version
+
+cd /home/chris/TVOQE_29/
 #Install ivy
 printf "\n\n"
 printf "###### Installing Ivy:\n\n"
 git clone --recurse-submodules https://github.com/Microsoft/ivy.git
 cd ivy/
-#git checkout quic18_client && git pull origin quic18_client
+git checkout 752be924254284ded395c95f1dbd86255de6a057 #Jan 28 2020
 mkdir doc/examples/quic/build
 mkdir doc/examples/quic/test/temp
 cd ..
@@ -39,7 +62,7 @@ mkdir go
 printf "\n\n"
 printf "###### Installing PicoTLS:\n\n"
 cd picotls/
-#git checkout 4e6080b6a1ede0d3b23c72a8be73b46ecaf1a084
+git checkout a1769991c69e4f9b8e3d19db5cce745aaa86b271
 git submodule init
 git submodule update
 cmake .
@@ -51,7 +74,7 @@ make check
 printf "\n\n"
 printf "###### Installing PicoQUIC:\n\n"
 cd ../picoquic/
-#git checkout 95dd82f 
+git checkout db015b81f3cd41abfbda58ee89e5a9de042c60b5 
 cmake .
 make
 ./picoquic_ct
@@ -62,7 +85,7 @@ make
 printf "\n\n"
 printf "###### Installing Quant:\n\n"
 cd ../quant/
-#git checkout 18
+git checkout 7f5030bf27be67032d6196812be0fab78bef8718
 git submodule update --init --recursive
 mkdir Debug 
 cd Debug

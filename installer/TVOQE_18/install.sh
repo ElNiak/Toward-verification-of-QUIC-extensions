@@ -10,6 +10,9 @@ sudo apt-get install faketime libscope-guard-perl libtest-tcp-perl
 sudo apt-get install libbrotli-dev
 sudo apt install libev-dev libssl-dev libhttp-parser-dev libbsd-dev doxygen gperf
 
+sudo apt remove cmake
+sudo apt install  cmake #3.10.2
+
 #Install ivy
 printf "\n\n"
 printf "###### Installing Ivy:\n\n"
