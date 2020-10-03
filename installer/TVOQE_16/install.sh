@@ -12,7 +12,7 @@ sudo apt install libev-dev libssl-dev libhttp-parser-dev libbsd-dev doxygen gper
 #Install ivy
 printf "\n\n"
 printf "###### Installing Ivy:\n\n"
-git clone  https://github.com/Microsoft/ivy.git #--recurse-submodules
+git clone https://github.com/ElNiak/QUIC-Ivy.git #--recurse-submodules
 cd ivy/
 git checkout quic15_merge_temp
 #quic18_client
