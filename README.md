@@ -73,8 +73,8 @@ Source: http://www.brendangregg.com/blog/2019-01-01/learn-ebpf-tracing.html?fbcl
 
 ## Dependancies
 
-[OpenSSL] (https://wiki.openssl.org/index.php/Command_Line_Utilities)
-[Picoquic] (https://github.com/private-octopus/picoquic)
+[OpenSSL](https://wiki.openssl.org/index.php/Command_Line_Utilities) 
+[Picoquic](https://github.com/private-octopus/picoquic) 
 
 ### Ivy - Microsoft
 [Github link](https://github.com/microsoft/ivy/tree/master/doc/examples/quic)
