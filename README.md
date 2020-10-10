@@ -12,40 +12,11 @@ This thesis could be the starting point for a PhD on using formal methods to val
 [4] https://www.pquic.org
 
 ## How to Ivy
-Source: http://microsoft.github.io/ivy/install.html
-### Installation - Already done here
-This installs Ivy into your home directory, so you don’t need sudo. In fact, **be careful *not* to use sudo when installing in your home directory**, as the files will be owned by root. Also put the first command in your .profile script, so Python will find Ivy in the future.
-```shell
-#Prerequisites
-sudo apt-get install python python-pip g++ cmake python-ply python-pygraphviz git python-tk tix pkg-config libssl-dev
+Source: http://microsoft.github.io/ivy/install.html and https://github.com/microsoft/ivy/tree/master/doc/examples/quic 
+### Installation
 
-# Install IVy
-#Get the source like this:
-git clone --recurse-submodules https://github.com/ElNiak/ivy.git
-cd ivy
+Go in `/installer` folder.
 
-## Build the submodules like this (it takes a while):
-python build_submodules.py
-
-## Install into your local Python like this:
-sudo python setup.py install
-
-## If you want to run from the source tree for development purposes, do this instead:
-export PYTHONPATH=~/lib/python2.7/site-packages:$PYTHONPATH
-python setup.py develop --prefix=~
-
-# [Optionally, build the experimental Ivy v2.0 compiler:]
-python build_v2_compiler.py
-```
-
-(**Easiest way**) For Binary releases, do with sudo
-```shell
- sudo apt-get install python python-pip g++ python-ply python-pygraphviz python-tk tix libssl-dev
- sudo pip install ms-ivy
-```
-
-Then clone the repository to have some examples and other interesting stuffs. 
-**After that proceed to the installation in** https://github.com/microsoft/ivy/tree/master/doc/examples/quic 
 ### Usage
 Run Ivy on an example, like this:
 ```shell
@@ -58,7 +29,13 @@ ivy_check trace=true doc/examples/client_server_example_new.ivy
 ```
 Ivy should print out a counterexample trace.
 
-## How to eBPF
+### Run all the test easily
+
+Go in `/installer/TVOQE_X` and run `bash /installer/TVOQE_X/testAll.sh`
+
+
+## How to eBPF (May be for futur - TODO)
+
 Source: http://www.brendangregg.com/blog/2019-01-01/learn-ebpf-tracing.html?fbclid=IwAR1ntolwzJwZFXCIVgYEoqLpI2udHS2ArflL6RQyi2watwbQ-kL2psvCZdQ
 
 
@@ -81,12 +58,10 @@ Source: http://www.brendangregg.com/blog/2019-01-01/learn-ebpf-tracing.html?fbcl
 
 ## Useful links
 [Overleaf link](https://www.overleaf.com/4756785148nycvgbzrpcrb)  
-[Trello link](https://trello.com/invite/b/umxKNP0a/a23a28a91982965e8f4071172df443dc/toward-verification-of-quic-extensions)  
 [BibTex online](https://www.bibme.org/bibtex)  
 [SciHub for free paper](https://sci-hub.tw/)
 [GoogleSheet](https://docs.google.com/spreadsheets/d/1WkqKCKSSSM3QD5_SshoD6J30v8t9DslmmHi1xmDJcsU/edit?skip_itp2_check=true&pli=1#gid=0)
 
 ## Historic of the project
-1. `25-06-2020 - /` : read paper and documentation about the project. 
-2. `25-06-2020 - /` : reproduce paper with draft 18 as in the paper and compare result
-2. `25-06-2020 - /` : reproduce paper with draft 29 instead of 18 as in the paper and compare result
+
+[Trello link](https://trello.com/invite/b/umxKNP0a/a23a28a91982965e8f4071172df443dc/toward-verification-of-quic-extensions)  
