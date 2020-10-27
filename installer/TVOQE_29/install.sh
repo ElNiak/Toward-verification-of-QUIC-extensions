@@ -35,7 +35,7 @@ cd /home/chris/TVOQE_29/
 #Install ivy
 printf "\n\n"
 printf "###### Installing Ivy:\n\n"
-git clone --recurse-submodules https://github.com/Microsoft/ivy.git
+git clone --recurse-submodules https://github.com/ElNiak/QUIC-Ivy.git
 cd ivy/
 git checkout 752be924254284ded395c95f1dbd86255de6a057 #Jan 28 2020
 mkdir doc/examples/quic/build

@@ -16,7 +16,7 @@ sudo apt install  cmake #3.10.2
 #Install ivy
 printf "\n\n"
 printf "###### Installing Ivy:\n\n"
-git clone --recurse-submodules https://github.com/Microsoft/ivy.git
+git clone --recurse-submodules https://github.com/ElNiak/QUIC-Ivy.git
 cd ivy/
 git checkout quic18_client && git pull origin quic18_client
 mkdir doc/examples/quic/build
