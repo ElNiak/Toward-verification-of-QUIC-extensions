@@ -1,3 +1,4 @@
+#!/bin/sh
 sudo apt-get install -y tcpdump
 sudo apt-get install -y libpcap-dev
 sudo apt-get install faketime libscope-guard-perl libtest-tcp-perl
