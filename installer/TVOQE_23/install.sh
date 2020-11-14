@@ -62,7 +62,7 @@ mkdir go
 printf "\n\n"
 printf "###### Installing PicoTLS:\n\n"
 cd picotls/
-git checkout a1769991c69e4f9b8e3d19db5cce745aaa86b271
+git checkout 3fdf6a54c4c0762226afcbabda3b2016af5a8761
 git submodule init
 git submodule update
 cmake .
@@ -74,7 +74,7 @@ make check
 printf "\n\n"
 printf "###### Installing PicoQUIC:\n\n"
 cd ../picoquic/
-git checkout db015b81f3cd41abfbda58ee89e5a9de042c60b5 
+git checkout b6f65b09c9acff333028413ade4b1229c7bac025 
 cmake .
 make
 ./picoquic_ct

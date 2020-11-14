@@ -7,7 +7,7 @@ declare -p commits
 # ${1} = quic version
 for commit in "${commits[@]}"
 do
-    git checkout commit
+    git checkout $commit
     ivyc target=test quic_server_test_stream.ivy
     cd test
     python test.py iters=1 server=picoquic test=quic_server_test_stream stats=true >> ${1}_test_checkout.txt
