@@ -1,4 +1,5 @@
 #!/bin/sh
+#sudo apt-get install xterm
 IFS=$'\n'
 commits=( $(git log -250 --pretty=format:"%H") )
 declare -p commits
@@ -14,9 +15,8 @@ do
     git checkout $commit
     ivyc target=test quic_server_test_stream.ivy
     cd test
-    sudo wireshark -i lo -f quic -w quic_${1}_$count.pcap
     echo "Test ${commit} " >> ${1}_test_checkout.txt
-    python test.py iters=1 server=picoquic test=quic_server_test_stream stats=true >> ${1}_test_checkout.txt
+    sudo wireshark -i lo -f quic -w quic_${1}_$count.pcap && (python test.py iters=1 server=picoquic test=quic_server_test_stream stats=true >> ${1}_test_checkout.txt)  
     cd ..
     count=count+1
     pkill wireshark
