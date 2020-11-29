@@ -26,10 +26,10 @@ servers = [
     ['quant',['..',scdir + '/quant/Debug/bin/server -d . -c leaf_cert.pem -k leaf_cert.key -p 4443 -t 3600']],
     ['winquic',['..','true']],
     ['minq',['..','go run '+ scdir + '/go/src/github.com/ekr/minq/bin/server/main.go']],
-    ['chromium',[scdir + '/chromium/src','./out/Default/quic_server \
+    ['chromium',[scdir + '/chromium/src','sudo ./out/Default/quic_server \
   --quic_response_cache_dir=/tmp/quic-data/www.example.org \
   --certificate_file=net/tools/quic/certs/out/leaf_cert.pem \
-  --key_file=net/tools/quic/certs/out/leaf_cert.pkcs8 --quic-enable-version-99']]
+  --key_file=net/tools/quic/certs/out/leaf_cert.pkcs8 --quic-enable-version-99 --quic_versions=h3-18']]
 ]
 
 clients = [
@@ -37,7 +37,7 @@ clients = [
     ['quant',['..',scdir + '/quant/Debug/bin/client -d . -c leaf_cert.pem -k leaf_cert.key -p 4443 -t 3600']],
     ['winquic',['..','true']],
     ['minq',['..','go run '+ scdir + '/go/src/github.com/ekr/minq/bin/client/main.go ']],
-    ['chromium',[scdir + '/chromium/src','./out/Default/quick_client --host=127.0.0.1 --port=6121 --disable-certificate-verification https://www.example.org/ --quic-enable-version-99']]
+    ['chromium',[scdir + '/chromium/src','sudo ./out/Default/quick_client --host=127.0.0.1 --port=6121 --disable-certificate-verification https://www.example.org/ --quic-enable-version-99 --quic_versions=h3-18']]
 ]
 
 server_tests = [
