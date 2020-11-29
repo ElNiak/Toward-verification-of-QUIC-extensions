@@ -8,8 +8,6 @@ sudo apt-get install pkg-config
 sudo apt-get install faketime libscope-guard-perl libtest-tcp-perl
 sudo apt-get install libbrotli-dev
 sudo apt install libev-dev libssl-dev libhttp-parser-dev libbsd-dev doxygen gperf
-
-
 sudo apt remove cmake
 sudo snap install cmake --classic
 
@@ -31,20 +29,19 @@ sudo snap install cmake --classic
 
 cmake --version
 
-cd /home/chris/TVOQE_Perso/
+cd $HOME/TVOQE_Perso/
 #Install ivy
 printf "\n\n"
 printf "###### Installing Ivy:\n\n"
 git clone --recurse-submodules https://github.com/ElNiak/QUIC-Ivy.git
-cd ivy/
-git checkout chris #Jan 28 2020
-mkdir doc/examples/quic/build
-mkdir doc/examples/quic/test/temp
+cd QUIC-Ivy/
+git checkout quic_18_upgrade_chris #Jan 28 2020
+mkdir $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/build
+mkdir $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/test/temp
 cd ..
 bash modif.sh
-rm ivy/doc/examples/quic/test/test.py
-cp test.py ivy/doc/examples/quic/test/
-
+rm $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/test/test.py
+cp $HOME/TVOQE_Perso/test.py $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/test/
 
 #Clone quic
 printf "\n\n"
@@ -61,7 +58,7 @@ mkdir go
 #Install picotls
 printf "\n\n"
 printf "###### Installing PicoTLS:\n\n"
-cd picotls/
+cd $HOME/TVOQE_Perso/quic/picotls/
 #git checkout a1769991c69e4f9b8e3d19db5cce745aaa86b271
 git submodule init
 git submodule update
@@ -73,7 +70,7 @@ make check
 #Install picoquic
 printf "\n\n"
 printf "###### Installing PicoQUIC:\n\n"
-cd ../picoquic/
+cd $HOME/TVOQE_Perso/quic/picoquic/
 git checkout db015b81f3cd41abfbda58ee89e5a9de042c60b5 
 cmake .
 make
@@ -96,7 +93,7 @@ make
 #Install go 
 printf "\n\n"
 printf "###### Installing Golang:\n\n"
-cd /home/chris/TVOQE_Perso/quic/ #TODO
+cd $HOME/TVOQE_Perso/quic/ #TODO
 sudo tar -C /usr/local -xzf go1.15.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
 echo export PATH=$PATH:/usr/local/go/bin >> ~/.profile 
@@ -124,5 +121,5 @@ go test
 
 
 #Install chromium
-#cd /home/chris/TVOQE_18/
-#bash installChromium.sh 
+cd $HOME/TVOQE_Perso/
+bash installChromium.sh 
