@@ -16,7 +16,8 @@ do
     ivyc target=test quic_server_test_stream.ivy
     cd test
     echo "Test ${commit} " >> ${1}_test_checkout.txt
-    sudo wireshark -i lo  -w quic_${1}_$count.pcap & (python test.py iters=1 server=picoquic test=quic_server_test_stream stats=true >> ${1}_test_checkout.txt)  
+    sudo wireshark -i lo  -w quic_${1}_$count.pcap & 
+    python test.py iters=1 server=picoquic test=quic_server_test_stream stats=true >> ${1}_test_checkout.txt 
     cd ..
     count=count+1
     pkill wireshark
