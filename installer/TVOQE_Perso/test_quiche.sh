@@ -1,22 +1,4 @@
-#Prep test data from www.example.org
-mkdir /tmp/quic-data
-cd /tmp/quic-data
-wget -p --save-headers https://www.example.org
-
-
-#Generate certificates
-cd $HOME/TVOQE_Perso/quic/chromium/src/
-
-#https://chromium.googlesource.com/chromium/src/+/master/docs/linux/cert_management.md
-#sudo apt-get install libnss3-tools
-#certutil -d sql:$HOME/.pki/nssdb -L
-
-
-cd net/tools/quic/certs
-sudo ./generate-certs.sh
-cd -
-
-servers=(chromium)
+servers=(quiche)
 
 tests_client=(quic_client_test_stream 
               quic_client_test_max)
