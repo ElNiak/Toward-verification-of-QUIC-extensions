@@ -28,6 +28,8 @@ tests_server=(quic_server_test_stream
 
 cd $HOME/TVOQE_Perso/
 
+bash install_ivy.sh
+
 rm $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/test/test.py
 cp $HOME/TVOQE_Perso/test.py $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/test/
 cd $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/quic_tests
@@ -61,3 +63,5 @@ for j in "${tests_client[@]}"; do :
        python test.py iters=1 client=$i test=$j
     done
 done
+
+bash remove_ivy.sh
