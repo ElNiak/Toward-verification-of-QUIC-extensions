@@ -12,7 +12,7 @@ cd $HOME/TVOQE_Perso/
 
 rm $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/test/test.py
 cp $HOME/TVOQE_Perso/test.py $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/test/
-cd $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/quic_tests
+cd $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/quic_tests/
 
 printf "BUILDING TEST \n" 
 for j in "${tests_client[@]}"; do : 
