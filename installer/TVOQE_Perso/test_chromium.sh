@@ -63,5 +63,5 @@ for j in "${tests_client[@]}"; do :
        python test.py iters=1 client=$i test=$j
     done
 done
-
+cd $HOME/TVOQE_Perso/
 bash remove_ivy.sh

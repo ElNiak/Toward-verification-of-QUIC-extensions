@@ -6,7 +6,11 @@ done < <(find $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic -type f -name \*.ivy 
 echo $array
 
 for j in "${array[@]}"; do : 
-    printf "Files => $j  \n" 
-    sudo rm /usr/local/lib/python2.7/dist-packages/ivy/include/1.7/$j
+    # Set space as the delimiter
+    IFS=' '
+    #Read the split words into an array based on space delimiter
+    read -a strarr <<< "$j"
+    printf "Files => /usr/local/lib/python2.7/dist-packages/ivy/include/1.7/$strarr  \n" 
+    sudo rm /usr/local/lib/python2.7/dist-packages/ivy/include/1.7/${strarr[0]}
 done
 

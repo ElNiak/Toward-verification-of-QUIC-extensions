@@ -46,4 +46,5 @@ for j in "${tests_client[@]}"; do :
     done
 done
 
+cd $HOME/TVOQE_Perso/
 bash remove_ivy.sh

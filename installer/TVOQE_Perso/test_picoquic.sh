@@ -9,6 +9,7 @@ tests_server=(quic_server_test_stream
               quic_server_test_reset_stream)
 
 cd $HOME/TVOQE_Perso/
+
 bash install_ivy.sh
 
 rm $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/test/test.py
@@ -45,4 +46,5 @@ for j in "${tests_client[@]}"; do :
     done
 done
 
+cd $HOME/TVOQE_Perso/
 bash remove_ivy.sh
