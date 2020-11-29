@@ -12,7 +12,7 @@ cd $HOME/TVOQE_Perso/
 
 rm $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/test/test.py
 cp $HOME/TVOQE_Perso/test.py $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/test/
-cd $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/
+cd $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/quic_tests
 
 printf "BUILDING TEST \n" 
 for j in "${tests_client[@]}"; do : 
@@ -25,7 +25,7 @@ for j in "${tests_server[@]}"; do :
 done
 
 printf "\n"
-cd test/
+cd ../test/
 printf "TEST SERVER \n" 
 for j in "${tests_server[@]}"; do : 
     printf "Server => $j  " 
