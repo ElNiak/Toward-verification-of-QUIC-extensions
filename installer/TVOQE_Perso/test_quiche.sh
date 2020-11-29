@@ -22,10 +22,22 @@ cd $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/quic_tests
 printf "BUILDING TEST \n" 
 for j in "${tests_client[@]}"; do : 
 	ivyc target=test $j.ivy
+    cp $j $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/build/
+    cp $j.cpp $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/build/
+    cp $j.h $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/build/
+    rm $j 
+    rm $j.cpp 
+    rm $j.h
 	printf "\n"
 done
 for j in "${tests_server[@]}"; do : 
 	ivyc target=test $j.ivy
+    cp $j $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/build/
+    cp $j.cpp $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/build/
+    cp $j.h $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/build/
+    rm $j 
+    rm $j.cpp 
+    rm $j.h
 	printf "\n"
 done
 
