@@ -12,6 +12,7 @@ cd $HOME/TVOQE_Perso/QUIC-Ivy/
 git stash
 git pull
 git checkout quic_18_upgrade_chris
+
 cd $HOME/TVOQE_Perso/
 
 bash install_ivy.sh
