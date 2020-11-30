@@ -9,8 +9,9 @@ tests_server=(quic_server_test_stream
     quic_server_test_reset_stream)
 
 cd $HOME/TVOQE_Perso/QUIC-Ivy/
+git stash
 git pull
-
+git checkout quic_18_upgrade_chris
 cd $HOME/TVOQE_Perso/
 
 bash install_ivy.sh

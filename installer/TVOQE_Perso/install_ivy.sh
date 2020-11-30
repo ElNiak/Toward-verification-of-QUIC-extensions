@@ -5,8 +5,11 @@ done < <(find $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic -type f -name \*.ivy 
 
 echo $array
 
+SUB='test'
 for j in "${array[@]}"; do : 
     printf "Files => $j  \n" 
-    sudo cp $j /usr/local/lib/python2.7/dist-packages/ivy/include/1.7
+    if [[ ! "$j" == *"$SUB"* ]]; then
+    	sudo cp $j /usr/local/lib/python2.7/dist-packages/ivy/include/1.7
+    fi
 done
 
