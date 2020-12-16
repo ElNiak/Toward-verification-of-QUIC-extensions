@@ -8,8 +8,6 @@ sudo apt-get install pkg-config
 sudo apt-get install faketime libscope-guard-perl libtest-tcp-perl
 sudo apt-get install libbrotli-dev
 sudo apt install libev-dev libssl-dev libhttp-parser-dev libbsd-dev doxygen gperf
-
-
 sudo apt remove cmake
 sudo snap install cmake --classic
 
@@ -31,20 +29,19 @@ sudo snap install cmake --classic
 
 cmake --version
 
-cd /home/chris/TVOQE_23/
-#Install QUIC-Ivy
+cd $HOME/TVOQE_UPGRADE/
+#Install ivy
 printf "\n\n"
 printf "###### Installing Ivy:\n\n"
-git clone --recurse-submodules https://github.com/Microsoft/QUIC-Ivy.git 
+git clone --recurse-submodules https://github.com/ElNiak/QUIC-Ivy.git
 cd QUIC-Ivy/
-git checkout quic23 #Jan 28 2020
-mkdir doc/examples/quic/build
-mkdir doc/examples/quic/test/temp
+git checkout quic_upgrade #Jan 28 2020
+mkdir $HOME/TVOQE_UPGRADE/QUIC-Ivy/doc/examples/quic/build
+mkdir $HOME/TVOQE_UPGRADE/QUIC-Ivy/doc/examples/quic/test/temp
 cd ..
 bash modif.sh
-rm QUIC-Ivy/doc/examples/quic/test/test.py
-cp test.py QUIC-Ivy/doc/examples/quic/test/
-
+rm $HOME/TVOQE_UPGRADE/QUIC-Ivy/doc/examples/quic/test/test.py
+cp $HOME/TVOQE_UPGRADE/test.py $HOME/TVOQE_UPGRADE/QUIC-Ivy/doc/examples/quic/test/
 
 #Clone quic
 printf "\n\n"
@@ -58,11 +55,11 @@ cd quic
 mkdir go
 
 
-#Install picotls TODO
+#Install picotls
 printf "\n\n"
 printf "###### Installing PicoTLS:\n\n"
-cd picotls/
-git checkout 3fdf6a54c4c0762226afcbabda3b2016af5a8761
+cd $HOME/TVOQE_UPGRADE/quic/picotls/
+git checkout 2464adadf28c1b924416831d24ca62380936a209
 git submodule init
 git submodule update
 cmake .
@@ -70,11 +67,11 @@ make
 make check
 
 
-#Install picoquic TODO
+#Install picoquic
 printf "\n\n"
 printf "###### Installing PicoQUIC:\n\n"
-cd ../picoquic/
-git checkout b6f65b09c9acff333028413ade4b1229c7bac025 
+cd $HOME/TVOQE_UPGRADE/quic/picoquic/
+git checkout 639c9e685d37e74d357d3dd8599b9dbff90934af 
 cmake .
 make
 ./picoquic_ct
@@ -85,7 +82,7 @@ make
 printf "\n\n"
 printf "###### Installing Quant:\n\n"
 cd ../quant/
-git checkout 23
+#git checkout 7f5030bf27be67032d6196812be0fab78bef8718
 git submodule update --init --recursive
 mkdir Debug 
 cd Debug
@@ -96,7 +93,7 @@ make
 #Install go 
 printf "\n\n"
 printf "###### Installing Golang:\n\n"
-cd /home/chris/TVOQE_23/quic/ #TODO
+cd $HOME/TVOQE_UPGRADE/quic/ #TODO
 sudo tar -C /usr/local -xzf go1.15.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
 echo export PATH=$PATH:/usr/local/go/bin >> ~/.profile 
@@ -110,7 +107,7 @@ mkdir src
 export GOPATH=`pwd`
 echo export GOPATH=`pwd` >> ~/.profile 
 export GOROOT=/usr/local/go
-export GOPATH=/home/chris/TVOQE_23/quic/go #TODO
+export GOPATH=$HOME/TVOQE_UPGRADE/quic/go #TODO
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 cd src/
 go get github.com/ekr/minq
@@ -124,5 +121,5 @@ go test
 
 
 #Install chromium
-#cd /home/chris/TVOQE_18/
+#cd $HOME/TVOQE_UPGRADE/
 #bash installChromium.sh 

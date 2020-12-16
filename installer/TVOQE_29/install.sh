@@ -32,18 +32,18 @@ sudo snap install cmake --classic
 cmake --version
 
 cd $HOME/TVOQE_29/
-#Install ivy
+#Install QUIC-Ivy
 printf "\n\n"
 printf "###### Installing Ivy:\n\n"
 git clone --recurse-submodules https://github.com/ElNiak/QUIC-Ivy.git
-cd ivy/
+cd QUIC-Ivy/
 git checkout 752be924254284ded395c95f1dbd86255de6a057 #Jan 28 2020
 mkdir doc/examples/quic/build
 mkdir doc/examples/quic/test/temp
 cd ..
 bash modif.sh
-rm ivy/doc/examples/quic/test/test.py
-cp test.py ivy/doc/examples/quic/test/
+rm QUIC-Ivy/doc/examples/quic/test/test.py
+cp test.py QUIC-Ivy/doc/examples/quic/test/
 
 
 #Clone quic

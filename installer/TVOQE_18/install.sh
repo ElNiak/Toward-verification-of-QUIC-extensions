@@ -17,14 +17,14 @@ sudo apt install  cmake #3.10.2
 printf "\n\n"
 printf "###### Installing Ivy:\n\n"
 git clone --recurse-submodules https://github.com/ElNiak/QUIC-Ivy.git
-cd ivy/
+cd QUIC-Ivy/
 git checkout quic18_client && git pull origin quic18_client
 mkdir doc/examples/quic/build
 mkdir doc/examples/quic/test/temp
 cd ..
 bash modif.sh
-rm ivy/doc/examples/quic/test/test.py
-cp test.py ivy/doc/examples/quic/test/
+rm QUIC-Ivy/doc/examples/quic/test/test.py
+cp test.py QUIC-Ivy/doc/examples/quic/test/
 
 
 #Clone quic

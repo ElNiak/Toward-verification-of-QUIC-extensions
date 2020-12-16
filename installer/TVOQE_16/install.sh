@@ -9,11 +9,11 @@ sudo apt-get install faketime libscope-guard-perl libtest-tcp-perl
 sudo apt-get install libbrotli-dev
 sudo apt install libev-dev libssl-dev libhttp-parser-dev libbsd-dev doxygen gperf
 
-#Install ivy
+#Install QUIC-Ivy
 printf "\n\n"
 printf "###### Installing Ivy:\n\n"
 git clone https://github.com/ElNiak/QUIC-Ivy.git #--recurse-submodules
-cd ivy/
+cd QUIC-Ivy/
 git checkout quic15_merge_temp
 #quic18_client
 #11f9cd8d7d55b4fafcd53386a5cfc99f7aba7e6b #anomaly23 quic16
@@ -21,8 +21,8 @@ mkdir doc/examples/quic/build
 mkdir doc/examples/quic/test/temp
 cd ..
 bash modif.sh
-rm ivy/doc/examples/quic/test/test.py
-cp test.py ivy/doc/examples/quic/test/
+rm QUIC-Ivy/doc/examples/quic/test/test.py
+cp test.py QUIC-Ivy/doc/examples/quic/test/
 
 
 #Clone quic
