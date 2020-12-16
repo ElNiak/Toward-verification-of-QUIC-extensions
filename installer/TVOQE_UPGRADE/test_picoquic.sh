@@ -1,6 +1,6 @@
 servers=(picoquic)
 
-tests_client=(quic_client_test_stream
+tests_client=(quic_client_test
     quic_client_test_max)
 
 tests_server=(quic_server_test_stream
@@ -9,9 +9,9 @@ tests_server=(quic_server_test_stream
     quic_server_test_reset_stream)
 
 cd $HOME/TVOQE_UPGRADE/QUIC-Ivy/
-git stash
-git pull
-git checkout quic_18_upgrade_chris
+#git stash
+#git pull
+#git checkout quic_upgrade
 
 cd $HOME/TVOQE_UPGRADE/
 
@@ -46,7 +46,7 @@ for j in "${tests_server[@]}"; do
 done
 
 printf "\n"
-cd ../test/
+cd $HOME/TVOQE_UPGRADE/QUIC-Ivy/doc/examples/quic/test/
 printf "TEST SERVER \n"
 for j in "${tests_server[@]}"; do
     :
