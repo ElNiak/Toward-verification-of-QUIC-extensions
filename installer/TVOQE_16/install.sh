@@ -87,7 +87,7 @@ make
 #Install go 
 printf "\n\n"
 printf "###### Installing Golang:\n\n"
-cd /home/chris/TVOQE_16/quic/
+cd $HOME/TVOQE_16/quic/
 sudo tar -C /usr/local -xzf go1.15.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
 echo export PATH=$PATH:/usr/local/go/bin >> ~/.profile 
@@ -101,7 +101,7 @@ mkdir src
 export GOPATH=`pwd`
 echo export GOPATH=`pwd` >> ~/.profile 
 export GOROOT=/usr/local/go
-export GOPATH=/home/chris/TVOQE_16/quic/go
+export GOPATH=$HOME/TVOQE_16/quic/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 cd src/
 go get github.com/ekr/minq
@@ -115,5 +115,5 @@ go test
 
 
 #Install chromium
-#cd /home/chris/TVOQE_16/
+#cd $HOME/TVOQE_16/
 #bash installChromium.sh 
