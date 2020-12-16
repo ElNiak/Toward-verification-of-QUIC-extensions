@@ -9,9 +9,9 @@ tests_server=(quic_server_test_stream
     quic_server_test_reset_stream)
 
 cd $HOME/TVOQE_Perso/QUIC-Ivy/
-git stash
-git pull
-git checkout quic_18_upgrade_chris
+#git stash
+#git pull
+#git checkout quic_18_upgrade_chris
 
 cd $HOME/TVOQE_Perso/
 
@@ -19,7 +19,7 @@ bash install_ivy.sh
 
 rm $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/test/test.py
 cp $HOME/TVOQE_Perso/test.py $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/test/
-cd $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/quic_tests
+cd $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic
 
 printf "BUILDING TEST \n"
 for j in "${tests_client[@]}"; do
@@ -46,7 +46,7 @@ for j in "${tests_server[@]}"; do
 done
 
 printf "\n"
-cd ../test/
+cd $HOME/TVOQE_Perso/QUIC-Ivy/doc/examples/quic/test
 printf "TEST SERVER \n"
 for j in "${tests_server[@]}"; do
     :
