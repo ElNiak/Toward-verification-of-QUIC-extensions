@@ -107,7 +107,7 @@ mkdir src
 export GOPATH=`pwd`
 echo export GOPATH=`pwd` >> ~/.profile 
 export GOROOT=/usr/local/go
-export GOPATH=/home/chris/TVOQE_Perso/quic/go #TODO
+export GOPATH=$HOME/TVOQE_Perso/quic/go #TODO
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 cd src/
 go get github.com/ekr/minq

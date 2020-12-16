@@ -32,10 +32,10 @@ printf "\n\n"
 printf "###### Downloading QUIC implementations:\n\n"
 mkdir quic
 cd quic
-[ ! -f /home/chris/TVOQE_18/quic/picotls ] &&  git clone https://github.com/h2o/picotls.git
-[ ! -f /home/chris/TVOQE_18/quic/picoquic ] &&  git clone https://github.com/private-octopus/picoquic.git 
-[ ! -f /home/chris/TVOQE_18/quic/quant ] &&  git clone https://github.com/NTAP/quant.git
-[ ! -f /home/chris/TVOQE_18/quic/go1.15.linux-amd64.tar.gz ] &&  wget https://golang.org/dl/go1.15.linux-amd64.tar.gz
+[ ! -f $HOME/TVOQE_18/quic/picotls ] &&  git clone https://github.com/h2o/picotls.git
+[ ! -f $HOME/TVOQE_18/quic/picoquic ] &&  git clone https://github.com/private-octopus/picoquic.git 
+[ ! -f $HOME/TVOQE_18/quic/quant ] &&  git clone https://github.com/NTAP/quant.git
+[ ! -f $HOME/TVOQE_18/quic/go1.15.linux-amd64.tar.gz ] &&  wget https://golang.org/dl/go1.15.linux-amd64.tar.gz
 mkdir go
 
 
@@ -87,7 +87,7 @@ make
 #Install go 
 printf "\n\n"
 printf "###### Installing Golang:\n\n"
-cd /home/chris/TVOQE_18/quic/
+cd $HOME/TVOQE_18/quic/
 sudo tar -C /usr/local -xzf go1.15.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
 echo export PATH=$PATH:/usr/local/go/bin >> ~/.profile 
@@ -101,7 +101,7 @@ mkdir src
 export GOPATH=`pwd`
 echo export GOPATH=`pwd` >> ~/.profile 
 export GOROOT=/usr/local/go
-export GOPATH=/home/chris/TVOQE_18/quic/go
+export GOPATH=$HOME/TVOQE_18/quic/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 cd src/
 go get github.com/ekr/minq
@@ -115,5 +115,5 @@ go test
 
 
 #Install chromium
-#cd /home/chris/TVOQE_18/
+#cd $HOME/TVOQE_18/
 #bash installChromium.sh 

@@ -31,7 +31,7 @@ sudo snap install cmake --classic
 
 cmake --version
 
-cd /home/chris/TVOQE_29/
+cd $HOME/TVOQE_29/
 #Install ivy
 printf "\n\n"
 printf "###### Installing Ivy:\n\n"
@@ -96,7 +96,7 @@ make
 #Install go 
 printf "\n\n"
 printf "###### Installing Golang:\n\n"
-cd /home/chris/TVOQE_29/quic/ #TODO
+cd $HOME/TVOQE_29/quic/ #TODO
 sudo tar -C /usr/local -xzf go1.15.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
 echo export PATH=$PATH:/usr/local/go/bin >> ~/.profile 
@@ -110,7 +110,7 @@ mkdir src
 export GOPATH=`pwd`
 echo export GOPATH=`pwd` >> ~/.profile 
 export GOROOT=/usr/local/go
-export GOPATH=/home/chris/TVOQE_29/quic/go #TODO
+export GOPATH=$HOME/TVOQE_29/quic/go #TODO
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 cd src/
 go get github.com/ekr/minq
@@ -124,5 +124,5 @@ go test
 
 
 #Install chromium
-#cd /home/chris/TVOQE_18/
+#cd $HOME/TVOQE_18/
 #bash installChromium.sh 
