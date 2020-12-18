@@ -2,7 +2,7 @@
 printf "\n\n"
 printf "###### Installing PicoTLS:\n\n"
 cd $HOME/TVOQE_UPGRADE_27/quic/picotls/
-git checkout 3fdf6a54c4c0762226afcbabda3b2016af5a8761
+git checkout 9e6b595dd548f1662483704d4efffbe01696b311 #3fdf6a54c4c0762226afcbabda3b2016af5a8761
 git submodule init
 git submodule update
 cmake .
