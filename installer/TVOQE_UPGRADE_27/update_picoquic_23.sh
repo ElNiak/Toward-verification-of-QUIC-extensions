@@ -14,7 +14,7 @@ make check
 printf "\n\n"
 printf "###### Installing PicoQUIC:\n\n"
 cd $HOME/TVOQE_UPGRADE_27/quic/picoquic/
-git checkout b6f65b09c9acff333028413ade4b1229c7bac025 
+git checkout b0367d919ccd4a439c67a5e21d41ba8b5396a693 
 cmake .
 make
 ./picoquic_ct
