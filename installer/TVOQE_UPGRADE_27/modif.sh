@@ -5,5 +5,6 @@ cd $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/
 #sudo pip install ms-ivy==0.1
 python build_submodules.py
 sudo pip uninstall ms-ivy
-sudo python setup.py install #missing python z3 module
-#sudo pip install ms-ivy
+sudo pip install functools32
+#sudo python setup.py install #missing python z3 module
+sudo pip install ms-ivy

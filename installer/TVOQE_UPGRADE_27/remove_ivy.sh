@@ -11,8 +11,8 @@ for j in "${array[@]}"; do :
     IFS=' '
     #Read the split words into an array based on space delimiter
     read -a strarr <<< "$j"
-    printf "Files => /usr/local/lib/python2.7/dist-packages/ivy/include/1.7/$strarr  \n" 
     if [[ ! "${strarr[0]}" == *"$SUB"* ]]; then
+	printf "Files => /usr/local/lib/python2.7/dist-packages/ivy/include/1.7/$strarr  \n" 
     	sudo rm /usr/local/lib/python2.7/dist-packages/ivy/include/1.7/${strarr[0]}
     fi
 done
