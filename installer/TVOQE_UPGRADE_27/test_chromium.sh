@@ -4,7 +4,7 @@ cd /tmp/quic-data
 wget -p --save-headers https://www.example.org
 
 #Generate certificates
-cd $HOME/TVOQE_UPGRADE_27/quic/chromium/src/
+cd $HOME/TVOQE_Perso/quic/chromium/src/
 
 #https://chromium.googlesource.com/chromium/src/+/master/docs/linux/cert_management.md
 #sudo apt-get install libnss3-tools
@@ -12,6 +12,7 @@ cd $HOME/TVOQE_UPGRADE_27/quic/chromium/src/
 
 cd net/tools/quic/certs
 sudo ./generate-certs.sh
+sudo chown chris:chris out/ -R
 cd -
 
 servers=(chromium)
@@ -25,9 +26,9 @@ tests_server=(quic_server_test_stream
     quic_server_test_reset_stream)
 
 cd $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/
-git stash
-git pull
-git checkout quic_18_upgrade_chris
+#git stash
+#git pull
+#git checkout quic_18_upgrade_chris
 
 cd $HOME/TVOQE_UPGRADE_27/
 
