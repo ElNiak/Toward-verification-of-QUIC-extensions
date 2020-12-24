@@ -231,7 +231,7 @@ public:
     int eval(const z3::expr &apply_expr) {
         try {
             z3::expr foo = model.eval(apply_expr,true);
-            // std::cout << apply_expr << " = " << foo << std::endl;
+            std::cout << apply_expr << " = " << foo << std::endl;
             if (foo.is_int()) {
                 assert(foo.is_numeral());
                 int v;
@@ -275,7 +275,7 @@ public:
 
     int eval_apply(const char *decl_name, unsigned num_args, const int *args) {
         z3::expr apply_expr = mk_apply_expr(decl_name,num_args,args);
-        //        std::cout << "apply_expr: " << apply_expr << std::endl;
+        std::cout << "apply_expr: " << apply_expr << std::endl;
         try {
             z3::expr foo = model.eval(apply_expr,true);
             if (foo.is_bv() || foo.is_int()) {
@@ -393,7 +393,7 @@ public:
         z3::sort range = decl.range();
         z3::expr val_expr = int_to_z3(range,value);
         z3::expr pred = apply_expr == val_expr;
-        //        std::cout << "pred: " << pred << std::endl;
+        std::cout << "pred: " << pred << std::endl;
         slvr.add(pred);
     }
 
@@ -416,18 +416,18 @@ public:
     }
 
     void add_alit(const z3::expr &pred){
-        // std::cout << "pred: " << pred << std::endl;
+        std::cout << "pred: " << pred << std::endl;
         std::ostringstream ss;
         ss << "alit:" << alits.size();
         z3::expr alit = ctx.bool_const(ss.str().c_str());
-        // std::cout << "alit: " << alit << std::endl;
+        std::cout << "alit: " << alit << std::endl;
         alits.push_back(alit);
         slvr.add(!alit || pred);
     }
 
     void randomize(const z3::expr &apply_expr) {
         z3::sort range = apply_expr.get_sort();
-//        std::cout << apply_expr << " : " << range << std::endl;
+        std::cout << apply_expr << " : " << range << std::endl;
         unsigned card = sort_card(range);
         int value = rand() % card;
         z3::expr val_expr = int_to_z3(range,value);
