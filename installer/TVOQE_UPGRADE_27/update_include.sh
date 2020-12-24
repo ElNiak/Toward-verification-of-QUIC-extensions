@@ -18,5 +18,6 @@ for j in "${array[@]}"; do :
     fi
 done
 
-cd $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/ivy/include/
-sudo cp ivy_to_cpp.py /usr/local/lib/python2.7/dist-packages/ivy/include/
+cd $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/ivy/
+sudo cp ivy_to_cpp.py /usr/local/lib/python2.7/dist-packages/ivy/
+sudo python -m compileall /usr/local/lib/python2.7/dist-packages/ivy/ivy_to_cpp.py ivy_to_cpp.py
