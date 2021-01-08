@@ -79,45 +79,45 @@ make
 
 #Install quant
 #TODO: still some error during installation (missing package)
-printf "\n\n"
-printf "###### Installing Quant:\n\n"
-cd ../quant/
+#printf "\n\n"
+#printf "###### Installing Quant:\n\n"
+#cd ../quant/
 #git checkout 7f5030bf27be67032d6196812be0fab78bef8718
-git submodule update --init --recursive
-mkdir Debug 
-cd Debug
-cmake ..
-make
+#git submodule update --init --recursive
+#mkdir Debug 
+#cd Debug
+#cmake ..
+#make
 
 
 #Install go 
-printf "\n\n"
-printf "###### Installing Golang:\n\n"
-cd $HOME/TVOQE_UPGRADE_27/quic/ #TODO
-sudo tar -C /usr/local -xzf go1.15.linux-amd64.tar.gz
-export PATH=$PATH:/usr/local/go/bin
-echo export PATH=$PATH:/usr/local/go/bin >> ~/.profile 
-cd go/
+#printf "\n\n"
+#printf "###### Installing Golang:\n\n"
+#cd $HOME/TVOQE_UPGRADE_27/quic/ #TODO
+#sudo tar -C /usr/local -xzf go1.15.linux-amd64.tar.gz
+#export PATH=$PATH:/usr/local/go/bin
+#echo export PATH=$PATH:/usr/local/go/bin >> ~/.profile 
+#cd go/
 
 
 #install minquic
-printf "\n\n"
-printf "###### Installing MinQUIC:\n\n"
-mkdir src
-export GOPATH=`pwd`
-echo export GOPATH=`pwd` >> ~/.profile 
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/TVOQE_UPGRADE_27/quic/go #TODO
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-cd src/
-go get github.com/ekr/minq
-go get github.com/cloudflare/cfssl/helpers
-cd github.com/bifurcation/mint
-git remote add ekr https://github.com/ekr/mint
-git fetch ekr
-git checkout ekr/quic_record_layer
-cd ../../ekr/minq
-go test
+#printf "\n\n"
+#printf "###### Installing MinQUIC:\n\n"
+#mkdir src
+#export GOPATH=`pwd`
+#echo export GOPATH=`pwd` >> ~/.profile 
+#export GOROOT=/usr/local/go
+#export GOPATH=$HOME/TVOQE_UPGRADE_27/quic/go #TODO
+#export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+#cd src/
+#go get github.com/ekr/minq
+#go get github.com/cloudflare/cfssl/helpers
+#cd github.com/bifurcation/mint
+#git remote add ekr https://github.com/ekr/mint
+#git fetch ekr
+#git checkout ekr/quic_record_layer
+#cd ../../ekr/minq
+#go test
 
 
 #Install chromium

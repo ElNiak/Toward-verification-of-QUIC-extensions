@@ -1,6 +1,5 @@
 servers=(picoquic)
 
-tests_client=(quic_client_test_max)
 
 tests_server=(quic_server_test_stream
     quic_server_test_max
@@ -21,17 +20,6 @@ cp $HOME/TVOQE_UPGRADE_27/test.py $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/doc/examples/q
 cd $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/doc/examples/quic/quic_tests
 
 printf "BUILDING TEST \n"
-for j in "${tests_client[@]}"; do
-    :
-    ivyc target=test $j.ivy
-    cp $j $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/doc/examples/quic/build/
-    cp $j.cpp $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/doc/examples/quic/build/
-    cp $j.h $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/doc/examples/quic/build/
-    rm $j
-    rm $j.cpp
-    rm $j.h
-    printf "\n"
-done
 for j in "${tests_server[@]}"; do
     :
     ivyc target=test $j.ivy
@@ -46,16 +34,6 @@ done
 
 printf "\n"
 cd $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/doc/examples/quic/test/
-printf "TEST CLIENT \n"
-for j in "${tests_client[@]}"; do
-    :
-    printf "Client => $j  "
-    for i in "${servers[@]}"; do
-        :
-        printf "\n\nTesting => $i \n"
-        python test.py iters=1 client=$i test=$j
-    done
-done
 printf "TEST SERVER \n"
 for j in "${tests_server[@]}"; do
     :

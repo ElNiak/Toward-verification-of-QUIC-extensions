@@ -36,7 +36,7 @@ servers = [
 ]
 
 clients = [
-    ['picoquic',[scdir + '/picoquic','./picoquicdemo -v ff000017 localhost 4443']],
+    ['picoquic',[scdir + '/picoquic','./picoquicdemo -l - -L -D -v ff00001b localhost 4443 ']],
     ['quant',['..',scdir + '/quant/Debug/bin/client -d . -c leaf_cert.pem -k leaf_cert.key -p 4443 -t 3600']],
     ['winquic',['..','true']],
     ['minq',['..','go run '+ scdir + '/go/src/github.com/ekr/minq/bin/client/main.go ']],
