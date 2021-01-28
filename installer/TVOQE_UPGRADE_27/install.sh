@@ -7,7 +7,7 @@ sudo apt-get install doxygen
 sudo apt-get install pkg-config
 sudo apt-get install faketime libscope-guard-perl libtest-tcp-perl
 sudo apt-get install libbrotli-dev
-sudo apt install libev-dev libssl-dev libhttp-parser-dev libbsd-dev doxygen gperf python3-dev
+sudo apt install libev-dev libssl-dev libhttp-parser-dev libbsd-dev doxygen gperf
 sudo apt remove cmake
 sudo snap install cmake --classic
 
@@ -50,7 +50,6 @@ mkdir quic
 cd quic
 [ ! -f picotls/ ] &&  git clone https://github.com/h2o/picotls.git
 [ ! -f picoquic/ ] &&  git clone https://github.com/private-octopus/picoquic.git 
-[ ! -f aioquic/ ] &&  git clone https://github.com/aiortc/aioquic.git 
 [ ! -f quant/ ] &&  git clone https://github.com/NTAP/quant.git
 [ ! -f go1.15.linux-amd64.tar.gz ] &&  wget https://golang.org/dl/go1.15.linux-amd64.tar.gz
 mkdir go
@@ -77,12 +76,6 @@ cmake .
 make
 ./picoquic_ct
 
-
-#Install Aioquic
-printf "\n\n"
-printf "###### Installing Aioquic:\n\n"
-cd $HOME/TVOQE_UPGRADE_27/quic/aioquic/
-git checkout 113dbbf4463ce3a1b18b055498aa09d8e2f785c1
 
 #Install quant
 #TODO: still some error during installation (missing package)
