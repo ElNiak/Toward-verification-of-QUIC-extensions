@@ -1,6 +1,6 @@
 cd quic/
 sudo rm -r picotls/
-git clone https://github.com/private-octopus/picoquic.git
+git clone https://github.com/h2o/picotls.git
 
 #Install picotls
 printf "\n\n"

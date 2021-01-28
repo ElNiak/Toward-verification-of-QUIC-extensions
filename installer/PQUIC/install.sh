@@ -28,6 +28,7 @@ cp $HOME/PQUIC/test.py $HOME/PQUIC/QUIC-Ivy/doc/examples/quic/test/
 
 
 cd $HOME/PQUIC/
+mkdir quic/
 bash install_pquic.sh
 
 
