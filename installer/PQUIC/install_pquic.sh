@@ -10,7 +10,7 @@ sudo apt-get install libgoogle-perftools-dev
 #Install picotls
 printf "\n\n"
 printf "###### Installing PicoTLS:\n\n"
-cd $HOME/TVOQE_UPGRADE_27/quic/picotls/
+cd $HOME/PQUIC/quic/picotls/
 git checkout adf6fa1befb73769f5de590609fd1d82e2ab326f
 git submodule init
 git submodule update
@@ -21,7 +21,7 @@ make check
 
 printf "\n\n"
 printf "###### Installing PQUIC \n\n"
-cd $HOME/TVOQE_UPGRADE_27/quic/pquic/
+cd $HOME/#/quic/pquic/
 git checkout master #99eede2016caf86016e7d75f5502b89217f52d3b
 git submodule update --init
 cd ubpf/vm
