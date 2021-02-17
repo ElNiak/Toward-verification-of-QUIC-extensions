@@ -25,7 +25,7 @@ else:
 scdir = os.environ.get('QUIC_IMPL_DIR',os.environ.get('HOME','') + '/TVOQE_UPGRADE_27/quic')
 scdircr = os.environ.get('QUIC_IMPL_DIR',os.environ.get('HOME','') + '/TVOQE_Perso/quic')
 servers = [
-    ['picoquic',[scdir+'/picoquic','./picoquicdemo -l - -D -L']],
+    ['picoquic',[scdir+'/picoquic','./picoquicdemo -l - -D -L -b myqlog.bin']],
     ['pquic',[scdir+'/pquic','./picoquicdemo -l - -D -L']],
     ['quant',['..',scdir + '/quant/Debug/bin/server -d . -c leaf_cert.pem -k leaf_cert.key -p 4443 -t 3600']],
     ['winquic',['..','true']],
@@ -37,7 +37,7 @@ servers = [
 ]
 
 clients = [
-    ['picoquic',[scdir + '/picoquic','./picoquicdemo -l - -L -D -v ff00001b localhost 4443 ']],
+    ['picoquic',[scdir + '/picoquic','./picoquicdemo -l - -L -D -v ff00001b localhost 4443 -b myqlog.bin']],
     ['pquic',[scdir + '/pquic','./picoquicdemo -l - -L -D -v ff00001d localhost 4443 ']],
     ['quant',['..',scdir + '/quant/Debug/bin/client -d . -c leaf_cert.pem -k leaf_cert.key -p 4443 -t 3600']],
     ['winquic',['..','true']],
@@ -52,9 +52,20 @@ server_tests = [
     ['..',
       [
           ['quic_server_test_stream','test_completed'],
+	  ['quic_server_test_handshake_done_error','test_completed'],
           ['quic_server_test_reset_stream','test_completed'],
           ['quic_server_test_connection_close','test_completed'],
+          ['quic_server_test_stop_sending','test_completed'],
           ['quic_server_test_max','test_completed'],
+	  ['quic_server_test_token_error','test_completed'],
+	  ['quic_server_test_tp_error','test_completed'],
+	  ['quic_server_test_double_tp_error','test_completed'],
+	  ['quic_server_test_tp_acticoid_error','test_completed'],
+	  ['quic_server_test_tp_limit_acticoid_error','test_completed'],
+	  ['quic_server_test_blocked_streams_maxstream_error','test_completed'],
+	  ['quic_server_test_retirecoid_error','test_completed'],
+	  ['quic_server_test_newcoid_zero_error','test_completed'],
+	  ['quic_server_test_accept_maxdata','test_completed'],
       ]
     ],
 ]
@@ -64,6 +75,16 @@ client_tests = [
     ['..',
       [
           ['quic_client_test_max','test_completed'],
+	  ['quic_client_test_token_error','test_completed'],
+	  ['quic_client_test_tp_error','test_completed'],
+	  ['quic_client_test_double_tp_error','test_completed'],
+	  ['quic_client_test_tp_acticoid_error','test_completed'],
+	  ['quic_client_test_tp_limit_acticoid_error','test_completed'],
+	  ['quic_client_test_blocked_streams_maxstream_error','test_completed'],
+	  ['quic_client_test_retirecoid_error','test_completed'],
+	  ['quic_client_test_newcoid_zero_error','test_completed'],
+	  ['quic_client_test_accept_maxdata','test_completed'],
+	  ['quic_client_test_tp_prefadd_error','test_completed'],
       ]
     ],
 ]

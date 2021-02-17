@@ -1,6 +1,3 @@
-cd quic/
-sudo rm -r picotls/
-git clone https://github.com/h2o/picotls.git
 
 #Install picotls
 printf "\n\n"
@@ -18,7 +15,7 @@ make check
 printf "\n\n"
 printf "###### Installing PicoQUIC:\n\n"
 cd $HOME/TVOQE_UPGRADE_27/quic/picoquic/
-git checkout master #639c9e685d37e74d357d3dd8599b9dbff90934af 
+git checkout 639c9e685d37e74d357d3dd8599b9dbff90934af 
 cmake .
 make
 ./picoquic_ct
