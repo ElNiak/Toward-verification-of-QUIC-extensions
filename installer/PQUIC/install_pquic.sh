@@ -1,3 +1,4 @@
+mkdir quic/
 cd quic/
 [ ! -f pquic/ ] && git clone https://github.com/p-quic/pquic.git 
 
@@ -21,7 +22,7 @@ make check
 
 printf "\n\n"
 printf "###### Installing PQUIC \n\n"
-cd $HOME/#/quic/pquic/
+cd $HOME/PQUIC/quic/pquic/
 git checkout master #99eede2016caf86016e7d75f5502b89217f52d3b
 git submodule update --init
 cd ubpf/vm

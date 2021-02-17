@@ -1,7 +1,7 @@
 array=()
 while IFS=  read -r -d $'\0'; do
     array+=("$REPLY")
-done < <(find $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/doc/examples/quic -type f -name \*.ivy -print0 -printf "%f\n")
+done < <(find $HOME/PQUIC/QUIC-Ivy/doc/examples/quic -type f -name \*.ivy -print0 -printf "%f\n")
 
 echo $array
 

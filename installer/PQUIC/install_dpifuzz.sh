@@ -12,7 +12,7 @@ sudo apt-get install libssl-dev
 export GOPATH=`pwd`
 echo export GOPATH=`pwd` >> ~/.profile 
 export GOROOT=/usr/local/go
-export GOPATH=$HOME/TVOQE_UPGRADE_27/quic/go
+export GOPATH=$HOME/PQUIC/quic/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 go get -u github.com/QUIC-Tracker/quic-tracker  # This will fail because of the missing dependencies that should be build using the 4 lines below
