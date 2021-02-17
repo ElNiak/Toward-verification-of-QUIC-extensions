@@ -48,3 +48,6 @@ def main(argv):
         os.system('docker run -it --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v ${PWD}/results:/results -e DISPLAY='+ os.environ["DISPLAY"] +' quic-ivy:quic-ivy ./test_client.sh')
     elif mode == "server":
         os.system('docker run -it --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v ${PWD}/results:/results -e DISPLAY='+ os.environ["DISPLAY"] +' quic-ivy:quic-ivy ./test_server.sh')
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
