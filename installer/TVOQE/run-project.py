@@ -9,15 +9,16 @@ from os import listdir
 from os.path import isfile, join
 
 def usage():
-    message = "Usage: ./run-project -b <true/false> -m <client/server/all>"
+    message = "Usage: ./run-project -b <true/false> -m <client/server/all> -s <ssh_key>"
     print(message)
 
 def main(argv):     
     build = False
     mode  = "all" 
+    ssh   = ""
 
     try:                                
-        opts, args = getopt.getopt(argv, "hg:bm", ["help", "build=","mode="])
+        opts, args = getopt.getopt(argv, "hg:bms", ["help", "build=","mode=","ssh="])
     except getopt.GetoptError:          
         usage()                         
         sys.exit(2)                     
@@ -31,10 +32,15 @@ def main(argv):
             if not arg == "all" or not arg == "client" or not arg == "server":
                 usage()                     
                 sys.exit()            
-            mode = arg   
+            mode = arg  
+        elif opt == '-s':
+            if ssh == "" or arg == "":
+                usage()                     
+                sys.exit()            
+            ssh = arg   
 
     if build:
-        os.system('docker build -t quic-ivy:quic-ivy .')
+        os.system('docker build --build-arg SSH_PRIVATE_KEY='+ ssh +' -t quic-ivy:quic-ivy .')
 
     if mode == "all":
         os.system('docker run -it --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v ${PWD}/results:/results -e DISPLAY='+ os.environ["DISPLAY"] +' quic-ivy:quic-ivy ./test_all.sh')
