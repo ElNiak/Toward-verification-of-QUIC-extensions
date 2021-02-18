@@ -16,21 +16,21 @@ tests_server=(quic_server_test_stream
 	          quic_server_test_tp_limit_acticoid_error
 	          quic_server_test_accept_maxdata)
 
-cd $HOME/
+cd /
 
 bash install_ivy.sh
 
-rm $HOME/QUIC-Ivy/doc/examples/quic/test/test.py
-cp $HOME/test.py $HOME/QUIC-Ivy/doc/examples/quic/test/
-cd $HOME/QUIC-Ivy/doc/examples/quic/quic_tests
+rm /QUIC-Ivy/doc/examples/quic/test/test.py
+cp /test.py /QUIC-Ivy/doc/examples/quic/test/
+cd /QUIC-Ivy/doc/examples/quic/quic_tests
 
 printf "BUILDING TEST \n"
 for j in "${tests_server[@]}"; do
     :
     ivyc target=test $j.ivy
-    cp $j $HOME/QUIC-Ivy/doc/examples/quic/build/
-    cp $j.cpp $HOME/QUIC-Ivy/doc/examples/quic/build/
-    cp $j.h $HOME/QUIC-Ivy/doc/examples/quic/build/
+    cp $j /QUIC-Ivy/doc/examples/quic/build/
+    cp $j.cpp /QUIC-Ivy/doc/examples/quic/build/
+    cp $j.h /QUIC-Ivy/doc/examples/quic/build/
     rm $j
     rm $j.cpp
     rm $j.h
@@ -38,7 +38,7 @@ for j in "${tests_server[@]}"; do
 done
 
 printf "\n"
-cd $HOME/QUIC-Ivy/doc/examples/quic/test/
+cd /QUIC-Ivy/doc/examples/quic/test/
 printf "TEST SERVER \n"
 for j in "${tests_server[@]}"; do
     :
@@ -51,7 +51,7 @@ for j in "${tests_server[@]}"; do
     done
 done
 
-cd $HOME/
+cd /
 bash remove_ivy.sh
 
-cp -R  $HOME/QUIC-Ivy/doc/examples/quic/test/temp /results
+cp -R  /QUIC-Ivy/doc/examples/quic/test/temp /results

@@ -14,17 +14,17 @@ tests_client=(quic_client_test_max
 
 bash install_ivy.sh
 
-rm $HOME/QUIC-Ivy/doc/examples/quic/test/test.py
-cp $HOME/test.py $HOME/QUIC-Ivy/doc/examples/quic/test/
-cd $HOME/QUIC-Ivy/doc/examples/quic/quic_tests
+rm /QUIC-Ivy/doc/examples/quic/test/test.py
+cp /test.py /QUIC-Ivy/doc/examples/quic/test/
+cd /QUIC-Ivy/doc/examples/quic/quic_tests
 
 printf "BUILDING TEST \n"
 for j in "${tests_client[@]}"; do
     :
     ivyc target=test $j.ivy
-    cp $j $HOME/QUIC-Ivy/doc/examples/quic/build/
-    cp $j.cpp $HOME/QUIC-Ivy/doc/examples/quic/build/
-    cp $j.h $HOME/QUIC-Ivy/doc/examples/quic/build/
+    cp $j /QUIC-Ivy/doc/examples/quic/build/
+    cp $j.cpp /QUIC-Ivy/doc/examples/quic/build/
+    cp $j.h /QUIC-Ivy/doc/examples/quic/build/
     rm $j
     rm $j.cpp
     rm $j.h
@@ -32,7 +32,7 @@ for j in "${tests_client[@]}"; do
 done
 
 printf "\n"
-cd $HOME/QUIC-Ivy/doc/examples/quic/test/
+cd /QUIC-Ivy/doc/examples/quic/test/
 printf "TEST CLIENT \n"
 for j in "${tests_client[@]}"; do
     :
@@ -45,7 +45,7 @@ for j in "${tests_client[@]}"; do
 done
 
 
-cd $HOME/
+cd /
 bash remove_ivy.sh
 
-cp -R  $HOME/QUIC-Ivy/doc/examples/quic/test/temp /results
+cp -R  /QUIC-Ivy/doc/examples/quic/test/temp /results

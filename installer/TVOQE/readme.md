@@ -1,0 +1,1 @@
+1. copy you ssh key for git in .ssh

@@ -9,7 +9,7 @@ from os import listdir
 from os.path import isfile, join
 
 def usage():
-    message = "Usage: ./run-project -b <true/false> -m <client/server/all> -s <ssh_key>"
+    message = "Usage: ./run-project -b <true/false> -m <client/server/all>"
     print(message)
 
 def main(argv):     
@@ -18,7 +18,7 @@ def main(argv):
     ssh   = ""
 
     try:                                
-        opts, args = getopt.getopt(argv, "hg:bms", ["help", "build=","mode=","ssh="])
+        opts, args = getopt.getopt(argv, "hg:b:m:s", ["help", "build=","mode=","ssh="])
     except getopt.GetoptError:          
         usage()                         
         sys.exit(2)                     
@@ -29,7 +29,7 @@ def main(argv):
         elif opt == '-b' and arg.lower() == "true":                
             build = True    
         elif opt == '-m':
-            if not arg == "all" or not arg == "client" or not arg == "server":
+            if not arg == "all" and not arg == "client" and not arg == "server":
                 usage()                     
                 sys.exit()            
             mode = arg  
@@ -40,14 +40,14 @@ def main(argv):
             ssh = arg   
 
     if build:
-        os.system('docker build --build-arg SSH_PRIVATE_KEY='+ ssh +' -t quic-ivy:quic-ivy .')
+        os.system('docker build -t quic-ivy .')
 
     if mode == "all":
-        os.system('docker run -it --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v ${PWD}/results:/results -e DISPLAY='+ os.environ["DISPLAY"] +' quic-ivy:quic-ivy ./test_all.sh')
+        os.system('docker run -it -v results:/results quic-ivy bash test_all.sh')
     elif mode == "client":
-        os.system('docker run -it --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v ${PWD}/results:/results -e DISPLAY='+ os.environ["DISPLAY"] +' quic-ivy:quic-ivy ./test_client.sh')
+        os.system('docker run -it -v results:/results quic-ivy bash test_client.sh')
     elif mode == "server":
-        os.system('docker run -it --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v ${PWD}/results:/results -e DISPLAY='+ os.environ["DISPLAY"] +' quic-ivy:quic-ivy ./test_server.sh')
+        os.system('docker run -it -v results:/results quic-ivy bash test_server.sh')
 
 if __name__ == "__main__":
     main(sys.argv[1:])

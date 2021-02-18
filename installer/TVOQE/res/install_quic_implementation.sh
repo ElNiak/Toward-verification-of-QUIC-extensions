@@ -1,5 +1,5 @@
 #!/bin/bash
-
+cd /home/user/quic/
 [ ! -f picotls/ ] &&  git clone https://github.com/h2o/picotls.git
 [ ! -f picoquic/ ] &&  git clone https://github.com/private-octopus/picoquic.git 
 mkdir go
