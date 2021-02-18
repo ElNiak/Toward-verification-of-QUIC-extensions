@@ -43,10 +43,10 @@ for j in "${tests_client[@]}"; do
         printf "\n\nTesting => $i \n"
         touch /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
         chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap
-        wireshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap -k &
+        tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap -k -f quic &
         python test.py iters=1 client=$i test=$j >> res_client.txt
         count=$((count + 1))
-        pkill wireshark
+        pkill tshark
     done
 done
 

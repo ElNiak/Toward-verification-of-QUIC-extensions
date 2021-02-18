@@ -39,7 +39,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y python python-pip g++ cmake python-ply python-pygraphviz git python-tk tix gperf pkg-config libssl-dev
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y doxygen pkg-config faketime libscope-guard-perl libtest-tcp-perl libbrotli-dev
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y libev-dev libssl-dev libhttp-parser-dev libbsd-dev snapd
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y cmake wireshark
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y cmake wireshark tshark
 
 RUN pip install pexpect chardet 
 RUN pip install gperf
