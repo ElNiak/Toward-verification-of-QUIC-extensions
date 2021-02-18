@@ -18,6 +18,10 @@ RUN git clone --recurse-submodules git@github.com:ElNiak/QUIC-Ivy.git --branch q
 RUN mkdir QUIC-Ivy/doc/examples/quic/build
 RUN mkdir QUIC-Ivy/doc/examples/quic/test/temp
 
+RUN git clone --recursive https://github.com/h2o/picotls.git --branch 2464adadf28c1b924416831d24ca62380936a209
+
+RUN git clone https://github.com/private-octopus/picoquic.git  --branch 639c9e685d37e74d357d3dd8599b9dbff90934af
+
 FROM ubuntu:18.04
 
 # Install dependencies
@@ -53,6 +57,8 @@ ADD res/install_quic_implementation.sh install_quic_implementation.sh
 
 # Install QUIC implementation
 RUN mkdir /results
-RUN mkdir /quic && cd /quic
+RUN mkdir /quic 
+COPY --from=intermediate picotls /quic/picotls
+COPY --from=intermediate picoquic /quic/picoquic
 RUN bash install_quic_implementation.sh;exit 0
 
