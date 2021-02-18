@@ -36,11 +36,6 @@ RUN pip install gperf
 
 # Add ressource file
 
-RUN useradd -m user
-ENV HOME /home/user
-
-WORKDIR /home/user
-
 ADD res/install_ivy.sh install_ivy.sh 
 ADD res/remove_ivy.sh remove_ivy.sh 
 ADD res/test_client.sh test_client.sh 
@@ -51,12 +46,12 @@ ADD res/install_quic_implementation.sh install_quic_implementation.sh
 
 # Install Ivy
 
-COPY --from=intermediate QUIC-Ivy /home/user/QUIC-Ivy
-RUN cd /home/user/QUIC-Ivy && python build_submodules.py
+COPY --from=intermediate QUIC-Ivy /QUIC-Ivy
+RUN cd /QUIC-Ivy && python build_submodules.py
 RUN pip install ms-ivy
 
 # Install QUIC implementation
-RUN mkdir /home/user/quic && cd /home/user/quic
+RUN mkdir /quic && cd /quic
 RUN mkdir /results
-RUN bash install_quic_implementation.sh;exit()
+RUN bash install_quic_implementation.sh;exit 0
 

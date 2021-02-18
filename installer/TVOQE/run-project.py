@@ -21,7 +21,10 @@ def main(argv):
         opts, args = getopt.getopt(argv, "hg:b:m:s", ["help", "build=","mode=","ssh="])
     except getopt.GetoptError:          
         usage()                         
-        sys.exit(2)                     
+        sys.exit(2)
+    if len(opts) < 2:
+        usage()                         
+        sys.exit(2)                    
     for opt, arg in opts:                
         if opt in ("-h", "--help"):      
             usage()                     
