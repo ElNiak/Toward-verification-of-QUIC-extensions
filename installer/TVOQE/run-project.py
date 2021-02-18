@@ -34,10 +34,10 @@ def main(argv):
                 sys.exit()            
             mode = arg  
         elif opt == '-p':
-            if arg == "" :
+            if args[0] == "" :
                 usage()                     
                 sys.exit()            
-            path = arg  
+            path = args[0]  
             if not path[-1] == "/" and not path[-1] == "\\":
                 path += "/"
 

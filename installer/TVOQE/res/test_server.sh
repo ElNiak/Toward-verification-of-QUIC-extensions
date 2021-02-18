@@ -47,6 +47,7 @@ for j in "${tests_server[@]}"; do
     for i in "${servers[@]}"; do
         :
         printf "\n\nTesting => $i \n"
+        touch /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
         chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
         wireshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap -k &
         python test.py iters=1 server=$i test=$j >> res_server.txt
@@ -59,4 +60,5 @@ done
 cd /
 bash remove_ivy.sh
 
-cp -R  /QUIC-Ivy/doc/examples/quic/test/temp /results
+cp -R /QUIC-Ivy/doc/examples/quic/test/temp/ /results
+cp res_server.txt /results
