@@ -14,13 +14,19 @@ COPY .ssh/id_rsa /root/.ssh/id_rsa
 RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 
-RUN git clone --recurse-submodules git@github.com:ElNiak/QUIC-Ivy.git --branch quic_27_upgrade
+RUN git clone --recurse-submodules git@github.com:ElNiak/QUIC-Ivy.git --branch quic_transport_error_code
 RUN mkdir QUIC-Ivy/doc/examples/quic/build
 RUN mkdir QUIC-Ivy/doc/examples/quic/test/temp
 
-RUN git clone --recursive https://github.com/h2o/picotls.git --branch 2464adadf28c1b924416831d24ca62380936a209
-
-RUN git clone https://github.com/private-octopus/picoquic.git  --branch 639c9e685d37e74d357d3dd8599b9dbff90934af
+RUN git clone https://github.com/h2o/picotls.git 
+WORKDIR /picotls
+RUN git checkout master 
+RUN git submodule init
+RUN git submodule update
+WORKDIR /
+RUN git clone https://github.com/private-octopus/picoquic.git 
+WORKDIR /picoquic 
+RUN git checkout 639c9e685d37e74d357d3dd8599b9dbff90934af
 
 FROM ubuntu:18.04
 
