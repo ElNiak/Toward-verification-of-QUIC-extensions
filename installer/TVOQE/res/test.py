@@ -24,6 +24,7 @@ else:
 
 scdir = '/quic'
 scdircr ='/quic'
+
 servers = [
     ['picoquic',[scdir+'/picoquic','./picoquicdemo -l - -D -L -b myqlog.bin']],
     ['pquic',[scdir+'/pquic','./picoquicdemo -l - -D -L']],

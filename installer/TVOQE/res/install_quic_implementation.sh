@@ -1,4 +1,7 @@
 #!/bin/bash
+
+bash update_include.sh
+
 cd /quic
 [ ! -f picotls/ ] &&  git clone https://github.com/h2o/picotls.git
 [ ! -f picoquic/ ] &&  git clone https://github.com/private-octopus/picoquic.git 
