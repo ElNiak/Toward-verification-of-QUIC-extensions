@@ -55,10 +55,13 @@ RUN pip install ms-ivy
 
 ADD res/install_ivy.sh install_ivy.sh 
 ADD res/remove_ivy.sh remove_ivy.sh 
+ADD res/update_include.sh update_include.sh 
 ADD res/test_client.sh test_client.sh 
 ADD res/test_server.sh test_server.sh 
-ADD res/test_server.sh test_all.sh 
+ADD res/test_all.sh test_all.sh 
 ADD res/test.py test.py
+ADD res/ivy_to_cpp.py ivy_to_cpp.py
+ADD res/ivy_cpp_types.py ivy_cpp_types.py
 ADD res/install_quic_implementation.sh install_quic_implementation.sh 
 
 # Install QUIC implementation
