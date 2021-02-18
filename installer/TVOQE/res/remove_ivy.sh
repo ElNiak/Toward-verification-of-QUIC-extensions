@@ -13,7 +13,7 @@ for j in "${array[@]}"; do :
     read -a strarr <<< "$j"
     if [[ ! "${strarr[0]}" == *"$SUB"* ]]; then
 	printf "Files => /usr/local/lib/python2.7/dist-packages/ivy/include/1.7/$strarr  \n" 
-    	sudo rm /usr/local/lib/python2.7/dist-packages/ivy/include/1.7/${strarr[0]}
+    	rm /usr/local/lib/python2.7/dist-packages/ivy/include/1.7/${strarr[0]}
     fi
 done
 
