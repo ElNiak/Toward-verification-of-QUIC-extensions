@@ -34,13 +34,18 @@ done
 printf "\n"
 cd /QUIC-Ivy/doc/examples/quic/test/
 printf "TEST CLIENT \n"
+count=1
 for j in "${tests_client[@]}"; do
     :
     printf "Client => $j  "
     for i in "${servers[@]}"; do
         :
         printf "\n\nTesting => $i \n"
-        python test.py iters=1 client=$i test=$j
+        chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap
+        wireshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap -k &
+        python test.py iters=1 client=$i test=$j >> res_client.txt
+        count=$((count + 1))
+        pkill wireshark
     done
 done
 

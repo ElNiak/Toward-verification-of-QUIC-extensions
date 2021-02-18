@@ -9,15 +9,16 @@ from os import listdir
 from os.path import isfile, join
 
 def usage():
-    message = "Usage: ./run-project -b(uild) <true/false> -m(ode) <client/server/all>"
+    message = "Usage: ./run-project -b[uild] <true/false> -m[ode] <client/server/all> -p <path/>"
     print(message)
 
 def main(argv):     
     build = False
     mode  = "all" 
+    path = ""
     
     try:                                
-        opts, args = getopt.getopt(argv, "hg:b:m", ["help", "build=","mode="])
+        opts, args = getopt.getopt(argv, "hg:b:m:p", ["help", "build=","mode=","path="])
     except getopt.GetoptError:          
         usage()                         
         sys.exit(2)                    
@@ -32,16 +33,23 @@ def main(argv):
                 usage()                     
                 sys.exit()            
             mode = arg  
+        elif opt == '-p':
+            if arg == "" :
+                usage()                     
+                sys.exit()            
+            path = arg  
+            if not path[-1] == "/" and not path[-1] == "\\":
+                path += "/"
 
     if build:
         os.system('docker build -t quic-ivy-uclouvain .')
 
     if mode == "all":
-        os.system('docker run -it -v results:/results quic-ivy-uclouvain bash test_all.sh')
+        os.system('docker run -it -v '+ path + 'results:/results quic-ivy-uclouvain bash test_all.sh')
     elif mode == "client":
-        os.system('docker run -it -v results:/results quic-ivy-uclouvain bash test_client.sh')
+        os.system('docker run -it -v '+ path + 'results:/results quic-ivy-uclouvain bash test_client.sh')
     elif mode == "server":
-        os.system('docker run -it -v results:/results quic-ivy-uclouvain bash test_server.sh')
+        os.system('docker run -it -v '+ path + 'results:/results quic-ivy-uclouvain bash test_server.sh')
 
 if __name__ == "__main__":
     main(sys.argv[1:])

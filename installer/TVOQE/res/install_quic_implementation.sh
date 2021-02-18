@@ -1,7 +1,5 @@
 #!/bin/bash
 
-bash update_include.sh
-
 cd /quic
 [ ! -f picotls/ ] &&  git clone https://github.com/h2o/picotls.git
 [ ! -f picoquic/ ] &&  git clone https://github.com/private-octopus/picoquic.git 
@@ -25,3 +23,7 @@ git checkout 639c9e685d37e74d357d3dd8599b9dbff90934af
 cmake .
 make
 ./picoquic_ct
+
+cd /
+echo "Update Includes"
+bash update_include.sh
