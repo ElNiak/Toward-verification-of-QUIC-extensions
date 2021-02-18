@@ -34,6 +34,13 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y cmake
 RUN pip install pexpect chardet 
 RUN pip install gperf
 
+# Install Ivy
+
+COPY --from=intermediate QUIC-Ivy /QUIC-Ivy
+RUN cd /QUIC-Ivy && python build_submodules.py
+RUN pip install ms-ivy
+
+
 # Add ressource file
 
 ADD res/install_ivy.sh install_ivy.sh 
@@ -44,14 +51,8 @@ ADD res/test_server.sh test_all.sh
 ADD res/test.py test.py
 ADD res/install_quic_implementation.sh install_quic_implementation.sh 
 
-# Install Ivy
-
-COPY --from=intermediate QUIC-Ivy /QUIC-Ivy
-RUN cd /QUIC-Ivy && python build_submodules.py
-RUN pip install ms-ivy
-
 # Install QUIC implementation
-RUN mkdir /quic && cd /quic
 RUN mkdir /results
+RUN mkdir /quic && cd /quic
 RUN bash install_quic_implementation.sh;exit 0
 
