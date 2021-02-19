@@ -74,7 +74,7 @@ for j in "${tests_server[@]}"; do
         printf "\n\nTesting => $i \n"
         touch /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
         chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
-        tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap -k -f quic &
+        tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap -f quic &
         python test.py iters=1 server=$i test=$j >> res_server.txt
         count=$((count + 1))
         pkill tshark
@@ -91,10 +91,10 @@ for j in "${tests_client[@]}"; do
         printf "\n\nTesting => $i \n"
         touch /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
         chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap
-        wireshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap -k -f quic &
+        tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap -f quic &
         python test.py iters=1 client=$i test=$j >> res_client.txt
         count=$((count + 1))
-        pkill wireshark
+        pkill tshark
     done
 done
 
@@ -104,3 +104,6 @@ bash remove_ivy.sh
 cp -R /QUIC-Ivy/doc/examples/quic/test/temp/ /results
 cp res_client.txt /results
 cp res_server.txt /results
+
+cd /results
+python create-csv.py
