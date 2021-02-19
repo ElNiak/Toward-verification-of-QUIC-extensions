@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
 server_tests = [
     'quic_server_test_stream',
@@ -69,22 +70,22 @@ for file in os.listdir(foldername+str(run)):
                     break
         outPath = os.path.join(foldername, out)
         err = file.replace(".iev", ".err")
-	    errPath = os.path.join(foldername, err)
+        errPath = os.path.join(foldername, err)
         with open(fullPath, "r") as f:
             last, second_last = readlastline(fullPath)
             if last in "test_completed\n":
                 frame = frame.append(
-                    {"Run":i, 
+                    {"Run":run, 
                     "Mode":mode,
                     "TestName":test_name, 
                     "isPass":True,
                     "Error":"",
                     "Output":fullPath}
                     , ignore_index=True)
-            else
+            else:
                 print("fails")
                 frame = frame.append(
-                    {"Run":i, 
+                    {"Run":run, 
                     "Mode":mode,
                     "TestName":test_name, 
                     "isPass":False,
@@ -99,5 +100,4 @@ today = date.today()
 # Month abbreviation, day and year	
 d4 = today.strftime("%b-%d-%Y")
 print("d4 =", d4)
-frame.to_csv(d4+'.zip', index=False,
-          compression=compression_opts)
+frame.to_csv(d4+'.zip', index=False,compression=compression_opts)
