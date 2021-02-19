@@ -44,7 +44,7 @@ def readlastline(filename):
     return last, second_last
 
 #"/home/chris/Toward-verification-of-QUIC-extensions/result/"
-foldername =  sys.argv[1] 
+foldername =  "/results/temp" 
 subfolders = [ f.path for f in os.scandir(foldername) if f.is_dir() ]
 run = 0
 for file in os.listdir(foldername+str(run)):
@@ -90,3 +90,12 @@ for file in os.listdir(foldername+str(run)):
                     "Output":fullPath}
                     , ignore_index=True)
     run += 1
+
+from datetime import date
+
+today = date.today()
+# Month abbreviation, day and year	
+d4 = today.strftime("%b-%d-%Y")
+print("d4 =", d4)
+frame.to_csv(d4+'.zip', index=False,
+          compression=compression_opts)

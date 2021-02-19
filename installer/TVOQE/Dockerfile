@@ -1,4 +1,4 @@
-FROM ubuntu as intermediate
+FROM ubuntu:18.04 as intermediate
 
 # https://vsupalov.com/build-docker-image-clone-private-repo-ssh-key/
 # install git
@@ -66,6 +66,7 @@ ADD res/install_quic_implementation.sh install_quic_implementation.sh
 
 # Install QUIC implementation
 RUN mkdir /results
+ADD results/create-csv.py /results/create-csv.py
 RUN mkdir /quic 
 COPY --from=intermediate picotls /quic/picotls
 COPY --from=intermediate picoquic /quic/picoquic
