@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+import scandir
 
 server_tests = [
     'quic_server_test_stream',
@@ -48,7 +49,7 @@ def readlastline(filename):
 
 # "/home/chris/Toward-verification-of-QUIC-extensions/result/"
 foldername = "/results/temp"
-subfolders = [f.path for f in os.scandir(foldername) if f.is_dir()]
+subfolders = [f.path for f in scandir.scandir(foldername) if f.is_dir()]
 run = 0
 for file in os.listdir(foldername+str(run)):
     if file.endswith(".iev"):

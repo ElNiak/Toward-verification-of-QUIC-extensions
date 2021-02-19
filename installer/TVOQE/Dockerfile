@@ -42,7 +42,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y libev-dev libssl-dev lib
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y cmake wireshark tshark
 
 RUN pip install pexpect chardet 
-RUN pip install gperf
+RUN pip install gperf pandas scandir
 
 # Install Ivy
 
