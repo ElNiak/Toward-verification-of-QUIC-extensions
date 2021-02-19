@@ -67,8 +67,7 @@ for file in os.listdir(foldername+str(run)):
                 if n in file:
                     test_name = file
                     break
-
-	    outPath = os.path.join(foldername, out)
+        outPath = os.path.join(foldername, out)
         err = file.replace(".iev", ".err")
 	    errPath = os.path.join(foldername, err)
         with open(fullPath, "r") as f:
