@@ -77,11 +77,10 @@ for j in "${tests_server[@]}"; do
         printf "\n\nTesting => $i \n"
         k=0
         until [ $k -gt $ITER] do
-        :
             printf "\n\Iteration => $k \n"
             touch /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
             chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
-            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap -f "udp" &
+            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap -f "udp" & sleep 1 &
             python test.py iters=1 server=$i test=$j >> res_server.txt
             count=$((count + 1))
             pkill tshark
@@ -101,11 +100,10 @@ for j in "${tests_client[@]}"; do
         printf "\n\nTesting => $i \n"
         k=0
         until [ $k -gt $ITER] do
-        :
             printf "\n\Iteration => $k \n"
             touch /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
             chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap
-            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap -f "udp" &
+            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap -f "udp" & sleep 1 &
             python test.py iters=1 client=$i test=$j >> res_client.txt
             count=$((count + 1))
             pkill tshark

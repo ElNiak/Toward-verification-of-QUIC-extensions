@@ -19,7 +19,7 @@ def main(argv):
     it = 1
     
     try:                                
-        opts, args = getopt.getopt(argv, "hg:b:m:p:i", ["help", "build=","mode=","path=","iteration="])
+        opts, args = getopt.getopt(argv, "hg:b:m:p:i:f", ["help", "build=","mode=","path=","iteration=","final="])
     except getopt.GetoptError:          
         usage()                         
         sys.exit(2)                    
@@ -38,10 +38,10 @@ def main(argv):
             #TODO check if int           
             it = int(arg)  
         elif opt == '-p':
-            if args[0] == "" :
+            if arg == "" :
                 usage()                     
                 sys.exit()            
-            path = args[0]  
+            path = arg  
             if not path[-1] == "/" and not path[-1] == "\\":
                 path += "/"
 
@@ -55,7 +55,7 @@ def main(argv):
     elif mode == "server":
         os.system('docker run --privileged -it -v '+ path + 'results:/results quic-ivy-uclouvain bash test_server.sh ' + str(it))
 
-    os.system('chmod -R 644 results/')
+    os.system('chmod -R 777 results/')
 
 if __name__ == "__main__":
     main(sys.argv[1:])
