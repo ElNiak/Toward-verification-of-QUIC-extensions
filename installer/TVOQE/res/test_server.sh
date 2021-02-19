@@ -37,6 +37,8 @@ for j in "${tests_server[@]}"; do
     printf "\n"
 done
 
+ITER=$1
+
 printf "\n"
 cd /QUIC-Ivy/doc/examples/quic/test/
 printf "TEST SERVER \n"
@@ -47,12 +49,19 @@ for j in "${tests_server[@]}"; do
     for i in "${servers[@]}"; do
         :
         printf "\n\nTesting => $i \n"
-        touch /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
-        chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
-        tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap  -f quic &
-        python test.py iters=1 server=$i test=$j >> res_server.txt
-        count=$((count + 1))
-        pkill tshark
+        k=0
+        until [ $k -gt $ITER] do
+        :
+            printf "\n\Iteration => $k \n"
+            touch /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
+            chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
+            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap -f "udp" &
+            python test.py iters=1 server=$i test=$j >> res_server.txt
+            count=$((count + 1))
+            pkill tshark
+            ((k++))
+            printf "\n"
+        done
 	printf "\n"
     done
 done
