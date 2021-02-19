@@ -100,4 +100,6 @@ today = date.today()
 # Month abbreviation, day and year	
 d4 = today.strftime("%b-%d-%Y")
 print("d4 =", d4)
+compression_opts = dict(method='zip',
+                        archive_name=d4+'.csv')  
 frame.to_csv(d4+'.zip', index=False,compression=compression_opts)
