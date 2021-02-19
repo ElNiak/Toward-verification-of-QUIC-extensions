@@ -50,12 +50,12 @@ for j in "${tests_server[@]}"; do
         :
         printf "\n\nTesting => $i \n"
         k=0
-        until [ $k -gt $ITER] do
+        until [ $k -gt $ITER ]; do
             printf "\n\Iteration => $k \n"
             touch /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
             chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
             tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap -f "udp" &  sleep 1 &
-            python test.py iters=1 server=$i test=$j >> res_server.txt
+            python test.py iters=1 server=$i test=$j &>> res_server.txt
             count=$((count + 1))
             pkill tshark
             ((k++))
