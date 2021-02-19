@@ -20,7 +20,7 @@ RUN mkdir QUIC-Ivy/doc/examples/quic/test/temp
 
 RUN git clone https://github.com/h2o/picotls.git 
 WORKDIR /picotls
-RUN git checkout master 
+RUN git checkout 2464adadf28c1b924416831d24ca62380936a209 
 RUN git submodule init
 RUN git submodule update
 WORKDIR /
