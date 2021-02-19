@@ -19,7 +19,7 @@ server_tests = [
     'quic_server_test_accept_maxdata'
 ]
 
-#List of available client's tests 
+# List of available client's tests
 client_tests = [
     'quic_client_test_max',
     'quic_client_test_token_error',
@@ -34,7 +34,9 @@ client_tests = [
     'quic_client_test_tp_prefadd_error'
 ]
 
-frame = pd.DataFrame(columns = ["Run","Mode","TestName","Status", "Error", "Output"])
+frame = pd.DataFrame(
+    columns=["Run", "Mode", "TestName", "Status", "Error", "Output"])
+
 
 def readlastline(filename):
     with open(filename, 'r') as f:
@@ -43,14 +45,15 @@ def readlastline(filename):
         second_last = lines[-2]
     return last, second_last
 
-#"/home/chris/Toward-verification-of-QUIC-extensions/result/"
-foldername =  "/results/temp" 
-subfolders = [ f.path for f in os.scandir(foldername) if f.is_dir() ]
+
+# "/home/chris/Toward-verification-of-QUIC-extensions/result/"
+foldername = "/results/temp"
+subfolders = [f.path for f in os.scandir(foldername) if f.is_dir()]
 run = 0
 for file in os.listdir(foldername+str(run)):
     if file.endswith(".iev"):
         fullPath = os.path.join(foldername, file)
-        out = file.replace(".iev",".out")
+        out = file.replace(".iev", ".out")
         mode = "client"
         test_name = ""
         if "server" in file:
@@ -63,7 +66,7 @@ for file in os.listdir(foldername+str(run)):
            for n in client_tests:
                 if n in file:
                     test_name = file
-                    break 
+                    break
 
 	    outPath = os.path.join(foldername, out)
         err = file.replace(".iev", ".err")
