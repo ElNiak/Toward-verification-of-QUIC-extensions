@@ -1,3 +1,4 @@
+from datetime import date
 import pandas as pd
 import os
 import scandir
@@ -51,55 +52,53 @@ def readlastline(filename):
 foldername = "/results/temp"
 subfolders = [f.path for f in scandir.scandir(foldername) if f.is_dir()]
 run = 0
-for file in os.listdir(foldername+"/"+str(run)):
-    if file.endswith(".iev"):
-        fullPath = os.path.join(foldername, file)
-        out = file.replace(".iev", ".out")
-        mode = "client"
-        test_name = ""
-        if "server" in file:
-            mode = "server"
-            for n in server_tests:
-                if n in file:
-                    test_name = file
-                    break
-        else:
-           for n in client_tests:
-                if n in file:
-                    test_name = file
-                    break
-        outPath = os.path.join(foldername, out)
-        err = file.replace(".iev", ".err")
-        errPath = os.path.join(foldername, err)
-        with open(fullPath, "r") as f:
-            last, second_last = readlastline(fullPath)
-            if last in "test_completed\n":
-                frame = frame.append(
-                    {"Run":run, 
-                    "Mode":mode,
-                    "TestName":test_name, 
-                    "isPass":True,
-                    "Error":"",
-                    "Output":fullPath}
-                    , ignore_index=True)
+for fol in subfolders:
+    for file in os.listdir(fol):
+        if file.endswith(".iev"):
+            fullPath = os.path.join(fol, file)
+            out = file.replace(".iev", ".out")
+            mode = "client"
+            test_name = ""
+            if "server" in file:
+                mode = "server"
+                for n in server_tests:
+                    if n in file:
+                        test_name = file
+                        break
             else:
-                print("fails")
-                frame = frame.append(
-                    {"Run":run, 
-                    "Mode":mode,
-                    "TestName":test_name, 
-                    "isPass":False,
-                    "Error": last+";"+second_last,
-                    "Output":fullPath}
-                    , ignore_index=True)
-    run += 1
+                for n in client_tests:
+                    if n in file:
+                        test_name = file
+                        break
+            outPath = os.path.join(fol, out)
+            err = file.replace(".iev", ".err")
+            errPath = os.path.join(fol, err)
+            with open(fullPath, "r") as f:
+                last, second_last = readlastline(fullPath)
+                if last in "test_completed\n":
+                    frame = frame.append(
+                        {"Run": run,
+                         "Mode": mode,
+                         "TestName": test_name,
+                         "isPass": True,
+                         "Error": "",
+                         "Output": fullPath}, ignore_index=True)
+                else:
+                    print("fails")
+                    frame = frame.append(
+                        {"Run": run,
+                         "Mode": mode,
+                         "TestName": test_name,
+                         "isPass": False,
+                         "Error": last+";"+second_last,
+                         "Output": fullPath}, ignore_index=True)
+        run += 1
 
-from datetime import date
 
 today = date.today()
-# Month abbreviation, day and year	
+# Month abbreviation, day and year
 d4 = today.strftime("%b-%d-%Y")
 print("d4 =", d4)
 compression_opts = dict(method='zip',
-                        archive_name=d4+'.csv')  
-frame.to_csv(d4+'.zip', index=False,compression=compression_opts)
+                        archive_name=d4+'.csv')
+frame.to_csv(d4+'.zip', index=False, compression=compression_opts)
