@@ -51,7 +51,7 @@ def readlastline(filename):
 foldername = "/results/temp"
 subfolders = [f.path for f in scandir.scandir(foldername) if f.is_dir()]
 run = 0
-for file in os.listdir(foldername+str(run)):
+for file in os.listdir(foldername+"/"+str(run)):
     if file.endswith(".iev"):
         fullPath = os.path.join(foldername, file)
         out = file.replace(".iev", ".out")
