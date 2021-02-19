@@ -55,7 +55,7 @@ def main(argv):
     elif mode == "server":
         os.system('docker run --privileged -it -v '+ path + 'results:/results quic-ivy-uclouvain bash test_server.sh ' + str(it))
 
-    os.system('chmod -R 644 results/')
+    os.system('chmod -R 777 results/')
 
 if __name__ == "__main__":
     main(sys.argv[1:])
