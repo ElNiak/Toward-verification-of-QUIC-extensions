@@ -1,3 +1,8 @@
+#!/bin/bash
+
+# Remove previously added .ivy file of the quic project directly 
+# in "include" folder of the ivy python library 
+
 array=()
 while IFS=  read -r -d $'\0'; do
     array+=("$REPLY")

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cd /quic
-
 #Install picotls
 printf "\n\n"
 printf "###### Installing PicoTLS:\n\n"
@@ -18,6 +16,7 @@ cmake .
 make
 ./picoquic_ct
 
+#Update includes of python lib
 cd /
 echo "Update Includes"
 bash update_include.sh

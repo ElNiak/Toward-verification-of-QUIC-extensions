@@ -1,3 +1,9 @@
+#!/bin/bash
+
+#
+# Launch the server suite test for each implementation
+#
+
 servers=(picoquic)
 
 tests_server=(quic_server_test_stream
@@ -65,11 +71,13 @@ for j in "${tests_server[@]}"; do
     done
 done
 
+cp res_server.txt /results
+
 cd /
 bash remove_ivy.sh
 
 cp -R /QUIC-Ivy/doc/examples/quic/test/temp/ /results
-cp res_server.txt /results
+
 
 cd /results
 python create-csv.py

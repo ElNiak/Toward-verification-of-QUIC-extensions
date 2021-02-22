@@ -1,3 +1,9 @@
+#!/bin/bash
+
+#
+# Launch the client suite test for each implementation
+#
+
 servers=(picoquic)
 
 tests_client=(quic_client_test_max
@@ -59,12 +65,12 @@ for j in "${tests_client[@]}"; do
     done
 done
 
+cp res_client.txt /results
 
 cd /
 bash remove_ivy.sh
 
 cp -R  /QUIC-Ivy/doc/examples/quic/test/temp/ /results
-cp res_client.txt /results
 
 cd /results
 python create-csv.py

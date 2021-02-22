@@ -1,3 +1,6 @@
+#!/bin/bash
+
+cd /
 # Clone Ivy project 
 git clone --recurse-submodules git@github.com:ElNiak/QUIC-Ivy.git --branch quic_29
 mkdir QUIC-Ivy/doc/examples/quic/build
