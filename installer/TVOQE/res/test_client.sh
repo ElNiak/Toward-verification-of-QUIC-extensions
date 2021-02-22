@@ -48,11 +48,12 @@ for j in "${tests_client[@]}"; do
             printf "\n\Iteration => $k \n"
             touch /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
             chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap
-            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap -f "udp" & sleep 1 &
-            python test.py iters=1 client=$i test=$j &>> res_client.txt
+            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap -f "udp";sleep 1 &
+            python test.py iters=1 client=$i test=$j >> res_client.txt 2>&1
             count=$((count + 1))
             pkill tshark
             ((k++))
+            kill $(lsof -t -i udp) >/dev/null 2>&1
             printf "\n"
         done
     done

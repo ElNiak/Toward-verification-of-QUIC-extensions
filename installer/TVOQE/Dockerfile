@@ -9,24 +9,15 @@ RUN apt-get install -y git
 ARG SSH_PRIVATE_KEY
 RUN mkdir /root/.ssh/
 COPY .ssh/id_rsa /root/.ssh/id_rsa
+RUN chmod 400 /root/.ssh/id_rsa
 
 # make sure your domain is accepted
 RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 
-RUN git clone --recurse-submodules git@github.com:ElNiak/QUIC-Ivy.git --branch quic_transport_error_code
-RUN mkdir QUIC-Ivy/doc/examples/quic/build
-RUN mkdir QUIC-Ivy/doc/examples/quic/test/temp
+ADD res/download_quic_implementation.sh download_quic_implementation.sh 
 
-RUN git clone https://github.com/h2o/picotls.git 
-WORKDIR /picotls
-RUN git checkout 2464adadf28c1b924416831d24ca62380936a209 
-RUN git submodule init
-RUN git submodule update
-WORKDIR /
-RUN git clone https://github.com/private-octopus/picoquic.git 
-WORKDIR /picoquic 
-RUN git checkout 639c9e685d37e74d357d3dd8599b9dbff90934af
+RUN bash download_quic_implementation.sh
 
 FROM ubuntu:18.04
 
@@ -50,7 +41,6 @@ COPY --from=intermediate QUIC-Ivy /QUIC-Ivy
 RUN cd /QUIC-Ivy && python build_submodules.py
 RUN pip install ms-ivy
 
-
 # Add ressource file
 
 ADD res/install_ivy.sh install_ivy.sh 
@@ -60,8 +50,8 @@ ADD res/test_client.sh test_client.sh
 ADD res/test_server.sh test_server.sh 
 ADD res/test_all.sh test_all.sh 
 ADD res/test.py test.py
-ADD res/ivy_to_cpp.py ivy_to_cpp.py
-ADD res/ivy_cpp_types.py ivy_cpp_types.py
+ADD res/ivy_to_cpp.py /usr/local/lib/python2.7/dist-packages/ivy/ivy_to_cpp.py
+ADD res/ivy_cpp_types.py /usr/local/lib/python2.7/dist-packages/ivy/ivy_cpp_types.py
 ADD res/install_quic_implementation.sh install_quic_implementation.sh 
 
 # Install QUIC implementation
