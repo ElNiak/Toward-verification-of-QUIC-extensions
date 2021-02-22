@@ -43,8 +43,10 @@ frame = pd.DataFrame(
 def readlastline(filename):
     with open(filename, 'r') as f:
         lines = f.read().splitlines()
-        last = lines[-1]
-        second_last = lines[-2]
+        if len(lines) > 0:
+            last = lines[-1]
+        if len(lines) > 1:
+            second_last = lines[-2]
     return last, second_last
 
 
