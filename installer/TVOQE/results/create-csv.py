@@ -84,7 +84,6 @@ for fol in subfolders:
                          "Error": "",
                          "Output": fullPath}, ignore_index=True)
                 else:
-                    print("fails")
                     frame = frame.append(
                         {"Run": run,
                          "Mode": mode,
@@ -92,13 +91,12 @@ for fol in subfolders:
                          "isPass": False,
                          "Error": last+";"+second_last,
                          "Output": fullPath}, ignore_index=True)
-        run += 1
+                run += 1
+        
 
 
 today = date.today()
 # Month abbreviation, day and year
 d4 = today.strftime("%b-%d-%Y")
 print("d4 =", d4)
-compression_opts = dict(method='zip',
-                        archive_name=d4+'.csv')
-frame.to_csv(d4+'.zip', index=False, compression=compression_opts)
+frame.to_csv(d4+'.csv', index=False)
