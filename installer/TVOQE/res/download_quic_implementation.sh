@@ -14,5 +14,5 @@ cd /
 # Clone picoquic project 
 git clone https://github.com/private-octopus/picoquic.git 
 cd /picoquic 
-git checkout 639c9e685d37e74d357d3dd8599b9dbff90934af
+git checkout 800a1e70eda6352457bfc745e97f9ce3b7958644
 cd /
