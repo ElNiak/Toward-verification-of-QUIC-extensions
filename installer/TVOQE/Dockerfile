@@ -2,8 +2,8 @@ FROM ubuntu:18.04 as intermediate
 
 # https://vsupalov.com/build-docker-image-clone-private-repo-ssh-key/
 # install git
-RUN apt-get update
-RUN apt-get install -y git wget tar 
+RUN apt-get update && apt-get -y install alien
+RUN apt-get install --fix-missing -y git wget tar 
 
 # add credentials on build TODO
 ARG SSH_PRIVATE_KEY
@@ -23,18 +23,18 @@ FROM ubuntu:18.04
 
 # Install dependencies
 
-RUN apt-get update
+RUN apt-get update  && apt-get -y install alien
 RUN apt-get install -y apt-utils
 
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata curl wget tar 
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y python python-pip g++ cmake python-ply python-pygraphviz git python-tk tix gperf pkg-config libssl-dev
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y doxygen pkg-config faketime libscope-guard-perl libtest-tcp-perl libbrotli-dev
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y libev-dev libssl-dev libhttp-parser-dev libbsd-dev snapd
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y cmake wireshark tshark
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y binutils autoconf automake autotools-dev libtool pkg-config libev-dev libjemalloc-dev ca-certificates mime-suppor
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y libboost-all-dev libevent-dev libdouble-conversion-dev libgoogle-glog-dev libgflags-dev libiberty-dev liblz4-dev liblzma-dev
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y libsnappy-dev zlib1g-dev binutils-dev libjemalloc-dev libsodium-dev sudo
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y git
+RUN DEBIAN_FRONTEND="noninteractive" apt-get --fix-missing  -y install tzdata curl wget tar 
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y python python-pip g++ cmake python-ply python-pygraphviz git python-tk tix gperf pkg-config libssl-dev
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y doxygen pkg-config faketime libscope-guard-perl libtest-tcp-perl libbrotli-dev
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libev-dev libssl-dev libhttp-parser-dev libbsd-dev snapd
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y cmake wireshark tshark
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing   -y binutils autoconf automake autotools-dev libtool pkg-config libev-dev libjemalloc-dev ca-certificates mime-support
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libboost-all-dev libevent-dev libdouble-conversion-dev libgoogle-glog-dev libgflags-dev libiberty-dev liblz4-dev liblzma-dev
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libsnappy-dev zlib1g-dev binutils-dev libjemalloc-dev libsodium-dev sudo
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y git
 RUN pip install pexpect chardet 
 RUN pip install gperf pandas scandir
 

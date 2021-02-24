@@ -25,6 +25,8 @@ cargo test
 
 cd /
 #Install go
+mkdir /client /server
+mkdir /logs
 wget https://dl.google.com/go/go1.14.linux-amd64.tar.gz
 tar xfz go1.14.linux-amd64.tar.gz
 export PATH="/go/bin:${PATH}"

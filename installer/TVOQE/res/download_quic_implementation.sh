@@ -17,7 +17,7 @@ git submodule update
 cd /
 git clone https://github.com/private-octopus/picoquic.git 
 cd /picoquic 
-git checkout 800a1e70eda6352457bfc745e97f9ce3b7958644
+git checkout ad23e6c3593bd987dcd8d74fc9f528f2676fedf4 #800a1e70eda6352457bfc745e97f9ce3b7958644
 
 #Clone quiche project
 cd /
