@@ -4,7 +4,7 @@
 # Launch the server suite test for each implementation
 #
 
-servers=(picoquic)
+servers=(picoquic quiche mvfst ngtcp2 quic-go)
 
 tests_server=(quic_server_test_stream
               quic_server_test_max 
@@ -20,7 +20,9 @@ tests_server=(quic_server_test_stream
 	          quic_server_test_stop_sending
               quic_server_test_double_tp_error
 	          quic_server_test_tp_limit_acticoid_error
-	          quic_server_test_accept_maxdata)
+	          quic_server_test_accept_maxdata
+              quic_server_test_ext_min_ack_delay
+              quic_server_test_no_icid)
 
 cd /
 

@@ -34,7 +34,10 @@ servers = [
     ['chromium',[scdircr + '/chromium/src','./out/Default/quic_server --port=4443  --quic_response_cache_dir=/tmp/quic-data/www.example.org   --certificate_file=net/tools/quic/certs/out/leaf_cert.pem   --key_file=net/tools/quic/certs/out/leaf_cert.pkcs8 --quic-enable-version-99  --generate_dynamic_responses --allow_unknown_root_cert --v=1']], # --quic_versions=h3-25
     ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-server -- \
       --cert tools/apps/src/bin/cert.crt \
-      --key tools/apps/src/bin/cert.key']]
+      --key tools/apps/src/bin/cert.key']],
+    ['quic-go',[scdir + '/server/server','quic-go-generic -G 50000 -X keys.log 127.0.0.1 4443']],
+    ['ngtcp2',[scdir + '/ngtcp2-generic/generic-http3-server','ngtcp2-generic -p 4443 -k /certs/server.key -c /certs/server.crt']],
+    ['mvfst',[scdir + '/mvfst-generic/generic','./echo -mode=server -host=127.0.0.1 -port=4443']]
 ]
 
 clients = [
@@ -43,8 +46,11 @@ clients = [
     ['quant',['..',scdir + '/quant/Debug/bin/client -d . -c leaf_cert.pem -k leaf_cert.key -p 4443 -t 3600']],
     ['winquic',['..','true']],
     ['minq',['..','go run '+ scdir + '/go/src/github.com/ekr/minq/bin/client/main.go ']],
-    ['chromium',[scdircr + '/chromium/src','./out/Default/quic_client --host=127.0.0.1 --port=6121 --disable_certificate_verification  https://www.example.org/ --v=1 --quic_versions=h3-23']],
-    ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-client -- https://quic.tech:8443/']]
+    ['chromium',[scdircr + '/chromium/src','./out/Default/quic_client --host=127.0.0.1 --port=4443 --disable_certificate_verification  https://www.example.org/ --v=1 --quic_versions=h3-23']],
+    ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-client -- https://quic.tech:8443/']],
+    ['quic-go',[scdir + '/client/client','quic-go-generic -p 4443']],
+    ['ngtcp2',[scdir + '/ngtcp2-generic/generic-http3-client','ngtcp2-generic -G 50000000 -X keys.log 127.0.0.1 4443']],
+    ['mvfst',[scdir + '/mvfst-generic/generic','./echo -mode=client -host=127.0.0.1 -port=4443']]
 ]
 
 #List of available server's tests 
@@ -52,26 +58,27 @@ clients = [
 server_tests = [
     ['..',
       [
-          ['quic_server_test_stream','test_completed'],
-	      ['quic_server_test_handshake_done_error','test_completed'],
-          ['quic_server_test_reset_stream','test_completed'],
-          ['quic_server_test_connection_close','test_completed'],
-          ['quic_server_test_stop_sending','test_completed'],
-          ['quic_server_test_max','test_completed'],
-          ['quic_server_test_token_error','test_completed'],
-          ['quic_server_test_tp_error','test_completed'],
-          ['quic_server_test_double_tp_error','test_completed'],
-          ['quic_server_test_tp_acticoid_error','test_completed'],
-          ['quic_server_test_tp_limit_acticoid_error','test_completed'],
-          ['quic_server_test_blocked_streams_maxstream_error','test_completed'],
-          ['quic_server_test_retirecoid_error','test_completed'],
-          ['quic_server_test_newcoid_zero_error','test_completed'],
-          ['quic_server_test_accept_maxdata','test_completed'],
+        ['quic_server_test_stream','test_completed'],
+        ['quic_server_test_handshake_done_error','test_completed'],
+        ['quic_server_test_reset_stream','test_completed'],
+        ['quic_server_test_connection_close','test_completed'],
+        ['quic_server_test_stop_sending','test_completed'],
+        ['quic_server_test_max','test_completed'],
+        ['quic_server_test_token_error','test_completed'],
+        ['quic_server_test_tp_error','test_completed'],
+        ['quic_server_test_double_tp_error','test_completed'],
+        ['quic_server_test_tp_acticoid_error','test_completed'],
+        ['quic_server_test_tp_limit_acticoid_error','test_completed'],
+        ['quic_server_test_blocked_streams_maxstream_error','test_completed'],
+        ['quic_server_test_retirecoid_error','test_completed'],
+        ['quic_server_test_newcoid_zero_error','test_completed'],
+        ['quic_server_test_accept_maxdata','test_completed'],
+        ['quic_server_test_no_icid','test_completed'],
+        ['quic_server_test_ext_min_ack_delay','test_completed'],
       ]
     ],
 ]
-
-#List of available client's tests 
+#List of available client's tests
 client_tests = [
     ['..',
       [
@@ -86,11 +93,12 @@ client_tests = [
         ['quic_client_test_newcoid_zero_error','test_completed'],
         ['quic_client_test_accept_maxdata','test_completed'],
         ['quic_client_test_tp_prefadd_error','test_completed'],
+        ['quic_client_test_no_odci','test_completed'],
+        ['quic_client_test_ext_min_ack_delay','test_completed'],
+        ['quic_client_test_stateless_reset_token','test_completed'],
       ]
     ],
 ]
-
-
 import sys
 
 # @post print how to use test.py
