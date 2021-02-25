@@ -36,7 +36,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libboost
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libsnappy-dev zlib1g-dev binutils-dev libjemalloc-dev libsodium-dev sudo
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y git python3 python3-dev python3-pip
 RUN pip install pexpect chardet 
-RUN pip install gperf pandas scandir
+RUN pip install gperf pandas scandir setuptools-rust
 
 # Install Ivy
 

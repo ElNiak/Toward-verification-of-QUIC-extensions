@@ -29,7 +29,7 @@ git checkout 37de4c81b0c5e4b626e64aee5a9f15198343eb67
 #Clone quic-go project
 cd /
 #Install go
-wget https://dl.google.com/go/go1.14.linux-amd64.tar.gz
+wget https://dl.google.com/go/go1.14.linux-amd64.tar.gz  &> /dev/null
 tar xfz go1.14.linux-amd64.tar.gz
 rm go1.14.linux-amd64.tar.gz
 #Install project

@@ -27,7 +27,7 @@ cd /
 #Install go
 mkdir /client /server
 mkdir /logs
-wget https://dl.google.com/go/go1.14.linux-amd64.tar.gz
+wget https://dl.google.com/go/go1.14.linux-amd64.tar.gz  &> /dev/null
 tar xfz go1.14.linux-amd64.tar.gz
 export PATH="/go/bin:${PATH}"
 rm go1.14.linux-amd64.tar.gz
