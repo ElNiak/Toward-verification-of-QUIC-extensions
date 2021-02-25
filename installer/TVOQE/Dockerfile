@@ -34,7 +34,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y cmake wi
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y binutils autoconf automake autotools-dev libtool pkg-config libev-dev libjemalloc-dev ca-certificates mime-support
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libboost-all-dev libevent-dev libdouble-conversion-dev libgoogle-glog-dev libgflags-dev libiberty-dev liblz4-dev liblzma-dev
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libsnappy-dev zlib1g-dev binutils-dev libjemalloc-dev libsodium-dev sudo
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y git python3-dev
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y git python3 python3-dev python3-pip
 RUN pip install pexpect chardet 
 RUN pip install gperf pandas scandir
 

@@ -39,8 +39,8 @@ go build -o /server/server /server/main.go
 #Install aioquic
 cd /
 cd /quic/aioquic
-pip install -e .
-pip install aiofiles asgiref dnslib httpbin starlette wsproto
+pip3 install -e .
+pip3 install aiofiles asgiref dnslib httpbin starlette wsproto
 
 
 #Install mvfst
