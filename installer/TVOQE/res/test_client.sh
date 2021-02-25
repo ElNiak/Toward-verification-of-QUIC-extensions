@@ -4,7 +4,7 @@
 # Launch the client suite test for each implementation
 #
 
-servers=(picoquic quiche mvfst ngtcp2 quic-go)
+servers=(picoquic quiche mvfst aioquic quic-go)
 
 tests_client=(quic_client_test_max
               quic_client_test_token_error

@@ -31,10 +31,10 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y python p
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y doxygen pkg-config faketime libscope-guard-perl libtest-tcp-perl libbrotli-dev
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libev-dev libssl-dev libhttp-parser-dev libbsd-dev snapd
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y cmake wireshark tshark
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing   -y binutils autoconf automake autotools-dev libtool pkg-config libev-dev libjemalloc-dev ca-certificates mime-support
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y binutils autoconf automake autotools-dev libtool pkg-config libev-dev libjemalloc-dev ca-certificates mime-support
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libboost-all-dev libevent-dev libdouble-conversion-dev libgoogle-glog-dev libgflags-dev libiberty-dev liblz4-dev liblzma-dev
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libsnappy-dev zlib1g-dev binutils-dev libjemalloc-dev libsodium-dev sudo
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y git
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y git python3-dev
 RUN pip install pexpect chardet 
 RUN pip install gperf pandas scandir
 
@@ -67,11 +67,7 @@ COPY --from=intermediate quiche /quic/quiche
 COPY --from=intermediate quic-go /quic/quic-go
 COPY res/quic-go/main.go /client/
 COPY res/quic-go/server/main.go /server
-COPY --from=intermediate openssl /quic/openssl
-COPY --from=intermediate ngtcp2 /quic/ngtcp2
-COPY --from=intermediate nghttp3 /quic/nghttp3
-COPY res/ngtcp2/generic-client-server /generic-client-server
-COPY res/ngtcp2/cert /cert
+COPY --from=intermediate aioquic /quic/aioquic
 COPY --from=intermediate mvfst /quic/mvfst
 # TODO should be in the first part
 COPY res/mvfst/tls-keys-patch.diff /quic/mvfst/ 

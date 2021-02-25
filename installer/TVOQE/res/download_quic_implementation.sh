@@ -17,7 +17,7 @@ git submodule update
 cd /
 git clone https://github.com/private-octopus/picoquic.git 
 cd /picoquic 
-git checkout 639c9e685d37e74d357d3dd8599b9dbff90934af #ad23e6c3593bd987dcd8d74fc9f528f2676fedf4 #800a1e70eda6352457bfc745e97f9ce3b7958644
+git checkout ad23e6c3593bd987dcd8d74fc9f528f2676fedf4 #639c9e685d37e74d357d3dd8599b9dbff90934af 800a1e70eda6352457bfc745e97f9ce3b7958644
 
 #Clone quiche project
 cd /
@@ -38,11 +38,11 @@ cd /quic-go
 git checkout v0.18.1
 export PATH="/go/bin:${PATH}"
 
-#Clone NGTCP2
+#Clone AIOQuic
 cd /
-git clone --depth 1 -b OpenSSL_1_1_1g-quic-draft-29 https://github.com/tatsuhiro-t/openssl
-git clone --branch draft-29 --depth 1 https://github.com/ngtcp2/nghttp3
-git clone  --branch draft-29 --depth 1 https://github.com/ngtcp2/ngtcp2
+git clone https://github.com/aiortc/aioquic.git
+cd /aioquic
+git checkout 1ff7f88252584a4e6ff3d320ec239016e69c4309
 
 #Clone mvfst
 cd /

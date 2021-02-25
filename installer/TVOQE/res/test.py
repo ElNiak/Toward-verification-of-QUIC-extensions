@@ -36,7 +36,7 @@ servers = [
       --cert tools/apps/src/bin/cert.crt \
       --key tools/apps/src/bin/cert.key']],
     ['quic-go',[scdir + '/server/server','quic-go-generic -G 50000 -X keys.log 127.0.0.1 4443']],
-    ['ngtcp2',[scdir + '/ngtcp2-generic/generic-http3-server','ngtcp2-generic -p 4443 -k /certs/server.key -c /certs/server.crt']],
+    ['aioquic',[scdir + '/aioquic','python examples/http3_server.py --certificate tests/ssl_cert.pem --private-key tests/ssl_key.pem --port 4443']],
     ['mvfst',[scdir + '/mvfst-generic/generic','./echo -mode=server -host=127.0.0.1 -port=4443']]
 ]
 
@@ -49,7 +49,7 @@ clients = [
     ['chromium',[scdircr + '/chromium/src','./out/Default/quic_client --host=127.0.0.1 --port=4443 --disable_certificate_verification  https://www.example.org/ --v=1 --quic_versions=h3-23']],
     ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-client -- https://quic.tech:8443/']],
     ['quic-go',[scdir + '/client/client','quic-go-generic -p 4443']],
-    ['ngtcp2',[scdir + '/ngtcp2-generic/generic-http3-client','ngtcp2-generic -G 50000000 -X keys.log 127.0.0.1 4443']],
+    ['aioquic',[scdir + '/aioquic','python examples/http3_client.py --ca-certs tests/pycacert.pem --legacy-http https://localhost:4443/']],
     ['mvfst',[scdir + '/mvfst-generic/generic','./echo -mode=client -host=127.0.0.1 -port=4443']]
 ]
 

@@ -36,34 +36,12 @@ go get ./...
 go build -o /client/client /client/main.go
 go build -o /server/server /server/main.go
 
-#Install NGTCP2
+#Install aioquic
 cd /
-cd /quic/openssl
-./config enable-tls1_3 --openssldir=/etc/ssl
-make -j$(nproc) 
-make install_sw 
-cd /quic/nghttp3
-autoreconf -i
-./configure --enable-lib-only
-make -j$(nproc)
-make install-strip
-cd /quic/ngtcp2
-autoreconf -i
-./configure \
-        LIBTOOL_LDFLAGS="-static-libtool-libs" \
-        LIBS="-ldl -pthread" \
-        OPENSSL_LIBS="-l:libssl.a -l:libcrypto.a" \
-        LIBEV_LIBS="-l:libev.a" \
-        JEMALLOC_LIBS="-l:libjemalloc.a"
-make -j$(nproc)
-strip examples/client examples/server
-cp examples/client examples/server /usr/local/bin
-rm -rf /var/log/*
-cd /generic-client-server
-make
-mkdir /logs /ngtcp2-generic
-cp generic-client /ngtcp2-generic/generic-http3-client
-cp generic-server /ngtcp2-generic/generic-http3-server
+cd /quic/aioquic
+pip install -e .
+pip install aiofiles asgiref dnslib httpbin starlette wsproto
+
 
 #Install mvfst
 cd /

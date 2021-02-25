@@ -4,7 +4,7 @@
 # Launch the server & client suite test for each implementation
 #
 
-servers=(picoquic quiche mvfst ngtcp2 quic-go)
+servers=(picoquic quiche mvfst aioquic quic-go)
 
 tests_server=(quic_server_test_stream
               quic_server_test_max 
