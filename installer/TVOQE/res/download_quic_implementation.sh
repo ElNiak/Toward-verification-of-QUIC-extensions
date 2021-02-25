@@ -17,7 +17,7 @@ git submodule update
 cd /
 git clone https://github.com/private-octopus/picoquic.git 
 cd /picoquic 
-git checkout ad23e6c3593bd987dcd8d74fc9f528f2676fedf4 #800a1e70eda6352457bfc745e97f9ce3b7958644
+git checkout 639c9e685d37e74d357d3dd8599b9dbff90934af #ad23e6c3593bd987dcd8d74fc9f528f2676fedf4 #800a1e70eda6352457bfc745e97f9ce3b7958644
 
 #Clone quiche project
 cd /
@@ -37,9 +37,6 @@ git clone https://github.com/lucas-clemente/quic-go
 cd /quic-go
 git checkout v0.18.1
 export PATH="/go/bin:${PATH}"
-go get ./...
-mkdir /client /server
-mkdir /logs
 
 #Clone NGTCP2
 cd /

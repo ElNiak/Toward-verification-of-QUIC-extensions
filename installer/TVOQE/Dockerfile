@@ -65,8 +65,8 @@ COPY --from=intermediate picotls /quic/picotls
 COPY --from=intermediate picoquic /quic/picoquic
 COPY --from=intermediate quiche /quic/quiche
 COPY --from=intermediate quic-go /quic/quic-go
-COPY res/quic-go/main.go /quic/quic-go/client/
-COPY res/quic-go/server/main.go /quic/quic-go/server/
+COPY res/quic-go/main.go /client/
+COPY res/quic-go/server/main.go /server
 COPY --from=intermediate openssl /quic/openssl
 COPY --from=intermediate ngtcp2 /quic/ngtcp2
 COPY --from=intermediate nghttp3 /quic/nghttp3
