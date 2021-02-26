@@ -20,7 +20,9 @@ make
 
 #Install quiche & RUST
 cd /
-curl https://sh.rustup.rs -sSf -y | sh 
+# curl https://sh.rustup.rs -sSf > rustup.rs 
+# sh rustup.rs -y 
+# export $HOME/.cargo/bin
 cd /quic/quiche/
 cargo build --examples
 cargo test
