@@ -15,6 +15,7 @@ RUN chmod 400 /root/.ssh/id_rsa
 RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 
+ADD res/mvfst/tls-keys-patch.diff tls-keys-patch.diff
 ADD res/download_quic_implementation.sh download_quic_implementation.sh 
 
 RUN bash download_quic_implementation.sh
@@ -65,12 +66,11 @@ COPY --from=intermediate picotls /quic/picotls
 COPY --from=intermediate picoquic /quic/picoquic
 COPY --from=intermediate quiche /quic/quiche
 COPY --from=intermediate quic-go /quic/quic-go
-COPY res/quic-go/main.go /client/
+COPY res/quic-go/main.go /client
 COPY res/quic-go/server/main.go /server
 COPY --from=intermediate aioquic /quic/aioquic
 COPY --from=intermediate mvfst /quic/mvfst
 # TODO should be in the first part
-COPY res/mvfst/tls-keys-patch.diff /quic/mvfst/ 
 COPY res/mvfst/generic /quic//mvfst/quic/samples/generic
 COPY res/mvfst/samples-build-patch.diff /quic/mvfst/
 

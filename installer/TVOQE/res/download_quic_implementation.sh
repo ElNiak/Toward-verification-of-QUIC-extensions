@@ -17,7 +17,8 @@ git submodule update
 cd /
 git clone https://github.com/private-octopus/picoquic.git 
 cd /picoquic 
-git checkout ad23e6c3593bd987dcd8d74fc9f528f2676fedf4 #639c9e685d37e74d357d3dd8599b9dbff90934af 800a1e70eda6352457bfc745e97f9ce3b7958644
+git checkout ad23e6c3593bd987dcd8d74fc9f528f2676fedf4 
+# 639c9e685d37e74d357d3dd8599b9dbff90934af 800a1e70eda6352457bfc745e97f9ce3b7958644
 
 #Clone quiche project
 cd /
@@ -25,12 +26,11 @@ git clone --recursive https://github.com/cloudflare/quiche
 cd /quiche
 git checkout 37de4c81b0c5e4b626e64aee5a9f15198343eb67
 
-
 #Clone quic-go project
 cd /
 #Install go
 wget https://dl.google.com/go/go1.14.linux-amd64.tar.gz  &> /dev/null
-tar xfz go1.14.linux-amd64.tar.gz
+tar xfz go1.14.linux-amd64.tar.gz &> /dev/null
 rm go1.14.linux-amd64.tar.gz
 #Install project
 git clone https://github.com/lucas-clemente/quic-go
@@ -47,3 +47,6 @@ git checkout 1ff7f88252584a4e6ff3d320ec239016e69c4309
 #Clone mvfst
 cd /
 git clone https://github.com/facebookincubator/mvfst
+cd /mvfst
+git checkout 36111c1
+git apply tls-keys-patch.diff

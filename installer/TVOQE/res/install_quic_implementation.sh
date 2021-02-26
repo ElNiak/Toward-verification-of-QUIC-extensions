@@ -28,7 +28,7 @@ cd /
 mkdir /client /server
 mkdir /logs
 wget https://dl.google.com/go/go1.14.linux-amd64.tar.gz  &> /dev/null
-tar xfz go1.14.linux-amd64.tar.gz
+tar xfz go1.14.linux-amd64.tar.gz &> /dev/null
 export PATH="/go/bin:${PATH}"
 rm go1.14.linux-amd64.tar.gz
 cd /quic/quic-go/
@@ -46,10 +46,8 @@ pip3 install aiofiles asgiref dnslib httpbin starlette wsproto
 #Install mvfst
 cd /
 cd /quic/mvfst
-git checkout 36111c1
-git apply tls-keys-patch.diff
 bash build_helper.sh
-git apply samples-build-patch.diff
+git apply samples-build-patch.diff #Should not be here
 cd /quic/mvfst/quic/samples
 cmake .
 make

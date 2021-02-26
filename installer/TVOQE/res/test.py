@@ -75,6 +75,7 @@ server_tests = [
         ['quic_server_test_accept_maxdata','test_completed'],
         ['quic_server_test_no_icid','test_completed'],
         ['quic_server_test_ext_min_ack_delay','test_completed'],
+        ['quic_server_test_unknown','test_completed'],
       ]
     ],
 ]
@@ -96,6 +97,7 @@ client_tests = [
         ['quic_client_test_no_odci','test_completed'],
         ['quic_client_test_ext_min_ack_delay','test_completed'],
         ['quic_client_test_stateless_reset_token','test_completed'],
+        ['quic_client_test_unknown','test_completed'],
       ]
     ],
 ]
