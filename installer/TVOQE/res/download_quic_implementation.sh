@@ -9,9 +9,9 @@ mkdir QUIC-Ivy/doc/examples/quic/test/temp
 # Clone picotls project 
 git clone https://github.com/h2o/picotls.git 
 cd /picotls
-git checkout 2464adadf28c1b924416831d24ca62380936a209 
-# git submodule init
-# git submodule update
+git checkout 47327f8d032f6bc2093a15c32e666ab6384ecca2 # 2464adadf28c1b924416831d24ca62380936a209 
+git submodule init
+git submodule update
 
 # Clone picoquic project 
 cd /

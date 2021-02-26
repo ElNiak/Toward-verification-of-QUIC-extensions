@@ -35,7 +35,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y cmake wi
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y binutils autoconf automake autotools-dev libtool pkg-config libev-dev libjemalloc-dev ca-certificates mime-support
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libboost-all-dev libevent-dev libdouble-conversion-dev libgoogle-glog-dev libgflags-dev libiberty-dev liblz4-dev liblzma-dev
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libsnappy-dev zlib1g-dev binutils-dev libjemalloc-dev libsodium-dev sudo
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y git python3 python3-dev python3-pip build-essential libffi-dev python-dev
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y git python3 python3-dev python3-pip build-essential libffi-dev python-dev cargo
 RUN pip install pexpect chardet 
 RUN pip install gperf pandas scandir
 RUN pip3 install  setuptools-rust
@@ -67,8 +67,8 @@ COPY --from=intermediate picotls /quic/picotls
 COPY --from=intermediate picoquic /quic/picoquic
 COPY --from=intermediate quiche /quic/quiche
 COPY --from=intermediate quic-go /quic/quic-go
-COPY res/quic-go/main.go /client
-COPY res/quic-go/server/main.go /server
+COPY res/quic-go/main.go /client/main.go
+COPY res/quic-go/server/main.go /server/main.go
 COPY --from=intermediate aioquic /quic/aioquic
 COPY --from=intermediate mvfst /quic/mvfst
 # TODO should be in the first part
