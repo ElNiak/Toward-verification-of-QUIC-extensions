@@ -10,8 +10,8 @@ mkdir QUIC-Ivy/doc/examples/quic/test/temp
 git clone https://github.com/h2o/picotls.git 
 cd /picotls
 git checkout 2464adadf28c1b924416831d24ca62380936a209 
-git submodule init
-git submodule update
+# git submodule init
+# git submodule update
 
 # Clone picoquic project 
 cd /
@@ -47,6 +47,7 @@ git checkout 1ff7f88252584a4e6ff3d320ec239016e69c4309
 #Clone mvfst
 cd /
 git clone https://github.com/facebookincubator/mvfst
+mv tls-keys-patch.diff /mvfst
 cd /mvfst
 git checkout 36111c1
 git apply tls-keys-patch.diff

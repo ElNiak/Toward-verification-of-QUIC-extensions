@@ -4,6 +4,8 @@
 printf "\n\n"
 printf "###### Installing PicoTLS:\n\n"
 cd /quic/picotls/
+git submodule init
+git submodule update
 cmake .
 make
 make check
@@ -18,14 +20,13 @@ make
 
 #Install quiche & RUST
 cd /
-curl https://sh.rustup.rs -sSf | sh
+curl https://sh.rustup.rs -sSf -y | sh -y
 cd /quic/quiche/
 cargo build --examples
 cargo test
 
 cd /
 #Install go
-mkdir /client /server
 mkdir /logs
 wget https://dl.google.com/go/go1.14.linux-amd64.tar.gz  &> /dev/null
 tar xfz go1.14.linux-amd64.tar.gz &> /dev/null
