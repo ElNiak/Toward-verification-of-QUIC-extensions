@@ -44,7 +44,7 @@ ITER=$1
 printf "\n"
 cd /QUIC-Ivy/doc/examples/quic/test/
 printf "TEST CLIENT \n"
-count=1
+count=0
 for j in "${tests_client[@]}"; do
     :
     printf "Client => $j  "
@@ -54,20 +54,19 @@ for j in "${tests_client[@]}"; do
         k=0
         until [ $k -gt $ITER ]; do
             printf "\n\Iteration => $k \n"
-            touch /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
-            chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap
-            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap -f "udp" &
-            python test.py client=$i test=$j >> res_client.txt 2>&1
+            touch /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_client_${j}.pcap
+            chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_client_${j}.pcap
+            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_client_${j}.pcap -f "udp" &
+            python test.py client=$i test=$j > res_client.txt 2>&1
             count=$((count + 1))
             ((k++))
             kill $(lsof -t -i udp) >/dev/null 2>&1
             printf "\n"
             pkill tshark
+            cp res_client.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/
         done
     done
 done
-
-cp res_client.txt /results
 
 cd /
 bash remove_ivy.sh

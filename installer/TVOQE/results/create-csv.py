@@ -37,7 +37,7 @@ client_tests = [
 ]
 
 frame = pd.DataFrame(
-    columns=["Run", "Implementation", "Mode", "TestName", "Status", "Error","LastLineIEV", "OutputFile"])
+    columns=["Run", "Implementation", "Mode", "TestName", "Status", "ErrorIEV","OutputFile"])
 
 
 def readlastline(filename):
@@ -63,17 +63,28 @@ for fol in subfolders:
             out = file.replace(".iev", ".out")
             mode = "client"
             test_name = ""
+            match = ""
             if "server" in file:
                 mode = "server"
                 for n in server_tests:
                     if n in file:
                         test_name = file.replace('.iev', '')
                         break
+                with open(os.path.join(fol, "res_server.txt"), "r") as f:
+                    for li in f:
+                        if "implementation command:" in li:
+                            match = li.replace("implementation command:","")
+                            break
             else:
                 for n in client_tests:
                     if n in file:
                         test_name = file.replace('.iev', '')
                         break
+                with open(os.path.join(fol, "res_client.txt"), "r") as f:
+                    for li in f:
+                        if "implementation command:" in li:
+                            match = li.replace("implementation command:","")
+                            break
             outPath = os.path.join(fol, out)
             err = file.replace(".iev", ".err")
             errPath = os.path.join(fol, err)
@@ -82,23 +93,21 @@ for fol in subfolders:
                 if last in "test_completed\n":
                     frame = frame.append(
                         {"Run": run,
-                         "Implementation":"", #TODO
+                         "Implementation":match,
                          "Mode": mode,
                          "TestName": test_name,
                          "isPass": True,
-                         "Error": "",
-                         "LastLineIEV":"", #TODO
+                         "ErrorIEV": "",
                          "NbPktSend":0, #TODO
                          "OutputFile": fullPath}, ignore_index=True)
                 else:
                     frame = frame.append(
                         {"Run": run,
-                        "Implementation":"", #TODO
+                         "Implementation":match, 
                          "Mode": mode,
                          "TestName": test_name,
                          "isPass": False,
-                         "Error": last+";"+second_last,
-                         "LastLineIEV":"", #TODO
+                         "ErrorIEV": last+"+"+second_last,
                          "NbPktSend":0, #TODO
                          "OutputFile": fullPath}, ignore_index=True)
                 run += 1

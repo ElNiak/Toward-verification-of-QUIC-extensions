@@ -53,7 +53,7 @@ ITER=$1
 printf "\n"
 cd /QUIC-Ivy/doc/examples/quic/test/
 printf "TEST SERVER \n"
-count=1
+count=0
 for j in "${tests_server[@]}"; do
     :
     printf "Server => $j  "
@@ -64,20 +64,19 @@ for j in "${tests_server[@]}"; do
         until [ $k -gt $ITER ]; do
             printf "\n\Iteration => $k \n"
             #TODO slow down 1sec
-            touch /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
-            chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
-            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap -f "udp" &
-            python test.py server=$i test=$j >> res_server.txt 2>&1
+            touch /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap
+            chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap
+            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap -f "udp" &
+            python test.py server=$i test=$j > res_server.txt 2>&1
             count=$((count + 1))
             ((k++))
             printf "\n"
             pkill tshark
+            cp res_server.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/
         done
 	printf "\n"
     done
 done
-
-cp res_server.txt /results
 
 cd /
 bash remove_ivy.sh
