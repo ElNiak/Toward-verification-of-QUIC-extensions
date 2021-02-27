@@ -37,7 +37,7 @@ client_tests = [
 ]
 
 frame = pd.DataFrame(
-    columns=["Run", "Mode", "TestName", "Status", "Error", "Output"])
+    columns=["Run", "Implementation", "Mode", "TestName", "Status", "Error","LastLineIEV", "OutputFile"])
 
 
 def readlastline(filename):
@@ -67,12 +67,12 @@ for fol in subfolders:
                 mode = "server"
                 for n in server_tests:
                     if n in file:
-                        test_name = file
+                        test_name = file.replace('.iev', '')
                         break
             else:
                 for n in client_tests:
                     if n in file:
-                        test_name = file
+                        test_name = file.replace('.iev', '')
                         break
             outPath = os.path.join(fol, out)
             err = file.replace(".iev", ".err")
@@ -82,19 +82,25 @@ for fol in subfolders:
                 if last in "test_completed\n":
                     frame = frame.append(
                         {"Run": run,
+                         "Implementation":"", #TODO
                          "Mode": mode,
                          "TestName": test_name,
                          "isPass": True,
                          "Error": "",
-                         "Output": fullPath}, ignore_index=True)
+                         "LastLineIEV":"", #TODO
+                         "NbPktSend":0, #TODO
+                         "OutputFile": fullPath}, ignore_index=True)
                 else:
                     frame = frame.append(
                         {"Run": run,
+                        "Implementation":"", #TODO
                          "Mode": mode,
                          "TestName": test_name,
                          "isPass": False,
                          "Error": last+";"+second_last,
-                         "Output": fullPath}, ignore_index=True)
+                         "LastLineIEV":"", #TODO
+                         "NbPktSend":0, #TODO
+                         "OutputFile": fullPath}, ignore_index=True)
                 run += 1
         
 

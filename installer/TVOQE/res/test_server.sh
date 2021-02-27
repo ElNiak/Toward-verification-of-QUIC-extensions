@@ -4,25 +4,28 @@
 # Launch the server suite test for each implementation
 # Remove sleep
 
+# 
+
 servers=(picoquic quiche mvfst aioquic quic-go)
 
 tests_server=(quic_server_test_stream
-              quic_server_test_max 
-              quic_server_test_token_error  
-              quic_server_test_tp_error
-              quic_server_test_tp_acticoid_error
-              quic_server_test_connection_close
-              quic_server_test_reset_stream
-	          quic_server_test_blocked_streams_maxstream_error
-	          quic_server_test_retirecoid_error
-	          quic_server_test_newcoid_zero_error
-	          quic_server_test_handshake_done_error
-	          quic_server_test_stop_sending
-              quic_server_test_double_tp_error
-	          quic_server_test_tp_limit_acticoid_error
-	          quic_server_test_accept_maxdata
-              quic_server_test_ext_min_ack_delay
-              quic_server_test_no_icid)
+              quic_server_test_max)
+
+            #  quic_server_test_token_error  
+            #  quic_server_test_tp_error
+            #  quic_server_test_tp_acticoid_error
+            #  quic_server_test_connection_close
+            #  quic_server_test_reset_stream
+	        #  quic_server_test_blocked_streams_maxstream_error
+	        #  quic_server_test_retirecoid_error
+	        #  quic_server_test_newcoid_zero_error
+	        #  quic_server_test_handshake_done_error
+	        #  quic_server_test_stop_sending
+            #  quic_server_test_double_tp_error
+	        #  quic_server_test_tp_limit_acticoid_error
+	        #  quic_server_test_accept_maxdata
+            #  quic_server_test_ext_min_ack_delay
+            #  quic_server_test_no_icid
 
 cd /
 
@@ -60,14 +63,15 @@ for j in "${tests_server[@]}"; do
         k=0
         until [ $k -gt $ITER ]; do
             printf "\n\Iteration => $k \n"
+            #TODO slow down 1sec
             touch /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
             chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
             tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap -f "udp" &
-            python test.py iters=1 server=$i test=$j >> res_server.txt 2>&1
+            python test.py server=$i test=$j >> res_server.txt 2>&1
             count=$((count + 1))
-            pkill tshark
             ((k++))
             printf "\n"
+            pkill tshark
         done
 	printf "\n"
     done

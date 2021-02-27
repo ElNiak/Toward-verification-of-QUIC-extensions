@@ -4780,6 +4780,7 @@ int ask_ret(long long bound) {
         if (!truth) {
             __ivy_out << "assertion_failed(\\"" << msg << "\\")" << std::endl;
             std::cerr << msg << ": error: assertion failed\\n";
+            //TODO
             CLOSE_TRACE
             __ivy_exit(1);
         }
@@ -4812,7 +4813,7 @@ int ask_ret(long long bound) {
             if (system(NULL)) i=system(command.c_str());
             else exit (EXIT_FAILURE);
 
-            std::ifstream ifs("temps.txt"); //.rdbuf()
+            std::ifstream ifs("temps.txt");
             std::stringstream strStream;
             strStream << ifs.rdbuf();
             std::string str = strStream.str();

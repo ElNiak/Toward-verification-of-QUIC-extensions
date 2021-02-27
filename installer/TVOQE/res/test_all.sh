@@ -91,11 +91,11 @@ for j in "${tests_server[@]}"; do
             touch /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
             chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
             tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap -f "udp"  &
-            python test.py iters=1 server=$i test=$j >> res_server.txt 2>&1
+            python test.py server=$i test=$j >> res_server.txt 2>&1
             count=$((count + 1))
-            pkill tshark
             ((k++))
             printf "\n"
+            pkill tshark
         done
 	printf "\n"
     done

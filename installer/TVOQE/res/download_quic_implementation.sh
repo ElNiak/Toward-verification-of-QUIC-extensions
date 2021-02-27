@@ -3,8 +3,8 @@
 cd /
 # Clone Ivy project 
 git clone --recurse-submodules git@github.com:ElNiak/QUIC-Ivy.git --branch quic_29
-mkdir QUIC-Ivy/doc/examples/quic/build
-mkdir QUIC-Ivy/doc/examples/quic/test/temp
+mkdir /QUIC-Ivy/doc/examples/quic/build
+mkdir /QUIC-Ivy/doc/examples/quic/test/temp
 
 # Clone picotls project 
 git clone https://github.com/h2o/picotls.git 
