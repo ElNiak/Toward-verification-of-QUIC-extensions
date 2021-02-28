@@ -96,7 +96,7 @@ for j in "${tests_server[@]}"; do
             ((k++))
             printf "\n"
             pkill tshark
-            cp res_server.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/
+            cp res_server.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/res_server.txt
         done
 	printf "\n"
     done
@@ -119,7 +119,7 @@ for j in "${tests_client[@]}"; do
             ((k++))
             kill $(lsof -t -i udp) >/dev/null 2>&1
             printf "\n"
-            cp res_client.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/
+            cp res_client.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/res_client.txt
         done
     done
 done

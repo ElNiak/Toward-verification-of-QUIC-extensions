@@ -63,7 +63,7 @@ for j in "${tests_client[@]}"; do
             kill $(lsof -t -i udp) >/dev/null 2>&1
             printf "\n"
             pkill tshark
-            cp res_client.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/
+            cp res_client.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/res_client.txt
         done
     done
 done
