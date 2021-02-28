@@ -92,11 +92,11 @@ for j in "${tests_server[@]}"; do
             chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap
             tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap -f "udp"  &
             python test.py server=$i test=$j > res_server.txt 2>&1
-            cp res_server.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/res_server.txt
-            count=$((count + 1))
             ((k++))
             printf "\n"
             pkill tshark
+            cp res_server.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/res_server.txt
+            count=$((count + 1))
         done
 	printf "\n"
     done
@@ -114,12 +114,12 @@ for j in "${tests_client[@]}"; do
             chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_client_${j}.pcap
             tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_client_${j}.pcap -f "udp"  &
             python test.py  client=$i test=$j > res_client.txt 2>&1
-            cp res_client.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/res_client.txt
-            count=$((count + 1))
-            pkill tshark
             ((k++))
             kill $(lsof -t -i udp) >/dev/null 2>&1
             printf "\n"
+            pkill tshark
+            cp res_client.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/res_client.txt
+            count=$((count + 1))
         done
     done
 done
