@@ -1,4 +1,10 @@
-servers=(picoquic)
+#!/bin/bash
+
+#
+# Launch the server & client suite test for each implementation
+#
+
+servers=(picoquic quiche mvfst aioquic quic-go)
 
 tests_server=(quic_server_test_stream
               quic_server_test_max 
@@ -14,7 +20,9 @@ tests_server=(quic_server_test_stream
 	          quic_server_test_stop_sending
               quic_server_test_double_tp_error
 	          quic_server_test_tp_limit_acticoid_error
-	          quic_server_test_accept_maxdata)
+	          quic_server_test_accept_maxdata
+              quic_server_test_ext_min_ack_delay
+              quic_server_test_no_icid)
 
 tests_client=(quic_client_test_max
               quic_client_test_token_error
@@ -26,7 +34,9 @@ tests_client=(quic_client_test_max
               quic_client_test_retirecoid_error
               quic_client_test_newcoid_zero_error
               quic_client_test_accept_maxdata
-              quic_client_test_tp_prefadd_error)
+              quic_client_test_tp_prefadd_error
+              quic_client_test_no_odci
+              quic_client_test_ext_min_ack_delay)
 
 cd /
 
@@ -68,7 +78,7 @@ ITER=$1
 printf "\n"
 cd /QUIC-Ivy/doc/examples/quic/test/
 printf "TEST SERVER \n"
-count=1
+count=0
 for j in "${tests_server[@]}"; do
     :
     printf "Server => $j  "
@@ -78,20 +88,19 @@ for j in "${tests_server[@]}"; do
         k=0
         until [ $k -gt $ITER ]; do
             printf "\n\Iteration => $k \n"
-            touch /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
-            chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
-            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap -f "udp" & sleep 1 &
-            python test.py iters=1 server=$i test=$j &>> res_server.txt
-            count=$((count + 1))
-            pkill tshark
+            touch /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap
+            chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap
+            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap -f "udp"  &
+            python test.py server=$i test=$j > res_server.txt 2>&1
             ((k++))
             printf "\n"
+            pkill tshark
+            cp res_server.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/res_server.txt
+            count=$((count + 1))
         done
 	printf "\n"
     done
 done
-
-count=1
 for j in "${tests_client[@]}"; do
     :
     printf "Client => $j  "
@@ -101,24 +110,26 @@ for j in "${tests_client[@]}"; do
         k=0
         until [ $k -gt $ITER ]; do
             printf "\n\Iteration => $k \n"
-            touch /QUIC-Ivy/doc/examples/quic/test/temp/quic_server_${j}_$count.pcap
-            chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap
-            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/quic_client_${j}_$count.pcap -f "udp" & sleep 1 &
-            python test.py iters=1 client=$i test=$j &>> res_client.txt
-            count=$((count + 1))
-            pkill tshark
+            touch /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_client_${j}.pcap
+            chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_client_${j}.pcap
+            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_client_${j}.pcap -f "udp"  &
+            python test.py  client=$i test=$j > res_client.txt 2>&1
             ((k++))
+            kill $(lsof -t -i udp) >/dev/null 2>&1
             printf "\n"
+            pkill tshark
+            cp res_client.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/res_client.txt
+            count=$((count + 1))
         done
     done
 done
+
 
 cd /
 bash remove_ivy.sh
 
 cp -R /QUIC-Ivy/doc/examples/quic/test/temp/ /results
-cp res_client.txt /results
-cp res_server.txt /results
+
 
 cd /results
 python create-csv.py

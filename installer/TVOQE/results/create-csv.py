@@ -37,14 +37,18 @@ client_tests = [
 ]
 
 frame = pd.DataFrame(
-    columns=["Run", "Mode", "TestName", "Status", "Error", "Output"])
+    columns=["Run", "Implementation", "Mode", "TestName", "Status", "ErrorIEV","OutputFile"])
 
 
 def readlastline(filename):
+    last = ""
+    second_last = ""
     with open(filename, 'r') as f:
         lines = f.read().splitlines()
-        last = lines[-1]
-        second_last = lines[-2]
+        if len(lines) > 0:
+            last = lines[-1]
+        if len(lines) > 1:
+            second_last = lines[-2]
     return last, second_last
 
 
@@ -59,17 +63,28 @@ for fol in subfolders:
             out = file.replace(".iev", ".out")
             mode = "client"
             test_name = ""
+            match = ""
             if "server" in file:
                 mode = "server"
                 for n in server_tests:
                     if n in file:
-                        test_name = file
+                        test_name = file.replace('.iev', '')
                         break
+                with open(os.path.join(fol, "res_server.txt"), "r") as f:
+                    for li in f:
+                        if "implementation command:" in li:
+                            match = li.replace("implementation command:","")
+                            break
             else:
                 for n in client_tests:
                     if n in file:
-                        test_name = file
+                        test_name = file.replace('.iev', '')
                         break
+                with open(os.path.join(fol, "res_client.txt"), "r") as f:
+                    for li in f:
+                        if "implementation command:" in li:
+                            match = li.replace("implementation command:","")
+                            break
             outPath = os.path.join(fol, out)
             err = file.replace(".iev", ".err")
             errPath = os.path.join(fol, err)
@@ -78,27 +93,29 @@ for fol in subfolders:
                 if last in "test_completed\n":
                     frame = frame.append(
                         {"Run": run,
+                         "Implementation":match,
                          "Mode": mode,
                          "TestName": test_name,
                          "isPass": True,
-                         "Error": "",
-                         "Output": fullPath}, ignore_index=True)
+                         "ErrorIEV": "",
+                         "NbPktSend":0, #TODO
+                         "OutputFile": fullPath}, ignore_index=True)
                 else:
-                    print("fails")
                     frame = frame.append(
                         {"Run": run,
+                         "Implementation":match, 
                          "Mode": mode,
                          "TestName": test_name,
                          "isPass": False,
-                         "Error": last+";"+second_last,
-                         "Output": fullPath}, ignore_index=True)
-        run += 1
+                         "ErrorIEV": last+"+"+second_last,
+                         "NbPktSend":0, #TODO
+                         "OutputFile": fullPath}, ignore_index=True)
+                run += 1
+        
 
 
 today = date.today()
 # Month abbreviation, day and year
 d4 = today.strftime("%b-%d-%Y")
 print("d4 =", d4)
-compression_opts = dict(method='zip',
-                        archive_name=d4+'.csv')
-frame.to_csv(d4+'.zip', index=False, compression=compression_opts)
+frame.to_csv(d4+'.csv', index=False)
