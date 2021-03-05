@@ -4,7 +4,8 @@
 # Launch the server & client suite test for each implementation
 #
 
-servers=(picoquic quiche mvfst aioquic quic-go)
+servers=(quant quic-go picoquic aioquic mvfst)
+alpn=(hq-29 hq-29 hq-29 hq-29 hq-29)
 
 tests_server=(quic_server_test_stream
               quic_server_test_max 
@@ -75,6 +76,8 @@ done
 
 ITER=$1
 
+export TEST_TYPE=server
+
 printf "\n"
 cd /QUIC-Ivy/doc/examples/quic/test/
 printf "TEST SERVER \n"
@@ -82,44 +85,59 @@ count=0
 for j in "${tests_server[@]}"; do
     :
     printf "Server => $j  "
+    cnt2=0
     for i in "${servers[@]}"; do
         :
         printf "\n\nTesting => $i \n"
         k=0
         until [ $k -gt $ITER ]; do
+            export TEST_IMPL=$i
+            export CNT=$count
+            export RND=$RANDOM
+            export TEST_ALPN=${alpn[cnt2]}
             printf "\n\Iteration => $k \n"
             touch /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap
             chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap
             tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap -f "udp"  &
-            python test.py server=$i test=$j > res_server.txt 2>&1
+            python test.py iters=1 server=$i test=$j > res_server.txt 2>&1
             ((k++))
             printf "\n"
             pkill tshark
             cp res_server.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/res_server.txt
             count=$((count + 1))
+            cnt2=$((cnt2 + 1))
         done
 	printf "\n"
     done
 done
+
+export TEST_TYPE=client
+
 for j in "${tests_client[@]}"; do
     :
     printf "Client => $j  "
+    cnt2=0
     for i in "${servers[@]}"; do
         :
         printf "\n\nTesting => $i \n"
         k=0
         until [ $k -gt $ITER ]; do
             printf "\n\Iteration => $k \n"
+            export TEST_IMPL=$i
+            export CNT=$count
+            export RND=$RANDOM
+            export TEST_ALPN=${alpn[cnt2]}
             touch /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_client_${j}.pcap
             chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_client_${j}.pcap
             tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_client_${j}.pcap -f "udp"  &
-            python test.py  client=$i test=$j > res_client.txt 2>&1
+            python test.py iters=1 client=$i test=$j > res_client.txt 2>&1
             ((k++))
             kill $(lsof -t -i udp) >/dev/null 2>&1
             printf "\n"
             pkill tshark
             cp res_client.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/res_client.txt
             count=$((count + 1))
+            cnt2=$((cnt2 + 1))
         done
     done
 done
