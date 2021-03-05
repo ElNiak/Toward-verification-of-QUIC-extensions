@@ -35,7 +35,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y cmake wi
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y binutils autoconf automake autotools-dev libtool pkg-config libev-dev libjemalloc-dev ca-certificates mime-support
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libboost-all-dev libevent-dev libdouble-conversion-dev libgoogle-glog-dev libgflags-dev libiberty-dev liblz4-dev liblzma-dev
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libsnappy-dev zlib1g-dev binutils-dev libjemalloc-dev libsodium-dev sudo
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y git python3 python3-dev python3-pip build-essential libffi-dev python-dev cargo
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y git python3 python3-dev python3-pip build-essential libffi-dev python-dev
 RUN pip install pexpect chardet 
 RUN pip install gperf pandas scandir
 RUN pip3 install setuptools-rust
@@ -62,17 +62,19 @@ ADD res/install_quic_implementation.sh install_quic_implementation.sh
 # Install QUIC implementation
 RUN mkdir /results
 ADD results/create-csv.py /results/create-csv.py
-RUN mkdir /quic 
+RUN mkdir /quic /quic/certs
 COPY --from=intermediate picotls /quic/picotls
 COPY --from=intermediate picoquic /quic/picoquic
-COPY --from=intermediate quiche /quic/quiche
+COPY --from=intermediate quant /quic/quant
 COPY --from=intermediate quic-go /quic/quic-go
 COPY res/quic-go/main.go /client/main.go
 COPY res/quic-go/server/main.go /server/main.go
+COPY res/quic-go/priv.key /certs/priv.key
+COPY res/quic-go/cert.pem /certs/cert.pem
 COPY --from=intermediate aioquic /quic/aioquic
 COPY --from=intermediate mvfst /quic/mvfst
 # TODO should be in the first part
-COPY res/mvfst/generic /quic//mvfst/quic/samples/generic
+COPY res/mvfst/generic /quic/mvfst/quic/samples/generic
 COPY res/mvfst/samples-build-patch.diff /quic/mvfst/
 
 RUN bash install_quic_implementation.sh;exit 0
