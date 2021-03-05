@@ -61,19 +61,24 @@ done
 : ' 
 '
 
+cnt=0
 printf "\n"
 cd $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/doc/examples/quic/test/
 printf "TEST CLIENT \n"
 for j in "${tests_client[@]}"; do
     :
     printf "Client => $j  "
+    cnt2=0
     for i in "${servers[@]}"; do
         :
         printf "\n\nTesting => $i \n"
 	export TEST_IMPL=$i
-	export TEST_ALPN=$alpn[$cnt]
+	export TEST_ALPN=${alpn[cnt2]}
+	export CNT=$cnt
+	export RND=$RANDOM
         python test.py iters=1 client=$i test=$j
         kill $(lsof -i udp) >/dev/null 2>&1
+	cnt2=$((cnt2 + 1))
     done
 done
 
