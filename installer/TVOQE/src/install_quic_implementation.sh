@@ -34,6 +34,7 @@ go build -o /quic/quic-go/server/server /server/main.go
 #Install aioquic
 cd /
 cd /quic/aioquic
+export PYTHONPATH=$PWD
 pip3 install -e .
 pip3 install aiofiles asgiref dnslib httpbin starlette wsproto
 
@@ -52,8 +53,6 @@ cmake .
 make
 cd /quic/mvfst/_build/build/quic/samples
 make -j 8
-mkdir /mvfst-generic
-cp /quic/mvfst/_build/build/quic/samples/generic /mvfst-generic/
 
 #Update includes of python lib
 cd /
