@@ -41,7 +41,7 @@ git checkout 0.9.3
 #Clone Quant
 cd /
 git clone https://github.com/NTAP/quant.git --branch 29
-cd quant
+cd /quant
 git submodule update --init --recursive
 mkdir Debug 
 

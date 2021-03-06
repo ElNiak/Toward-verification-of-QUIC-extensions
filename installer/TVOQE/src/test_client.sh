@@ -55,7 +55,7 @@ for j in "${tests_client[@]}"; do
     for i in "${servers[@]}"; do
         :
         printf "\n\nTesting => $i \n"
-        k=0
+        k=1
         until [ $k -gt $ITER ]; do
             export TEST_IMPL=$i
             export CNT=$count

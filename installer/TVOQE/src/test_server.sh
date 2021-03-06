@@ -67,7 +67,7 @@ for j in "${tests_server[@]}"; do
     for i in "${servers[@]}"; do
         :
         printf "\n\nTesting => $i \n"
-        k=0
+        k=1
         until [ $k -gt $ITER ]; do
             printf "\n\Iteration => $k \n"
             export TEST_IMPL=$i
