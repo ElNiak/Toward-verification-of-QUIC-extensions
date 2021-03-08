@@ -27,7 +27,7 @@ rm go1.14.linux-amd64.tar.gz
 export PATH="/go/bin:${PATH}"
 
 cd /quic/quic-go/
-mkdir /client /server
+export GOPATH=$PWD
 go get ./...
 go build -o /client/client /client/main.go
 go build -o /server/server /server/main.go
