@@ -48,17 +48,8 @@ cp cmake-3.12.4-Linux-x86_64.sh /opt/
 cd /opt/
 chmod +x /opt/cmake-3.12.4-Linux-x86_64.sh
 bash /opt/cmake-3.12.4-Linux-x86_64.sh --skip-license
-ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cmake /usr/local/bin
-ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/ccmake /usr/local/bin
-ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cmake-gui /usr/local/bin
-ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cpack /usr/local/bin
-ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/ctest /usr/local/bin
 
-ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cmake /usr/bin
-ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/ccmake /usr/bin
-ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cmake-gui /usr/bin
-ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cpack /usr/bin
-ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/ctest /usr/bin
+ln -s /opt/cmake-3.12.4-Linux-x86_64/bin/* /usr/local/bin
 
 cmake --version
 mkdir Debug 
