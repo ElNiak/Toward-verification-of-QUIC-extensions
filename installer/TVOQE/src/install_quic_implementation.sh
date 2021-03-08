@@ -33,6 +33,7 @@ go build -o /quic/quic-go/server/server /server/main.go
 #Install aioquic
 cd /
 cd /quic/aioquic
+curl https://sh.rustup.rs -sSf | sh -s -- -y
 export PYTHONPATH=$PWD
 pip3 install -e .
 pip3 install aiofiles asgiref dnslib httpbin starlette wsproto
