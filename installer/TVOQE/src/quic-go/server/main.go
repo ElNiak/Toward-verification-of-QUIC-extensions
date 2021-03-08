@@ -19,14 +19,14 @@ import (
 
 	_ "net/http/pprof"
 
-	"github.com/lucas-clemente/quic-go"
-	"github.com/lucas-clemente/quic-go/http3"
-	"github.com/lucas-clemente/quic-go/interop/http09"
-	"github.com/lucas-clemente/quic-go/internal/testdata"
-	"github.com/lucas-clemente/quic-go/internal/utils"
-	"github.com/lucas-clemente/quic-go/logging"
-	"github.com/lucas-clemente/quic-go/qlog"
-	"github.com/lucas-clemente/quic-go/quictrace"
+	"quic-go"
+	"quic-go/http3"
+	"quic-go/interop/http09"
+	"quic-go/internal/testdata"
+	"quic-go/internal/utils"
+	"quic-go/logging"
+	"quic-go/qlog"
+	"quic-go/quictrace"
 )
 
 type binds []string
