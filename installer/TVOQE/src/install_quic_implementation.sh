@@ -41,6 +41,7 @@ pip3 install aiofiles asgiref dnslib httpbin starlette wsproto
 #Install Quant
 cd /quic/quant/
 mkdir Debug 
+cd Debug
 cmake ..
 make
 
