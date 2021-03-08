@@ -17,16 +17,16 @@ import (
 	"strings"
 	"sync"
 
-	_ "net/http/pprof"
+//	_ "net/http/pprof"
 
-	"github.com/lucas-clemente/quic-go@v0.18.1"
-	"github.com/lucas-clemente/quic-go/http3@v0.18.1"
-	"github.com/lucas-clemente/quic-go/interop/http09@v0.18.1"
-	"github.com/lucas-clemente/quic-go/internal/testdata@v0.18.1"
-	"github.com/lucas-clemente/quic-go/internal/utils@v0.18.1"
-	"github.com/lucas-clemente/quic-go/logging@v0.18.1"
-	"github.com/lucas-clemente/quic-go/qlog@v0.18.1"
-	"github.com/lucas-clemente/quic-go/quictrace@v0.18.1"
+	"github.com/lucas-clemente/quic-go"
+	"github.com/lucas-clemente/quic-go/http3"
+	"github.com/lucas-clemente/quic-go/interop/http09"
+	"github.com/lucas-clemente/quic-go/internal/testdata"
+	"github.com/lucas-clemente/quic-go/internal/utils"
+	"github.com/lucas-clemente/quic-go/logging"
+	"github.com/lucas-clemente/quic-go/qlog"
+	"github.com/lucas-clemente/quic-go/quictrace"
 )
 
 type binds []string
