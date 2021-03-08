@@ -40,6 +40,9 @@ RUN pip install pexpect chardet
 RUN pip install gperf pandas scandir
 RUN pip3 install setuptools-rust
 
+RUN  apt remove cmake
+RUN install cmake --classic
+
 # Install Ivy
 
 COPY --from=intermediate QUIC-Ivy /QUIC-Ivy
