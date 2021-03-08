@@ -47,7 +47,7 @@ wget https://github.com/Kitware/CMake/releases/download/v3.12.4/cmake-3.12.4-Lin
 cp cmake-3.12.4-Linux-x86_64.sh /opt/
 cd /opt/
 chmod +x /opt/cmake-3.12.4-Linux-x86_64.sh
-bash /opt/cmake-3.12.4-Linux-x86_64.sh
+bash /opt/cmake-3.12.4-Linux-x86_64.sh --skip-license
 ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cmake /usr/local/bin
 ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/ccmake /usr/local/bin
 ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cmake-gui /usr/local/bin
