@@ -40,8 +40,8 @@ RUN pip install pexpect chardet
 RUN pip install gperf pandas scandir
 RUN pip3 install setuptools-rust
 
-RUN  apt remove cmake
-RUN install cmake --classic
+RUN apt remove --fix-missing  -y  cmake
+RUN snap install cmake --classic -y
 
 # Install Ivy
 
