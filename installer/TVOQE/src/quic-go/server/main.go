@@ -19,14 +19,14 @@ import (
 
 	_ "net/http/pprof"
 
-	"quic-go"
-	"quic-go/http3"
-	"quic-go/interop/http09"
-	"quic-go/internal/testdata"
-	"quic-go/internal/utils"
-	"quic-go/logging"
-	"quic-go/qlog"
-	"quic-go/quictrace"
+	"/quic/quic-go"
+	"/quic/quic-go/http3"
+	"/quic/quic-go/interop/http09"
+	"/quic/quic-go/internal/testdata"
+	"/quic/quic-go/internal/utils"
+	"/quic/quic-go/logging"
+	"/quic/quic-go/qlog"
+	"/quic/quic-go/quictrace"
 )
 
 type binds []string
