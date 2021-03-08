@@ -40,6 +40,25 @@ pip3 install aiofiles asgiref dnslib httpbin starlette wsproto
 
 #Install Quant
 cd /quic/quant/
+sudo apt remove --fix-missing -y cmake
+wget https://github.com/Kitware/CMake/releases/download/v3.12.4/cmake-3.12.4-Linux-x86_64.sh
+cp cmake-3.12.4-Linux-x86_64.sh /opt/
+cd /opt/
+chmod +x /opt/cmake-3.12.4-Linux-x86_64.sh
+bash /opt/cmake-3.12.4-Linux-x86_64.sh
+ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cmake /usr/local/bin
+ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/ccmake /usr/local/bin
+ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cmake-gui /usr/local/bin
+ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cpack /usr/local/bin
+ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/ctest /usr/local/bin
+
+ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cmake /usr/bin
+ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/ccmake /usr/bin
+ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cmake-gui /usr/bin
+ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/cpack /usr/bin
+ln -s /opt/cmake-3.12.4-Linux-x86_64.sh/bin/ctest /usr/bin
+
+cmake --version
 mkdir Debug 
 cd Debug
 cmake ..
