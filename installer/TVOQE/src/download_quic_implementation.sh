@@ -43,7 +43,6 @@ cd /
 git clone https://github.com/NTAP/quant.git --branch 29
 cd /quant
 git submodule update --init --recursive
-mkdir Debug 
 
 #Clone mvfst
 cd /

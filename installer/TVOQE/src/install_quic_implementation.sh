@@ -26,7 +26,6 @@ tar xfz go1.14.linux-amd64.tar.gz &> /dev/null
 export PATH="/go/bin:${PATH}"
 rm go1.14.linux-amd64.tar.gz
 cd /quic/quic-go/
-mkdir /quic/quic-go/client /quic/quic-go/server 
 go get ./...
 go build -o /quic/quic-go/client/client /client/main.go
 go build -o /quic/quic-go/server/server /server/main.go
@@ -39,7 +38,8 @@ pip3 install -e .
 pip3 install aiofiles asgiref dnslib httpbin starlette wsproto
 
 #Install Quant
-cd /quic/quant/Debug
+cd /quic/quant/
+mkdir Debug 
 cmake ..
 make
 
