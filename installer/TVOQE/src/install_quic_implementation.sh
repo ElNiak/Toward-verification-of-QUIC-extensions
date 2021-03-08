@@ -27,7 +27,7 @@ rm go1.14.linux-amd64.tar.gz
 export PATH="/go/bin:${PATH}"
 
 cd /quic/quic-go/
-export GOPATH=$PWD
+#export GOPATH=$PWD
 go get ./...
 go build -o /client/client /client/main.go
 go build -o /server/server /server/main.go
@@ -44,7 +44,7 @@ pip3 install aiofiles asgiref dnslib httpbin starlette wsproto
 cd /
 sudo apt remove --fix-missing -y cmake
 wget https://github.com/Kitware/CMake/releases/download/v3.19.6/cmake-3.19.6-Linux-x86_64.tar.gz &> /dev/null
-tar cmake-3.19.6-Linux-x86_64.tar.gz
+tar xfz cmake-3.19.6-Linux-x86_64.tar.gz  &> /dev/null
 cd cmake-3.19.6-Linux-x86_64
 ./configure
 make
