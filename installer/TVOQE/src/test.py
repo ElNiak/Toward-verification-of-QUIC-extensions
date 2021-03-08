@@ -28,7 +28,7 @@ scdircr ='/quic'
 servers = [
     ['picoquic',[scdir+'/picoquic','./picoquicdemo -l - -D -L']],
     ['pquic',[scdir+'/pquic','./picoquicdemo -l - -D -L']],
-    ['quant',[scdir+'/quant/Debug/bin/','./server -d . -c leaf_cert.pem -k leaf_cert.key -p 4443 -t 3600 -v 5']],
+    ['quant',[scdir+'/quant/Debug/bin/','./server -d . -c /quic/quant/leaf_cert.pem -k /quic/quant/leaf_cert.key -p 4443 -t 3600 -v 5']],
     ['winquic',['..','true']],
     ['minq',['..','go run '+ scdir + '/go/src/github.com/ekr/minq/bin/server/main.go']],
     ['chromium',[scdircr + '/chromium/src','./out/Default/quic_server --port=4443  --quic_response_cache_dir=/tmp/quic-data/www.example.org   --certificate_file=net/tools/quic/certs/out/leaf_cert.pem   --key_file=net/tools/quic/certs/out/leaf_cert.pkcs8 --quic-enable-version-99  --generate_dynamic_responses --allow_unknown_root_cert --v=1']], # --quic_versions=h3-25
@@ -41,7 +41,7 @@ servers = [
 clients = [
     ['picoquic',[scdir + '/picoquic','./picoquicdemo -l - -L -D -v ff00001d localhost 4443']],
     ['pquic',[scdir + '/pquic','./picoquicdemo -l - -L -D -v ff00001d localhost 4443 ']],
-    ['quant',[scdir+'/quant/Debug/bin/','./client -c leaf_cert.pem  -t 3600 -v 5 -e 0xff00001d https://localhost:4443/']],
+    ['quant',[scdir+'/quant/Debug/bin/','./client -c /quic/quant/leaf_cert.pem  -t 3600 -v 5 -e 0xff00001d https://localhost:4443/']],
     ['winquic',['..','true']],
     ['minq',['..','go run '+ scdir + '/go/src/github.com/ekr/minq/bin/client/main.go ']],
     ['chromium',[scdircr + '/chromium/src','./out/Default/quic_client --host=127.0.0.1 --port=4443 --disable_certificate_verification  https://www.example.org/ --v=1 --quic_versions=h3-23']],
@@ -278,7 +278,7 @@ class Test(object):
         if platform.system() != 'Windows':
             oldcwd = os.getcwd()
             os.chdir(self.dir)
-            proc = subprocess.Popen('sleep 1;'+command,stdout=iev,shell=True)
+            proc = subprocess.Popen('sleep 2;'+command,stdout=iev,shell=True)
             os.chdir(oldcwd)
             try:
                 retcode = proc.wait()
