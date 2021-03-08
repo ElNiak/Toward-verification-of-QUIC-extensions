@@ -27,8 +27,8 @@ export PATH="/go/bin:${PATH}"
 rm go1.14.linux-amd64.tar.gz
 cd /quic/quic-go/
 go get ./...
-go build -o /quic/quic-go/client/client /client/main.go
-go build -o /quic/quic-go/server/server /server/main.go
+go build -o /client/client /client/main.go
+go build -o /server/server /server/main.go
 
 #Install aioquic
 cd /

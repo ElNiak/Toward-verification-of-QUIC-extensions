@@ -33,7 +33,7 @@ servers = [
     ['minq',['..','go run '+ scdir + '/go/src/github.com/ekr/minq/bin/server/main.go']],
     ['chromium',[scdircr + '/chromium/src','./out/Default/quic_server --port=4443  --quic_response_cache_dir=/tmp/quic-data/www.example.org   --certificate_file=net/tools/quic/certs/out/leaf_cert.pem   --key_file=net/tools/quic/certs/out/leaf_cert.pkcs8 --quic-enable-version-99  --generate_dynamic_responses --allow_unknown_root_cert --v=1']], # --quic_versions=h3-25
     ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-server --       --cert tools/apps/src/bin/cert.crt       --key tools/apps/src/bin/cert.key --no-retry --dump-packets dump.txt --listen 127.0.0.1:4443']],
-    ['quic-go',[scdir +'/quic-go/server','./server -c /certs/cert.pem -k /certs/priv.key -l /logs.txt -p 4443 127.0.0.1']],
+    ['quic-go',['/server/','./server -c /certs/cert.pem -k /certs/priv.key -l /logs.txt -p 4443 127.0.0.1']],
     ['aioquic',[scdir + '/aioquic','python3 examples/http3_server.py --certificate /quic/aioquic/tests/ssl_cert.pem --private-key /quic/aioquic/tests/ssl_key.pem  -v --host 127.0.0.1 --port 4443']],
     ['mvfst',['/mvfst-generic/generic','./echo -mode=server -host=127.0.0.1 -port=4443']]
 ]
@@ -46,7 +46,7 @@ clients = [
     ['minq',['..','go run '+ scdir + '/go/src/github.com/ekr/minq/bin/client/main.go ']],
     ['chromium',[scdircr + '/chromium/src','./out/Default/quic_client --host=127.0.0.1 --port=4443 --disable_certificate_verification  https://www.example.org/ --v=1 --quic_versions=h3-23']],
     ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-client -- https://localhost:4443/ --dump-json' ]],
-    ['quic-go',[scdir +'/quic-go/client','./client --secure -R -X /logs.txt -P -v 127.0.0.1 4443']],
+    ['quic-go',['/client/','./client --secure -R -X /logs.txt -P -v 127.0.0.1 4443']],
     ['aioquic',[scdir + '/aioquic','python3 examples/http3_client.py -v  -i --insecure --legacy-http https://localhost:4443/']],
     ['mvfst',[scdir + '/_build/build/quic/samples','./echo -mode=client -host=127.0.0.1 -port=4443']]
 ]
