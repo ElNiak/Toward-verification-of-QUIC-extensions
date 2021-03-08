@@ -17,7 +17,7 @@ import (
 	"strings"
 	"sync"
 
-//	_ "net/http/pprof"
+	_ "net/http/pprof"
 
 	"github.com/lucas-clemente/quic-go"
 	"github.com/lucas-clemente/quic-go/http3"

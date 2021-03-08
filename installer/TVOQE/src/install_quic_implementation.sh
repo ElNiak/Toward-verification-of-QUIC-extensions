@@ -24,8 +24,10 @@ mkdir /logs
 wget https://dl.google.com/go/go1.14.linux-amd64.tar.gz  &> /dev/null
 tar xfz go1.14.linux-amd64.tar.gz &> /dev/null
 rm go1.14.linux-amd64.tar.gz
-cd /quic/quic-go/
 export PATH="/go/bin:${PATH}"
+
+cd /quic/quic-go/
+mkdir /client /server
 go get ./...
 go build -o /client/client /client/main.go
 go build -o /server/server /server/main.go
