@@ -247,7 +247,7 @@ class Test(object):
                 with open_out(self.name+str(test_command)+'.iev') as iev:
                     # If run => Launch the quic entity tested 
                     if run:
-                        qcmd = 'sleep 2; ' + quic_cmd if is_client else quic_cmd.split() 
+                        qcmd = 'sleep 1; ' + quic_cmd if is_client else quic_cmd.split() 
                         print 'implementation command: {}'.format(qcmd)
                         quic_process = subprocess.Popen(qcmd,
                                                   cwd=quic_dir,
