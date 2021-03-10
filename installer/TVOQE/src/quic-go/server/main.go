@@ -26,13 +26,8 @@ func main() {
 	_logFile := flag.String("l", "/logs/log.txt", "private key file")
 	port := flag.Int("p", 443, "port to bind on")
 	flag.Parse()
-	logFile, err := os.Create(*_logFile)
-	if err != nil {
-		fmt.Printf("Could not create log file: %s\n", err.Error())
-		os.Exit(1)
-	}
-	defer logFile.Close()
-	log.SetOutput(logFile)
+
+	log.SetOutput(os.Stdout)
 
 	keyLog, err := utils.GetSSLKeyLog()
 	if err != nil {
