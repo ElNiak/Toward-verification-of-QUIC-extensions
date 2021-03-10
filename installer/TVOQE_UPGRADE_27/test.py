@@ -60,12 +60,12 @@ clients = [
 server_tests = [
     ['..',
       [
-          ['quic_server_test_stream','test_completed'],
+      ['quic_server_test_stream','test_completed'],
 	  ['quic_server_test_handshake_done_error','test_completed'],
-          ['quic_server_test_reset_stream','test_completed'],
-          ['quic_server_test_connection_close','test_completed'],
-          ['quic_server_test_stop_sending','test_completed'],
-          ['quic_server_test_max','test_completed'],
+      ['quic_server_test_reset_stream','test_completed'],
+      ['quic_server_test_connection_close','test_completed'],
+      ['quic_server_test_stop_sending','test_completed'],
+      ['quic_server_test_max','test_completed'],
 	  ['quic_server_test_token_error','test_completed'],
 	  ['quic_server_test_tp_error','test_completed'],
 	  ['quic_server_test_double_tp_error','test_completed'],
@@ -87,7 +87,7 @@ server_tests = [
 client_tests = [
     ['..',
       [
-          ['quic_client_test_max','test_completed'],
+      ['quic_client_test_max','test_completed'],
 	  ['quic_client_test_token_error','test_completed'],
 	  ['quic_client_test_tp_error','test_completed'],
 	  ['quic_client_test_double_tp_error','test_completed'],

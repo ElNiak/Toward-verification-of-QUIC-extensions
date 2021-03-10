@@ -2830,13 +2830,13 @@ struct ivy_binary_deser : public ivy_deser {
         get(res);
         if (res >= tags.size()) {
 	    std::cout << "ivy_binary_deser open_tag deser_err" << std::endl; 
-            throw deser_err();
+        throw deser_err();
         } return res;
     }
     void end() {
         if (!can_end()) {
 	    std::cout << "ivy_binary_deser end deser_err" << std::endl; 
-            throw deser_err();
+        throw deser_err();
 	}
     }
 };
