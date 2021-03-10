@@ -1,20 +1,21 @@
-servers=(quant quic-go picoquic aioquic)
-alpn=(h3-29 hq-29 h3-29 h3-29)
+servers=(picoquic quic-go quant quinn aioquic)
+alpn=(hq-29 hq-29 hq-29 hq-29)
 # quiche quant quic-go picoquic aioquic
 
 tests_client=(quic_client_test_max
-	      quic_client_test_ext_min_ack_delay
-	      quic_client_test_token_error
-	      quic_client_test_tp_error
-	      quic_client_test_double_tp_error
-	      quic_client_test_tp_acticoid_error
-	      quic_client_test_tp_limit_acticoid_error
-	      quic_client_test_blocked_streams_maxstream_error
-	      quic_client_test_retirecoid_error
-	      quic_client_test_newcoid_zero_error
-	      quic_client_test_accept_maxdata
-	      quic_client_test_tp_prefadd_error
-	      quic_client_test_no_odci)
+	      #quic_client_test_ext_min_ack_delay
+	      #quic_client_test_token_error
+	      #quic_client_test_tp_error
+	      #quic_client_test_double_tp_error
+	      #quic_client_test_tp_acticoid_error
+	      #quic_client_test_tp_limit_acticoid_error
+	      #quic_client_test_blocked_streams_maxstream_error
+	      #quic_client_test_retirecoid_error
+	      #quic_client_test_newcoid_zero_error
+	      #quic_client_test_accept_maxdata
+	      #quic_client_test_tp_prefadd_error
+	      #quic_client_test_no_odci
+	      )
 
 	      #quic_client_test_token_error
 	      #quic_client_test_tp_error

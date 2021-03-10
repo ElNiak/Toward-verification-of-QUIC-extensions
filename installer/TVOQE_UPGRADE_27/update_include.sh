@@ -18,12 +18,15 @@ for j in "${array[@]}"; do :
     fi
 done
 
-#cd $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/ivy/ TODO add manually lines in ivy to cpp
+cd $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/ivy/ #TODO add manually lines in ivy to cpp
 #python -m compileall ivy_to_cpp.py
-#sudo cp ivy_to_cpp.py /usr/local/lib/python2.7/dist-packages/ivy/
+sudo cp ivy_cpp_types.py /usr/local/lib/python2.7/dist-packages/ivy/
+sudo cp ivy_solver.py /usr/local/lib/python2.7/dist-packages/ivy/
+sudo cp ivy_to_cpp.py /usr/local/lib/python2.7/dist-packages/ivy/
 cd /usr/local/lib/python2.7/dist-packages/ivy/
 sudo python -m compileall ivy_to_cpp.py
 sudo python -m compileall ivy_cpp_types.py
+sudo python -m compileall ivy_solver.py
 
 echo "CP picotls lib"
 sudo cp $HOME/TVOQE_UPGRADE_27/quic/picotls/libpicotls-core.a /usr/local/lib/python2.7/dist-packages/ivy/lib

@@ -31,9 +31,13 @@ servers = [
     ['winquic',['..','true']],
     ['minq',['..','go run '+ scdir + '/go/src/github.com/ekr/minq/bin/server/main.go']],
     ['chromium',[scdircr + '/chromium/src','./out/Default/quic_server --port=4443  --quic_response_cache_dir=/tmp/quic-data/www.example.org   --certificate_file=net/tools/quic/certs/out/leaf_cert.pem   --key_file=net/tools/quic/certs/out/leaf_cert.pkcs8 --quic-enable-version-99  --generate_dynamic_responses --allow_unknown_root_cert --v=1']], # --quic_versions=h3-25
-    ['quic-go',[scdir +'/quic-go/server/','./server -c /home/chris/TVOQE_UPGRADE_27/quic/certs/cert.pem -k /home/chris/TVOQE_UPGRADE_27/quic/certs/priv.key -l /home/chris/logs.txt -p 4443 127.0.0.1']],
+    #['quic-go',[scdir +'/quic-go/server/','./server -c /home/chris/TVOQE_UPGRADE_27/quic/certs/cert.pem -k /home/chris/TVOQE_UPGRADE_27/quic/certs/priv.key -l /home/chris/logs.txt -p 4443 127.0.0.1']],
+    ['quic-go',[scdir +'/quic-go/server/','./server -c /home/chris/TVOQE_UPGRADE_27/QUIC-Ivy/doc/examples/quic/leaf_cert.pem -k /home/chris/TVOQE_UPGRADE_27/QUIC-Ivy/doc/examples/quic/leaf_cert.key -p 4443 127.0.0.1']],
     ['aioquic',[scdir + '/aioquic/','python3 examples/http3_server.py --certificate /home/chris/TVOQE_UPGRADE_27/quic/aioquic/tests/ssl_cert.pem --private-key /home/chris/TVOQE_UPGRADE_27/quic/aioquic/tests/ssl_key.pem  -v --host 127.0.0.1 --port 4443']], #127.0.0.1
-    ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-server --  --cert tools/apps/src/bin/cert.crt  --key tools/apps/src/bin/cert.key --no-retry --listen 127.0.0.1:4443' ]]
+    ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-server --  --cert tools/apps/src/bin/cert.crt  --key tools/apps/src/bin/cert.key --no-retry --listen 127.0.0.1:4443' ]],
+    ['mvfst',[scdir + '/mvfst/_build/build/quic/samples/','./echo -mode=server -host=127.0.0.1 -port=4443']],
+    ['lsquic',[scdir+ '/lsquic/bin/','./http_server -Q hq-29 -s 127.0.0.1:4443 -l event=debug,engine=debug']],
+    ['quinn',[scdir+ '/quinn/','cargo run --example server ./ --listen 127.0.0.1:4443']],
 ]
 
 clients = [
@@ -44,8 +48,11 @@ clients = [
     ['minq',['..','go run '+ scdir + '/go/src/github.com/ekr/minq/bin/client/main.go ']],
     ['chromium',[scdircr + '/chromium/src','./out/Default/quic_client --host=127.0.0.1 --port=6121 --disable_certificate_verification  https://www.example.org/ --v=1 --quic_versions=h3-23']],
     ['aioquic',[scdir + '/aioquic','python3 examples/http3_client.py -v  -i --insecure --legacy-http https://localhost:4443/']], #--ca-certs tests/pycacert.pem
-    ['quic-go',[scdir +'/quic-go/client/','./client --secure -R -X /home/chris/logs.txt -P -v 127.0.0.1 4443']], #--secure -R
-    ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-client -- https://localhost:4443/ --dump-json --wire-version ff00001d']]
+    ['quic-go',[scdir +'/quic-go/client/','./client -X /home/chris/logs.txt -P -v 127.0.0.1 4443']], #--secure -R
+    ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-client -- https://localhost:4443/ --dump-json --wire-version ff00001d']],
+    ['mvfst',[scdir + '/mvfst/_build/build/quic/samples/','./echo -mode=client -host=127.0.0.1 -port=4443']],
+    ['lsquic',[scdir+ '/lsquic/bin/','./http_client -4 -Q hq-29 -s 127.0.0.1:4443 -l event=debug,engine=debug -p / -H 127.0.0.1']],
+    ['quinn',[scdir+ '/quinn/','cargo run --example client https://localhost:4443/']],
 ]
 
 #List of available server's tests 
@@ -281,7 +288,7 @@ class Test(object):
         if platform.system() != 'Windows':
             oldcwd = os.getcwd()
             os.chdir(self.dir)
-            proc = subprocess.Popen('sleep 1;'+command,stdout=iev,shell=True)
+            proc = subprocess.Popen('sleep 2;'+command,stdout=iev,shell=True)
             os.chdir(oldcwd)
             try:
                 retcode = proc.wait()
