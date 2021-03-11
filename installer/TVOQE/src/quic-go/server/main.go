@@ -23,7 +23,6 @@ var tlsConf *tls.Config
 func main() {
 	certFile := flag.String("c", "/certs/cert.pem", "cert file")
 	keyFile := flag.String("k", "/certs/priv.key", "private key file")
-	_logFile := flag.String("l", "/logs/log.txt", "private key file")
 	port := flag.Int("p", 443, "port to bind on")
 	flag.Parse()
 

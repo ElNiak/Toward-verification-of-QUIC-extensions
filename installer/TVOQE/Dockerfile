@@ -36,6 +36,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y binutils
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libboost-all-dev libevent-dev libdouble-conversion-dev libgoogle-glog-dev libgflags-dev libiberty-dev liblz4-dev liblzma-dev
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libsnappy-dev zlib1g-dev binutils-dev libjemalloc-dev libsodium-dev sudo
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y git python3 python3-dev python3-pip build-essential libffi-dev python-dev cargo
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y build-essential software-properties-common zlib1g-dev libevent-dev
 RUN pip install pexpect chardet 
 RUN pip install gperf pandas scandir
 RUN pip3 install setuptools-rust
@@ -61,6 +62,7 @@ ADD src/test_all.sh test_all.sh
 ADD src/test.py test.py
 ADD src/ivy_to_cpp.py /usr/local/lib/python2.7/dist-packages/ivy/ivy_to_cpp.py
 ADD src/ivy_cpp_types.py /usr/local/lib/python2.7/dist-packages/ivy/ivy_cpp_types.py
+ADD src/ivy_solver.py /usr/local/lib/python2.7/dist-packages/ivy/ivy_solver.py
 ADD src/install_quic_implementation.sh install_quic_implementation.sh 
 
 # Install QUIC implementation
@@ -80,6 +82,9 @@ COPY --from=intermediate mvfst /quic/mvfst
 # TODO should be in the first part
 COPY src/mvfst/generic /quic/mvfst/quic/samples/generic
 COPY src/mvfst/samples-build-patch.diff /quic/mvfst/
+COPY --from=intermediate boringssl /quic/boringssl
+COPY --from=intermediate lsquic /quic/lsquic
+COPY --from=intermediate quinn /quic/quinn
 
 RUN bash install_quic_implementation.sh;exit 0
 

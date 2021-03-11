@@ -33,9 +33,11 @@ servers = [
     ['minq',['..','go run '+ scdir + '/go/src/github.com/ekr/minq/bin/server/main.go']],
     ['chromium',[scdircr + '/chromium/src','./out/Default/quic_server --port=4443  --quic_response_cache_dir=/tmp/quic-data/www.example.org   --certificate_file=net/tools/quic/certs/out/leaf_cert.pem   --key_file=net/tools/quic/certs/out/leaf_cert.pkcs8 --quic-enable-version-99  --generate_dynamic_responses --allow_unknown_root_cert --v=1']], # --quic_versions=h3-25
     ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-server --       --cert tools/apps/src/bin/cert.crt       --key tools/apps/src/bin/cert.key --no-retry --dump-packets dump.txt --listen 127.0.0.1:4443']],
-    ['quic-go',['/server/','./server -c /QUIC-Ivy/doc/examples/quic/leaf_cert.pem -k /QUIC-Ivy/doc/examples/quic/leaf_cert.key -l /logs.txt -p 4443 127.0.0.1']],
+    ['quic-go',['/server/','./server -c /QUIC-Ivy/doc/examples/quic/leaf_cert.pem -k /QUIC-Ivy/doc/examples/quic/leaf_cert.key -p 4443 127.0.0.1']],
     ['aioquic',[scdir + '/aioquic','python3 examples/http3_server.py --certificate  /QUIC-Ivy/doc/examples/quic/leaf_cert.pem --private-key /QUIC-Ivy/doc/examples/quic/leaf_cert.key  -v --host 127.0.0.1 --port 4443']],
-    ['mvfst',['/mvfst-generic/generic','./echo -mode=server -host=127.0.0.1 -port=4443']]
+    ['mvfst',[scdir + '/mvfst/_build/build/quic/samples','./echo -mode=server -host=127.0.0.1 -port=4443']],
+    ['quinn',[scdir+ '/quinn/','cargo run --example server ./ --listen 127.0.0.1:4443']],
+    ['lsquic',[scdir+ '/lsquic/bin/','./http_server -Q hq-29 -s 127.0.0.1:4443 -l event=debug,engine=debug']],
 ]
 
 clients = [
@@ -48,7 +50,9 @@ clients = [
     ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-client -- https://localhost:4443/ --dump-json' ]],
     ['quic-go',['/client/','./client --secure -R -X /logs.txt -P -v 127.0.0.1 4443']],
     ['aioquic',[scdir + '/aioquic','python3 examples/http3_client.py -v  -i --insecure --legacy-http https://localhost:4443/']],
-    ['mvfst',[scdir + '/_build/build/quic/samples','./echo -mode=client -host=127.0.0.1 -port=4443']]
+    ['mvfst',[scdir + '/mvfst/_build/build/quic/samples','./echo -mode=client -host=127.0.0.1 -port=4443']],
+    ['quinn',[scdir+ '/quinn/','cargo run --example client https://localhost:4443/']],
+    ['lsquic',[scdir+ '/lsquic/bin/','./http_client -4 -Q hq-29 -s 127.0.0.1:4443 -l event=debug,engine=debug -p / -H 127.0.0.1']],
 ]
 
 #List of available server's tests 

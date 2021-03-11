@@ -4,8 +4,8 @@
 # Launch the client suite test for each implementation
 #
 
-servers=(quant quic-go picoquic aioquic mvfst)
-alpn=(hq-29 hq-29 hq-29 hq-29 hq-29)
+servers=(quinn lsquic mvfst picoquic quant quic-go aioquic)
+alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 
 tests_client=(quic_client_test_max
               quic_client_test_token_error

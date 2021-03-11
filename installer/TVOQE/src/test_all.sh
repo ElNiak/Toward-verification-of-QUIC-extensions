@@ -4,8 +4,8 @@
 # Launch the server & client suite test for each implementation
 #
 
-servers=(quant quic-go picoquic aioquic mvfst)
-alpn=(hq-29 hq-29 hq-29 hq-29 hq-29)
+servers=(quinn lsquic mvfst picoquic quant quic-go aioquic)
+alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 
 tests_server=(quic_server_test_stream
               quic_server_test_max 

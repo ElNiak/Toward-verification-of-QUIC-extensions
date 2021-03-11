@@ -5,7 +5,6 @@ done < <(find /QUIC-Ivy/ivy/include/1.7/ -type f -name \*.ivy -print0)
 
 echo $array
 
-
 SUB='test'
 for j in "${array[@]}"; do : 
     if [[ ! "$j" == *"$SUB"* ]]; then
@@ -17,6 +16,7 @@ done
 cd /usr/local/lib/python2.7/dist-packages/ivy/
 python -m compileall ivy_to_cpp.py
 python -m compileall ivy_cpp_types.py
+python -m compileall ivy_solver.py
 
 echo "CP picotls lib"
 cp /quic/picotls/libpicotls-core.a /usr/local/lib/python2.7/dist-packages/ivy/lib
