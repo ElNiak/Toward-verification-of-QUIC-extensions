@@ -53,7 +53,7 @@ def main(argv):
     elif mode == "client":
         os.system('docker run --privileged -it -v '+ path + 'results:/results quic-ivy-uclouvain bash test_client.sh ' + str(it))
     elif mode == "server":
-        os.system('docker run --privileged -it -v '+ path + 'results:/results quic-ivy-uclouvain bash test_server.sh ' + str(it))
+        os.system('docker run --privileged -it -v '+ path + 'results:/results quic-ivy-uclouvain bash test_server.sh ' + str(it)) # test_server.sh ' + str(it)
 
     os.system('chmod -R 777 results/')
 
