@@ -1,4 +1,4 @@
-servers=(picoquic quic-go quant quinn aioquic)
+servers=(quinn lsquic mvfst picoquic quant quic-go aioquic)
 alpn=(hq-29 hq-29 hq-29 hq-29)
 # quiche quant quic-go picoquic aioquic
 
