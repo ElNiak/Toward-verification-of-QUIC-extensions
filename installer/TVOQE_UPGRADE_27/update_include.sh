@@ -29,14 +29,14 @@ sudo python -m compileall ivy_cpp_types.py
 sudo python -m compileall ivy_solver.py
 
 echo "CP picotls lib"
-sudo cp $HOME/TVOQE_UPGRADE_27/quic/picotls/libpicotls-core.a /usr/local/lib/python2.7/dist-packages/ivy/lib
-sudo cp $HOME/TVOQE_UPGRADE_27/quic/picotls/libpicotls-core.a $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/ivy/lib
-sudo cp $HOME/TVOQE_UPGRADE_27/quic/picotls/libpicotls-minicrypto.a /usr/local/lib/python2.7/dist-packages/ivy/lib
-sudo cp $HOME/TVOQE_UPGRADE_27/quic/picotls/libpicotls-minicrypto.a $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/ivy/lib
-sudo cp $HOME/TVOQE_UPGRADE_27/quic/picotls/libpicotls-openssl.a /usr/local/lib/python2.7/dist-packages/ivy/lib
-sudo cp $HOME/TVOQE_UPGRADE_27/quic/picotls/libpicotls-openssl.a $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/ivy/lib
+sudo cp -f $HOME/TVOQE_UPGRADE_27/quic/picotls/libpicotls-core.a /usr/local/lib/python2.7/dist-packages/ivy/lib
+sudo cp -f $HOME/TVOQE_UPGRADE_27/quic/picotls/libpicotls-core.a $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/ivy/lib
+sudo cp -f $HOME/TVOQE_UPGRADE_27/quic/picotls/libpicotls-minicrypto.a /usr/local/lib/python2.7/dist-packages/ivy/lib
+sudo cp -f $HOME/TVOQE_UPGRADE_27/quic/picotls/libpicotls-minicrypto.a $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/ivy/lib
+sudo cp -f $HOME/TVOQE_UPGRADE_27/quic/picotls/libpicotls-openssl.a /usr/local/lib/python2.7/dist-packages/ivy/lib
+sudo cp -f $HOME/TVOQE_UPGRADE_27/quic/picotls/libpicotls-openssl.a $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/ivy/lib
 
-sudo cp $HOME/TVOQE_UPGRADE_27/quic/picotls/include/picotls.h /usr/local/lib/python2.7/dist-packages/ivy/include
-sudo cp $HOME/TVOQE_UPGRADE_27/quic/picotls/include/picotls.h $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/ivy/include
-sudo cp -r $HOME/TVOQE_UPGRADE_27/quic/picotls/include/picotls /usr/local/lib/python2.7/dist-packages/ivy/include
-sudo cp -r $HOME/TVOQE_UPGRADE_27/quic/picotls/include/picotls $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/ivy/include
+sudo cp -f $HOME/TVOQE_UPGRADE_27/quic/picotls/include/picotls.h /usr/local/lib/python2.7/dist-packages/ivy/include
+sudo cp -f $HOME/TVOQE_UPGRADE_27/quic/picotls/include/picotls.h $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/ivy/include
+sudo cp -r -f $HOME/TVOQE_UPGRADE_27/quic/picotls/include/picotls/. /usr/local/lib/python2.7/dist-packages/ivy/include/picotls
+sudo cp -r -f $HOME/TVOQE_UPGRADE_27/quic/picotls/include/picotls/. $HOME/TVOQE_UPGRADE_27/QUIC-Ivy/ivy/include/picotls
