@@ -73,6 +73,25 @@ make
 cd /quic/mvfst/_build/build/quic/samples
 make -j 8
 
+#Install boringssl
+cd /
+cd /quic/boringssl
+cmake . &&  make
+export BORINGSSL=$PWD
+
+#Install lsquic
+cd /
+cd /quic/lsquic
+cmake -DBORINGSSL_DIR=$BORINGSSL .
+make
+make test
+
+
+#Install Quinn
+cd /quic/quinn
+cargo build --examples
+cargo test
+
 #Update includes of python lib
 cd /
 echo "Update Includes"

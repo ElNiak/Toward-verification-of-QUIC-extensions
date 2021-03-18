@@ -51,3 +51,25 @@ mv tls-keys-patch.diff /mvfst
 cd /mvfst
 git checkout 36111c1
 git apply tls-keys-patch.diff
+
+# Clone boringssl project 
+cd /
+git clone https://boringssl.googlesource.com/boringssl
+cd /boringssl 
+git checkout a2278d4d2cabe73f6663e3299ea7808edfa306b9 
+
+
+#Clone LSQuic
+cd /
+git clone https://github.com/litespeedtech/lsquic.git
+cd /lsquic
+git checkout v2.29.4
+git submodule init
+git submodule update
+
+
+#Clone Quinn
+cd /
+git clone --recursive https://github.com/quinn-rs/quinn.git 
+cd /quinn
+git checkout 0.7.0
