@@ -36,7 +36,7 @@ servers = [
     ['quic-go',['/server/','./server -c /QUIC-Ivy/doc/examples/quic/leaf_cert.pem -k /QUIC-Ivy/doc/examples/quic/leaf_cert.key -p 4443 127.0.0.1']],
     ['aioquic',[scdir + '/aioquic','python3 examples/http3_server.py --certificate /quic/aioquic/tests/ssl_cert.pem --private-key /quic/aioquic/tests/ssl_key.pem  -v --host 127.0.0.1 --port 4443']],
     ['mvfst',[scdir + '/mvfst/_build/build/quic/samples','./echo -mode=server -host=127.0.0.1 -port=4443']],
-    ['quinn',[scdir+ '/quinn/','cargo run --example server ./ --listen 127.0.0.1:4443']],
+    ['quinn',[scdir+ '/quinn/','cargo run --example server /var/www/html/ --listen 127.0.0.1:4443']],
     ['lsquic',[scdir+ '/lsquic/bin/','./http_server -Q hq-29 -s 127.0.0.1:4443 -l event=debug,engine=debug']],
 ]
 
