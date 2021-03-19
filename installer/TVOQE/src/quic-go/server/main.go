@@ -70,7 +70,7 @@ func runHTTP09Server(quicConf *quic.Config, port int) error {
 	}
 
 	//http.FileServer()
-	http.DefaultServeMux.Handle("/", http.FileServer(http.Dir("/www")))
+	http.DefaultServeMux.Handle("/", http.FileServer(http.Dir("/var/www/html")))
 	return server.ListenAndServe()
 }
 

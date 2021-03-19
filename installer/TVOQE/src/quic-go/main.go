@@ -15,7 +15,7 @@ import (
 	"time"
 
 	"github.com/lucas-clemente/quic-go"
-"github.com/lucas-clemente/quic-go/http3"
+	"github.com/lucas-clemente/quic-go/interop/http09"
 )
 
 type logger struct {
@@ -62,7 +62,7 @@ func main() {
 	}
 
 	var qconf quic.Config
-	roundTripper := &http3.RoundTripper{
+	roundTripper := &http09.RoundTripper{
 		TLSClientConfig: &tls.Config{
 			RootCAs:            pool,
 			InsecureSkipVerify: !*secure,
