@@ -19,14 +19,14 @@ python -m compileall ivy_cpp_types.py
 python -m compileall ivy_solver.py
 
 echo "CP picotls lib"
-cp /quic/picotls/libpicotls-core.a /usr/local/lib/python2.7/dist-packages/ivy/lib
-cp /quic/picotls/libpicotls-core.a /QUIC-Ivy/ivy/lib
-cp /quic/picotls/libpicotls-minicrypto.a /usr/local/lib/python2.7/dist-packages/ivy/lib
-cp /quic/picotls/libpicotls-minicrypto.a /QUIC-Ivy/ivy/lib
-cp /quic/picotls/libpicotls-openssl.a /usr/local/lib/python2.7/dist-packages/ivy/lib
-cp /quic/picotls/libpicotls-openssl.a /QUIC-Ivy/ivy/lib
+cp -f /quic/picotls/libpicotls-core.a /usr/local/lib/python2.7/dist-packages/ivy/lib
+cp -f /quic/picotls/libpicotls-core.a /QUIC-Ivy/ivy/lib
+cp -f /quic/picotls/libpicotls-minicrypto.a /usr/local/lib/python2.7/dist-packages/ivy/lib
+cp -f /quic/picotls/libpicotls-minicrypto.a /QUIC-Ivy/ivy/lib
+cp -f /quic/picotls/libpicotls-openssl.a /usr/local/lib/python2.7/dist-packages/ivy/lib
+cp -f /quic/picotls/libpicotls-openssl.a /QUIC-Ivy/ivy/lib
 
-cp /quic/picotls/include/picotls.h /usr/local/lib/python2.7/dist-packages/ivy/include
-cp /quic/picotls/include/picotls.h /QUIC-Ivy/ivy/include
-cp -r /quic/picotls/include/picotls /usr/local/lib/python2.7/dist-packages/ivy/include
-cp -r /quic/picotls/include/picotls /QUIC-Ivy/ivy/include
+cp -f /quic/picotls/include/picotls.h /usr/local/lib/python2.7/dist-packages/ivy/include
+cp -f /quic/picotls/include/picotls.h /QUIC-Ivy/ivy/include
+cp -r -f /quic/picotls/include/picotls/. /usr/local/lib/python2.7/dist-packages/ivy/include/picotls
+cp -r -f /quic/picotls/include/picotls/. /QUIC-Ivy/ivy/include/picotls
