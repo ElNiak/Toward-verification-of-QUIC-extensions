@@ -4,8 +4,10 @@
 # Launch the client suite test for each implementation
 #
 
-servers=(quinn lsquic mvfst picoquic quant quic-go aioquic)
-alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
+servers=(quinn lsquic picoquic quant quic-go aioquic)
+alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
+
+#mvfst failed because of version negociation
 
 tests_client=(quic_client_test_max
               quic_client_test_token_error
@@ -72,8 +74,8 @@ for j in "${tests_client[@]}"; do
             pkill tshark
             cp res_client.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/res_client.txt
             count=$((count + 1))
-            cnt2=$((cnt2 + 1))
         done
+        cnt2=$((cnt2 + 1))
     done
 done
 
