@@ -4,7 +4,11 @@
 # Launch the server suite test for each implementation
 # 
 
-servers=(quinn lsquic mvfst picoquic quant quic-go aioquic)
+# restest quant with removing line in quic packet
+
+# lsquic not working
+
+servers=(quinn mvfst picoquic quant quic-go aioquic)
 alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 
 tests_server=(quic_server_test_stream
