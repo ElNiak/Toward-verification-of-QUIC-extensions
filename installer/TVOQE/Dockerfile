@@ -28,7 +28,7 @@ RUN apt-get update  && apt-get -y install alien
 RUN apt-get install -y apt-utils
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get --fix-missing  -y install tzdata curl wget tar 
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y python python-pip g++ cmake python-ply python-pygraphviz git python-tk tix gperf pkg-config libssl-dev
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y python python-pip g++ cmake python-ply python-pygraphviz git python-tk tix gperf pkg-config libssl-dev lsof
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y doxygen pkg-config faketime libscope-guard-perl libtest-tcp-perl libbrotli-dev
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libev-dev libhttp-parser-dev libbsd-dev snapd
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y cmake wireshark tshark
