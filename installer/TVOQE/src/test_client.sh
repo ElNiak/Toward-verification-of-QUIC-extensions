@@ -11,7 +11,6 @@ alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 #mvfst failed because of version negociation
 
 tests_client=(quic_client_test_max
-              quic_client_test_token_error
               quic_client_test_tp_error
               quic_client_test_double_tp_error
               quic_client_test_tp_acticoid_error
