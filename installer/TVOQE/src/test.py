@@ -41,18 +41,18 @@ servers = [
 ]
 
 clients = [
-    ['picoquic',[scdir + '/picoquic','./picoquicdemo -l - -L -D -v ff00001d localhost 4443']],
+    ['picoquic',[scdir + '/picoquic','./picoquicdemo -l - -D -L -v ff00001d -a hq-29 localhost 4443']], # -b myqlog.bin -R
     ['pquic',[scdir + '/pquic','./picoquicdemo -l - -L -D -v ff00001d localhost 4443 ']],
-    ['quant',[scdir+'/quant/Debug/bin/','./client -c /QUIC-Ivy/doc/examples/quic/leaf_cert.pem  -t 3600 -v 5 -e 0xff00001d https://localhost:4443/']],
+    ['quant',[scdir+'/quant/Debug/bin/','./client -c /QUIC-Ivy/doc/examples/quic/leaf_cert.pem -u  -t 3600 -v 5 -e 0xff00001d https://localhost:4443/']],
     ['winquic',['..','true']],
     ['minq',['..','go run '+ scdir + '/go/src/github.com/ekr/minq/bin/client/main.go ']],
     ['chromium',[scdircr + '/chromium/src','./out/Default/quic_client --host=127.0.0.1 --port=4443 --disable_certificate_verification  https://www.example.org/ --v=1 --quic_versions=h3-23']],
     ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-client -- https://localhost:4443/ --dump-json' ]],
     ['quic-go',['/client/','./client --secure -R -X /logs.txt -P -v 127.0.0.1 4443']],
     ['aioquic',[scdir + '/aioquic','python3 examples/http3_client.py -v  -i --insecure --legacy-http https://localhost:4443/']],
-    ['mvfst',[scdir + '/mvfst/_build/build/quic/samples','./echo -mode=client -host=127.0.0.1 -port=4443']],
+    ['mvfst',[scdir + '/mvfst/_build/build/quic/samples','./echo -mode=client -host=127.0.0.1 -port=4443 -v=5 -stop_logging_if_full_disk']],
     ['quinn',[scdir+ '/quinn/','cargo run  -vv --example client https://localhost:4443/ --keylog']],
-    ['lsquic',[scdir+ '/lsquic/bin/','./http_client -4 -Q hq-29 -s 127.0.0.1:4443 -l event=debug,engine=debug -p / -H 127.0.0.1 -o version=FF00001d']],
+    ['lsquic',[scdir+ '/lsquic/bin/','./http_client -a -4 -n 1 -r 1 -i 1000 -Q hq-29 -s 127.0.0.1:4443 -l event=debug,engine=debug -p / -H 127.0.0.1 -o version=FF00001D']],
 ]
 
 #List of available server's tests 
