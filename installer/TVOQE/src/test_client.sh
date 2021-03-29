@@ -4,7 +4,8 @@
 # Launch the client suite test for each implementation
 #
 # quinn cid too long
-servers=(mvfst lsquic picoquic quant quic-go aioquic)
+# quic-go  segfault cause to picotls
+servers=(mvfst lsquic picoquic quant aioquic)
 alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 
 #mvfst failed because of version negociation
