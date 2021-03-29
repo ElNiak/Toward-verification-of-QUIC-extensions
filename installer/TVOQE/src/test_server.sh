@@ -4,7 +4,11 @@
 # Launch the server suite test for each implementation
 # 
 
-servers=(quinn lsquic mvfst picoquic quant quic-go aioquic)
+# restest quant with removing line in quic packet
+
+# lsquic not working
+
+servers=(quinn mvfst picoquic quant quic-go aioquic)
 alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 
 tests_server=(quic_server_test_stream
@@ -17,7 +21,6 @@ tests_server=(quic_server_test_stream
               quic_server_test_tp_acticoid_error
               quic_server_test_connection_close
               quic_server_test_reset_stream
-	          quic_server_test_blocked_streams_maxstream_error
 	          quic_server_test_retirecoid_error
 	          quic_server_test_newcoid_zero_error
 	          quic_server_test_handshake_done_error
@@ -68,10 +71,12 @@ for j in "${tests_server[@]}"; do
         k=1
         until [ $k -gt $ITER ]; do
             printf "\n\Iteration => $k \n"
+            printf "\Implementation => $i \n"
+            printf "\Test => $j \n"
             export TEST_IMPL=$i
             export CNT=$count
             export RND=$RANDOM
-            export TEST_ALPN=${alpn[cnt2]}
+            export TEST_ALPN="hq-29"
             touch /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap
             chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap
             tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap -f "udp" &
@@ -79,11 +84,12 @@ for j in "${tests_server[@]}"; do
             ((k++))
             printf "\n"
             pkill tshark
+            cat res_server.txt
             cp res_server.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/res_server.txt
             count=$((count + 1))
-            cnt2=$((cnt2 + 1))
         done
-	printf "\n"
+        cnt2=$((cnt2 + 1))
+	    printf "\n"
     done
 done
 

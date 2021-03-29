@@ -86,5 +86,7 @@ COPY --from=intermediate boringssl /quic/boringssl
 COPY --from=intermediate lsquic /quic/lsquic
 COPY --from=intermediate quinn /quic/quinn
 
+COPY src/var /var/
+
 RUN bash install_quic_implementation.sh;exit 0
 
