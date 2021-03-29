@@ -3,8 +3,8 @@
 #
 # Launch the client suite test for each implementation
 #
-
-servers=(quinn lsquic picoquic quant quic-go aioquic)
+# quinn cid too long
+servers=(mvfst lsquic picoquic quant quic-go aioquic)
 alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 
 #mvfst failed because of version negociation
@@ -15,7 +15,7 @@ tests_client=(quic_client_test_max
               quic_client_test_double_tp_error
               quic_client_test_tp_acticoid_error
               quic_client_test_tp_limit_acticoid_error
-              quic_client_test_blocked_streams_maxstream_error
+              #quic_client_test_blocked_streams_maxstream_error
               quic_client_test_retirecoid_error
               quic_client_test_newcoid_zero_error
               quic_client_test_accept_maxdata
@@ -62,7 +62,7 @@ for j in "${tests_client[@]}"; do
             export TEST_IMPL=$i
             export CNT=$count
             export RND=$RANDOM
-            export TEST_ALPN=${alpn[cnt2]}
+            export TEST_ALPN=hq-29 #${alpn[cnt2]}
             printf "\n\Iteration => $k \n"
             touch /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_client_${j}.pcap
             chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_client_${j}.pcap
@@ -70,12 +70,13 @@ for j in "${tests_client[@]}"; do
             python test.py iters=1 client=$i test=$j > res_client.txt 2>&1
             ((k++))
             kill $(lsof -t -i udp) >/dev/null 2>&1
-            printf "\n"
             pkill tshark
+            cat res_client.txt
             cp res_client.txt /QUIC-Ivy/doc/examples/quic/test/temp/${count}/res_client.txt
             count=$((count + 1))
         done
         cnt2=$((cnt2 + 1))
+        printf "\n"
     done
 done
 
