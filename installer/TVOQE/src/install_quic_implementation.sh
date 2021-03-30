@@ -71,7 +71,7 @@ cd /quic/mvfst/quic/samples
 cmake .
 make
 cd /quic/mvfst/_build/build/quic/samples
-make -j 4 # Slower but dont crash the VM
+make # -j 4 # Slower but dont crash the VM
 
 #Install boringssl
 cd /

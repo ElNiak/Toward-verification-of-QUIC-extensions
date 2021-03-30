@@ -6,7 +6,7 @@
 # quinn cid too long
 # quic-go  segfault cause to picotls
 # quant CA ERRORS
-servers=(mvfst lsquic picoquic aioquic)
+servers=(quant mvfst lsquic picoquic aioquic)
 alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 
 #mvfst failed because of version negociation

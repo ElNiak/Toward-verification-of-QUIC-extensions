@@ -35,7 +35,7 @@ servers = [
     ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-server --       --cert tools/apps/src/bin/cert.crt       --key tools/apps/src/bin/cert.key --no-retry --dump-packets dump.txt --listen 127.0.0.1:4443']],
     ['quic-go',['/server/','./server -c /QUIC-Ivy/doc/examples/quic/leaf_cert.pem -k /QUIC-Ivy/doc/examples/quic/leaf_cert.key -p 4443 127.0.0.1']],
     ['aioquic',[scdir + '/aioquic','python3 examples/http3_server.py --certificate /quic/aioquic/tests/ssl_cert.pem --private-key /quic/aioquic/tests/ssl_key.pem  -v --host 127.0.0.1 --port 4443']],
-    ['mvfst',[scdir + '/mvfst/_build/build/quic/samples','./echo -mode=server -host=127.0.0.1 -port=4443']],
+    ['mvfst',[scdir + '/mvfst/_build/build/quic/samples/','./echo -mode=server -host=127.0.0.1 -port=4443']],
     ['quinn',[scdir+ '/quinn/','cargo run --example server /var/www/html/ --listen 127.0.0.1:4443']],
     ['lsquic',[scdir+ '/lsquic/bin/','./http_server -Q hq-29 -s 127.0.0.1:4443 -l event=debug,engine=debug']],
 ]
@@ -50,7 +50,7 @@ clients = [
     ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-client -- https://localhost:4443/ --dump-json' ]],
     ['quic-go',['/client/','./client --secure -R -X /logs.txt -P -v 127.0.0.1 4443']],
     ['aioquic',[scdir + '/aioquic','python3 examples/http3_client.py -v  -i --insecure --legacy-http https://localhost:4443/']],
-    ['mvfst',[scdir + '/mvfst/_build/build/quic/samples','./echo -mode=client -host=127.0.0.1 -port=4443 -v=5 -stop_logging_if_full_disk']],
+    ['mvfst',[scdir + '/mvfst/_build/build/quic/samples/','./echo -mode=client -host=127.0.0.1 -port=4443 -v=5 -stop_logging_if_full_disk']],
     ['quinn',[scdir+ '/quinn/','cargo run  -vv --example client https://localhost:4443/ --keylog']],
     ['lsquic',[scdir+ '/lsquic/bin/','./http_client -a -4 -n 1 -r 1 -i 1000 -Q hq-29 -s 127.0.0.1:4443 -l event=debug,engine=debug -p / -H 127.0.0.1 -o version=FF00001D']],
 ]
