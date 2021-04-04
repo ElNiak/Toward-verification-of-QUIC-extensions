@@ -1,0 +1,62 @@
+2021-03-28 14:05:38,578 DEBUG asyncio Using selector: EpollSelector
+2021-03-28 14:05:43,389 DEBUG quic [0000000000000001] Network path ('127.0.0.1', 4987) discovered
+2021-03-28 14:05:43,393 DEBUG quic [0000000000000001] QuicConnectionState.FIRSTFLIGHT -> QuicConnectionState.CONNECTED
+2021-03-28 14:05:43,406 DEBUG quic [0000000000000001] TLS State.SERVER_EXPECT_CLIENT_HELLO -> State.SERVER_EXPECT_FINISHED
+2021-03-28 14:05:43,794 DEBUG quic [0000000000000001] Discarding epoch Epoch.INITIAL
+2021-03-28 14:05:43,796 DEBUG quic [0000000000000001] TLS State.SERVER_EXPECT_FINISHED -> State.SERVER_POST_HANDSHAKE
+2021-03-28 14:05:43,796 DEBUG quic [0000000000000001] Discarding epoch Epoch.HANDSHAKE
+2021-03-28 14:05:43,797 INFO quic [0000000000000001] ALPN negotiated protocol hq-29
+2021-03-28 14:05:43,797 DEBUG quic [0000000000000001] Network path ('127.0.0.1', 4987) validated by handshake
+2021-03-28 14:05:44,027 DEBUG quic [f11a246f3e2bf22e] Network path ('127.0.0.1', 4987) discovered
+2021-03-28 14:05:44,028 DEBUG quic [f11a246f3e2bf22e] Payload decryption failed
+2021-03-28 14:05:44,268 ERROR asyncio Exception in callback _SelectorDatagramTransport._read_ready()
+handle: <Handle _SelectorDatagramTransport._read_ready()>
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/asyncio/events.py", line 145, in _run
+    self._callback(*self._args)
+  File "/usr/lib/python3.6/asyncio/selector_events.py", line 1068, in _read_ready
+    self._protocol.datagram_received(data, addr)
+  File "/quic/aioquic/src/aioquic/asyncio/server.py", line 149, in datagram_received
+    protocol.datagram_received(data, addr)
+  File "/quic/aioquic/src/aioquic/asyncio/protocol.py", line 135, in datagram_received
+    self._quic.receive_datagram(cast(bytes, data), addr, now=self._loop.time())
+  File "/quic/aioquic/src/aioquic/quic/connection.py", line 793, in receive_datagram
+    ), "first packet must be INITIAL"
+AssertionError: first packet must be INITIAL
+2021-03-28 14:05:44,299 DEBUG quic [0000000000000001] Loss detection triggered
+2021-03-28 14:05:44,299 DEBUG quic [0000000000000001] Sending PING (probe) in packet 4
+2021-03-28 14:05:44,521 DEBUG quic [0000000000000001] Network path ('127.0.0.1', 4988) discovered
+2021-03-28 14:05:44,521 DEBUG quic [0000000000000001] Stream 16 created by peer
+2021-03-28 14:05:44,522 DEBUG quic [0000000000000001] Network path ('127.0.0.1', 4988) promoted
+2021-03-28 14:05:44,522 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 14:05:44,898 DEBUG quic [0000000000000001] Network path ('127.0.0.1', 4988) validated by challenge
+2021-03-28 14:05:45,589 DEBUG quic [0000000000000001] Stream 24 created by peer
+2021-03-28 14:05:45,590 DEBUG quic [0000000000000001] Received PING (probe) response
+2021-03-28 14:05:45,590 DEBUG quic [0000000000000001] Stream 32 created by peer
+2021-03-28 14:05:45,590 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 14:05:45,591 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 14:05:45,591 DEBUG quic [0000000000000001] Sending PING (ACK-of-ACK trigger) in packet 8
+2021-03-28 14:05:45,868 DEBUG quic [0000000000000001] Stream 12 created by peer
+2021-03-28 14:05:45,869 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 14:05:47,852 DEBUG quic [0000000000000001] Stream 20 created by peer
+2021-03-28 14:05:47,852 DEBUG quic [0000000000000001] Stream 28 created by peer
+2021-03-28 14:05:47,852 DEBUG quic [0000000000000001] Stream 8 created by peer
+2021-03-28 14:05:47,852 DEBUG quic [0000000000000001] Received PING (probe) response
+2021-03-28 14:05:47,852 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 14:05:47,852 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 14:05:47,852 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 14:05:48,098 DEBUG quic [0000000000000001] Loss detection triggered
+2021-03-28 14:05:49,362 DEBUG quic [0000000000000001] Stream 36 created by peer
+2021-03-28 14:05:49,362 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 14:05:49,687 DEBUG quic [0000000000000001] Loss detection triggered
+2021-03-28 14:05:50,617 DEBUG quic [0000000000000001] Stream 52 created by peer
+2021-03-28 14:05:50,617 DEBUG quic [0000000000000001] Stream 44 created by peer
+2021-03-28 14:05:50,617 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 14:05:50,618 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 14:05:50,962 DEBUG quic [0000000000000001] Loss detection triggered
+2021-03-28 14:05:51,465 DEBUG quic [0000000000000001] Loss detection triggered
+2021-03-28 14:05:53,626 DEBUG quic [0000000000000001] Stream 48 created by peer
+2021-03-28 14:05:53,627 DEBUG quic [0000000000000001] Stream 56 created by peer
+2021-03-28 14:05:53,627 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 14:05:53,627 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 14:05:53,628 DEBUG quic [0000000000000001] Sending PING (ACK-of-ACK trigger) in packet 24
