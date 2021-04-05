@@ -1,0 +1,70 @@
+2021-03-28 03:07:18,812 DEBUG asyncio Using selector: EpollSelector
+2021-03-28 03:07:23,618 DEBUG quic [0000000000000001] Network path ('127.0.0.1', 4987) discovered
+2021-03-28 03:07:23,621 DEBUG quic [0000000000000001] QuicConnectionState.FIRSTFLIGHT -> QuicConnectionState.CONNECTED
+2021-03-28 03:07:23,635 DEBUG quic [0000000000000001] TLS State.SERVER_EXPECT_CLIENT_HELLO -> State.SERVER_EXPECT_FINISHED
+2021-03-28 03:07:23,791 DEBUG quic [0000000000000001] Discarding epoch Epoch.INITIAL
+2021-03-28 03:07:23,793 DEBUG quic [0000000000000001] TLS State.SERVER_EXPECT_FINISHED -> State.SERVER_POST_HANDSHAKE
+2021-03-28 03:07:23,793 DEBUG quic [0000000000000001] Discarding epoch Epoch.HANDSHAKE
+2021-03-28 03:07:23,793 INFO quic [0000000000000001] ALPN negotiated protocol hq-29
+2021-03-28 03:07:23,793 DEBUG quic [0000000000000001] Network path ('127.0.0.1', 4987) validated by handshake
+2021-03-28 03:07:23,960 DEBUG quic [e01fd697b77fa9bd] Network path ('127.0.0.1', 4987) discovered
+2021-03-28 03:07:23,961 DEBUG quic [e01fd697b77fa9bd] Payload decryption failed
+2021-03-28 03:07:24,168 ERROR asyncio Exception in callback _SelectorDatagramTransport._read_ready()
+handle: <Handle _SelectorDatagramTransport._read_ready()>
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/asyncio/events.py", line 145, in _run
+    self._callback(*self._args)
+  File "/usr/lib/python3.6/asyncio/selector_events.py", line 1068, in _read_ready
+    self._protocol.datagram_received(data, addr)
+  File "/quic/aioquic/src/aioquic/asyncio/server.py", line 149, in datagram_received
+    protocol.datagram_received(data, addr)
+  File "/quic/aioquic/src/aioquic/asyncio/protocol.py", line 135, in datagram_received
+    self._quic.receive_datagram(cast(bytes, data), addr, now=self._loop.time())
+  File "/quic/aioquic/src/aioquic/quic/connection.py", line 793, in receive_datagram
+    ), "first packet must be INITIAL"
+AssertionError: first packet must be INITIAL
+2021-03-28 03:07:24,294 DEBUG quic [0000000000000001] Loss detection triggered
+2021-03-28 03:07:24,294 DEBUG quic [0000000000000001] Sending PING (probe) in packet 4
+2021-03-28 03:07:24,411 DEBUG quic [0000000000000001] Network path ('127.0.0.1', 4988) discovered
+2021-03-28 03:07:24,411 DEBUG quic [0000000000000001] Stream 4 created by peer
+2021-03-28 03:07:24,412 DEBUG quic [0000000000000001] Peer switching to CID e01fd697b77fa9bd (1)
+2021-03-28 03:07:24,412 DEBUG quic [0000000000000001] Network path ('127.0.0.1', 4988) promoted
+2021-03-28 03:07:24,412 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 03:07:24,731 DEBUG quic [0000000000000001] Stream 8 created by peer
+2021-03-28 03:07:24,731 DEBUG quic [0000000000000001] Peer switching to CID e2a45f9cab9e699e (0)
+2021-03-28 03:07:24,731 DEBUG quic [0000000000000001] Network path ('127.0.0.1', 4987) promoted
+2021-03-28 03:07:24,731 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 03:07:24,922 DEBUG quic [0000000000000001] Network path ('127.0.0.1', 4988) validated by challenge
+2021-03-28 03:07:24,922 DEBUG quic [0000000000000001] Peer switching to CID e01fd697b77fa9bd (1)
+2021-03-28 03:07:25,382 DEBUG quic [0000000000000001] Received PING (probe) response
+2021-03-28 03:07:25,382 DEBUG quic [0000000000000001] Stream 12 created by peer
+2021-03-28 03:07:25,383 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 03:07:26,440 DEBUG quic [0000000000000001] Network path ('127.0.0.1', 4988) promoted
+2021-03-28 03:07:29,231 DEBUG quic [0000000000000001] Stream 48 created by peer
+2021-03-28 03:07:29,231 DEBUG quic [0000000000000001] Stream 24 created by peer
+2021-03-28 03:07:29,231 DEBUG quic [0000000000000001] Stream 20 created by peer
+2021-03-28 03:07:29,232 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 03:07:29,232 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 03:07:29,233 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 03:07:30,706 DEBUG quic [0000000000000001] Stream 28 created by peer
+2021-03-28 03:07:30,706 DEBUG quic [0000000000000001] Stream 36 created by peer
+2021-03-28 03:07:30,706 DEBUG quic [0000000000000001] Stream 32 created by peer
+2021-03-28 03:07:30,707 DEBUG quic [0000000000000001] Peer switching to CID e2a45f9cab9e699e (0)
+2021-03-28 03:07:30,707 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 03:07:30,707 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 03:07:30,708 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 03:07:32,399 DEBUG quic [0000000000000001] Stream 40 created by peer
+2021-03-28 03:07:32,399 DEBUG quic [0000000000000001] Stream 52 created by peer
+2021-03-28 03:07:32,400 DEBUG quic [0000000000000001] Stream 44 created by peer
+2021-03-28 03:07:32,400 DEBUG quic [0000000000000001] Peer switching to CID e01fd697b77fa9bd (1)
+2021-03-28 03:07:32,400 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 03:07:32,401 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 03:07:32,401 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 03:07:32,786 DEBUG quic [0000000000000001] Loss detection triggered
+2021-03-28 03:07:32,794 DEBUG quic [0000000000000001] Loss detection triggered
+2021-03-28 03:07:33,049 DEBUG quic [0000000000000001] Stream 16 created by peer
+2021-03-28 03:07:33,049 DEBUG quic [0000000000000001] Network path ('127.0.0.1', 4987) promoted
+2021-03-28 03:07:33,050 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 03:07:33,868 DEBUG quic [0000000000000001] Stream 56 created by peer
+2021-03-28 03:07:33,869 DEBUG quic [0000000000000001] Peer switching to CID e2a45f9cab9e699e (0)
+2021-03-28 03:07:33,869 INFO quic [0000000000000001] HTTP request GET /index.html
