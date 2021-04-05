@@ -1,0 +1,41 @@
+2021-03-28 03:06:33,619 DEBUG asyncio Using selector: EpollSelector
+2021-03-28 03:06:38,438 DEBUG quic [0000000000000001] Network path ('127.0.0.1', 4987) discovered
+2021-03-28 03:06:38,441 DEBUG quic [0000000000000001] QuicConnectionState.FIRSTFLIGHT -> QuicConnectionState.CONNECTED
+2021-03-28 03:06:38,454 DEBUG quic [0000000000000001] TLS State.SERVER_EXPECT_CLIENT_HELLO -> State.SERVER_EXPECT_FINISHED
+2021-03-28 03:06:38,753 DEBUG quic [0000000000000001] Discarding epoch Epoch.INITIAL
+2021-03-28 03:06:38,754 DEBUG quic [0000000000000001] Network path ('127.0.0.1', 4987) validated by handshake
+2021-03-28 03:06:39,055 DEBUG quic [0000000000000001] TLS State.SERVER_EXPECT_FINISHED -> State.SERVER_POST_HANDSHAKE
+2021-03-28 03:06:39,055 DEBUG quic [0000000000000001] Discarding epoch Epoch.HANDSHAKE
+2021-03-28 03:06:39,056 INFO quic [0000000000000001] ALPN negotiated protocol hq-29
+2021-03-28 03:06:39,409 DEBUG quic [ed9db54db9c9b55c] Network path ('127.0.0.1', 4987) discovered
+2021-03-28 03:06:39,411 DEBUG quic [ed9db54db9c9b55c] Payload decryption failed
+2021-03-28 03:06:39,941 DEBUG quic [ed9db54db9c9b55c] Network path ('127.0.0.1', 4988) discovered
+2021-03-28 03:06:39,942 ERROR asyncio Exception in callback _SelectorDatagramTransport._read_ready()
+handle: <Handle _SelectorDatagramTransport._read_ready()>
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/asyncio/events.py", line 145, in _run
+    self._callback(*self._args)
+  File "/usr/lib/python3.6/asyncio/selector_events.py", line 1068, in _read_ready
+    self._protocol.datagram_received(data, addr)
+  File "/quic/aioquic/src/aioquic/asyncio/server.py", line 149, in datagram_received
+    protocol.datagram_received(data, addr)
+  File "/quic/aioquic/src/aioquic/asyncio/protocol.py", line 135, in datagram_received
+    self._quic.receive_datagram(cast(bytes, data), addr, now=self._loop.time())
+  File "/quic/aioquic/src/aioquic/quic/connection.py", line 793, in receive_datagram
+    ), "first packet must be INITIAL"
+AssertionError: first packet must be INITIAL
+2021-03-28 03:06:40,168 DEBUG quic [0000000000000001] Loss detection triggered
+2021-03-28 03:06:40,168 DEBUG quic [0000000000000001] Sending PING (probe) in packet 4
+2021-03-28 03:06:40,365 DEBUG quic [0000000000000001] Received PING (probe) response
+2021-03-28 03:06:40,366 DEBUG quic [0000000000000001] Peer switching to CID ed9db54db9c9b55c (1)
+2021-03-28 03:06:40,760 DEBUG quic [0000000000000001] Stream 20 created by peer
+2021-03-28 03:06:40,761 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 03:06:41,044 DEBUG quic [0000000000000001] Network path ('127.0.0.1', 4988) discovered
+2021-03-28 03:06:41,045 DEBUG quic [0000000000000001] Stream 36 created by peer
+2021-03-28 03:06:41,045 DEBUG quic [0000000000000001] Network path ('127.0.0.1', 4988) promoted
+2021-03-28 03:06:41,045 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 03:06:41,046 DEBUG quic [0000000000000001] Sending PING (ACK-of-ACK trigger) in packet 8
+2021-03-28 03:06:41,351 DEBUG quic [0000000000000001] Stream 40 created by peer
+2021-03-28 03:06:41,351 INFO quic [0000000000000001] HTTP request GET /index.html
+2021-03-28 03:06:42,085 WARNING quic [0000000000000001] Error: 10, reason: Response does not match challenge, frame_type: 27
+2021-03-28 03:06:42,086 DEBUG quic [0000000000000001] QuicConnectionState.CONNECTED -> QuicConnectionState.CLOSING
