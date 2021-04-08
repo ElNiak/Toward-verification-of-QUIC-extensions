@@ -8,7 +8,8 @@ import subprocess
 import re
 import time
 import signal
-
+import random
+from datetime import datetime
 
 import platform
 
@@ -333,7 +334,9 @@ class IvyTest(Test):
     def command(self,test_command):
         import platform
         timeout_cmd = '' if platform.system() == 'Windows' else 'timeout {} '.format(time)
-        return ' '.join(['{}./build/{} seed={} the_cid={} {}'.format(timeout_cmd,self.name,test_command,2*test_command,'' if is_client else 'server_cid={} client_port={} client_port_alt={}'.format(2*test_command+1,2*test_command+4987,2*test_command+4988))] + extra_args)
+        randomSeed = random.Random()
+        random.seed(datetime.now())
+        return ' '.join(['{}./build/{} seed={} the_cid={} {}'.format(timeout_cmd,self.name,randomSeed,2*test_command,'' if is_client else 'server_cid={} client_port={} client_port_alt={}'.format(2*test_command+1,2*test_command+4987,2*test_command+4988))] + extra_args)
 
 all_tests = []
 def get_tests(cls,arr):
