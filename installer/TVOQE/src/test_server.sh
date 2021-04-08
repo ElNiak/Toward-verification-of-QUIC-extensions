@@ -4,12 +4,12 @@
 # Launch the server suite test for each implementation
 # 
 
-# restest quant with removing line in quic packet TOREDO
+# <!><!><!> restest quant with removing line in quic packet TOREDO <!><!><!><!><!>
 # require ~_generating & ~queued_non_ack(scid) -> ack_credit(scid) > 0;  # [5]
 
 # lsquic not working
 
-servers=(quinn mvfst picoquic quant quic-go aioquic)
+servers=(quinn mvfst picoquic quic-go aioquic)
 alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 
 tests_server=(quic_server_test_stream
