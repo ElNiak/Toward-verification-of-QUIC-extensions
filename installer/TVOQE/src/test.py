@@ -10,7 +10,6 @@ import time
 import signal
 import random
 from datetime import datetime
-
 import platform
 
 # On Windows, pexpect doesn't implement 'spawn'.
