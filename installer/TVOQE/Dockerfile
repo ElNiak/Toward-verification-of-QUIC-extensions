@@ -66,11 +66,14 @@ ADD src/ivy_to_cpp.py /usr/local/lib/python2.7/dist-packages/ivy/ivy_to_cpp.py
 ADD src/ivy_cpp_types.py /usr/local/lib/python2.7/dist-packages/ivy/ivy_cpp_types.py
 ADD src/ivy_solver.py /usr/local/lib/python2.7/dist-packages/ivy/ivy_solver.py
 ADD src/install_quic_implementation.sh install_quic_implementation.sh 
+ADD src/update_key_aioquic.py /results/update_key_aioquic.py
 
 # Install QUIC implementation
 RUN mkdir /results
 ADD results/create-csv.py /results/create-csv.py
 RUN mkdir /quic /quic/certs
+RUN mkdir /results/picoquic_qlog
+RUN mkdir /results/quant_qlog
 COPY --from=intermediate picotls /quic/picotls
 COPY --from=intermediate picoquic /quic/picoquic
 COPY --from=intermediate quant /quic/quant
