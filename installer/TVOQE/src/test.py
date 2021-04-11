@@ -335,7 +335,8 @@ class IvyTest(Test):
         timeout_cmd = '' if platform.system() == 'Windows' else 'timeout {} '.format(time)
         randomSeed = random.random()
         random.seed(datetime.now())
-        return ' '.join(['{}./build/{} seed={} the_cid={} {}'.format(timeout_cmd,self.name,randomSeed,2*test_command,'' if is_client else 'server_cid={} client_port={} client_port_alt={}'.format(2*test_command+1,2*test_command+4987,2*test_command+4988))] + extra_args)
+        #2*test_command && 2*test_command+1
+        return ' '.join(['{}./build/{} seed={} the_cid={} {}'.format(timeout_cmd,self.name,randomSeed,0,'' if is_client else 'server_cid={} client_port={} client_port_alt={}'.format(1,2*test_command+4987,2*test_command+4988))] + extra_args)
 
 all_tests = []
 def get_tests(cls,arr):

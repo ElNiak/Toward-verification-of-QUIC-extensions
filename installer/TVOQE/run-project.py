@@ -8,6 +8,8 @@ import os
 from os import listdir
 from os.path import isfile, join
 
+# sudo python run-project.py -b true -m server -p /home/student/Toward-verification-of-QUIC-extensions/installer/TVOQE -i 100
+
 def usage():
     message = "Usage: ./run-project -b[uild] <true/false> -m[ode] <client/server/all> -p <path/> -i <iteration>"
     print(message)
@@ -46,6 +48,8 @@ def main(argv):
                 path += "/"
 
     if build:
+        os.system('docker rm $(docker ps -aq)')
+        os.system('docker rmi $(docker images -aq)')
         os.system('docker build -t quic-ivy-uclouvain .')
 
     if mode == "all":
