@@ -40,8 +40,6 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y build-es
 RUN pip install pexpect chardet 
 RUN pip install gperf pandas scandir
 RUN pip3 install setuptools-rust
-RUN pip install random
-RUN pip3 install random
 
 #RUN apt remove --fix-missing  -y  cmake
 #RUN snap version
