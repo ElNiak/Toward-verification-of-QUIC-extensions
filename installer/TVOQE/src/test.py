@@ -333,7 +333,7 @@ class IvyTest(Test):
     def command(self,test_command):
         import platform
         timeout_cmd = '' if platform.system() == 'Windows' else 'timeout {} '.format(time)
-        randomSeed = random.random()
+        randomSeed = random.randint(0,1000)
         random.seed(datetime.now())
         #2*test_command && 2*test_command+1
         return ' '.join(['{}./build/{} seed={} the_cid={} {}'.format(timeout_cmd,self.name,randomSeed,0,'' if is_client else 'server_cid={} client_port={} client_port_alt={}'.format(1,2*test_command+4987,2*test_command+4988))] + extra_args)
