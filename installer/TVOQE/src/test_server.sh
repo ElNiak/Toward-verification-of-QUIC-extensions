@@ -9,6 +9,7 @@
 
 # lsquic not working
 
+
 servers=(quinn mvfst picoquic quic-go aioquic)
 alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 
@@ -68,6 +69,7 @@ for j in "${tests_server[@]}"; do
     cnt2=0
     for i in "${servers[@]}"; do
         :
+        export SSLKEYLOGFILE="${i}_key.log"
         printf "\n\nTesting => $i \n"
         k=1
         until [ $k -gt $ITER ]; do
@@ -102,3 +104,4 @@ cp -R /QUIC-Ivy/doc/examples/quic/test/temp/ /results
 
 cd /results
 python create-csv.py
+python update-key_aioquic.py
