@@ -15,7 +15,7 @@ alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 
 tests_server=(quic_server_test_stream
               quic_server_test_unkown
-	          #quic_server_test_blocked_streams_maxstream_error
+	          quic_server_test_blocked_streams_maxstream_error
               quic_server_test_tp_limit_newcoid
 	          quic_server_test_max 
 	          quic_server_test_token_error  
