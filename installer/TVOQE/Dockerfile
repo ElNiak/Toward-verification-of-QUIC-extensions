@@ -67,7 +67,7 @@ ADD src/install_quic_implementation.sh install_quic_implementation.sh
 ADD src/update_key_aioquic.py /results/update_key_aioquic.py
 
 # Install QUIC implementation
-RUN mkdir /results
+#RUN mkdir /results
 ADD results/create-csv.py /results/create-csv.py
 RUN mkdir /quic /quic/certs
 RUN mkdir /results/picoquic_qlog
