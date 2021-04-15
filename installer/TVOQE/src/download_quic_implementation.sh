@@ -77,4 +77,5 @@ git checkout 0.7.0
 #Clone Quiche
 cd /
 git clone --recursive https://github.com/cloudflare/quiche
+cd /quiche
 git checkout 0.7.0
