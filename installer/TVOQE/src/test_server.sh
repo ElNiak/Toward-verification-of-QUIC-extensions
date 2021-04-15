@@ -10,7 +10,7 @@
 # lsquic not working
 
 
-servers=(quinn mvfst picoquic quic-go aioquic)
+servers=(quinn mvfst picoquic quic-go aioquic quiche lsquic)
 alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 
 tests_server=(quic_server_test_stream
@@ -79,7 +79,7 @@ for j in "${tests_server[@]}"; do
             export TEST_IMPL=$i
             export CNT=$count
             export RND=$RANDOM
-            export TEST_ALPN="hq-29"
+            export TEST_ALPN=hq-29
             touch /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap
             chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap
             tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap -f "udp" &
