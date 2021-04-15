@@ -88,6 +88,8 @@ COPY src/mvfst/samples-build-patch.diff /quic/mvfst/
 COPY --from=intermediate boringssl /quic/boringssl
 COPY --from=intermediate lsquic /quic/lsquic
 COPY --from=intermediate quinn /quic/quinn
+COPY --from=intermediate quiche /quic/quiche
+COPY src/quiche/packet.rs /quic/quiche/src/packet.rs
 
 COPY src/var /var/
 

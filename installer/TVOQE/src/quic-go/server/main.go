@@ -41,8 +41,10 @@ func main() {
 	// a quic.Config that doesn't do a Retry
 	quicConf := &quic.Config{
 		AcceptToken: func(_ net.Addr, _ *quic.Token) bool { return true },
-
+		ConnectionIDLength: 8,
+		//Tracer: qlog.NewTracer(getLogWriter),
 	}
+
 	cert, err := tls.LoadX509KeyPair(*certFile, *keyFile)
 	if err != nil {
 		fmt.Println(err)
@@ -70,7 +72,7 @@ func runHTTP09Server(quicConf *quic.Config, port int) error {
 	}
 
 	//http.FileServer()
-	http.DefaultServeMux.Handle("/", http.FileServer(http.Dir("/var/www/html")))
+	http.DefaultServeMux.Handle("/", http.FileServer(http.Dir("/QUIC-Ivy/doc/examples/quic/")))
 	return server.ListenAndServe()
 }
 
