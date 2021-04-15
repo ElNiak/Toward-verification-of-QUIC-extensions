@@ -16,12 +16,13 @@ def usage():
 
 def main(argv):     
     build = False
+    delete = False
     mode  = "all" 
     path = ""
     it = 1
     
     try:                                
-        opts, args = getopt.getopt(argv, "hg:b:m:p:i:f", ["help", "build=","mode=","path=","iteration=","final="])
+        opts, args = getopt.getopt(argv, "hg:b:m:p:i:f:d", ["help", "build=","mode=","path=","iteration=","final=","delete="])
     except getopt.GetoptError:          
         usage()                         
         sys.exit(2)                    
@@ -46,10 +47,14 @@ def main(argv):
             path = arg  
             if not path[-1] == "/" and not path[-1] == "\\":
                 path += "/"
+        elif opt == '-d' and arg.lower() == "true":                
+            delete = True
 
-    if build:
+    if delete: 
         os.system('docker rm $(docker ps -aq)')
         os.system('docker rmi $(docker images -aq)')
+
+    if build:
         os.system('docker build -t quic-ivy-uclouvain .')
 
     if mode == "all":
