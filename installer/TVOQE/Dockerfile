@@ -67,7 +67,7 @@ ADD src/install_quic_implementation.sh install_quic_implementation.sh
 ADD src/update_key_aioquic.py /results/update_key_aioquic.py
 
 # Install QUIC implementation
-RUN mkdir /results
+#RUN mkdir /results
 ADD results/create-csv.py /results/create-csv.py
 RUN mkdir /quic /quic/certs
 RUN mkdir /results/picoquic_qlog
@@ -88,6 +88,8 @@ COPY src/mvfst/samples-build-patch.diff /quic/mvfst/
 COPY --from=intermediate boringssl /quic/boringssl
 COPY --from=intermediate lsquic /quic/lsquic
 COPY --from=intermediate quinn /quic/quinn
+COPY --from=intermediate quiche /quic/quiche
+COPY src/quiche/packet.rs /quic/quiche/src/packet.rs
 
 COPY src/var /var/
 

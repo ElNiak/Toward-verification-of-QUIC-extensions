@@ -1,21 +1,22 @@
 package main
 
 import (
-"bytes"
-"crypto/tls"
-"crypto/x509"
-"flag"
-"fmt"
-"io"
+	"bytes"
+	"crypto/tls"
+	"crypto/x509"
+	"flag"
+	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
-"net/http"
-"os"
-"sync"
+	"net/http"
+	"os"
+	"sync"
 	"time"
 
 	"github.com/lucas-clemente/quic-go"
 	"github.com/lucas-clemente/quic-go/interop/http09"
+	"github.com/lucas-clemente/quic-go/interop/utils"
 )
 
 type logger struct {
@@ -35,7 +36,7 @@ func main() {
 	requestSize := flag.Int("G", 50000, "amount of bytes to ask for in the request")
 	flag.Bool("R", false, "force RTT connection establishment")
 
-	secure := flag.Bool("secure", false, "do certificate verification")
+	//secure := flag.Bool("secure", false, "do certificate verification")
 	flag.Parse()
 	address := flag.Arg(0)
 	port := flag.Arg(1)
@@ -61,14 +62,21 @@ func main() {
 		log.Fatal(err)
 	}
 
-	var qconf quic.Config
+	// a quic.Config that doesn't do a Retry
+	var quicConf = &quic.Config{
+		AcceptToken: func(_ net.Addr, _ *quic.Token) bool { return true },
+		ConnectionIDLength: 8,
+		//Tracer:      qlog.NewTracer(getLogWriter),
+		//DisablePathMTUDiscovery: true,
+	}
+
 	roundTripper := &http09.RoundTripper{
 		TLSClientConfig: &tls.Config{
 			RootCAs:            pool,
-			InsecureSkipVerify: !*secure,
+			InsecureSkipVerify: true,
 			KeyLogWriter:       keyLog,
 		},
-		QuicConfig: &qconf,
+		QuicConfig: quicConf,
 	}
 	defer roundTripper.Close()
 	hclient := &http.Client{

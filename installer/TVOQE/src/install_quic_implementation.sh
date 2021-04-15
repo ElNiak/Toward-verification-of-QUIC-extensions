@@ -92,6 +92,11 @@ cd /quic/quinn
 cargo build --examples
 cargo test
 
+#Install Quiche
+cd /quic/quiche/
+cargo build --examples
+cargo test
+
 #Update includes of python lib
 cd /
 echo "Update Includes"
