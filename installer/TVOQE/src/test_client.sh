@@ -49,6 +49,12 @@ done
 
 ITER=$1
 
+printf "Create SSLLOGFILE TEST \n"
+for j in "${servers[@]}"; do
+    :
+    touch /results/${j}_key.log
+done
+
 export TEST_TYPE=client
 
 printf "\n"
@@ -61,6 +67,7 @@ for j in "${tests_client[@]}"; do
     cnt2=0
     for i in "${servers[@]}"; do
         :
+        export SSLKEYLOGFILE="/results/${i}_key.log"
         printf "\n\nTesting => $i \n"
         k=1
         until [ $k -gt $ITER ]; do
@@ -93,3 +100,4 @@ cp -R  /QUIC-Ivy/doc/examples/quic/test/temp/ /results
 
 cd /results
 python create-csv.py
+python update_key_aioquic.py
