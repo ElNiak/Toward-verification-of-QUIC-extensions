@@ -55,6 +55,12 @@ for j in "${tests_server[@]}"; do
     printf "\n"
 done
 
+printf "Create SSLLOGFILE TEST \n"
+for j in "${servers[@]}"; do
+    :
+    touch /results/${j}_key.log
+done
+
 ITER=$1
 
 export TEST_TYPE=server
@@ -69,7 +75,7 @@ for j in "${tests_server[@]}"; do
     cnt2=0
     for i in "${servers[@]}"; do
         :
-        export SSLKEYLOGFILE="${i}_key.log"
+        export SSLKEYLOGFILE="/results/${i}_key.log"
         printf "\n\nTesting => $i \n"
         k=1
         until [ $k -gt $ITER ]; do
