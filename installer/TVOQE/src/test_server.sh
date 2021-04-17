@@ -10,7 +10,7 @@
 # lsquic not working
 
 
-servers=(quinn mvfst picoquic quic-go aioquic quiche lsquic)
+servers=(quant quinn mvfst picoquic quic-go aioquic quiche lsquic)
 alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 
 tests_server=(quic_server_test_stream
@@ -55,10 +55,12 @@ for j in "${tests_server[@]}"; do
     printf "\n"
 done
 
+mkdir /results/temp/
+
 printf "Create SSLLOGFILE TEST \n"
 for j in "${servers[@]}"; do
     :
-    touch /results/${j}_key.log
+    touch /results/temp/${j}_key.log
 done
 
 ITER=$1
@@ -75,7 +77,7 @@ for j in "${tests_server[@]}"; do
     cnt2=0
     for i in "${servers[@]}"; do
         :
-        export SSLKEYLOGFILE="/results/${i}_key.log"
+        export SSLKEYLOGFILE="/results/temp/${i}_key.log"
         printf "\n\nTesting => $i \n"
         k=1
         until [ $k -gt $ITER ]; do
