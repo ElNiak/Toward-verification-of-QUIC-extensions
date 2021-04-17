@@ -28,16 +28,16 @@ scdircr ='/quic'
 servers = [
     ['picoquic',[scdir+'/picoquic','./picoquicdemo -l - -D -L -q /results/picoquic_qlog']],
     ['pquic',[scdir+'/pquic','./picoquicdemo -l - -D -L']],
-    ['quant',[scdir+'/quant/Debug/bin/','./server -d /QUIC-Ivy/doc/examples/quic/ -c /QUIC-Ivy/doc/examples/quic/leaf_cert.pem -k /QUIC-Ivy/doc/examples/quic/leaf_cert.key -p 4443 -t 3600 -v 5 -q /results/quant_qlog -l /results/quant_keys.log']],
+    ['quant',[scdir+'/quant/Debug/bin/','./server -d /QUIC-Ivy/doc/examples/quic/ -c /QUIC-Ivy/doc/examples/quic/leaf_cert.pem -k /QUIC-Ivy/doc/examples/quic/leaf_cert.key -p 4443 -t 3600 -v 5 -q /results/quant_qlog -l /results/temp/quant_key.log']],
     ['winquic',['..','true']],
     ['minq',['..','go run '+ scdir + '/go/src/github.com/ekr/minq/bin/server/main.go']],
     ['chromium',[scdircr + '/chromium/src','./out/Default/quic_server --port=4443  --quic_response_cache_dir=/tmp/quic-data/www.example.org   --certificate_file=net/tools/quic/certs/out/leaf_cert.pem   --key_file=net/tools/quic/certs/out/leaf_cert.pkcs8 --quic-enable-version-99  --generate_dynamic_responses --allow_unknown_root_cert --v=1']], # --quic_versions=h3-25
     ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-server --       --cert tools/apps/src/bin/cert.crt       --key tools/apps/src/bin/cert.key --no-retry --dump-packets /results/dump.txt --listen 127.0.0.1:4443']],
     ['quic-go',['/server/','./server -c /QUIC-Ivy/doc/examples/quic/leaf_cert.pem -k /QUIC-Ivy/doc/examples/quic/leaf_cert.key -p 4443 127.0.0.1']],
-    ['aioquic',[scdir + '/aioquic','python3 examples/http3_server.py --certificate /quic/aioquic/tests/ssl_cert.pem --private-key /quic/aioquic/tests/ssl_key.pem  -v --host 127.0.0.1 --port 4443 -l /results/aioquic_key.log"']],
+    ['aioquic',[scdir + '/aioquic','python3 examples/http3_server.py --certificate /quic/aioquic/tests/ssl_cert.pem --private-key /quic/aioquic/tests/ssl_key.pem  -v --host 127.0.0.1 --port 4443 -l /results/temp/aioquic_key.log"']],
     ['mvfst',[scdir + '/mvfst/_build/build/quic/samples/','./echo -mode=server -host=127.0.0.1 -port=4443']],
     ['quinn',[scdir+ '/quinn/','cargo run --example server /QUIC-Ivy/doc/examples/quic/ --listen 127.0.0.1:4443 --keylog']],
-    ['lsquic',[scdir+ '/lsquic/bin/','./http_server -Q hq-29 -s 127.0.0.1:4443 -l event=debug,engine=debug -o version=FF00001D -G /results/']],
+    ['lsquic',[scdir+ '/lsquic/bin/','./http_server -Q hq-29 -s 127.0.0.1:4443 -l event=debug,engine=debug -o version=FF00001D -G /results/temp/']],
 ]
 
 clients = [

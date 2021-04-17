@@ -9,7 +9,7 @@
 
 #TODO update quic-go .go
 
-servers=(quant mvfst lsquic picoquic aioquic)
+servers=(quant quinn mvfst picoquic quic-go aioquic quiche lsquic)
 alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 
 #mvfst failed because of version negociation
@@ -49,10 +49,12 @@ done
 
 ITER=$1
 
+mkdir /results/temp/
+
 printf "Create SSLLOGFILE TEST \n"
 for j in "${servers[@]}"; do
     :
-    touch /results/${j}_key.log
+    touch /results/temp/${j}_key.log
 done
 
 export TEST_TYPE=client
@@ -67,7 +69,7 @@ for j in "${tests_client[@]}"; do
     cnt2=0
     for i in "${servers[@]}"; do
         :
-        export SSLKEYLOGFILE="/results/${i}_key.log"
+        export SSLKEYLOGFILE="/results/temp/${i}_key.log"
         printf "\n\nTesting => $i \n"
         k=1
         until [ $k -gt $ITER ]; do
