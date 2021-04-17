@@ -31,7 +31,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get --fix-missing  -y install tzdata cu
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y python python-pip g++ cmake python-ply python-pygraphviz git python-tk tix gperf pkg-config libssl-dev lsof
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y doxygen pkg-config faketime libscope-guard-perl libtest-tcp-perl libbrotli-dev
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libev-dev libhttp-parser-dev libbsd-dev snapd
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y cmake wireshark tshark
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y cmake wireshark tshark rand
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y binutils autoconf automake autotools-dev libtool pkg-config libev-dev libjemalloc-dev ca-certificates mime-support
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libboost-all-dev libevent-dev libdouble-conversion-dev libgoogle-glog-dev libgflags-dev libiberty-dev liblz4-dev liblzma-dev
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install  --fix-missing  -y libsnappy-dev zlib1g-dev binutils-dev libjemalloc-dev libsodium-dev sudo
@@ -67,14 +67,15 @@ ADD src/install_quic_implementation.sh install_quic_implementation.sh
 
 # Install QUIC implementation
 RUN mkdir /results
-ADD results/create-csv.py /results/create-csv.py
-ADD src/update_key_aioquic.py /results/update_key_aioquic.py
+COPY results/create-csv.py /results/create-csv.py
+COPY src/update_key_aioquic.py /results/update_key_aioquic.py
 RUN mkdir /quic /quic/certs
 RUN mkdir /results/picoquic_qlog
 RUN mkdir /results/quant_qlog
 COPY --from=intermediate picotls /quic/picotls
 COPY --from=intermediate picoquic /quic/picoquic
 COPY --from=intermediate quant /quic/quant
+COPY src/quant/cid.h /quic/quant/lib/src/cid.h
 COPY --from=intermediate quic-go /quic/quic-go
 COPY src/quic-go/main.go /client/main.go
 COPY src/quic-go/server/main.go /server/main.go
@@ -88,6 +89,7 @@ COPY src/mvfst/samples-build-patch.diff /quic/mvfst/
 COPY --from=intermediate boringssl /quic/boringssl
 COPY --from=intermediate lsquic /quic/lsquic
 COPY --from=intermediate quinn /quic/quinn
+COPY src/quinn/lib.rs /quic/quinn/quinn-proto/src/lib.rs
 COPY --from=intermediate quiche /quic/quiche
 COPY src/quiche/packet.rs /quic/quiche/src/packet.rs
 
