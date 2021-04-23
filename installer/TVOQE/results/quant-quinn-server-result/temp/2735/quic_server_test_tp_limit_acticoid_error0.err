@@ -1,0 +1,172 @@
+    Finished dev [unoptimized + debuginfo] target(s) in 0.16s
+     Running `target/debug/examples/server /QUIC-Ivy/doc/examples/quic/ --listen '127.0.0.1:4443' --keylog`
+listening on 127.0.0.1:4443
+thread 'tokio-runtime-worker' panicked at 'called `Option::unwrap()` on a `None` value', quinn-proto/src/cid_queue.rs:99:34
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+thread 'tokio-runtime-worker' panicked at 'called `Result::unwrap()` on an `Err` value: "PoisonError { inner: .. }"', /quic/quinn/quinn/src/mutex.rs:138:42
+stack backtrace:
+   0:     0x55c76994fe0c - std::backtrace_rs::backtrace::libunwind::trace::h87bbdc8ae314e5a4
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/../../backtrace/src/backtrace/libunwind.rs:96
+   1:     0x55c76994fe0c - std::backtrace_rs::backtrace::trace_unsynchronized::h779de2081f0fe77d
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/../../backtrace/src/backtrace/mod.rs:66
+   2:     0x55c76994fe0c - std::sys_common::backtrace::_print_fmt::h7f9f27f2b4d4cdf1
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/sys_common/backtrace.rs:79
+   3:     0x55c76994fe0c - <std::sys_common::backtrace::_print::DisplayBacktrace as core::fmt::Display>::fmt::hf95d19d7937b7307
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/sys_common/backtrace.rs:58
+   4:     0x55c76998292f - core::fmt::write::h31ddd5324183dd8d
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/core/src/fmt/mod.rs:1082
+   5:     0x55c769948e47 - std::io::Write::write_fmt::h6553ae225ae21934
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/io/mod.rs:1514
+   6:     0x55c7699651c0 - std::sys_common::backtrace::_print::h6d7cde6fb59a3272
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/sys_common/backtrace.rs:61
+   7:     0x55c7699651c0 - std::sys_common::backtrace::print::h024fb5a1f254b027
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/sys_common/backtrace.rs:48
+   8:     0x55c7699651c0 - std::panicking::default_hook::{{closure}}::h008654930ff7c19c
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/panicking.rs:200
+   9:     0x55c769964f1e - std::panicking::default_hook::h611ef89f1ca4afb7
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/panicking.rs:219
+  10:     0x55c7699657a3 - std::panicking::rust_panic_with_hook::h4dfeaf97568ec250
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/panicking.rs:569
+  11:     0x55c769950249 - std::panicking::begin_panic_handler::{{closure}}::hf55586f621f9c415
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/panicking.rs:476
+  12:     0x55c76994ff5c - std::sys_common::backtrace::__rust_end_short_backtrace::hbddda20e4c1f6fd7
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/sys_common/backtrace.rs:153
+  13:     0x55c7699653b2 - rust_begin_unwind
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/panicking.rs:475
+  14:     0x55c769982041 - core::panicking::panic_fmt::he4c3f055751e8cea
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/core/src/panicking.rs:85
+  15:     0x55c7699820d3 - core::result::unwrap_failed::h24cfbc9782f4fe17
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/core/src/result.rs:1220
+  16:     0x55c769159590 - core::result::Result<T,E>::unwrap::h6dc552ddf5301e17
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/core/src/result.rs:973
+  17:     0x55c76913e32e - quinn::mutex::non_tracking::Mutex<T>::lock::h83434158095b2d54
+                               at /quic/quinn/quinn/src/mutex.rs:138
+  18:     0x55c76910b1fc - <quinn::connection::ConnectionRef<S> as core::ops::drop::Drop>::drop::h666ac1b1c5a10a57
+                               at /quic/quinn/quinn/src/connection.rs:744
+  19:     0x55c769106e22 - core::ptr::drop_in_place::hdb092e0f17efbb03
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/core/src/ptr/mod.rs:184
+  20:     0x55c76910788e - core::ptr::drop_in_place::hf40ae7a12702365b
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/core/src/ptr/mod.rs:184
+  21:     0x55c769105cd2 - core::ptr::drop_in_place::hba36671ad6102e4f
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/core/src/ptr/mod.rs:184
+  22:     0x55c769141350 - tokio::runtime::task::core::CoreStage<T>::set_stage::{{closure}}::h00dcc26fe59af833
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/core.rs:288
+  23:     0x55c76915c017 - tokio::loom::std::unsafe_cell::UnsafeCell<T>::with_mut::h0237034d03d41c8f
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/loom/std/unsafe_cell.rs:14
+  24:     0x55c769141235 - tokio::runtime::task::core::CoreStage<T>::set_stage::h74117e09a7d00d55
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/core.rs:288
+  25:     0x55c769140a19 - tokio::runtime::task::core::CoreStage<T>::drop_future_or_output::h70e75b90fcf9e5fc
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/core.rs:254
+  26:     0x55c7690ff47d - <tokio::runtime::task::harness::poll_future::{{closure}}::Guard<T> as core::ops::drop::Drop>::drop::hd7e0afa7c65d9f0b
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/harness.rs:416
+  27:     0x55c769103dbe - core::ptr::drop_in_place::h7a0e80c1bcd78aac
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/core/src/ptr/mod.rs:184
+  28:     0x55c76915e88b - tokio::runtime::task::harness::poll_future::{{closure}}::hfa0c42d3e9d3a7ac
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/harness.rs:428
+  29:     0x55c7691d5cf3 - <std::panic::AssertUnwindSafe<F> as core::ops::function::FnOnce<()>>::call_once::h9bb60b125ca33a7d
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/panic.rs:308
+  30:     0x55c7691a7276 - std::panicking::try::do_call::haa3ee49858acfa41
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/panicking.rs:373
+  31:     0x55c7691a787d - __rust_try
+  32:     0x55c7691a6aa0 - std::panicking::try::h15181d964f70e84b
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/panicking.rs:337
+  33:     0x55c7691d5eea - std::panic::catch_unwind::hd5cb8a6e5bfb2632
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/panic.rs:379
+  34:     0x55c76915dddf - tokio::runtime::task::harness::poll_future::h8a31e45b483fbb49
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/harness.rs:409
+  35:     0x55c76915eae5 - tokio::runtime::task::harness::Harness<T,S>::poll_inner::h2e3195cba4cf4fc9
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/harness.rs:89
+  36:     0x55c76916146b - tokio::runtime::task::harness::Harness<T,S>::poll::he66970bdff421018
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/harness.rs:59
+  37:     0x55c7691b5fd0 - tokio::runtime::task::raw::poll::h64b2f60cd5f4e29a
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/raw.rs:104
+  38:     0x55c76945831f - tokio::runtime::task::raw::RawTask::poll::h67411df249c8bd59
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/raw.rs:66
+  39:     0x55c7694b9aa1 - tokio::runtime::task::Notified<S>::run::h1fd9c7e63a74d7c7
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/mod.rs:171
+  40:     0x55c7694a9caa - tokio::runtime::thread_pool::worker::Context::run_task::{{closure}}::h6fa014f53548fd74
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/thread_pool/worker.rs:370
+  41:     0x55c769458036 - tokio::coop::with_budget::{{closure}}::h8dcf190a68f5c82e
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/coop.rs:106
+  42:     0x55c76949c4d0 - std::thread::local::LocalKey<T>::try_with::h7520e02230b46e89
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/thread/local.rs:265
+  43:     0x55c76949b43e - std::thread::local::LocalKey<T>::with::h88924765299dc67c
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/thread/local.rs:241
+  44:     0x55c7694a9834 - tokio::coop::with_budget::h6cef41b7bc580db1
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/coop.rs:99
+  45:     0x55c7694a9834 - tokio::coop::budget::h9517ce103bf8895e
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/coop.rs:76
+  46:     0x55c7694a9834 - tokio::runtime::thread_pool::worker::Context::run_task::h2c0f8d9cc8dd1307
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/thread_pool/worker.rs:348
+  47:     0x55c7694a9241 - tokio::runtime::thread_pool::worker::Context::run::h531c6f589b56935f
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/thread_pool/worker.rs:318
+  48:     0x55c7694a9023 - tokio::runtime::thread_pool::worker::run::{{closure}}::hd340ad691c332001
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/thread_pool/worker.rs:303
+  49:     0x55c7694573b6 - tokio::macros::scoped_tls::ScopedKey<T>::set::hcabc04934145222c
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/macros/scoped_tls.rs:61
+  50:     0x55c7694a8f1f - tokio::runtime::thread_pool::worker::run::hc607f124de4be9bf
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/thread_pool/worker.rs:300
+  51:     0x55c7694a8d8b - tokio::runtime::thread_pool::worker::Launch::launch::{{closure}}::h9cd63c0df8c0366b
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/thread_pool/worker.rs:279
+  52:     0x55c76948e6de - <tokio::runtime::blocking::task::BlockingTask<T> as core::future::future::Future>::poll::h9e485caa51f9395d
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/blocking/task.rs:42
+  53:     0x55c7694731f5 - tokio::runtime::task::core::CoreStage<T>::poll::{{closure}}::hfe496e196bbb57f9
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/core.rs:235
+  54:     0x55c7694a63ab - tokio::loom::std::unsafe_cell::UnsafeCell<T>::with_mut::h5571d6b6fdf6668f
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/loom/std/unsafe_cell.rs:14
+  55:     0x55c76947307e - tokio::runtime::task::core::CoreStage<T>::poll::h2be80f9f8ed64b68
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/core.rs:225
+  56:     0x55c7694b2afe - tokio::runtime::task::harness::poll_future::{{closure}}::h3a2e10bb2a119f31
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/harness.rs:422
+  57:     0x55c7694c6aa3 - <std::panic::AssertUnwindSafe<F> as core::ops::function::FnOnce<()>>::call_once::h663082566a872449
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/panic.rs:308
+  58:     0x55c769444508 - std::panicking::try::do_call::h45d55acdb210dea5
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/panicking.rs:373
+  59:     0x55c76944c29d - __rust_try
+  60:     0x55c76944429d - std::panicking::try::ha676feee1ebd0d0c
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/panicking.rs:337
+  61:     0x55c7694c704b - std::panic::catch_unwind::h1542f52d6daad28c
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/panic.rs:379
+  62:     0x55c7694b2710 - tokio::runtime::task::harness::poll_future::h8caef3cd27607868
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/harness.rs:409
+  63:     0x55c7694b1690 - tokio::runtime::task::harness::Harness<T,S>::poll_inner::haf39203966907cdc
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/harness.rs:89
+  64:     0x55c7694b140c - tokio::runtime::task::harness::Harness<T,S>::poll::h6dda8eb51db5613e
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/harness.rs:59
+  65:     0x55c769458412 - tokio::runtime::task::raw::poll::hec758572d3b62d0c
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/raw.rs:104
+  66:     0x55c76945831f - tokio::runtime::task::raw::RawTask::poll::h67411df249c8bd59
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/raw.rs:66
+  67:     0x55c7694b9a31 - tokio::runtime::task::Notified<S>::run::h0364b753d50aabf7
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/task/mod.rs:171
+  68:     0x55c7694bbd82 - tokio::runtime::blocking::pool::Inner::run::hdf8925f72dc976a5
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/blocking/pool.rs:278
+  69:     0x55c7694bbabd - tokio::runtime::blocking::pool::Spawner::spawn_thread::{{closure}}::ha1b0525a7a1f86bd
+                               at /root/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.5.0/src/runtime/blocking/pool.rs:258
+  70:     0x55c7694be223 - std::sys_common::backtrace::__rust_begin_short_backtrace::hecfe0ec1e5adc0d1
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/sys_common/backtrace.rs:137
+  71:     0x55c7694440c3 - std::thread::Builder::spawn_unchecked::{{closure}}::{{closure}}::h7cfc1153db44b5ab
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/thread/mod.rs:458
+  72:     0x55c7694c6af3 - <std::panic::AssertUnwindSafe<F> as core::ops::function::FnOnce<()>>::call_once::hed3fd4c691db8909
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/panic.rs:308
+  73:     0x55c7694445a2 - std::panicking::try::do_call::h9663f19f046242e5
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/panicking.rs:373
+  74:     0x55c76944c29d - __rust_try
+  75:     0x55c769444404 - std::panicking::try::he8db233f41e69d48
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/panicking.rs:337
+  76:     0x55c7694c7093 - std::panic::catch_unwind::ha404eaeaff937119
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/panic.rs:379
+  77:     0x55c769443eb5 - std::thread::Builder::spawn_unchecked::{{closure}}::h1c6f315186eba063
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/thread/mod.rs:457
+  78:     0x55c76949dbbf - core::ops::function::FnOnce::call_once{{vtable.shim}}::h9709f84fd880e73f
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/core/src/ops/function.rs:227
+  79:     0x55c769966208 - <alloc::boxed::Box<F> as core::ops::function::FnOnce<A>>::call_once::h82ab465ddb64eba2
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/alloc/src/boxed.rs:1042
+  80:     0x55c769966208 - <alloc::boxed::Box<F> as core::ops::function::FnOnce<A>>::call_once::h5aa0c3a5cb1c92ed
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/alloc/src/boxed.rs:1042
+  81:     0x55c769966208 - std::sys::unix::thread::Thread::new::thread_start::ha82b07ed1fc4982c
+                               at /build/rustc-UHkz09/rustc-1.47.0+dfsg1+llvm/library/std/src/sys/unix/thread.rs:87
+  82:     0x7fb893e986db - start_thread
+  83:     0x7fb8939a971f - __clone
+  84:                0x0 - <unknown>
+thread panicked while panicking. aborting.
