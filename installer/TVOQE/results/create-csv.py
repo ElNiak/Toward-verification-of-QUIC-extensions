@@ -61,7 +61,7 @@ def readlastline(filename):
 
 
 # "/home/chris/Toward-verification-of-QUIC-extensions/result/"
-foldername = "/results/temp"
+foldername = "server-result-final"
 subfolders = [f.path for f in scandir.scandir(foldername) if f.is_dir()]
 run = 0
 for fol in subfolders:
