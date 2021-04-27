@@ -6,11 +6,11 @@
 
 # <!><!><!> restest quant with removing line in quic packet TOREDO <!><!><!><!><!>
 # require ~_generating & ~queued_non_ack(scid) -> ack_credit(scid) > 0;  # [5]
+ 
+# lsquic not working lsquic
 
-# lsquic not working
 
-
-servers=(quant quinn mvfst picoquic quic-go aioquic quiche lsquic)
+servers=(quant quinn mvfst picoquic quic-go aioquic quiche)
 alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 
 tests_server=(quic_server_test_stream
@@ -24,9 +24,9 @@ tests_server=(quic_server_test_stream
               quic_server_test_connection_close #toretest
               quic_server_test_reset_stream
 	          quic_server_test_retirecoid_error
-	          #quic_server_test_newcoid_zero_error # not working
+	          quic_server_test_newcoid_zero_error # not working
 	          quic_server_test_handshake_done_error
-	          #quic_server_test_stop_sending # not working
+	          quic_server_test_stop_sending # not working
               quic_server_test_double_tp_error
 	          quic_server_test_tp_limit_acticoid_error
 	          quic_server_test_accept_maxdata

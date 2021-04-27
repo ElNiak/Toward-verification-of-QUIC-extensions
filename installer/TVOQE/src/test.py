@@ -35,7 +35,7 @@ servers = [
     ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-server --       --cert tools/apps/src/bin/cert.crt       --key tools/apps/src/bin/cert.key --no-retry --dump-packets /results/dump.txt --listen 127.0.0.1:4443']],
     ['quic-go',['/server/','./server -c /QUIC-Ivy/doc/examples/quic/leaf_cert.pem -k /QUIC-Ivy/doc/examples/quic/leaf_cert.key -p 4443 127.0.0.1']],
     ['aioquic',[scdir + '/aioquic','python3 examples/http3_server.py --certificate /quic/aioquic/tests/ssl_cert.pem --private-key /quic/aioquic/tests/ssl_key.pem  -v --host 127.0.0.1 --port 4443 -l /results/temp/aioquic_key.log"']],
-    ['mvfst',[scdir + '/mvfst/_build/build/quic/samples/','./echo -mode=server -host=127.0.0.1 -port=4443']],
+    ['mvfst',[scdir + '/mvfst/_build/build/quic/samples/','./echo -mode=server -host=127.0.0.1 -port=4443 -v=10']],
     ['quinn',[scdir+ '/quinn/','cargo run --example server /QUIC-Ivy/doc/examples/quic/ --listen 127.0.0.1:4443 --keylog']],
     ['lsquic',[scdir+ '/lsquic/bin/','./http_server -Q hq-29 -s 127.0.0.1:4443 -l event=debug,engine=debug -o version=FF00001D -G /results/temp/']],
 ]
