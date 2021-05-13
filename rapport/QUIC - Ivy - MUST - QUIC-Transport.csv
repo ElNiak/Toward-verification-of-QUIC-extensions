@@ -1,0 +1,1538 @@
+Statement,In the code,Done,Explanation,,Note that the line indicated could have change with the modifications we have done,,,,, https://tools.ietf.org/html/draft-ietf-quic-transport-29
+Stream Types and Identifiers,,,,,Legend:,done by McM,done by us,impossible ?,partially done,not done
+"Streams can be unidirectional or bidirectional.  Unidirectional
+   streams carry data in one direction: from the initiator of the stream
+   to its peer.  Bidirectional streams allow for data to be sent in both
+   directions.
+
+   Streams are identified within a connection by a numeric value,
+   referred to as the stream ID.  A stream ID is a 62-bit integer (0 to
+   2^62-1) that is unique for all streams on a connection.  Stream IDs
+   are encoded as variable-length integers; see Section 16.  A QUIC
+   endpoint MUST NOT reuse a stream ID within a connection.","Line 109-113. A chaque fois qu'un numéro a été utilisé,",FALSE,,,,,,,,
+Sending and Receiving Data,,,,,,,,,,
+"STREAM frames (Section 19.8) encapsulate data sent by an application.
+   An endpoint uses the Stream ID and Offset fields in STREAM frames to
+   place data in order.
+
+   Endpoints MUST be able to deliver stream data to an application as an
+   ordered byte-stream.  Delivering an ordered byte-stream requires that
+   an endpoint buffer any data that is received out of order, up to the
+   advertised flow control limit","Voir code quic-frame. Stream ID : quic frame line 57. Offset : quic frame 58. Done in quic frame, Impossible à test ? On a pas acces à l'état de PICOQUIC côté server pour faire ca.",FALSE,,,,,,,,
+"  An endpoint could receive data for a stream at the same stream offset
+   multiple times.  Data that has already been received can be
+   discarded.  The data at a given offset MUST NOT change if it is sent
+   multiple times; an endpoint MAY treat receipt of different data at
+   the same offset within a stream as a connection error of type
+   PROTOCOL_VIOLATION.",quic frame same_stream_offset : check if the frame with same stream offset has the same  unparsed payload. Need to do test to see if it is well tested,FALSE,,,,,,,,
+"   An endpoint MUST NOT send data on any stream without ensuring that it
+   is within the flow control limits set by its peer.  Flow control is
+   described in detail in Section 4.","Already implemented by McMillan, quic_frame line 600",FALSE,,,,,,,,
+2.4.  Required Operations on Streams,,,,,,,,,,
+"   There are certain operations which an application MUST be able to
+   perform when interacting with QUIC streams.",Not done. Should test it with HTTP ?  ,FALSE,"Operations needed :    On the sending part of a stream, application protocols need to be
+   able to:
+
+   *  write data, understanding when stream flow control credit
+      (Section 4.1) has successfully been reserved to send the written
+      data;
+
+   *  end the stream (clean termination), resulting in a STREAM frame
+      (Section 19.8) with the FIN bit set; and
+
+   *  reset the stream (abrupt termination), resulting in a RESET_STREAM
+      frame (Section 19.4), if the stream was not already in a terminal
+      state.
+
+   On the receiving part of a stream, application protocols need to be
+   able to:
+
+   *  read data; and
+
+   *  abort reading of the stream and request closure, possibly
+      resulting in a STOP_SENDING frame (Section 19.5).
+
+   Applications also need to be informed of state changes on streams,
+   including when the peer has opened or reset a stream, when a peer
+   aborts reading on a stream, when new data is available, and when data
+   can or cannot be written to the stream due to flow control.",,,,,,,
+"This document does not
+   specify an API, but any implementation of this version of QUIC MUST
+   expose the ability to perform the operations described in this
+   section on a QUIC stream.",,FALSE,,,,,,,,
+3.  Stream States,,,,,,,,,,
+"  An endpoint MUST open streams of the same type in increasing order of
+   stream ID.","In progress : check stream_seen(scid,f.id) if in ordered order. #14->13",FALSE,"To
+Validate",,,,,,,
+3.2.  Receiving Stream States,,,,,,,,,,
+"   Before a stream is created, all streams of the same type with lower-
+   numbered stream IDs MUST be created.  This ensures that the creation
+   order for streams is consistent on both endpoints.",In progress with  #12 : stream_seen in ordered order. ,FALSE,"To
+Validate",,,,,,,
+3.3.  Permitted Frame Types,,,,,,,,,,
+"  The sender of a stream sends just three frame types that affect the
+   state of a stream at either sender or receiver: STREAM
+   (Section 19.8), STREAM_DATA_BLOCKED (Section 19.13), and RESET_STREAM
+   (Section 19.4).
+
+   A sender MUST NOT send any of these frames from a terminal state
+   (""Data Recvd"" or ""Reset Recvd"").",Modeliser les state explicitement avec des relations pour ensuite,FALSE,,,,,,,,
+"A sender MUST NOT send STREAM or
+   STREAM_DATA_BLOCKED after sending a RESET_STREAM; that is, in the
+   terminal states and in the ""Reset Sent"" state.  A receiver could
+   receive any of these three frames in any state, due to the
+   possibility of delayed delivery of packets carrying them.",Même chose que #16,FALSE,,,,,,,,
+3.5.  Solicited State Transitions,,,,,,,,,,
+"   A STOP_SENDING frame requests that the receiving endpoint send a
+   RESET_STREAM frame.  An endpoint that receives a STOP_SENDING frame
+   MUST send a RESET_STREAM frame if the stream is in the Ready or Send
+   state.  If the stream is in the Data Sent state and any outstanding
+   data is declared lost, an endpoint SHOULD send a RESET_STREAM frame
+   in lieu of a retransmission.","Can a previously reset stream be reset ? 
+Not done yet. New relation and check if next upcoming packet is a reset_stream_frame.
+ Another observation : on localhost ok, no packet lost but on real network ? ",FALSE,,,,,,,,
+"   If the STOP_SENDING frame is received on a stream that is already in
+   the ""Data Sent"" state, an endpoint that wishes to cease
+   retransmission of previously-sent STREAM frames on that stream MUST
+   first send a RESET_STREAM frame.",Retrnasmissions not represented ,TRUE,,,,,,,,
+4.1.  Data Flow Control,,,,,,,,,,
+"   A receiver MUST close the connection with a FLOW_CONTROL_ERROR error
+   (Section 11) if the sender violates the advertised connection or
+   stream data limits.",Implemente errors and a spefic test,FALSE,,,,,,,,
+"  A sender MUST ignore any MAX_STREAM_DATA or MAX_DATA frames that do
+   not increase flow control limits.",How to check if it is really ignored ? Just check if the flow control value is not modified ? If yes -> easy to do ,FALSE,,,,,,,,
+4.2.  Flow Credit Increments,,,,,,,,,,
+"   A blocked sender is not required to send STREAM_DATA_BLOCKED or
+   DATA_BLOCKED frames.  Therefore, a receiver MUST NOT wait for a
+   STREAM_DATA_BLOCKED or DATA_BLOCKED frame before sending a
+   MAX_STREAM_DATA or MAX_DATA frame; doing so could result in the
+   sender being blocked for the rest of the connection.  Even if the
+   sender sends these frames, waiting for them will result in the sender
+   being blocked for at least an entire round trip.",Impossible à test ? ,FALSE,,,,,,,,
+4.3.  Handling Stream Cancellation,,,,,,,,,,
+"   On receipt of a RESET_STREAM frame, an endpoint will tear down state
+   for the matching stream and ignore further data arriving on that
+   stream.  Without the offset included in RESET_STREAM, the two
+   endpoints could disagree on the number of bytes that count towards
+   connection flow control. 
+  To remedy this issue, a RESET_STREAM frame (Section 19.4) includes
+   the final size of data sent on the stream.  On receiving a
+   RESET_STREAM frame, a receiver definitively knows how many bytes were
+   sent on that stream before the RESET_STREAM frame, and the receiver
+   MUST use the final size of the stream to account for all bytes sent
+   on the stream in its connection level flow controller.",quic_frame,FALSE,,,,,,,,
+"  RESET_STREAM terminates one direction of a stream abruptly.  For a
+   bidirectional stream, RESET_STREAM has no effect on data flow in the
+   opposite direction.  Both endpoints MUST maintain flow control state
+   for the stream in the unterminated direction until that direction
+   enters a terminal state, or until one of the endpoints sends
+   CONNECTION_CLOSE.",,FALSE,,,,,,,,
+4.4.  Stream Final Size,,,,,,,,,,
+"   An endpoint will know the final size for a stream when the receiving
+   part of the stream enters the ""Size Known"" or ""Reset Recvd"" state
+   (Section 3).
+
+   An endpoint MUST NOT send data on a stream at or beyond the final
+   size.",,FALSE,,,,,,,,
+4.5.  Controlling Concurrency,,,,,,,,,,
+"   If a max_streams transport parameter or MAX_STREAMS frame is received
+   with a value greater than 2^60, this would allow a maximum stream ID
+   that cannot be expressed as a variable-length integer; see
+   Section 16.  If either is received, the connection MUST be closed
+   immediately with a connection error of type STREAM_LIMIT_ERROR; see
+   Section 10.3.","We check if the connection is closed 
+but the errors are not implemented",TRUE,,,,,,,,
+"   Endpoints MUST NOT exceed the limit set by their peer.  An endpoint
+   that receives a frame with a stream ID exceeding the limit it has
+   sent MUST treat this as a connection error of type STREAM_LIMIT_ERROR
+   (Section 11).",,TRUE,,,,,,,,
+"   Once a receiver advertises a stream limit using the MAX_STREAMS
+   frame, advertising a smaller limit has no effect.  A receiver MUST
+   ignore any MAX_STREAMS frame that does not increase the stream limit.",Test for that,TRUE,,,,,,,,
+"  An endpoint that is unable to open a new stream due to the peer's
+   limits SHOULD send a STREAMS_BLOCKED frame (Section 19.14).  This
+   signal is considered useful for debugging.  An endpoint MUST NOT wait
+   to receive this signal before advertising additional credit, since
+   doing so will mean that the peer will be blocked for at least an
+   entire round trip, and potentially for longer if the peer chooses to
+   not send STREAMS_BLOCKED frames.",,FALSE,,,,,,,,
+5.1.  Connection ID,,,,,,,,,,
+"   Connection IDs MUST NOT contain any information that can be used by
+   an external observer (that is, one that does not cooperate with the
+   issuer) to correlate them with other connection IDs for the same
+   connection. ",How to test it ?? Except trivial example,,,,,,,,,
+"As a trivial example, this means the same connection ID
+   MUST NOT be issued more than once on the same connection.",,FALSE,,,,,,,,
+"  A zero-length connection ID can be used when a connection ID is not
+   needed to route to the correct endpoint.  However, multiplexing
+   connections on the same local IP address and port while using zero-
+   length connection IDs will cause failures in the presence of peer
+   connection migration, NAT rebinding, and client port reuse; and
+   therefore MUST NOT be done unless an endpoint is certain that those
+   protocol features are not in use.","We should test if there is no NAT rebinding, client port reuse, ...",FALSE,,,,,,,,
+" Additional connection IDs are communicated to the peer using
+   NEW_CONNECTION_ID frames (Section 19.15).  The sequence number on
+   each newly-issued connection ID MUST increase by 1.  The connection
+   ID randomly selected by the client in the Initial packet and any
+   connection ID provided by a Retry packet are not assigned sequence
+   numbers unless a server opts to retain them as its initial connection
+   ID.",,FALSE,,,,,,,,
+"   When an endpoint issues a connection ID, it MUST accept packets that
+   carry this connection ID for the duration of the connection or until
+   its peer invalidates the connection ID via a RETIRE_CONNECTION_ID
+   frame (Section 19.16).  Connection IDs that are issued and not
+   retired are considered active; any active connection ID is valid for
+   use with the current connection at any time, in any packet type.
+   This includes the connection ID issued by the server via the
+   preferred_address transport parameter.","Done, we check if we received an ack
+ from a connection with a specified connection ID",TRUE,,,,,,,,
+"   An endpoint SHOULD ensure that its peer has a sufficient number of
+   available and unused connection IDs.  Endpoints advertise the number
+   of active connection IDs they are willing to maintain using the
+   active_connection_id_limit transport parameter.  An endpoint MUST NOT
+   provide more connection IDs than the peer's limit.  An endpoint MAY
+   send connection IDs that temporarily exceed a peer's limit if the
+   NEW_CONNECTION_ID frame also requires the retirement of any excess,
+   by including a sufficiently large value in the Retire Prior To field.","In progress : 
+require len of connection opened < active_connection_id_limit",FALSE,,,,,,,,
+"   A NEW_CONNECTION_ID frame might cause an endpoint to add some active
+   connection IDs and retire others based on the value of the Retire
+   Prior To field.  After processing a NEW_CONNECTION_ID frame and
+   adding and retiring active connection IDs, if the number of active
+   connection IDs exceeds the value advertised in its
+   active_connection_id_limit transport parameter, an endpoint MUST
+   close the connection with an error of type CONNECTION_ID_LIMIT_ERROR.",,FALSE,,,,,,,,
+"   Upon receipt of an increased Retire Prior To field, the peer MUST
+   stop using the corresponding connection IDs and retire them with
+   RETIRE_CONNECTION_ID frames before adding the newly provided
+   connection ID to the set of active connection IDs.  This ordering
+   allows an endpoint to replace all active connection IDs without the
+   possibility of a peer having no available connection IDs and without",,FALSE,,,,,,,,
+"   An endpoint SHOULD limit the number of connection IDs it has retired
+   locally and have not yet been acknowledged.  An endpoint SHOULD allow
+   for sending and tracking a number of RETIRE_CONNECTION_ID frames of
+   at least twice the active_connection_id limit.  An endpoint MUST NOT
+   forget a connection ID without retiring it, though it MAY choose to
+   treat having connection IDs in need of retirement that exceed this
+   limit as a connection error of type CONNECTION_ID_LIMIT_ERROR.",,FALSE,,,,,,,,
+"  A NEW_CONNECTION_ID frame might cause an endpoint to add some active
+   connection IDs and retire others based on the value of the Retire
+   Prior To field.  After processing a NEW_CONNECTION_ID frame and
+   adding and retiring active connection IDs, if the number of active
+   connection IDs exceeds the value advertised in its
+   active_connection_id_limit transport parameter, an endpoint MUST
+   close the connection with an error of type CONNECTION_ID_LIMIT_ERROR.",Tested with #44,FALSE,,,,,,,,
+5.1.2.  Consuming and Retiring Connection IDs,,,,,,,,,,
+"   Upon receipt of an increased Retire Prior To field, the peer MUST
+   stop using the corresponding connection IDs and retire them with
+   RETIRE_CONNECTION_ID frames before adding the newly provided
+   connection ID to the set of active connection IDs.",Retire prior field represent the connections ids that we should retire. How do we represent many connection id in a single id ?,FALSE,,,,,,,,
+5.2.  Matching Packets to Connections,,,,,,,,,,
+"   Invalid packets without packet protection, such as Initial, Retry, or
+   Version Negotiation, MAY be discarded.  An endpoint MUST generate a
+   connection error if it commits changes to state before discovering an
+   error.",how to know order for endpoint ?,FALSE,,,,,,,,
+5.2.1.  Client Packet Handling,,,,,,,,,,
+"  If a client receives a packet that has an unsupported version, it
+   MUST discard that packet.","Maybe we should check 
+if we don't receive a  ack for this packet ?",TRUE,,,,,,,,
+5.2.2.  Server Packet Handling,,,,,,,,,,
+"   If a server receives a packet that indicates an unsupported version
+   but is large enough to initiate a new connection for any one
+   supported version, the server SHOULD send a Version Negotiation
+   packet as described in Section 6.1.  Servers MAY limit the number of
+   packets that it responds to with a Version Negotiation packet.
+   Servers MUST drop smaller packets that specify unsupported versions.",We never receive ack for this packet ?,FALSE,,,,,,,,
+"   Packets with a supported version, or no version field, are matched to
+   a connection using the connection ID or - for packets with zero-
+   length connection IDs - the local address and port.  If the packet
+   doesn't match an existing connection, the server continues below.
+
+   If the packet is an Initial packet fully conforming with the
+   specification, the server proceeds with the handshake (Section 7).
+   This commits the server to the version that the client selected.
+
+   If a server refuses to accept a new connection, it SHOULD send an
+   Initial packet containing a CONNECTION_CLOSE frame with error code
+   CONNECTION_REFUSED.
+
+   If the packet is a 0-RTT packet, the server MAY buffer a limited
+   number of these packets in anticipation of a late-arriving Initial
+   packet.  Clients are not able to send Handshake packets prior to
+   receiving a server response, so servers SHOULD ignore any such
+   packets.
+
+   Servers MUST drop incoming packets under all other circumstances","Require initial pack = 0RTT OU supported version. 
+Pas testable completement",TRUE,,,,,,,,
+5.2.3.  Considerations for Simple Load Balancers,,,,,,,,,,
+"   Server deployments that use this simple form of load balancing MUST
+   avoid the creation of a stateless reset oracle; see Section 21.9.",TODO McMillan,FALSE,,,,,,,,
+5.4.  Required Operations on Connections,,,,,,,,,,
+"   There are certain operations which an application MUST be able to
+   perform when interacting with the QUIC transport.  This document does
+   not specify an API, but any implementation of this version of QUIC
+   MUST expose the ability to perform the operations described in this
+   section on a QUIC connection.","Test with HTTP and see 
+if one application is able to do those operations ?",FALSE,,,,,,,,
+6.1.  Sending Version Negotiation Packets,,,,,,,,,,
+"   If the version selected by the client is not acceptable to the
+   server, the server responds with a Version Negotiation packet; see
+   Section 17.2.1.  This includes a list of versions that the server
+   will accept. ",In progressions,FALSE,,,,,,,,
+" An endpoint MUST NOT send a Version Negotiation packet
+   in response to receiving a Version Negotiation packet.",,,,,,,,,,
+6.2.  Handling Version Negotiation Packets,,,,,,,,,,
+"   A client that supports only this version of QUIC MUST abandon the
+   current connection attempt if it receives a Version Negotiation
+   packet, with the following two exceptions",,FALSE,,,,,,,,
+"A client MUST discard any
+   Version Negotiation packet if it has received and successfully
+   processed any other packet, including an earlier Version Negotiation
+   packet",,FALSE,,,,,,,,
+"A client MUST discard a Version Negotiation packet that
+   lists the QUIC version selected by the client.",,FALSE,,,,,,,,
+6.2.1.  Version Negotiation Between Draft Versions,,,,,,,,,,
+"The client MUST check that the Destination and Source Connection ID
+   fields match the Source and Destination Connection ID fields in a
+   packet that the client sent.",,FALSE,,,,,,,,
+"If this check fails, the packet MUST be
+   discarded.",,FALSE,,,,,,,,
+"The new connection MUST use a new
+   random Destination Connection ID different from the one it had
+   previously sent.",,FALSE,,,,,,,,
+"   Note that this mechanism does not protect against downgrade attacks
+   and MUST NOT be used outside of draft implementations.",,FALSE,,,,,,,,
+7.  Cryptographic and Transport Handshake,,,,,,,,,,
+"The cryptographic handshake MUST
+   provide the following properties:
+
+   *  authenticated key exchange, where
+
+      -  a server is always authenticated,
+
+      -  a client is optionally authenticated,
+
+      -  every connection produces distinct and unrelated keys,
+
+      -  keying material is usable for packet protection for both 0-RTT
+         and 1-RTT packets, and","Unrelated key not testable ? 
+Distinct ok but not done.
+ Need to check if always authentificated. pas clair dans le code",FALSE,,,,,,,,
+"   Endpoints MUST explicitly negotiate an application protocol.  This
+   avoids situations where there is a disagreement about the protocol
+   that is in use.
+",by pycotls api,FALSE,,,,,,,,
+7.2.  Negotiating Connection IDs,,,,,,,,,,
+"  When an Initial packet is sent by a client that has not previously
+   received an Initial or Retry packet from the server, the client
+   populates the Destination Connection ID field with an unpredictable
+   value.  This Destination Connection ID MUST be at least 8 bytes in
+   length","What is an upredictable value ? We can test some 
+patterns but not all. We test if it is at least 8 bytes",TRUE,,,,,,,,
+"Until a packet is received from the server, the client MUST
+   use the same Destination Connection ID value on all packets in this
+   connection.  This Destination Connection ID is used to determine
+   packet protection keys for Initial packets.",not done but easy to implement,TRUE,,,,,,,,
+"   Upon first receiving an Initial or Retry packet from the server, the
+   client uses the Source Connection ID supplied by the server as the
+   Destination Connection ID for subsequent packets, including any 0-RTT
+   packets.  This means that a client might have to change the
+   connection ID it sets in the Destination Connection ID field twice
+   during connection establishment: once in response to a Retry, and
+   once in response to an Initial packet from the server.  Once a client
+   has received a valid Initial packet from the server, it MUST discard
+   any subsequent packet it receives with a different Source Connection
+   ID.","Retry packet not done, pour le reste vérifier si on recoit pas d'ack si on envoit un différent dcid ?",FALSE,,,,,,,,
+"  A client MUST change the Destination Connection ID it uses for
+   sending packets in response to only the first received Initial or
+   Retry packet.","check if the dcid stay always the same, 
+Only for initial packet however",FALSE,,,,,,,,
+"A server MUST set the Destination Connection ID it
+   uses for sending packets based on the first received Initial packet.",,FALSE,,,,,,,,
+" Any further changes to the Destination Connection ID are only
+   permitted if the values are taken from any received NEW_CONNECTION_ID
+   frames; if subsequent Initial packets include a different Source
+   Connection ID, they MUST be discarded. ","do a scenario test with picoquic
+in ivy maintain list of dcid used and check if value change",FALSE,,,,,,,,
+7.3.  Authenticating Connection IDs,,,,,,,,,,
+"  The choice each endpoint makes about connection IDs during the
+   handshake is authenticated by including all values in transport
+   parameters; see Section 7.4.  This ensures that all connection IDs
+   used for the handshake are also authenticated by the cryptographic
+   handshake.
+
+   Each endpoint includes the value of the Source Connection ID field
+   from the first Initial packet it sent in the
+   initial_source_connection_id transport parameter; see Section 18.2.
+   A server includes the Destination Connection ID field from the first
+   Initial packet it received from the client in the
+   original_destination_connection_id transport parameter; if the server
+   sent a Retry packet this refers to the first Initial packet received
+   before sending the Retry packet.  If it sends a Retry packet, a
+   server also includes the Source Connection ID field from the Retry
+   packet in the retry_source_connection_id transport parameter.
+
+   The values provided by a peer for these transport parameters MUST
+   match the values that an endpoint used in the Destination and Source
+   Connection ID fields of Initial packets that it sent.",,FALSE,,,,,,,,
+"   An endpoint MUST treat absence of the initial_source_connection_id
+   transport parameter from either endpoint or absence of the
+   original_destination_connection_id transport parameter from the
+   server as a connection error of type TRANSPORT_PARAMETER_ERROR.",excluse OR or not ?,FALSE,,,,,,,,
+"   An endpoint MUST treat the following as a connection error of type
+   TRANSPORT_PARAMETER_ERROR or PROTOCOL_VIOLATION:
+
+   *  absence of the retry_source_connection_id transport parameter from
+      the server after receiving a Retry packet,
+
+   *  presence of the retry_source_connection_id transport parameter
+      when no Retry packet was received, or
+
+   *  a mismatch between values received from a peer in these transport
+      parameters and the value sent in the corresponding Destination or
+      Source Connection ID fields of Initial packets.
+
+   If a zero-length connection ID is selected, the corresponding
+   transport parameter is included with a zero-length value.",,FALSE,,,,,,,,
+"Including
+   connection ID values in transport parameters and verifying them
+   ensures that that an attacker cannot influence the choice of
+   connection ID for a successful connection by injecting packets
+   carrying attacker-chosen connection IDs during the handshake.  An
+   endpoint MUST treat any of the following as a connection error of
+   type PROTOCOL_VIOLATION:",Error not implemented,FALSE,,,,,,,,
+7.4.  Transport Parameters,,,,,,,,,,
+" An endpoint MUST treat receipt of a transport parameter with an
+   invalid value as a connection error of type
+   TRANSPORT_PARAMETER_ERROR.",Error not implemented,FALSE,,,,,,,,
+"   An endpoint MUST NOT send a parameter more than once in a given
+   transport parameters extension.  An endpoint SHOULD treat receipt of
+   duplicate transport parameters as a connection error of type
+   TRANSPORT_PARAMETER_ERROR.
+","while idx < tps.transport_parameters.end {
+        trans_params(scid) := tps.transport_parameters.value(idx).set(trans_params(scid));
+        idx := idx.next
+    };
++ relation pour check si deja present ou pas",FALSE,,,,,,,,
+7.4.1.  Values of Transport Parameters for 0-RTT,,,,,,,,,,
+"The definition of new transport parameters (Section 7.4.2) MUST
+   specify whether they MUST, MAY, or MUST NOT be stored for 0-RTT.  A
+   client need not store a transport parameter it cannot process.",specification of specification ?,FALSE,,,,,,,,
+"  A client MUST NOT use remembered values for the following parameters:
+   ack_delay_exponent, max_ack_delay, initial_source_connection_id,
+   original_destination_connection_id, preferred_address,
+   retry_source_connection_id, and stateless_reset_token.",Remembered values ? ,FALSE,,,,,,,,
+"The client
+   MUST use the server's new values in the handshake instead, and absent
+   new values from the server, the default value.",How do we check explicitely which transport parameters they use ? (as they are encrypted),FALSE,,,,,,,,
+"  A client that attempts to send 0-RTT data MUST remember all other
+   transport parameters used by the server.  The server can remember
+   these transport parameters, or store an integrity-protected copy of
+   the values in the ticket and recover the information when accepting
+   0-RTT data.  A server uses the transport parameters in determining
+   whether to accept 0-RTT data.",Remember ?,TRUE,,,,,,,,
+"   If 0-RTT data is accepted by the server, the server MUST NOT reduce
+   any limits or alter any values that might be violated by the client
+   with its 0-RTT data.  In particular, a server that accepts 0-RTT data
+   MUST NOT set values for the following parameters (Section 18.2) that
+   are smaller than the remembered value of the parameters.",How to check if it doesn't alter the values,FALSE,,,,,,,,
+" A server MUST either reject 0-RTT data or abort a handshake if the
+   implied values for transport parameters cannot be supported.",How to be sure we check all the values that are not be supported ?,FALSE,,,,,,,,
+"  When sending frames in 0-RTT packets, a client MUST only use
+   remembered transport parameters",,FALSE,,,,,,,,
+" importantly, it MUST NOT use updated
+ values that it learns from the server's updated transport parameters  
+ or from frames received in 1-RTT packets",,FALSE,,,,,,,,
+"   If 0-RTT data is accepted by the server, the server MUST NOT reduce
+   any limits or alter any values that might be violated by the client
+   with its 0-RTT data.  In particular, a server that accepts 0-RTT data
+   MUST NOT set values for the following parameters (Section 18.2) that
+   are smaller than the remembered value of the parameters.
+
+   *  active_connection_id_limit
+
+   *  initial_max_data
+
+   *  initial_max_stream_data_bidi_local
+
+   *  initial_max_stream_data_bidi_remote
+
+   *  initial_max_stream_data_uni
+
+   *  initial_max_streams_bidi
+
+   *  initial_max_streams_uni",,FALSE,,,,,,,,
+,,FALSE,,,,,,,,
+7.4.2.  New Transport Parameters,,,,,,,,,,
+"   New transport parameters can be used to negotiate new protocol
+   behavior.  An endpoint MUST ignore transport parameters that it does
+   not support",How to test it ? Except check if it doesn't crash ? ,TRUE,,,,,,,,
+7.5.  Cryptographic Message Buffering,,,,,,,,,,
+"  Implementations MUST support buffering at least 4096 bytes of data
+   received in CRYPTO frames out of order.  Endpoints MAY choose to
+   allow more data to be buffered during the handshake.  A larger limit
+   during the handshake could allow for larger keys or credentials to be
+   exchanged.  An endpoint's buffer size does not need to remain
+   constant during the life of the connection.",,FALSE,,,,,,,,
+"   Being unable to buffer CRYPTO frames during the handshake can lead to
+   a connection failure.  If an endpoint's buffer is exceeded during the
+   handshake, it can expand its buffer temporarily to complete the
+   handshake.  If an endpoint does not expand its buffer, it MUST close
+   the connection with a CRYPTO_BUFFER_EXCEEDED error code.","Error not implemented
+How to know buffer of other ?",FALSE,,,,,,,,
+"
+   Once the handshake completes, if an endpoint is unable to buffer all
+   data in a CRYPTO frame, it MAY discard that CRYPTO frame and all
+   CRYPTO frames received in the future, or it MAY close the connection
+   with a CRYPTO_BUFFER_EXCEEDED error code.  Packets containing
+   discarded CRYPTO frames MUST be acknowledged because the packet has
+   been received and processed by the transport even though the CRYPTO
+   frame was discarded.
+",,FALSE,,,,,,,,
+8.1.  Address Validation During Connection Establishment,,,,,,,,,,
+"   Prior to validating the client address, servers MUST NOT send more
+   than three times as many bytes as the number of bytes they have
+   received.  This limits the magnitude of any amplification attack that
+   can be mounted using spoofed source addresses.",Not impletemend yet but look nice to do ! ,FALSE,,,,,,,,
+"For the purposes of
+   avoiding amplification prior to address validation, servers MUST
+   count all of the payload bytes received in datagrams that are
+   uniquely attributed to a single connection.  This includes datagrams
+   that contain packets that are successfully processed and datagrams
+   that contain packets that are all discarded.","How to know that it count it ? If 103 okay, it count ?",FALSE,,,,,,,,
+"  Clients MUST ensure that UDP datagrams containing Initial packets
+   have UDP payloads of at least 1200 bytes, adding padding to packets
+   in the datagram as necessary.  Sending padded datagrams ensures that
+   the server is not overly constrained by the amplification
+   restriction.",in parsing does it count ?,FALSE,,,,,,,,
+"  Loss of an Initial or Handshake packet from the server can cause a
+   deadlock if the client does not send additional Initial or Handshake
+   packets.  A deadlock could occur when the server reaches its anti-
+   amplification limit and the client has received acknowledgements for
+   all the data it has sent.  In this case, when the client has no
+   reason to send additional packets, the server will be unable to send
+   more data because it has not validated the client's address.  To
+   prevent this deadlock, clients MUST send a packet on a probe timeout",Liveness property,FALSE,,,,,,,,
+"Specifically, the client
+   MUST send an Initial packet in a UDP datagram of at least 1200 bytes
+   if it does not have Handshake keys, and otherwise send a Handshake
+   packet.",Not explicit testing,FALSE,,,,,,,,
+8.1.1.  Token Construction,,,,,,,,,,
+"A token sent in a NEW_TOKEN frames or a Retry packet MUST be
+   constructed in a way that allows the server to identify how it was
+   provided to a client.  These tokens are carried in the same field,
+   but require different handling from servers.","New token not done
+server must be able to reconstruct its own token so ?
+how to test if he is able ?",FALSE,,,,,,,,
+8.1.2.  Address Validation using Retry Packets,,,,,,,,,,
+" Upon receiving the client's Initial packet, the server can request
+   address validation by sending a Retry packet (Section 17.2.5)
+   containing a token.  This token MUST be repeated by the client in all
+   Initial packets it sends for that connection after it receives the
+   Retry packet.  In response to processing an Initial containing a
+   token, a server can either abort the connection or permit it to
+   proceed.",Retry token not done yet,FALSE,,,,,,,,
+8.1.3.  Address Validation for Future Connections,,,,,,,,,,
+"  The server uses the NEW_TOKEN frame Section 19.7 to provide the
+   client with an address validation token that can be used to validate
+   future connections.  The client includes this token in Initial
+   packets to provide address validation in a future connection.  The
+   client MUST include the token in all Initial packets it sends, unless
+   a Retry replaces the token with a newer one.",We can receive it but not property implemented yet,FALSE,,,,,,,,
+"The client MUST NOT use
+   the token provided in a Retry for future connections.  Servers MAY
+   discard any Initial packet that does not carry the expected token.",Retry token not done,FALSE,,,,,,,,
+"A token issued with NEW_TOKEN MUST NOT include information that would
+   allow values to be linked by an observer to the connection on which
+   it was issued, unless the values are encrypted.",We can receive it but not property implemented yet,FALSE,,,,,,,,
+"For example, it
+   cannot include the previous connection ID or addressing information.
+   A server MUST ensure that every NEW_TOKEN frame it sends is unique
+   across all clients, with the exception of those sent to repair losses
+   of previously sent NEW_TOKEN frames.  ",We can receive it but not property implemented yet,FALSE,,,,,,,,
+"A client MUST NOT include
+   a token that is not applicable to the server that it is connecting
+   to, unless the client has the knowledge that the server that issued
+   the token and the server the client is connecting to are jointly
+   managing the tokens.  A client MAY use a token from any previous
+   connection to that server.",We can receive it but not property implemented yet,FALSE,,,,,,,,
+"  A token allows a server to correlate activity between the connection
+   where the token was issued and any connection where it is used.
+   Clients that want to break continuity of identity with a server MAY
+   discard tokens provided using the NEW_TOKEN frame.  In comparison, a
+   token obtained in a Retry packet MUST be used immediately during the
+   connection attempt and cannot be used in subsequent connection
+   attempts.",We can receive it but not property implemented yet,FALSE,,,,,,,,
+"   When a server receives an Initial packet with an address validation
+   token, it MUST attempt to validate the token, unless it has already
+   completed address validation.  If the token is invalid then the
+   server SHOULD proceed as if the client did not have a validated
+   address, including potentially sending a Retry.  If the validation
+   succeeds, the server SHOULD then allow the handshake to proceed",We can receive it but not property implemented yet,FALSE,,,,,,,,
+8.1.4.  Address Validation Token Integrity,,,,,,,,,,
+"   An address validation token MUST be difficult to guess.  Including a
+   large enough random value in the token would be sufficient, but this
+   depends on the server remembering the value it sends to clients.",Must be difficult to guess ? ,FALSE,,,,,,,,
+"  A token-based scheme allows the server to offload any state
+   associated with validation to the client.  For this design to work,
+   the token MUST be covered by integrity protection against
+   modification or falsification by clients.  Without integrity
+   protection, malicious clients could generate or guess values for
+   tokens that would be accepted by the server.  Only the server
+   requires access to the integrity protection key for tokens.",How to check it ? Just see if the token is somehow crypted ?,FALSE,,,,,,,,
+"   Tokens sent in NEW_TOKEN frames MUST include information that allows
+   the server to verify that the client IP address has not changed from
+   when the token was issued.",New token not done,FALSE,,,,,,,,
+"Servers can use tokens from NEW_TOKEN in
+   deciding not to send a Retry packet, even if the client address has
+   changed.  If the client IP address has changed, the server MUST
+   adhere to the anti-amplification limits found in Section 8.1","New token not  done
+How to know if the server follow the procedure ?
+Generate wrong scenario and expect it fail ?",FALSE,,,,,,,,
+"
+   Servers MUST ensure that replay of tokens is prevented or limited.
+   For instance, servers might limit the time over which a token is
+   accepted.  Tokens provided in NEW_TOKEN frames might need to allow
+   longer validity periods.  Tokens MAY include additional information
+   about clients to further narrow applicability or reuse.",New token not done,FALSE,,,,,,,,
+8.3.  Initiating Path Validation,,,,,,,,,,
+"   The endpoint MUST use unpredictable data in every PATH_CHALLENGE
+   frame so that it can associate the peer's response with the
+   corresponding PATH_CHALLENGE.",Unpredictable ? How to check it ?,FALSE,,,,,,,,
+8.4.  Path Validation Responses,,,,,,,,,,
+" On receiving a PATH_CHALLENGE frame, an endpoint MUST respond
+   immediately by echoing the data contained in the PATH_CHALLENGE frame
+   in a PATH_RESPONSE frame.
+",immediately ?,FALSE,,,,,,,,
+"   An endpoint MUST NOT send more than one PATH_RESPONSE frame in
+   response to one PATH_CHALLENGE frame; see Section 13.3.  The peer is
+   expected to send more PATH_CHALLENGE frames as necessary to evoke
+   additional PATH_RESPONSE frames.",,FALSE,,,,,,,,
+9.  Connection Migration,,,,,,,,,,
+"   The design of QUIC relies on endpoints retaining a stable address for
+   the duration of the handshake.  An endpoint MUST NOT initiate
+   connection migration before the handshake is confirmed, as defined in
+   section 4.1.2 of [QUIC-TLS].",In progress with alt client ,FALSE,,,,,,,,
+"An endpoint also MUST NOT send packets from a different local
+   address, actively initiating migration, if the peer sent the
+   disable_active_migration transport parameter during the handshake.","When to trigger client migration ? 
+At change of tuple adress/port
+How to test migration without explicitely creating
+a scenario where the implementation would fail ?",FALSE,,,,,,,,
+"   An endpoint which has sent this transport parameter, but detects that
+   a peer has nonetheless migrated to a different network MUST either
+   drop the incoming packets on that path without generating a stateless
+   reset or proceed with path validation and allow the peer to migrate.
+   Generating a stateless reset or closing the connection would allow
+   third parties in the network to cause connections to close by
+   spoofing or otherwise manipulating observed traffic.",,FALSE,,,,,,,,
+"   Not all changes of peer address are intentional, or active,
+   migrations.  The peer could experience NAT rebinding: a change of
+   address due to a middlebox, usually a NAT, allocating a new outgoing
+   port or even a new outgoing IP address for a flow.  An endpoint MUST
+   perform path validation (Section 8.2) if it detects any change to a
+   peer's address, unless it has previously validated that address.","We perform migration and then how to test ?
+How to know when eventually the endpoint decect
+it and perform path validation ?",FALSE,,,,,,,,
+"  This document limits migration of connections to new client
+   addresses, except as described in Section 9.6.  Clients are
+   responsible for initiating all migrations.  Servers do not send non-
+   probing packets (see Section 9.1) toward a client address until they
+   see a non-probing packet from that address.  If a client receives
+   packets from an unknown server address, the client MUST discard these
+   packets.","We could eventually check by sending some packet with 
+random address but again how to know if there 
+are discarded eventually ? 
+We could check at the end of the test
+ if we never receive ack for that packet ?",FALSE,,,,,,,,
+9.3.  Responding to Connection Migration,,,,,,,,,,
+"   Receiving a packet from a new peer address containing a non-probing
+   frame indicates that the peer has migrated to that address. 
+   In response to such a packet, an endpoint MUST start sending
+   subsequent packets to the new peer address",,FALSE,,,,,,,,
+"   and MUST initiate path
+   validation (Section 8.2) to verify the peer's ownership of the
+   unvalidated address.",,FALSE,,,,,,,,
+" An endpoint MAY send data to an unvalidated peer address, but it MUST
+   protect against potential attacks as described in Section 9.3.1 and
+   Section 9.3.2.  An endpoint MAY skip validation of a peer address if
+   that address has been seen recently.  In particular, if an endpoint
+   returns to a previously-validated path after detecting some form of
+   spurious migration, skipping address validation and restoring loss
+   detection and congestion state can reduce the performance impact of
+   the attack.",,FALSE,,,,,,,,
+9.3.1.  Peer Address Spoofing,,FALSE,,,,,,,,
+"As described in Section 9.3, an endpoint is required to validate a
+   peer's new address to confirm the peer's possession of the new
+   address.  Until a peer's address is deemed valid, an endpoint MUST
+   limit the rate at which it sends data to this address.",,FALSE,,,,,,,,
+" The endpoint
+   MUST NOT send more than a minimum congestion window's worth of data
+   per estimated round-trip time (kMinimumWindow, as defined in
+   [QUIC-RECOVERY]).",,FALSE,,,,,,,,
+9.3.2.  On-Path Address Spoofing,,,,,,,,,,
+"   To protect the connection from failing due to such a spurious
+   migration, an endpoint MUST revert to using the last validated peer
+   address when validation of a new peer address fails.",,FALSE,,,,,,,,
+" If an endpoint has no state about the last validated peer address, it
+   MUST close the connection silently by discarding all connection
+   state.  This results in new packets on the connection being handled
+   generically.  For instance, an endpoint MAY send a stateless reset in
+   response to any further incoming packets.",,FALSE,,,,,,,,
+"9.3.3.  Off-Path Packet Forwarding",,,,,,,,,,
+"   In response to an apparent migration, endpoints MUST validate the
+   previously active path using a PATH_CHALLENGE frame.  This induces
+   the sending of new packets on that path.  If the path is no longer
+   viable, the validation attempt will time out and fail; if the path is
+   viable, but no longer desired, the validation will succeed, but only
+   results in probing packets being sent on the path.",,FALSE,,,,,,,,
+9.4.  Loss Detection and Congestion Control,,,,,,,,,,
+"   The capacity available on the new path might not be the same as the
+   old path.  Packets sent on the old path MUST NOT contribute to
+   congestion control or RTT estimation for the new path.",,FALSE,,,,,,,,
+" On confirming a peer's ownership of its new address, an endpoint MUST
+   immediately reset the congestion controller and round-trip time
+   estimator for the new path to initial values (see Sections A.3 and
+   B.3 in [QUIC-RECOVERY]) unless it has knowledge that a previous send
+   rate or round-trip time estimate is valid for the new path.",,FALSE,,,,,,,,
+"   A sender can make exceptions for probe packets so that their loss
+   detection is independent and does not unduly cause the congestion
+   controller to reduce its sending rate.  An endpoint might set a
+   separate timer when a PATH_CHALLENGE is sent, which is cancelled if
+   the corresponding PATH_RESPONSE is received.  If the timer fires
+   before the PATH_RESPONSE is received, the endpoint might send a new
+   PATH_CHALLENGE, and restart the timer for a longer period of time.
+   This timer SHOULD be set as described in Section 5.3 of
+   [QUIC-RECOVERY] and MUST NOT be more aggressive.","""not be more aggresive ?""",FALSE,,,,,,,,
+9.5.  Privacy Implications of Connection Migration,,,,,,,,,,
+"An endpoint MUST NOT reuse a connection ID when sending from more
+   than one local address, for example when initiating connection
+   migration as described in Section 9.2 or when probing a new network
+   path as described in Section 9.1.",,FALSE,,,,,,,,
+"   Similarly, an endpoint MUST NOT reuse a connection ID when sending to
+   more than one destination address.  Due to network changes outside
+   the control of its peer, an endpoint might receive packets from a new
+   source address with the same destination connection ID, in which case
+   it MAY continue to use the current connection ID with the new remote
+   address while still sending from the same local address.
+",,FALSE,,,,,,,,
+9.6.1.  Communicating a Preferred Address,,,,,,,,,,
+"   If path validation succeeds, the client SHOULD immediately begin
+   sending all future packets to the new server address using the new
+   connection ID and discontinue use of the old server address.  If path
+   validation fails, the client MUST continue sending all future packets
+   to the server's original IP address.",How to be sure it is because of that that he stopped sending packets ?,FALSE,,,,,,,,
+9.6.2.  Responding to Connection Migration,,,,,,,,,,
+"A server might receive a packet addressed to its preferred IP address
+   at any time after it accepts a connection.  If this packet contains a
+   PATH_CHALLENGE frame, the server sends a PATH_RESPONSE frame as per
+   Section 8.2.  The server MUST send other non-probing frames from its
+   original address until it receives a non-probing packet from the
+   client at its preferred address and until the server has validated
+   the new path.",,FALSE,,,,,,,,
+"   The server MUST probe on the path toward the client from its
+   preferred address.  This helps to guard against spurious migration
+   initiated by an attacker.",,FALSE,,,,,,,,
+"   The addresses that a server provides in the preferred_address
+   transport parameter are only valid for the connection in which they
+   are provided.  A client MUST NOT use these for other connections,
+   including connections that are resumed from the current connection.",,FALSE,,,,,,,,
+9.6.3.  Interaction of Client Migration and Preferred Address,,,,,,,,,,
+"  If path validation of the server's preferred address succeeds, the
+   client MUST abandon validation of the original address and migrate to
+   using the server's preferred address.",Need to do a new scenario,FALSE,,,,,,,,
+"   If the connection to the server's preferred address is not from the
+   same client address, the server MUST protect against potential
+   attacks as described in Section 9.3.1 and Section 9.3.2.  In addition
+   to intentional simultaneous migration, this might also occur because
+   the client's access network used a different NAT binding for the
+   server's preferred address.",,FALSE,,,,,,,,
+" Servers SHOULD initiate path validation to the client's new address
+   upon receiving a probe packet from a different address.  Servers MUST
+   NOT send more than a minimum congestion window's worth of non-probing
+   packets to the new address before path validation is complete.",,FALSE,,,,,,,,
+9.7.  Use of IPv6 Flow-Label and Migration,,,,,,,,,,
+"   The IPv6 flow label SHOULD be a pseudo-random function of the source
+   and destination addresses, source and destination UDP ports, and the
+   destination CID.  The flow label generation MUST be designed to
+   minimize the chances of linkability with a previously used flow
+   label, as this would enable correlating activity on multiple paths;
+   see Section 9.5.",,FALSE,,,,,,,,
+10.1.  Closing and Draining Connection States,,,,,,,,,,
+" An endpoint enters a closing period after initiating an immediate
+   close; Section 10.3.  While closing, an endpoint MUST NOT send
+   packets unless they contain a CONNECTION_CLOSE frame; see
+   Section 10.3 for details.",Closing and draining state not implemented,FALSE,,,,,,,,
+"  The draining state is entered once an endpoint receives a signal that
+   its peer is closing or draining.  While otherwise identical to the
+   closing state, an endpoint in the draining state MUST NOT send any
+   packets.  Retaining packet protection keys is unnecessary once a
+   connection is in the draining state.",,FALSE,,,,,,,,
+"   While in the closing period, an endpoint could receive packets from a
+   new source address, indicating a connection migration; Section 9.  An
+   endpoint in the closing state MUST strictly limit the number of
+   packets it sends to this new address until the address is validated;
+   see Section 8.2",,FALSE,,,,,,,,
+10.3.  Immediate Close,,,,,,,,,,
+"   An endpoint is allowed to drop the packet protection keys when
+   entering the closing period (Section 10.1) and send a packet
+   containing a CONNECTION_CLOSE in response to any UDP datagram that is
+   received.  However, an endpoint without the packet protection keys
+   cannot identify and discard invalid packets.  To avoid creating an
+   unwitting amplification attack, such endpoints MUST reduce the
+   frequency with which it sends packets containing a CONNECTION_CLOSE
+   frame.  To minimize the state that an endpoint maintains for a
+   closing connection, endpoints MAY send the exact same packet.",Reduce frequency,FALSE,,,,,,,,
+"   New packets from unverified addresses could be used to create an
+   amplification attack; see Section 8.  To avoid this, endpoints MUST
+   either limit transmission of CONNECTION_CLOSE frames to validated
+   addresses or drop packets without response if the response would be
+   more than three times larger than the received packet.",,FALSE,,,,,,,,
+"   After receiving a CONNECTION_CLOSE frame, endpoints enter the
+   draining state.  An endpoint that receives a CONNECTION_CLOSE frame
+   MAY send a single packet containing a CONNECTION_CLOSE frame before
+   entering the draining state, using a CONNECTION_CLOSE frame and a
+   NO_ERROR code if appropriate.  An endpoint MUST NOT send further
+   packets, which could result in a constant exchange of
+   CONNECTION_CLOSE frames until the closing period on either peer
+   ended.",,FALSE,,,,,,,,
+10.3.1.  Immediate Close During the Handshake,,,,,,,,,,
+"  When sending CONNECTION_CLOSE, the goal is to ensure that the peer
+   will process the frame.  Generally, this means sending the frame in a
+   packet with the highest level of packet protection to avoid the
+   packet being discarded.  After the handshake is confirmed (see
+   Section 4.1.2 of [QUIC-TLS]), an endpoint MUST send any
+   CONNECTION_CLOSE frames in a 1-RTT packet.  However, prior to
+   confirming the handshake, it is possible that more advanced packet
+   protection keys are not available to the peer, so another
+   CONNECTION_CLOSE frame MAY be sent in a packet that uses a lower
+   packet protection level.  More specifically:",,FALSE,,,,,,,,
+"   Sending a CONNECTION_CLOSE of type 0x1d in an Initial or Handshake
+   packet could expose application state or be used to alter application
+   state.  A CONNECTION_CLOSE of type 0x1d MUST be replaced by a
+   CONNECTION_CLOSE of type 0x1c when sending the frame in Initial or
+   Handshake packets.  Otherwise, information about the application
+   state might be revealed.  Endpoints MUST clear the value of the
+   Reason Phrase field and SHOULD use the APPLICATION_ERROR code when
+   converting to a CONNECTION_CLOSE of type 0x1c.",Error not implemented but rest is ok ,FALSE,,,,,,,,
+10.4.  Stateless Reset,,,,,,,,,,
+"  A stateless reset is not appropriate for signaling error conditions.
+   An endpoint that wishes to communicate a fatal connection error MUST
+   use a CONNECTION_CLOSE frame if it has sufficient state to do so.",,FALSE,,,,,,,,
+"
+   An endpoint MUST NOT send a stateless reset that is three times or
+   more larger than the packet it receives to avoid being used for
+   amplification.  Section 10.4.3 describes additional limits on
+   stateless reset size.",,FALSE,,,,,,,,
+" Endpoints MUST discard packets that are too small to be valid QUIC
+   packets.  With the set of AEAD functions defined in [QUIC-TLS],
+   packets that are smaller than 21 bytes are never valid.",,FALSE,,,,,,,,
+"  Endpoints MUST send stateless reset packets formatted as a packet
+   with a short header",,FALSE,,,,,,,,
+"However, endpoints MUST treat any packet ending
+   in a valid stateless reset token as a stateless reset, as other QUIC
+   versions might allow the use of a long header.",,FALSE,,,,,,,,
+10.4.1.  Detecting a Stateless Reset,,,,,,,,,,
+"  This comparison can be performed for every inbound datagram.
+   Endpoints MAY skip this check if any packet from a datagram is
+   successfully processed.  However, the comparison MUST be performed
+   when the first packet in an incoming datagram either cannot be
+   associated with a connection, or cannot be decrypted.",,FALSE,,,,,,,,
+"  An endpoint MUST NOT check for any Stateless Reset Tokens associated
+   with connection IDs it has not used or for connection IDs that have
+   been retired.",,FALSE,,,,,,,,
+" When comparing a datagram to Stateless Reset Token values, endpoints
+   MUST perform the comparison without leaking information about the
+   value of the token.  For example, performing this comparison in
+   constant time protects the value of individual Stateless Reset Tokens
+   from information leakage through timing side channels.",,FALSE,,,,,,,,
+"   If the last 16 bytes of the datagram are identical in value to a
+   Stateless Reset Token, the endpoint MUST enter the draining period
+   and not send any further packets on this connection.",,FALSE,,,,,,,,
+10.4.2.  Calculating a Stateless Reset Token,,,,,,,,,,
+"The stateless reset token MUST be difficult to guess.  In order to
+   create a Stateless Reset Token, an endpoint could randomly generate
+   [RFC4086] a secret for every connection that it creates.  However,
+   this presents a coordination problem when there are multiple
+   instances in a cluster or a storage problem for an endpoint that
+   might lose state.  Stateless reset specifically exists to handle the
+   case where state is lost, so this approach is suboptimal.",stateless reset token not done,FALSE,,,,,,,,
+"This design relies on the peer always sending a connection ID in its
+   packets so that the endpoint can use the connection ID from a packet
+   to reset the connection.  An endpoint that uses this design MUST   
+   either use the same connection ID length for all connections or
+   encode the length of the connection ID such that it can be recovered
+   without state.  In addition, it cannot provide a zero-length
+   connection ID.",,FALSE,,,,,,,,
+"  Revealing the Stateless Reset Token allows any entity to terminate
+   the connection, so a value can only be used once.  This method for
+   choosing the Stateless Reset Token means that the combination of
+   connection ID and static key MUST NOT be used for another connection.",,FALSE,,,,,,,,
+" A connection ID from a connection
+   that is reset by revealing the Stateless Reset Token MUST NOT be
+   reused for new connections at nodes that share a static key.",,FALSE,,,,,,,,
+" The same Stateless Reset Token MUST NOT be used for multiple
+   connection IDs.  Endpoints are not required to compare new values
+   against all previous values, but a duplicate value MAY be treated as
+   a connection error of type PROTOCOL_VIOLATION.",,FALSE,,,,,,,,
+10.4.3.  Looping,,,,,,,,,,
+"   An endpoint MUST ensure that every Stateless Reset that it sends is
+   smaller than the packet which triggered it, unless it maintains state
+   sufficient to prevent looping.  In the event of a loop, this results
+   in packets eventually being too small to trigger a response.",stateless reset not doe,FALSE,,,,,,,,
+11.  Error Handling,,,,,,,,,,
+"  A stateless reset (Section 10.4) is not suitable for any error that
+   can be signaled with a CONNECTION_CLOSE or RESET_STREAM frame.  A
+   stateless reset MUST NOT be used by an endpoint that has the state
+   necessary to send a frame on the connection.",,FALSE,,,,,,,,
+11.1.  Connection Errors,,,,,,,,,,
+"   Errors that result in the connection being unusable, such as an
+   obvious violation of protocol semantics or corruption of state that
+   affects an entire connection, MUST be signaled using a
+   CONNECTION_CLOSE frame (Section 19.19).  An endpoint MAY close the
+   connection in this manner even if the error only affects a single
+   stream.",Not all cases handled,FALSE,,,,,,,,
+11.2.  Stream Errors,,,,,,,,,,
+"   Resetting a stream without the involvement of the application
+   protocol could cause the application protocol to enter an
+   unrecoverable state.  RESET_STREAM MUST only be instigated by the
+   application protocol that uses QUIC.",,FALSE,,,,,,,,
+12.2.  Coalescing Packets,,,,,,,,,,
+"  Using the Length field, a sender can coalesce multiple QUIC packets
+   into one UDP datagram.  This can reduce the number of UDP datagrams
+   needed to complete the cryptographic handshake and start sending
+   data.  This can also be used to construct PMTU probes; see
+   Section 14.3.1.  Receivers MUST be able to process coalesced packets.",Coalescing not done,FALSE,,,,,,,,
+"   Senders MUST NOT coalesce QUIC packets for different connections into
+   a single UDP datagram.  Receivers SHOULD ignore any subsequent
+   packets with a different Destination Connection ID than the first
+   packet in the datagram.",,FALSE,,,,,,,,
+"   Every QUIC packet that is coalesced into a single UDP datagram is
+   separate and complete.  The receiver of coalesced QUIC packets MUST
+   individually process each QUIC packet and separately acknowledge
+   them, as if they were received as the payload of different UDP
+   datagrams.",,FALSE,,,,,,,,
+"For example, if decryption fails (because the keys are
+   not available or any other reason), the receiver MAY either discard
+   or buffer the packet for later processing and MUST attempt to process
+   the remaining packets.",,FALSE,,,,,,,,
+12.3.  Packet Numbers,,,,,,,,,,
+"  This enforces cryptographic separation between the data sent in the
+   different packet sequence number spaces.  Packet numbers in each
+   space start at packet number 0.  Subsequent packets sent in the same
+   packet number space MUST increase the packet number by at least one.",,FALSE,,,,,,,,
+" A QUIC endpoint MUST NOT reuse a packet number within the same packet
+   number space in one connection.",,FALSE,,,,,,,,
+"If the packet number for sending
+   reaches 2^62 - 1, the sender MUST close the connection without
+   sending a CONNECTION_CLOSE frame or any further packets; an endpoint
+   MAY send a Stateless Reset (Section 10.4) in response to further
+   packets that it receives.",Valeur du long serait dépassé,FALSE,,,,,,,,
+" A receiver MUST discard a newly unprotected packet unless it is
+   certain that it has not processed another packet with the same packet
+   number from the same packet number space",,FALSE,,,,,,,,
+"Duplicate suppression MUST
+   happen after removing packet protection for the reasons described in
+   Section 9.3 of [QUIC-TLS].  An efficient algorithm for duplicate
+   suppression can be found in Section 3.4.3 of [RFC4303].",,FALSE,,,,,,,,
+12.4.  Frames and Frame Types,,,,,,,,,,
+"  The payload of a packet that contains frames MUST contain at least
+   one frame, and MAY contain multiple frames and multiple frame types.
+   Frames always fit within a single QUIC packet and cannot span
+   multiple packets.",,FALSE,,,,,,,,
+"   An endpoint MUST treat the receipt of a frame of unknown type as a
+   connection error of type FRAME_ENCODING_ERROR.",,FALSE,,,,,,,,
+"   The Frame Type field uses a variable length integer encoding (see
+   Section 16) with one exception.  To ensure simple and efficient
+   implementations of frame parsing, a frame type MUST use the shortest
+   possible encoding.",in parsing,FALSE,,,,,,,,
+Packet Processing,,,,,,,,,,
+"   A packet MUST NOT be acknowledged until packet protection has been
+   successfully removed and all frames contained in the packet have been
+   processed. For STREAM frames, this means the data has been enqueued
+   in preparation to be received by the application protocol, but it
+   does not require that data is delivered and consumed. (13.1.)",,FALSE,,,,,,,,
+"   Every packet SHOULD be acknowledged at least once, and ack-eliciting
+   packets MUST be acknowledged at least once within the maximum delay
+   an endpoint communicated using the max_ack_delay transport parameter;
+  (13.2.1.)","acked_pkt(C,L,N)",TRUE,,,,,,,,
+"   An endpoint MUST acknowledge all ack-eliciting Initial and Handshake
+   packets immediately and all ack-eliciting 0-RTT and 1-RTT packets
+   within its advertised max_ack_delay, with the following exception.
+   Prior to handshake confirmation, an endpoint might not have packet
+   protection keys for decrypting Handshake, 0-RTT, or 1-RTT packets
+   when they are received.  It might therefore buffer them and
+   acknowledge them when the requisite keys become available.",,FALSE,,,,,,,,
+"   Since packets containing only ACK frames are not congestion
+   controlled, an endpoint MUST NOT send more than one such packet in
+   response to receiving an ack-eliciting packet.",,FALSE,,,,,,,,
+"   An endpoint MUST NOT send a non-ack-eliciting packet in response to a
+   non-ack-eliciting packet, even if there are packet gaps that precede
+   the received packet.  This avoids an infinite feedback loop of
+   acknowledgements, which could prevent the connection from ever
+   becoming idle.  Non-ack-eliciting packets are eventually acknowledged
+   when the endpoint sends an ACK frame in response to other events.","Do we interpret this to mean that an ack-only packet
+    cannot ack *only* ack-only packets?  Or that an ack-only
+   packet cannot ack *any* ack-only packets?",FALSE,,,,,,,,
+"   A receiver MUST NOT send an ack-eliciting frame in all packets that
+   would otherwise be non-ack-eliciting, to avoid an infinite feedback
+   loop of acknowledgements.",,FALSE,,,,,,,,
+"   A receiver MUST retain an ACK Range unless it can ensure that it will
+   not subsequently accept packets with numbers in that range.
+   Maintaining a minimum packet number that increases as ranges are
+   discarded is one way to achieve this with minimal state. (13.2.3)",,FALSE,,,,,,,,
+"   Receivers can discard all ACK Ranges, but they MUST retain the
+   largest packet number that has been successfully processed as that is
+   used to recover packet numbers from subsequent packets;",,FALSE,,,,,,,,
+"   An endpoint MUST NOT include delays that it (13.2.5)
+   does not control when populating the ACK Delay field in an ACK frame. ",,FALSE,,,,,,,,
+"   ACK frames MUST only be carried in a packet that has the same packet
+   number space as the packet being acknowledged; (13.2.6)",,FALSE,,,,,,,,
+"   For instance, packets that are protected with 1-RTT keys MUST be
+   acknowledged in packets that are also protected with 1-RTT keys.",,FALSE,,,,,,,,
+"   Packets that a client sends with 0-RTT packet protection MUST be
+   acknowledged by the server in packets protected by 1-RTT keys. ",,FALSE,,,,,,,,
+"   The content of a RESET_STREAM frame MUST NOT change when it is
+   sent again. (13.3)","restransmission or 
+next reset_stream in general ?",FALSE,,,,,,,,
+"   The HANDSHAKE_DONE frame MUST be retransmitted until it is
+   acknowledged.",,FALSE,,,,,,,,
+"   A receiver MUST accept packets containing an
+   outdated frame, such as a MAX_DATA frame carrying a smaller maximum
+   data than one found in an older packet.","We create a test where we send
+packet only with max_data with random value
+we should be ack for all packet if good ?",FALSE,,,,,,,,
+"   Upon detecting losses, a sender MUST take appropriate congestion
+   control action.  The details of loss detection and congestion control
+   are described in [QUIC-RECOVERY].",,FALSE,,,,,,,,
+"   Even if an endpoint does not set an ECT field on packets it sends,
+   the endpoint MUST provide feedback about ECN markings it receives, if
+   these are accessible.  Failing to report the ECN counts will cause
+   the sender to disable use of ECN for this connection. (13.4.1)",,FALSE,,,,,,,,
+"   Validating ECN counts from reordered ACK frames can result in
+   failure.  An endpoint MUST NOT fail ECN validation as a result of
+   processing an ACK frame that does not increase the largest
+   acknowledged packet number. (13.4.2.1)",,FALSE,,,,,,,,
+"   If validation fails, then the endpoint MUST disable ECN.  It stops
+   setting the ECT codepoint in IP packets that it sends, assuming that
+   either the network path or the peer does not support ECN. (13.4.2.2)",,FALSE,,,,,,,,
+"   Upon successful validation, an endpoint MAY continue to set an ECT
+   codepoint in subsequent packets it sends, with the expectation that
+   the path is ECN-capable.  Network routing and path elements can
+   however change mid-connection; an endpoint MUST disable ECN if
+   validation later fails.",,FALSE,,,,,,,,
+,,,,,,,,,,
+Packet Size,,,,,,,,,,
+"   UDP datagrams MUST NOT be fragmented at the IP layer.  In IPv4
+   ([IPv4]), the DF bit MUST be set if possible, to prevent
+   fragmentation on the path. (14.)",,FALSE,,,,,,,,
+"   A client MUST expand the payload of all UDP datagrams carrying
+   Initial packets to at least the smallest allowed maximum packet size
+   (1200 bytes) by adding PADDING frames to the Initial packet or by
+   coalescing the Initial packet; (14.1)",,FALSE,,,,,,,,
+"   A server MUST discard an Initial packet that is carried in a UDP
+   datagram with a payload that is less than the smallest allowed
+   maximum packet size of 1200 bytes.",,FALSE,,,,,,,,
+"   The server MUST also limit the number of bytes it sends before
+   validating the address of the client;",,FALSE,,,,,,,,
+"   If a QUIC endpoint determines that the PMTU between any pair of local
+   and remote IP addresses has fallen below the smallest allowed maximum
+   packet size of 1200 bytes, it MUST immediately cease sending QUIC
+   packets, except for those in PMTU probes or those containing
+   CONNECTION_CLOSE frames, on the affected path. (14.2)",no possible to test directly by design of the serializer,FALSE,,,,,,,,
+"   An endpoint MUST ignore an ICMP message that claims the PMTU has
+   decreased below the minimum QUIC packet size. (14.2.1)",,FALSE,,,,,,,,
+"   ICMP message validation MUST include matching IP addresses and UDP
+   ports ([RFC8085]) and, when possible, connection IDs to an active
+   QUIC session.  The endpoint SHOULD ignore all ICMP messages that fail
+   validation. ",,FALSE,,,,,,,,
+"   An endpoint MUST NOT increase PMTU based on ICMP messages; see
+   Section 3, clause 6 of [DPLPMTUD].",,FALSE,,,,,,,,
+,,,,,,,,,,
+Packet Number Encoding and Decoding,,,,,,,,,,
+"   Prior to receiving an acknowledgement for a packet number space, the
+   full packet number MUST be included; it is not to be truncated as
+   described below. (17.1)",,FALSE,,,,,,,,
+"   After an acknowledgement is received for a packet number space, the
+   sender MUST use a packet number size able to represent more than
+   twice as large a range than the difference between the largest
+   acknowledged packet and packet number being sent.  A peer receiving
+   the packet will then correctly decode the packet number, unless the
+   packet is delayed in transit such that it arrives after many higher-
+   numbered packets have been received.  ",,FALSE,,,,,,,,
+Long Header Packets,,FALSE,,,,,,,,
+"   Fixed Bit:  The next bit (0x40) of byte 0 is set to 1.  Packets
+      containing a zero value for this bit are not valid packets in this
+      version and MUST be discarded. (17.2)",,FALSE,,,,,,,,
+"   Destination Connection ID Length:  The byte following the version
+      contains the length in bytes of the Destination Connection ID
+      field that follows it.  This length is encoded as an 8-bit
+      unsigned integer.  In QUIC version 1, this value MUST NOT exceed
+      20.  Endpoints that receive a version 1 long header with a value
+      larger than 20 MUST drop the packet.  ",,FALSE,,,,,,,,
+"   Source Connection ID Length:  The byte following the Destination
+      Connection ID contains the length in bytes of the Source
+      Connection ID field that follows it.  This length is encoded as a
+      8-bit unsigned integer.  In QUIC version 1, this value MUST NOT
+      exceed 20 bytes.  Endpoints that receive a version 1 long header
+      with a value larger than 20 MUST drop the packet. ",,FALSE,,,,,,,,
+"  Reserved Bits:  Two bits (those with a mask of 0x0c) of byte 0 are
+      reserved across multiple packet types.  These bits are protected
+      using header protection; see Section 5.4 of [QUIC-TLS].  The value
+      included prior to protection MUST be set to 0.  An endpoint MUST
+      treat receipt of a packet that has a non-zero value for these bits
+      after removing both packet and header protection as a connection
+      error of type PROTOCOL_VIOLATION.  Discarding such a packet after
+      only removing header protection can expose the endpoint to
+      attacks; see Section 9.3 of [QUIC-TLS].",,FALSE,,,,,,,,
+Version Negotiation Packet,,,,,,,,,,
+"   The value in the Unused field is selected randomly by the server.
+   Clients MUST ignore the value of this field.  Servers SHOULD set the
+   most significant bit of this field (0x40) to 1 so that Version
+   Negotiation packets appear to have the Fixed Bit field.",,FALSE,,,,,,,,
+"   The Version field of a Version Negotiation packet MUST be set to
+   0x00000000.",,FALSE,,,,,,,,
+"   The server MUST include the value from the Source Connection ID field
+   of the packet it receives in the Destination Connection ID field.
+   The value for Source Connection ID MUST be copied from the
+   Destination Connection ID of the received packet, which is initially
+   randomly selected by a client.  Echoing both connection IDs gives
+   clients some assurance that the server received the packet and that
+   the Version Negotiation packet was not generated by an off-path
+   attacker.",,FALSE,,,,,,,,
+"   A server MUST NOT send more than one Version Negotiation packet in
+   response to a single UDP datagram.",,FALSE,,,,,,,,
+Initial Packet,,,,,,,,,,
+"   Token Length:  A variable-length integer specifying the length of the
+      Token field, in bytes.  This value is zero if no token is present.
+      Initial packets sent by the server MUST set the Token Length field
+      to zero; clients that receive an Initial packet with a non-zero
+      Token Length field MUST either discard the packet or generate a
+      connection error of type PROTOCOL_VIOLATION.",,FALSE,,,,,,,,
+0-RTT,,,,,,,,,,
+"   After a client receives a Retry packet, 0-RTT packets are likely to
+   have been lost or discarded by the server.  A client SHOULD attempt
+   to resend data in 0-RTT packets after it sends a new Initial packet.
+   New packet numbers MUST be used for any new packets that are sent; as
+   described in Section 17.2.5.3, reusing packet numbers could
+   compromise packet protection",,FALSE,,,,,,,,
+"   A client MUST NOT send 0-RTT packets once it starts processing 1-RTT
+   packets from the server.  This means that 0-RTT packets cannot
+   contain any response to frames from 1-RTT packets.  For instance, a
+   client cannot send an ACK frame in a 0-RTT packet, because that can
+   only acknowledge a 1-RTT packet.  An acknowledgment for a 1-RTT
+   packet MUST be carried in a 1-RTT packet.",,FALSE,,,,,,,,
+Handshake Packet,,,,,,,,,,
+"   The payload of this packet contains CRYPTO frames and could contain
+   PING, PADDING, or ACK frames.  Handshake packets MAY contain
+   CONNECTION_CLOSE frames of type 0x1c.  Endpoints MUST treat receipt
+   of Handshake packets with other frames as a connection error.",,FALSE,,,,,,,,
+Retry Packet,,,,,,,,,,
+"   A Retry packet (shown in Figure 18) does not contain any protected
+   fields.  The value in the Unused field is set to an arbitrary value
+   by the server; a client MUST ignore these bits. ",not done,FALSE,,,,,,,,
+"   The server includes a connection ID of its choice in the Source
+   Connection ID field.  This value MUST NOT be equal to the Destination
+   Connection ID field of the packet sent by the client.  A client MUST
+   discard a Retry packet that contains a Source Connection ID field
+   that is identical to the Destination Connection ID field of its
+   Initial packet.  The client MUST use the value from the Source
+   Connection ID field of the Retry packet in the Destination Connection
+   ID field of subsequent packets that it sends.",,FALSE,,,,,,,,
+"   A server MAY send Retry packets in response to Initial and 0-RTT
+   packets.  A server can either discard or buffer 0-RTT packets that it
+   receives.  A server can send multiple Retry packets as it receives
+   Initial or 0-RTT packets.  A server MUST NOT send more than one Retry
+   packet in response to a single UDP datagram.",,FALSE,,,,,,,,
+"   A client MUST accept and process at most one Retry packet for each
+   connection attempt.  After the client has received and processed an
+   Initial or Retry packet from the server, it MUST discard any
+   subsequent Retry packets that it receives.",,FALSE,,,,,,,,
+"   Clients MUST discard Retry packets that have a Retry Integrity Tag
+   that cannot be validated; see the Retry Packet Integrity section of
+   [QUIC-TLS].  This diminishes an off-path attacker's ability to inject
+   a Retry packet and protects against accidental corruption of Retry
+   packets.  A client MUST discard a Retry packet with a zero-length
+   Retry Token field.",,FALSE,,,,,,,,
+"   A client sets the Destination Connection ID field of this Initial
+   packet to the value from the Source Connection ID in the Retry
+   packet.  Changing Destination Connection ID also results in a change
+   to the keys used to protect the Initial packet.  It also sets the
+   Token field to the token provided in the Retry.  The client MUST NOT
+   change the Source Connection ID because the server could include the
+   connection ID as part of its token validation logic; see
+   Section 8.1.4.",,FALSE,,,,,,,,
+"   Other than updating the Destination Connection ID and Token fields,
+   the Initial packet sent by the client is subject to the same
+   restrictions as the first Initial packet.  A client MUST use the same
+   cryptographic handshake message it included in this packet.  A server
+   MAY treat a packet that contains a different cryptographic handshake
+   message as a connection error or discard it.",,FALSE,,,,,,,,
+"   A client MAY attempt 0-RTT after receiving a Retry packet by sending
+   0-RTT packets to the connection ID provided by the server.  A client
+   MUST NOT change the cryptographic handshake message it sends in
+   response to receiving a Retry.",,FALSE,,,,,,,,
+"   A client MUST NOT reset the packet number for any packet number space
+   after processing a Retry packet.  In particular, 0-RTT packets
+   contain confidential information that will most likely be
+   retransmitted on receiving a Retry packet.  The keys used to protect
+   these new 0-RTT packets will not change as a result of responding to
+   a Retry packet.  However, the data sent in these packets could be
+   different than what was sent earlier.  Sending these new packets with
+   the same packet number is likely to compromise the packet protection
+   for those packets because the same key and nonce could be used to
+   protect different content.  A server MAY abort the connection if it
+   detects that the client reset the packet number.",,FALSE,,,,,,,,
+"   If the client received and processed a Retry packet, it MUST validate
+   that the retry_source_connection_id transport parameter is present
+   and correct; otherwise, it MUST validate that the transport parameter
+   is absent.  A client MUST treat a failed validation as a connection
+   error of type PROTOCOL_VIOLATION.",,FALSE,,,,,,,,
+Short Header Packets,,,,,,,,,,
+"   Fixed Bit:  The next bit (0x40) of byte 0 is set to 1.  Packets
+      containing a zero value for this bit are not valid packets in this
+      version and MUST be discarded.",,FALSE,,,,,,,,
+"   Reserved Bits:  The next two bits (those with a mask of 0x18) of byte
+      0 are reserved.  These bits are protected using header protection;
+      see Section 5.4 of [QUIC-TLS].  The value included prior to
+      protection MUST be set to 0.  An endpoint MUST treat receipt of a
+      packet that has a non-zero value for these bits, after removing
+      both packet and header protection, as a connection error of type
+      PROTOCOL_VIOLATION.  Discarding such a packet after only removing
+      header protection can expose the endpoint to attacks; see
+      Section 9.3 of [QUIC-TLS].",,FALSE,,,,,,,,
+"   The spin bit is an OPTIONAL feature of QUIC.  A QUIC stack that
+   chooses to support the spin bit MUST implement it as specified in
+   this section.",,FALSE,,,,,,,,
+"   Each endpoint unilaterally decides if the spin bit is enabled or
+   disabled for a connection.  Implementations MUST allow administrators
+   of clients and servers to disable the spin bit either globally or on
+   a per-connection basis.  Even when the spin bit is not disabled by
+   the administrator, endpoints MUST disable their use of the spin bit
+   for a random selection of at least one in every 16 network paths, or
+   for one in every 16 connection IDs.  As each endpoint disables the
+   spin bit independently, this ensures that the spin bit signal is
+   disabled on approximately one in eight network paths.",,FALSE,,,,,,,,
+"   When the spin bit is disabled, endpoints MAY set the spin bit to any
+   value, and MUST ignore any incoming value.  It is RECOMMENDED that
+   endpoints set the spin bit to a random value either chosen
+   independently for each packet or chosen independently for each
+   connection ID.",,TRUE,,,,,,,,
+,,,,,,,,,,
+Transport Parameter Encoding,,,,,,,,,,
+"   stateless_reset_token (0x02):  A stateless reset token is used in
+      verifying a stateless reset; see Section 10.4.  This parameter is
+      a sequence of 16 bytes.  This transport parameter MUST NOT be sent
+      by a client, but MAY be sent by a server.  A server that does not
+      send this transport parameter cannot use stateless reset
+      (Section 10.4) for the connection ID negotiated during the
+      handshake.",,FALSE,,,,,,,,
+"
+ preferred_address (0x0d):  The server's preferred address is used to
+      The Connection ID and Stateless Reset Token fields of a preferred
+      address are identical in syntax and semantics to the corresponding
+      fields of a NEW_CONNECTION_ID frame (Section 19.15).  A server
+      that chooses a zero-length connection ID MUST NOT provide a
+      preferred address.  Similarly, a server MUST NOT include a zero-
+      length connection ID in this transport parameter.  A client MUST
+      treat violation of these requirements as a connection error of
+      type TRANSPORT_PARAMETER_ERROR.",,FALSE,,,,,,,,
+"   disable_active_migration (0x0c):  The disable active migration
+      transport parameter is included if the endpoint does not support
+      active connection migration (Section 9) on the address being used
+      during the handshake.  When a peer sets this transport parameter,
+      an endpoint MUST NOT use a new local address when sending to the
+      address that the peer used during the handshake.  This transport
+      parameter does not prohibit connection migration after a client
+      has acted on a preferred_address transport parameter.  This
+      parameter is a zero-length value.",,FALSE,,,,,,,,
+"   active_connection_id_limit (0x0e):  The active connection ID limit is
+      an integer value specifying the maximum number of connection IDs
+      from the peer that an endpoint is willing to store.  This value
+      includes the connection ID received during the handshake, that
+      received in the preferred_address transport parameter, and those
+      received in NEW_CONNECTION_ID frames.  The value of the
+      active_connection_id_limit parameter MUST be at least 2.  An
+      endpoint that receives a value less than 2 MUST close the
+      connection with an error of type TRANSPORT_PARAMETER_ERROR.  If
+      this transport parameter is absent, a default of 2 is assumed.  If
+      an endpoint issues a zero-length connection ID, it will never send
+      a NEW_CONNECTION_ID frame and therefore ignores the
+      active_connection_id_limit value received from its peer.",,FALSE,,,,,,,,
+"   A client MUST NOT include any server-only transport parameter:
+   original_destination_connection_id, preferred_address,
+   retry_source_connection_id, or stateless_reset_token.  A server MUST
+   treat receipt of any of these transport parameters as a connection
+   error of type TRANSPORT_PARAMETER_ERROR.",,FALSE,,,,,,,,
+,,FALSE,,,,,,,,
+Frame Types and Formats,,FALSE,,,,,,,,
+ACK Frames,,FALSE,,,,,,,,
+"   Receivers send ACK frames (types 0x02 and 0x03) to inform senders of
+   packets they have received and processed.  The ACK frame contains one
+   or more ACK Ranges.  ACK Ranges identify acknowledged packets.  If
+   the frame type is 0x03, ACK frames also contain the sum of QUIC
+   packets with associated ECN marks received on the connection up until
+   this point.  QUIC implementations MUST properly handle both types
+   and, if they have enabled ECN for packets they send, they SHOULD use
+   the information in the ECN section to manage their congestion state.",quic_frame.ivy : 110,FALSE,TODO: ECN,,,,,,,
+"   Each ACK Range acknowledges a contiguous range of packets by
+   indicating the number of acknowledged packets that precede the
+   largest packet number in that range.  A value of zero indicates that
+   only the largest packet number is acknowledged.  Larger ACK Range
+   values indicate a larger range, with corresponding lower values for
+   the smallest packet number in the range.  Thus, given a largest
+   packet number for the range, the smallest value is determined by the
+   formula:
+
+      smallest = largest - ack_range
+
+   An ACK Range acknowledges all packets between the smallest packet
+   number and the largest, inclusive.
+
+   The largest value for an ACK Range is determined by cumulatively
+   subtracting the size of all preceding ACK Ranges and Gaps.
+
+   Each Gap indicates a range of packets that are not being
+   acknowledged.  The number of packets in the gap is one higher than
+   the encoded value of the Gap field.
+
+   The value of the Gap field establishes the largest packet number
+   value for the subsequent ACK Range using the following formula:
+
+      largest = previous_smallest - gap - 2
+
+   If any computed packet number is negative, an endpoint MUST generate
+   a connection error of type FRAME_ENCODING_ERROR.",quic_frame.ivy : 604,TRUE,"TODO: Block not existing anymore to change
+
+ack_blocks ->ack_range
+last = = largest
+upper == smallest",,,,,,,
+RESET_STREAM Frames,,,,,,,,,,
+"   An endpoint that receives a RESET_STREAM frame for a send-only stream
+   MUST terminate the connection with error STREAM_STATE_ERROR.",quic_frame:819,FALSE,No error management impemented ,,,,,,,
+STOP_SENDING Frames,,,,,,,,,,
+"   A STOP_SENDING frame can be sent for streams in the Recv or Size
+   Known states; see Section 3.1.  Receiving a STOP_SENDING frame for a
+   locally-initiated stream that has not yet been created MUST be
+   treated as a connection error of type STREAM_STATE_ERROR.  An
+   endpoint that receives a STOP_SENDING frame for a receive-only stream
+   MUST terminate the connection with error STREAM_STATE_ERROR.",,TRUE,No error management impemented ,,,,,,,
+CRYPTO Frames,,,,,,,,,,
+"   The largest offset delivered on a stream - the sum of the offset and
+   data length - cannot exceed 2^62-1.  Receipt of a frame that exceeds
+   this limit MUST be treated as a connection error of type
+   FRAME_ENCODING_ERROR or CRYPTO_BUFFER_EXCEEDED.",quic_frame:747,TRUE,No error management impemented ,,,,,,,
+NEW_TOKEN Frames,,,,,,,,,,
+"   Token:  An opaque blob that the client may use with a future Initial
+      packet.  The token MUST NOT be empty.  An endpoint MUST treat
+      receipt of a NEW_TOKEN frame with an empty Token field as a
+      connection error of type FRAME_ENCODING_ERROR.",quic_frame:1317,TRUE,No error management impemented ,,,,,,,
+"   Clients MUST NOT send NEW_TOKEN frames.  Servers MUST treat receipt
+   of a NEW_TOKEN frame as a connection error of type
+   PROTOCOL_VIOLATION.
+",quic_frame:1317,TRUE,No error management impemented ,,,,,,,
+STREAM Frames,,,,,,,,,,
+"   An endpoint MUST terminate the connection with error
+   STREAM_STATE_ERROR if it receives a STREAM frame for a locally-
+   initiated stream that has not yet been created, or for a send-only
+   stream.",quic_frame:674,TRUE,No error management impemented ,,,,,,,
+"   The first byte in the stream has an offset of 0.  The largest offset
+   delivered on a stream - the sum of the offset and data length -
+   cannot exceed 2^62-1, as it is not possible to provide flow control
+   credit for that data.  Receipt of a frame that exceeds this limit
+   MUST be treated as a connection error of type FRAME_ENCODING_ERROR or
+   FLOW_CONTROL_ERROR.",quic_frame:711,TRUE,No error management impemented ,,,,,,,
+ MAX_DATA Frames,,,,,,,,,,
+"   All data sent in STREAM frames counts toward this limit.  The sum of
+   the final sizes on all streams - including streams in terminal states
+   - MUST NOT exceed the value advertised by a receiver.  An endpoint
+   MUST terminate a connection with a FLOW_CONTROL_ERROR error if it
+   receives more data than the maximum data value that it has sent.",quic_frame:663,TRUE,No error management impemented ,,,,,,,
+MAX_STREAM_DATA Frames,,,,,,,,,,
+"   A MAX_STREAM_DATA frame can be sent for streams in the Recv state;
+   see Section 3.1.  Receiving a MAX_STREAM_DATA frame for a locally-
+   initiated stream that has not yet been created MUST be treated as a
+   connection error of type STREAM_STATE_ERROR.  An endpoint that
+   receives a MAX_STREAM_DATA frame for a receive-only stream MUST
+   terminate the connection with error STREAM_STATE_ERROR.",quic_frame:1043,TRUE,No error management impemented ,,,,,,,
+"   The data sent on a stream MUST NOT exceed the largest maximum stream
+   data value advertised by the receiver.  An endpoint MUST terminate a
+   connection with a FLOW_CONTROL_ERROR error if it receives more data
+   than the largest maximum stream data that it has sent for the
+   affected stream.  This includes violations of remembered limits in
+   Early Data; see Section 7.4.1.",quic_frame:664,TRUE,No error management impemented ,,,,,,,
+MAX_STREAMS Frames,,,,,,,,,,
+"   Maximum Streams:  A count of the cumulative number of streams of the
+      corresponding type that can be opened over the lifetime of the
+      connection.  This value cannot exceed 2^60, as it is not possible
+      to encode stream IDs larger than 2^62-1.  Receipt of a frame that
+      permits opening of a stream larger than this limit MUST be treated
+      as a FRAME_ENCODING_ERROR.","not in quic_frame
+quic_frame:642",TRUE,No error management impemented ,,,,,,,
+"   Loss or reordering can cause a MAX_STREAMS frame to be received that
+   state a lower stream limit than an endpoint has previously received.
+   MAX_STREAMS frames that do not increase the stream limit MUST be
+   ignored.",quic_frame.ivy : 899,TRUE,,,,,,,,
+"   An endpoint MUST NOT open more streams than permitted by the current
+   stream limit set by its peer.  For instance, a server that receives a
+   unidirectional stream limit of 3 is permitted to open stream 3, 7,
+   and 11, but not stream 15.  An endpoint MUST terminate a connection
+   with a STREAM_LIMIT_ERROR error if a peer opens more streams than was
+   permitted.  This includes violations of remembered limits in Early
+   Data; see Section 7.4.1.","not in quic_frame/max_streams
+quic_frame:649",TRUE,No error management impemented ,,,,,,,
+STREAM_DATA_BLOCKED Frames,,,,,,,,,,
+"   An endpoint that receives a STREAM_DATA_BLOCKED frame for a send-only
+   stream MUST terminate the connection with error STREAM_STATE_ERROR.",quic_frame:1079,TRUE,No error management impemented ,,,,,,,
+STREAMS_BLOCKED Frames,,,,,,,,,,
+"   Maximum Streams:  A variable-length integer indicating the maximum
+      number of streams allowed at the time the frame was sent.  This
+      value cannot exceed 2^60, as it is not possible to encode stream
+      IDs larger than 2^62-1.  Receipt of a frame that encodes a larger
+      stream ID MUST be treated as a STREAM_LIMIT_ERROR or a
+      FRAME_ENCODING_ERROR.",quic_frame:1137,TRUE,No error management impemented ,,,,,,,
+NEW_CONNECTION_ID Frames,,,,,,,,,,
+"   Length:  An 8-bit unsigned integer containing the length of the
+      connection ID.  Values less than 1 and greater than 20 are invalid
+      and MUST be treated as a connection error of type
+      FRAME_ENCODING_ERROR",,TRUE,No error management impemented ,,,,,,,
+"   An endpoint MUST NOT send this frame if it currently requires that
+   its peer send packets with a zero-length Destination Connection ID.
+   Changing the length of a connection ID to or from zero-length makes
+   it difficult to identify when the value of the connection ID changed.
+   An endpoint that is sending packets with a zero-length Destination
+   Connection ID MUST treat receipt of a NEW_CONNECTION_ID frame as a
+   connection error of type PROTOCOL_VIOLATION.",TODO,TRUE,No error management impemented ,,,,,,,
+"   Transmission errors, timeouts and retransmissions might cause the
+   same NEW_CONNECTION_ID frame to be received multiple times.  Receipt
+   of the same frame multiple times MUST NOT be treated as a connection
+   error.  A receiver can use the sequence number supplied in the
+   NEW_CONNECTION_ID frame to handle receiving the same
+   NEW_CONNECTION_ID frame multiple times.",,TRUE,,,,,,,,
+"   The Retire Prior To field applies to connection IDs established
+   during connection setup and the preferred_address transport
+   parameter; see Section 5.1.2.  The Retire Prior To field MUST be less
+   than or equal to the Sequence Number field.  Receiving a value
+   greater than the Sequence Number MUST be treated as a connection
+   error of type FRAME_ENCODING_ERROR.",quic_frame:1242,TRUE,No error management impemented ,,,,,,,
+"   Once a sender indicates a Retire Prior To value, smaller values sent
+   in subsequent NEW_CONNECTION_ID frames have no effect.  A receiver
+   MUST ignore any Retire Prior To fields that do not increase the
+   largest received Retire Prior To value",,TRUE,,,,,,,,
+"   An endpoint that receives a NEW_CONNECTION_ID frame with a sequence
+   number smaller than the Retire Prior To field of a previously
+   received NEW_CONNECTION_ID frame MUST send a corresponding
+   RETIRE_CONNECTION_ID frame that retires the newly received connection
+   ID, unless it has already done so for that sequence number.",quic_frame:1268,TRUE,,,,,,,,
+RETIRE_CONNECTION_ID Frames,,,,,,,,,,
+"   Receipt of a RETIRE_CONNECTION_ID frame containing a sequence number
+   greater than any previously sent to the peer MUST be treated as a
+   connection error of type PROTOCOL_VIOLATION.",quic_frame:1226,TRUE,No error management impemented ,,,,,,,
+"   The sequence number specified in a RETIRE_CONNECTION_ID frame MUST
+   NOT refer to the Destination Connection ID field of the packet in
+   which the frame is contained.  The peer MAY treat this as a
+   connection error of type PROTOCOL_VIOLATION.",,TRUE,No error management impemented ,,,,,,,
+"   An endpoint cannot send this frame if it was provided with a zero-
+   length connection ID by its peer.  An endpoint that provides a zero-
+   length connection ID MUST treat receipt of a RETIRE_CONNECTION_ID
+   frame as a connection error of type PROTOCOL_VIOLATION.",,FALSE,No error management impemented ,,,,,,,
+PATH_CHALLENGE Frames,,,,,,,,,,
+"   The recipient of this frame MUST generate a PATH_RESPONSE frame
+   (Section 19.18) containing the same Data.",quic_frame:1250,TRUE,,,,,,,,
+HANDSHAKE_DONE Frames,,,,,,,,,,
+"   A HANDSHAKE_DONE frame can only be sent by the server.  Servers MUST
+   NOT send a HANDSHAKE_DONE frame before completing the handshake.  A
+   server MUST treat receipt of a HANDSHAKE_DONE frame as a connection
+   error of type PROTOCOL_VIOLATION",,FALSE,No error management impemented,,,,,,,
+Extension Frames,,,,,,,,,,
+"   An extension to QUIC that wishes to use a new type of frame MUST
+   first ensure that a peer is able to understand the frame.  An
+   endpoint can use a transport parameter to signal its willingness to
+   receive extension frame types.  One transport parameter can indicate
+   support for one or more extension frame types.",,FALSE,,,,,,,,
+"   Extension frames MUST be congestion controlled and MUST cause an ACK
+   frame to be sent.  The exception is extension frames that replace or
+   supplement the ACK frame.  Extension frames are not included in flow
+   control unless specified in the extension.",,FALSE,,,,,,,,
+,,,,,,,,,,
+Request Forgery Attacks,,,,,,,,,,
+"   Although it is not generally possible to ensure that clients are not
+   co-located with vulnerable endpoints, this version of QUIC does not
+   allow servers to migrate, thus preventing spoofed migration attacks
+   on clients.  Any future extension which allows server migration MUST
+   also define countermeasures for forgery attacks.",,FALSE,,,,,,,,
+"   A client MUST NOT send non-probing frames to a preferred address
+   prior to validating that address; see Section 8.  This greatly
+   reduces the options that a server has to control the encrypted
+   portion of datagrams.",,FALSE,,,,,,,,
+,,,,,,,,,,
+Stateless Reset Oracle,,,,,,,,,,
+"   If a packet can be routed to different instances that share a static
+   key, for example by changing an IP address or port, then an attacker
+   can cause the server to send a stateless reset.  To defend against
+   this style of denial of service, endpoints that share a static key
+   for stateless reset (see Section 10.3.2) MUST be arranged so that
+   packets with a given connection ID always arrive at an instance that
+   has connection state, unless that connection is no longer active.",,FALSE,,,,,,,,
+,,,,,,,,,,
+Version Downgrade,,,,,,,,,,
+"   This document defines QUIC Version Negotiation packets in Section 6
+   that can be used to negotiate the QUIC version used between two
+   endpoints.  However, this document does not specify how this
+   negotiation will be performed between this version and subsequent
+   future versions.  In particular, Version Negotiation packets do not
+   contain any mechanism to prevent version downgrade attacks.  Future
+   versions of QUIC that use Version Negotiation packets MUST define a
+   mechanism that is robust against version downgrade attacks.",,FALSE,,,,,,,,
+,,,,,,,,,,
+Selecting Codepoints,,,,,,,,,,
+"   New uses of codepoints from QUIC registries SHOULD use a randomly
+   selected codepoint that excludes both existing allocations and the
+   first unallocated codepoint in the selected space.  Requests for
+   multiple codepoints MAY use a contiguous range.  This minimizes the
+   risk that differing semantics are attributed to the same codepoint by
+   different implementations.  Use of the first codepoint in a range is
+   intended for use by specifications that are developed through the
+   standards process [STD] and its allocation MUST be negotiated with
+   IANA before use.",,FALSE,,,,,,,,
+"   Applications to register codepoints in QUIC registries MAY include a
+   codepoint as part of the registration.  IANA MUST allocate the
+   selected codepoint unless that codepoint is already assigned or the
+   codepoint is the first unallocated codepoint in the registry",,FALSE,,,,,,,,
+,,,,,,,,,,
+Reclaiming Provisional Codepoints,,,,,,,,,,
+"   A request to remove a codepoint MUST be reviewed by the designated
+   expert(s).  The expert(s) MUST attempt to determine whether the
+   codepoint is still in use.  Experts are advised to contact the listed
+   contacts for the registration, plus as wide a set of protocol
+   implementers as possible in order to determine whether any use of the
+   codepoint is known.  The expert(s) are advised to allow at least four
+   weeks for responses.",,FALSE,,,,,,,,
+"   If any use of the codepoints is identified by this search or a
+   request to update the registration is made, the codepoint MUST NOT be
+   reclaimed.  Instead, the date on the registration is updated.  A note
+   might be added for the registration recording relevant information
+   that was learned.",,FALSE,,,,,,,,
+,,,,,,,,,,
+Permanent Registrations,,,,,,,,,,
+"   All registrations made by Standards Track publications MUST be
+   permanent.",,FALSE,,,,,,,,
+,,,,,,,,,,
+QUIC Transport Parameter Registry,,,,,,,,,,
+"   In addition to the fields in Section 22.1.1, permanent registrations
+   in this registry MUST include the following field:",,FALSE,,,,,,,,
+"   Additionally, each value of the format ""31 * N + 27"" for integer
+   values of N (that is, 27, 58, 89, ...) are reserved and MUST NOT be
+   assigned by IANA.",,FALSE,,,,,,,,
+,,,,,,,,,,
+QUIC Frame Types Registry,,,,,,,,,,
+"   In addition to the fields in Section 22.1.1, permanent registrations
+   in this registry MUST include the following field:
+
+   Frame Name:  A short mnemonic for the frame type.",,FALSE,,,,,,,,
+,,,,,,,,,,
+QUIC Transport Error Codes Registry,,,,,,,,,,
+"   In addition to the fields in Section 22.1.1, permanent registrations
+   in this registry MUST include the following fields:
+
+   Code:  A short mnemonic for the parameter.",,FALSE,,,,,,,,

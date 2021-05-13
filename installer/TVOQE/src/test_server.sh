@@ -10,7 +10,7 @@
 # lsquic not working lsquic
 
 
-servers=(quant quinn mvfst picoquic quic-go aioquic quiche)
+servers=(quinn quic-go) #(quant quinn mvfst picoquic quic-go aioquic quiche)
 alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 
 tests_server=(quic_server_test_stream
@@ -23,12 +23,12 @@ tests_server=(quic_server_test_stream
               quic_server_test_tp_acticoid_error
               quic_server_test_connection_close #toretest
               quic_server_test_reset_stream
-	          quic_server_test_retirecoid_error
+	          #quic_server_test_retirecoid_error
 	          quic_server_test_newcoid_zero_error # not working
 	          quic_server_test_handshake_done_error
 	          quic_server_test_stop_sending # not working
               quic_server_test_double_tp_error
-	          quic_server_test_tp_limit_acticoid_error
+	          #quic_server_test_tp_limit_acticoid_error
 	          quic_server_test_accept_maxdata
 	          quic_server_test_no_icid #to retest
               quic_server_test_ext_min_ack_delay

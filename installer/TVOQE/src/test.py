@@ -33,7 +33,7 @@ servers = [
     ['minq',['..','go run '+ scdir + '/go/src/github.com/ekr/minq/bin/server/main.go']],
     ['chromium',[scdircr + '/chromium/src','./out/Default/quic_server --port=4443  --quic_response_cache_dir=/tmp/quic-data/www.example.org   --certificate_file=net/tools/quic/certs/out/leaf_cert.pem   --key_file=net/tools/quic/certs/out/leaf_cert.pkcs8 --quic-enable-version-99  --generate_dynamic_responses --allow_unknown_root_cert --v=1']], # --quic_versions=h3-25
     ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-server --       --cert tools/apps/src/bin/cert.crt       --key tools/apps/src/bin/cert.key --no-retry --dump-packets /results/dump.txt --listen 127.0.0.1:4443']],
-    ['quic-go',['/server/','./server -c /QUIC-Ivy/doc/examples/quic/leaf_cert.pem -k /QUIC-Ivy/doc/examples/quic/leaf_cert.key -p 4443 127.0.0.1']],
+    ['quic-go',['/server/','./server -p 4443 127.0.0.1']], # -c /QUIC-Ivy/doc/examples/quic/leaf_cert.pem -k /QUIC-Ivy/doc/examples/quic/leaf_cert.key
     ['aioquic',[scdir + '/aioquic','python3 examples/http3_server.py --certificate /quic/aioquic/tests/ssl_cert.pem --private-key /quic/aioquic/tests/ssl_key.pem  -v --host 127.0.0.1 --port 4443 -l /results/temp/aioquic_key.log"']],
     ['mvfst',[scdir + '/mvfst/_build/build/quic/samples/','./echo -mode=server -host=127.0.0.1 -port=4443 -v=10']],
     ['quinn',[scdir+ '/quinn/','cargo run --example server /QUIC-Ivy/doc/examples/quic/ --listen 127.0.0.1:4443 --keylog']],
@@ -48,7 +48,7 @@ clients = [
     ['minq',['..','go run '+ scdir + '/go/src/github.com/ekr/minq/bin/client/main.go ']],
     ['chromium',[scdircr + '/chromium/src','./out/Default/quic_client --host=127.0.0.1 --port=4443 --disable_certificate_verification  https://www.example.org/ --v=1 --quic_versions=h3-23']],
     ['quiche',[scdir + '/quiche/','cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-client -- https://localhost:4443/  --dump-json --wire-version ff00001d --no-verify --body / -n 20' ]],
-    ['quic-go',['/client/','./client -G 5000000 -R -X /logs.txt -P -v 127.0.0.1 4443']],
+    ['quic-go',['/client/','./client -G 5000000 -X /logs.txt -P -v 127.0.0.1 4443']],
     ['aioquic',[scdir + '/aioquic','python3 examples/http3_client.py -v  -i --insecure --legacy-http https://localhost:4443/']],
     ['mvfst',[scdir + '/mvfst/_build/build/quic/samples/','./echo -mode=client -host=127.0.0.1 -port=4443 -v=5 -stop_logging_if_full_disk']],
     ['quinn',[scdir+ '/quinn/','cargo run  -vv --example client https://localhost:4443/index.html --keylog']],

@@ -71,8 +71,8 @@ func runHTTP09Server(quicConf *quic.Config, port int) error {
 		QuicConfig: quicConf,
 	}
 
-	//http.FileServer()
-	http.DefaultServeMux.Handle("/", http.FileServer(http.Dir("/QUIC-Ivy/doc/examples/quic/")))
+	handler := &bufferHandler{make([]byte, 5000000)}
+	http.DefaultServeMux.Handle("/index.html", handler)
 	return server.ListenAndServe()
 }
 
@@ -91,11 +91,12 @@ func (h *bufferHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(404)
 		return
 	}
-	size, err := strconv.Atoi(r.URL.Path[1:])
+	/*size, err := strconv.Atoi(r.URL.Path[1:])
 	if err != nil {
 		log.Fatalf("wrong URL path: %s: %+v", r.URL.Path, err)
 		return
-	}
+	}*/
+	size := 50000;
 	w.WriteHeader(200)
 	var written int = 0
 	for written < size {
