@@ -27,9 +27,12 @@ rm go1.14.linux-amd64.tar.gz
 export PATH="/go/bin:${PATH}"
 
 cd /quic/quic-go/
+echo "Build go"
 #export GOPATH=$PWD
 go get ./...
+echo "Build client go"
 go build -o /client/client /client/main.go
+echo "Build server go"
 go build -o /server/server /server/main.go
 
 #Install aioquic
@@ -89,6 +92,7 @@ go build -o /server/server /server/main.go
 
 #Install Quinn
 cd /quic/quinn
+echo "Build quinn"
 cargo build --examples
 cargo test
 
