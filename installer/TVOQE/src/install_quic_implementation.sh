@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # #Install picotls
-# printf "\n\n"
-# printf "###### Installing PicoTLS:\n\n"
-# cd /quic/picotls/
-# git submodule init
-# git submodule update
-# cmake .
-# make
-# make check
+printf "\n\n"
+printf "###### Installing PicoTLS:\n\n"
+cd /quic/picotls/
+git submodule init
+git submodule update
+cmake .
+make
+make check
 
 # #Install picoquic
 # printf "\n\n"

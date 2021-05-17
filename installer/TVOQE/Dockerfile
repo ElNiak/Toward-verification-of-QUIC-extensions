@@ -72,7 +72,7 @@ COPY src/update_key_aioquic.py /results/update_key_aioquic.py
 RUN mkdir /quic /quic/certs
 RUN mkdir /results/picoquic_qlog
 RUN mkdir /results/quant_qlog
-# COPY --from=intermediate picotls /quic/picotls
+COPY --from=intermediate picotls /quic/picotls
 # COPY --from=intermediate picoquic /quic/picoquic
 # COPY --from=intermediate quant /quic/quant
 # COPY src/quant/cid.h /quic/quant/lib/src/cid.h
