@@ -28,7 +28,7 @@ rm go1.14.linux-amd64.tar.gz
 #Install project
 git clone https://github.com/lucas-clemente/quic-go
 cd /quic-go
-git checkout v0.18.1
+git checkout v0.20.0
 export PATH="/go/bin:${PATH}"
 mkdir client server
 
