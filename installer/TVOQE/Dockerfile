@@ -76,20 +76,22 @@ COPY --from=intermediate picotls /quic/picotls
 # COPY --from=intermediate picoquic /quic/picoquic
 # COPY --from=intermediate quant /quic/quant
 # COPY src/quant/cid.h /quic/quant/lib/src/cid.h
-COPY --from=intermediate quic-go /quic/quic-go
-COPY src/quic-go/main.go /client/main.go
-COPY src/quic-go/server/main.go /server/main.go
-COPY src/quic-go/priv.key /certs/priv.key
-COPY src/quic-go/cert.pem /certs/cert.pem
-# COPY --from=intermediate aioquic /quic/aioquic
+# COPY --from=intermediate quic-go /quic/quic-go
+# COPY src/quic-go/main.go /client/main.go
+# COPY src/quic-go/server/main.go /server/main.go
+# COPY src/quic-go/priv.key /certs/priv.key
+# COPY src/quic-go/cert.pem /certs/cert.pem
+COPY --from=intermediate aioquic /quic/aioquic
+# Aioquic fix
+COPY src/aioquic/connection.py /quic/aioquic/quic/connection.py 
 # COPY --from=intermediate mvfst /quic/mvfst
 # # TODO should be in the first part
 # COPY src/mvfst/generic /quic/mvfst/quic/samples/generic
 # COPY src/mvfst/samples-build-patch.diff /quic/mvfst/
 # COPY --from=intermediate boringssl /quic/boringssl
 # COPY --from=intermediate lsquic /quic/lsquic
-COPY --from=intermediate quinn /quic/quinn
-COPY src/quinn/lib.rs /quic/quinn/quinn-proto/src/lib.rs
+# COPY --from=intermediate quinn /quic/quinn
+# COPY src/quinn/lib.rs /quic/quinn/quinn-proto/src/lib.rs
 # COPY --from=intermediate quiche /quic/quiche
 # COPY src/quiche/packet.rs /quic/quiche/src/packet.rs
 
