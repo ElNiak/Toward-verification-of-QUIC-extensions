@@ -21,22 +21,22 @@ git submodule update
 
 #Clone quic-go project
 cd /
-#Install go
-# wget https://dl.google.com/go/go1.14.linux-amd64.tar.gz  &> /dev/null
-# tar xfz go1.14.linux-amd64.tar.gz &> /dev/null
-# rm go1.14.linux-amd64.tar.gz
-# #Install project
-# git clone https://github.com/lucas-clemente/quic-go
-# cd /quic-go
-# git checkout v0.20.0
-# export PATH="/go/bin:${PATH}"
-# mkdir client server
+# Install go
+wget https://dl.google.com/go/go1.14.linux-amd64.tar.gz  &> /dev/null
+tar xfz go1.14.linux-amd64.tar.gz &> /dev/null
+rm go1.14.linux-amd64.tar.gz
+#Install project
+git clone https://github.com/lucas-clemente/quic-go
+cd /quic-go
+git checkout v0.20.0
+export PATH="/go/bin:${PATH}"
+mkdir client server
 
 # #Clone AIOQuic
-cd /
-git clone https://github.com/aiortc/aioquic.git
-cd /aioquic
-git checkout 0.9.3
+# cd /
+# git clone https://github.com/aiortc/aioquic.git
+# cd /aioquic
+# git checkout 0.9.3
 
 # #Clone Quant
 # cd /
@@ -69,10 +69,10 @@ git checkout 0.9.3
 
 
 #Clone Quinn
-# cd /
-# git clone --recursive https://github.com/quinn-rs/quinn.git 
-# cd /quinn
-# git checkout 0.7.0
+cd /
+git clone --recursive https://github.com/quinn-rs/quinn.git 
+cd /quinn
+git checkout 0.7.0
 
 #Clone Quiche
 # cd /
