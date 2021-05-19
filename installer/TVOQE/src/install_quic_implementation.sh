@@ -20,29 +20,29 @@ make check
 
 
 #Install go
-# cd /
-# mkdir /logs
-# wget https://dl.google.com/go/go1.14.linux-amd64.tar.gz  &> /dev/null
-# tar xfz go1.14.linux-amd64.tar.gz &> /dev/null
-# rm go1.14.linux-amd64.tar.gz
-# export PATH="/go/bin:${PATH}"
-
-# cd /quic/quic-go/
-# echo "Build go"
-# #export GOPATH=$PWD
-# go get ./...
-# echo "Build client go"
-# go build -o /client/client /client/main.go
-# echo "Build server go"
-# go build -o /server/server /server/main.go
-
-Install aioquic
 cd /
-cd /quic/aioquic
-curl https://sh.rustup.rs -sSf | sh -s -- -y
-export PYTHONPATH=$PWD
-pip3 install -e .
-pip3 install aiofiles asgiref dnslib httpbin starlette wsproto
+mkdir /logs
+wget https://dl.google.com/go/go1.14.linux-amd64.tar.gz  &> /dev/null
+tar xfz go1.14.linux-amd64.tar.gz &> /dev/null
+rm go1.14.linux-amd64.tar.gz
+export PATH="/go/bin:${PATH}"
+
+cd /quic/quic-go/
+echo "Build go"
+#export GOPATH=$PWD
+go get ./...
+echo "Build client go"
+go build -o /client/client /client/main.go
+echo "Build server go"
+go build -o /server/server /server/main.go
+
+# Install aioquic
+# cd /
+# cd /quic/aioquic
+# curl https://sh.rustup.rs -sSf | sh -s -- -y
+# export PYTHONPATH=$PWD
+# pip3 install -e .
+# pip3 install aiofiles asgiref dnslib httpbin starlette wsproto
 
 #Install Quant
 # cd /
@@ -92,10 +92,10 @@ pip3 install aiofiles asgiref dnslib httpbin starlette wsproto
 
 
 #Install Quinn
-# cd /quic/quinn
-# echo "Build quinn"
-# cargo build --examples
-# cargo test
+cd /quic/quinn
+echo "Build quinn"
+cargo build --examples
+cargo test
 
 #Install Quiche
 # cd /quic/quiche/
