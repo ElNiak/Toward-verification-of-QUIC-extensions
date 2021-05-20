@@ -150,7 +150,7 @@ class EchoClient : public quic::QuicSocket::ConnectionCallback,
 
     
 
-    // create new stream for each message
+  // create new stream for each message
 	auto streamId = client->createBidirectionalStream().value();
 	client->setReadCallback(streamId, this);
 	pendingOutput_[streamId].append(folly::IOBuf::copyBuffer("/​​​​​​​50000"));
@@ -164,11 +164,9 @@ class EchoClient : public quic::QuicSocket::ConnectionCallback,
 	std::string("No error"));
 	quicClient_->closeNow(p);
 
-
-
-
-    // loop until Ctrl+D
-    /*while (std::getline(std::cin, message)) {
+  // loop until Ctrl+D
+  /*
+  while (std::getline(std::cin, message)) {
       if (message.empty()) {
         continue;
       }
@@ -182,7 +180,8 @@ class EchoClient : public quic::QuicSocket::ConnectionCallback,
         pendingOutput_[streamId].append(folly::IOBuf::copyBuffer(message));
         sendMessage(streamId, pendingOutput_[streamId]);
       });
-    }*/
+    }
+    */
     LOG(INFO) << "EchoClient stopping client";
   }
 

@@ -7,7 +7,8 @@
 # quic-go  segfault cause to picotls
 # quant CA ERRORS
 
-#TODO update quic-go .go
+#TODO update quic-go .go #TODODODODO
+# TODO Test all clients in local
 
 servers=(quant quinn mvfst picoquic quic-go aioquic quiche lsquic)
 alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
