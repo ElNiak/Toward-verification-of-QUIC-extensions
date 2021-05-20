@@ -1,0 +1,92 @@
+Starting Picoquic server (v0.34b) on port 4443, server name = ::, just_once = 0, do_retry = 0
+Waiting for packets.
+Receiving 1232 bytes from 127.0.0.1:4988 at T=0.000000 (5c052dea0b0de)
+Receiving packet type: 2 (initial), S0, Q1, Version ff00001d,
+    <0000000000000000>, <0000000000000001>, Seq: 0, pl: 1206
+    Token length: 0
+    Decrypted 1186 bytes
+    Crypto HS frame, offset 0, length 240: 010000ec0303f8c6...
+    padding, 942 bytes
+
+Received ALPN list (1): hq-29
+Received transport parameter TLS extension (42 bytes):
+    Extension list (42 bytes):
+        Extension type: 5 (max_stream_data_bidi_local), length 2, 6000
+        Extension type: 4 (initial_max_data), length 4, 8ced7241
+        Extension type: 1 (idle_timeout), length 4, 8ced723f
+        Extension type: 6 (max_stream_data_bidi_remote), length 2, 6000
+        Extension type: 7 (max_stream_data_uni), length 4, 8ced7241
+        Extension type: 15 (hcid), length 8, 0000000000000001
+        Extension type: 8 (max_streams_bidi), length 4, 8000e5f7
+Sending transport parameter TLS extension (86 bytes):
+    Extension list (86 bytes):
+        Extension type: 5 (max_stream_data_bidi_local), length 4, 80200000
+        Extension type: 4 (initial_max_data), length 4, 80100000
+        Extension type: 8 (max_streams_bidi), length 2, 4201
+        Extension type: 1 (idle_timeout), length 4, 80007530
+        Extension type: 3 (max_packet_size), length 2, 45a0
+        Extension type: 9 (max_streams_uni), length 2, 4201
+        Extension type: 6 (max_stream_data_bidi_remote), length 4, 80010063
+        Extension type: 7 (max_stream_data_uni), length 4, 8000ffff
+        Extension type: 14 (active_connection_id_limit), length 1, 08
+        Extension type: 11 (max_ack_delay), length 1, 0a
+        Extension type: 15 (hcid), length 8, 919574b2011aae62
+        Extension type: 0 (ocid), length 8, 0000000000000000
+        Extension type: 2 (stateless_reset_token), length 16, e13360c5ab265c1a4dc23508548ca659
+Sending packet type: 2 (initial), S0, Q1, Version ff00001d,
+    <0000000000000001>, <919574b2011aae62>, Seq: 0, pl: 152
+    Token length: 0
+    Prepared 132 bytes
+    ACK (nb=0), 0
+    Crypto HS frame, offset 0, length 123: 0200007703034649...
+
+Sending packet type: 4 (handshake), S0, Q1, Version ff00001d,
+    <0000000000000001>, <919574b2011aae62>, Seq: 0, pl: 1049
+    Prepared 1029 bytes
+    Crypto HS frame, offset 0, length 1025: 0800006c006a0000...
+
+Sending 1252 bytes to 127.0.0.1:4988 at T=0.000000 (5c052dea0b0de)
+Server CB, Stream: 0, 0 bytes, fin=9
+
+Sending packet type: 4 (handshake), S0, Q1, Version ff00001d,
+    <0000000000000001>, <919574b2011aae62>, Seq: 1, pl: 256
+    Prepared 236 bytes
+    Crypto HS frame, offset 1025, length 231: 5a1946635f1bd8f2...
+
+Sending packet type: 6 (1rtt protected), S0, Q1,
+    <0000000000000001>, Seq: 0 (0), Phi: 0,
+    Prepared 157 bytes
+    NEW TOKEN[50]: 0xfc9a6389594ac3c4f7f107f20ceef23b...
+    NEW CONNECTION ID[1]: 0x1c79a14aee787fc1, 4c51e43fc8ee82a6e804aabb8384a941
+    padding, 77 bytes
+
+0: T= 0.000000, cwin: 15360,flight: 1716,nb_ret: 0,rtt_min: 0,rtt: 250000,rtt_var: 0,max_ack_delay: 0,state: 11
+Sending 464 bytes to 127.0.0.1:4988 at T=0.000000 (5c052dea0b0de)
+Sending packet type: 6 (1rtt protected), S0, Q1,
+    <0000000000000001>, Seq: 1 (1), Phi: 0,
+    Prepared 1414 bytes
+    ping, 1 bytes
+    padding, 1413 bytes
+
+0: T= 0.000000, cwin: 15360,flight: 3156,nb_ret: 0,rtt_min: 0,rtt: 250000,rtt_var: 0,max_ack_delay: 0,state: 11
+Sending 1440 bytes to 127.0.0.1:4988 at T=0.000000 (5c052dea0b0de)
+Receiving 65 bytes from 127.0.0.1:4988 at T=0.285097 (5c052dea50a87)
+Receiving packet type: 4 (handshake), S0, Q1, Version ff00001d,
+    <1c79a14aee787fc1>, <0000000000000001>, Seq: 0, pl: 40
+    Decrypted 20 bytes
+    handshake_done
+    handshake_done
+    handshake_done
+    handshake_done
+    padding, 16 bytes
+
+Protocol error 0xa
+Sending packet type: 6 (1rtt protected), S0, Q1,
+    <0000000000000001>, Seq: 2 (2), Phi: 0,
+    Prepared 4 bytes
+    connection_close, Error 0x000a, Offending frame 0x1e, Reason length 0
+
+Sending 30 bytes to 127.0.0.1:4988 at T=0.285097 (5c052dea50a87)
+Server CB, Stream: 0, 0 bytes, fin=5
+
+Closed. Retrans= 0, spurious= 0, max sp gap = 0, max sp delay = 0, dg-coal: 1.000000

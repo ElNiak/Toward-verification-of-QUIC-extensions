@@ -1,0 +1,86 @@
+Starting Picoquic server (v0.34b) on port 4443, server name = ::, just_once = 0, do_retry = 0
+Waiting for packets.
+Receiving 1232 bytes from 127.0.0.1:4988 at T=0.000000 (5c04c57c1064a)
+Receiving packet type: 2 (initial), S0, Q1, Version ff00001d,
+    <0000000000000000>, <0000000000000001>, Seq: 0, pl: 1206
+    Token length: 0
+    Decrypted 1186 bytes
+    Crypto HS frame, offset 0, length 240: 010000ec0303be74...
+    padding, 942 bytes
+
+Received ALPN list (1): hq-29
+Received transport parameter TLS extension (42 bytes):
+    Extension list (42 bytes):
+        Extension type: 5 (max_stream_data_bidi_local), length 2, 6000
+        Extension type: 4 (initial_max_data), length 4, 81c2e5bf
+        Extension type: 1 (idle_timeout), length 4, 81c2e5bc
+        Extension type: 6 (max_stream_data_bidi_remote), length 2, 6000
+        Extension type: 7 (max_stream_data_uni), length 4, 81c2e5bf
+        Extension type: 15 (hcid), length 8, 0000000000000001
+        Extension type: 8 (max_streams_bidi), length 4, 80006ccc
+Sending transport parameter TLS extension (86 bytes):
+    Extension list (86 bytes):
+        Extension type: 5 (max_stream_data_bidi_local), length 4, 80200000
+        Extension type: 4 (initial_max_data), length 4, 80100000
+        Extension type: 8 (max_streams_bidi), length 2, 4201
+        Extension type: 1 (idle_timeout), length 4, 80007530
+        Extension type: 3 (max_packet_size), length 2, 45a0
+        Extension type: 9 (max_streams_uni), length 2, 4201
+        Extension type: 6 (max_stream_data_bidi_remote), length 4, 80010063
+        Extension type: 7 (max_stream_data_uni), length 4, 8000ffff
+        Extension type: 14 (active_connection_id_limit), length 1, 08
+        Extension type: 11 (max_ack_delay), length 1, 0a
+        Extension type: 15 (hcid), length 8, 98030e9fa796125d
+        Extension type: 0 (ocid), length 8, 0000000000000000
+        Extension type: 2 (stateless_reset_token), length 16, 3a382e450117fc88a15ba561b2a8d3e3
+Sending packet type: 2 (initial), S0, Q1, Version ff00001d,
+    <0000000000000001>, <98030e9fa796125d>, Seq: 0, pl: 152
+    Token length: 0
+    Prepared 132 bytes
+    ACK (nb=0), 0
+    Crypto HS frame, offset 0, length 123: 0200007703035dee...
+
+Sending packet type: 4 (handshake), S0, Q1, Version ff00001d,
+    <0000000000000001>, <98030e9fa796125d>, Seq: 0, pl: 1049
+    Prepared 1029 bytes
+    Crypto HS frame, offset 0, length 1025: 0800006c006a0000...
+
+Sending 1252 bytes to 127.0.0.1:4988 at T=0.000000 (5c04c57c1064a)
+Server CB, Stream: 0, 0 bytes, fin=9
+
+Sending packet type: 4 (handshake), S0, Q1, Version ff00001d,
+    <0000000000000001>, <98030e9fa796125d>, Seq: 1, pl: 256
+    Prepared 236 bytes
+    Crypto HS frame, offset 1025, length 231: ea8ab58b3054ea38...
+
+Sending packet type: 6 (1rtt protected), S0, Q1,
+    <0000000000000001>, Seq: 0 (0), Phi: 0,
+    Prepared 157 bytes
+    NEW TOKEN[50]: 0xb1d5819812a50e901d9fc9fe1149c805...
+    NEW CONNECTION ID[1]: 0x571cd5257ff64e81, 996aadd0de9501085b9a509b480b0f18
+    padding, 77 bytes
+
+0: T= 0.000000, cwin: 15360,flight: 1716,nb_ret: 0,rtt_min: 0,rtt: 250000,rtt_var: 0,max_ack_delay: 0,state: 11
+Sending 464 bytes to 127.0.0.1:4988 at T=0.000000 (5c04c57c1064a)
+Sending packet type: 6 (1rtt protected), S0, Q1,
+    <0000000000000001>, Seq: 1 (1), Phi: 0,
+    Prepared 1414 bytes
+    ping, 1 bytes
+    padding, 1413 bytes
+
+0: T= 0.000000, cwin: 15360,flight: 3156,nb_ret: 0,rtt_min: 0,rtt: 250000,rtt_var: 0,max_ack_delay: 0,state: 11
+Sending 1440 bytes to 127.0.0.1:4988 at T=0.000000 (5c04c57c1064a)
+Receiving 138 bytes from 127.0.0.1:4988 at T=0.366997 (5c04c57c69fdf)
+Receiving packet type: 4 (handshake), S0, Q1, Version ff00001d,
+    <571cd5257ff64e81>, <0000000000000001>, Seq: 0, pl: 113
+    Decrypted 93 bytes
+    Crypto HS frame, offset 0, length 52: 14000030dd0720d1...
+    connection_close, Error 0x43a2, Offending frame 0x3ebe, Reason length 1
+        Reason: Z
+    connection_close, Error 0xb3d6, Offending frame 0x5ede, Reason length 3
+        Reason: ...
+    padding, 16 bytes
+
+Server CB, Stream: 0, 0 bytes, fin=5
+
+Closed. Retrans= 0, spurious= 0, max sp gap = 0, max sp delay = 0, dg-coal: 1.000000
