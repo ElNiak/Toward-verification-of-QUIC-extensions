@@ -1,0 +1,115 @@
+Starting Picoquic server (v0.34b) on port 4443, server name = ::, just_once = 0, do_retry = 0
+Waiting for packets.
+Receiving 1232 bytes from 127.0.0.1:4988 at T=0.000000 (5c04c8a5148c3)
+Receiving packet type: 2 (initial), S0, Q1, Version ff00001d,
+    <0000000000000000>, <0000000000000001>, Seq: 0, pl: 1206
+    Token length: 0
+    Decrypted 1186 bytes
+    Crypto HS frame, offset 0, length 238: 010000ea03037697...
+    padding, 944 bytes
+
+Received ALPN list (1): hq-29
+Received transport parameter TLS extension (40 bytes):
+    Extension list (40 bytes):
+        Extension type: 5 (max_stream_data_bidi_local), length 2, 6000
+        Extension type: 4 (initial_max_data), length 4, 85e2e819
+        Extension type: 1 (idle_timeout), length 4, 85e2e813
+        Extension type: 6 (max_stream_data_bidi_remote), length 2, 6000
+        Extension type: 7 (max_stream_data_uni), length 4, 85e2e819
+        Extension type: 15 (hcid), length 8, 0000000000000001
+        Extension type: 8 (max_streams_bidi), length 2, 7fa7
+Sending transport parameter TLS extension (86 bytes):
+    Extension list (86 bytes):
+        Extension type: 5 (max_stream_data_bidi_local), length 4, 80200000
+        Extension type: 4 (initial_max_data), length 4, 80100000
+        Extension type: 8 (max_streams_bidi), length 2, 4201
+        Extension type: 1 (idle_timeout), length 4, 80007530
+        Extension type: 3 (max_packet_size), length 2, 45a0
+        Extension type: 9 (max_streams_uni), length 2, 4201
+        Extension type: 6 (max_stream_data_bidi_remote), length 4, 80010063
+        Extension type: 7 (max_stream_data_uni), length 4, 8000ffff
+        Extension type: 14 (active_connection_id_limit), length 1, 08
+        Extension type: 11 (max_ack_delay), length 1, 0a
+        Extension type: 15 (hcid), length 8, d44ac370e3170166
+        Extension type: 0 (ocid), length 8, 0000000000000000
+        Extension type: 2 (stateless_reset_token), length 16, 5adfc93851611ebc60792df7918968bb
+Sending packet type: 2 (initial), S0, Q1, Version ff00001d,
+    <0000000000000001>, <d44ac370e3170166>, Seq: 0, pl: 152
+    Token length: 0
+    Prepared 132 bytes
+    ACK (nb=0), 0
+    Crypto HS frame, offset 0, length 123: 0200007703034c22...
+
+Sending packet type: 4 (handshake), S0, Q1, Version ff00001d,
+    <0000000000000001>, <d44ac370e3170166>, Seq: 0, pl: 1049
+    Prepared 1029 bytes
+    Crypto HS frame, offset 0, length 1025: 0800006c006a0000...
+
+Sending 1252 bytes to 127.0.0.1:4988 at T=0.000000 (5c04c8a5148c3)
+Server CB, Stream: 0, 0 bytes, fin=9
+
+Sending packet type: 4 (handshake), S0, Q1, Version ff00001d,
+    <0000000000000001>, <d44ac370e3170166>, Seq: 1, pl: 256
+    Prepared 236 bytes
+    Crypto HS frame, offset 1025, length 231: 4206fe9fb4b4fd82...
+
+Sending packet type: 6 (1rtt protected), S0, Q1,
+    <0000000000000001>, Seq: 0 (0), Phi: 0,
+    Prepared 157 bytes
+    NEW TOKEN[50]: 0xe87cdbb3a40d1c7efbaca4702b3d86a0...
+    NEW CONNECTION ID[1]: 0xec7e597fcd0bf322, dac35644f951359e47a124cef6bbc0f9
+    padding, 77 bytes
+
+0: T= 0.000000, cwin: 15360,flight: 1716,nb_ret: 0,rtt_min: 0,rtt: 250000,rtt_var: 0,max_ack_delay: 0,state: 11
+Sending 464 bytes to 127.0.0.1:4988 at T=0.000000 (5c04c8a5148c3)
+Sending packet type: 6 (1rtt protected), S0, Q1,
+    <0000000000000001>, Seq: 1 (1), Phi: 0,
+    Prepared 1414 bytes
+    ping, 1 bytes
+    padding, 1413 bytes
+
+0: T= 0.000000, cwin: 15360,flight: 3156,nb_ret: 0,rtt_min: 0,rtt: 250000,rtt_var: 0,max_ack_delay: 0,state: 11
+Sending 1440 bytes to 127.0.0.1:4988 at T=0.000000 (5c04c8a5148c3)
+Receiving 129 bytes from 127.0.0.1:4988 at T=0.760996 (5c04c8a5ce567)
+Receiving packet type: 4 (handshake), S0, Q1, Version ff00001d,
+    <d44ac370e3170166>, <0000000000000001>, Seq: 0, pl: 104
+    Decrypted 84 bytes
+    Crypto HS frame, offset 0, length 52: 14000030175c7301...
+    connection_close, Error 0x97dd, Offending frame 0xe12a, Reason length 3
+        Reason: .u.
+    padding, 16 bytes
+
+Server CB, Stream: 0, 0 bytes, fin=5
+
+Closed. Retrans= 0, spurious= 0, max sp gap = 0, max sp delay = 0, dg-coal: 1.000000
+d44ac370e3170166: Receiving 69 bytes from 127.0.0.1:4988 at T=0.000000 (5c04c8a5ea69c)
+d44ac370e3170166: Receiving 71 bytes from 127.0.0.1:4988 at T=0.000000 (5c04c8a620369)
+ec7e597fcd0bf322: Receiving 1232 bytes from 127.0.0.1:4988 at T=0.000000 (5c04c8a65b34c)
+ec7e597fcd0bf322: Unexpected connection ID, sending stateless reset.
+
+ec7e597fcd0bf322: Sending 348 bytes to 127.0.0.1:4988 at T=0.000000 (5c04c8a65b35a)
+ec7e597fcd0bf322: Receiving 1232 bytes from 127.0.0.1:4988 at T=0.000000 (5c04c8a701f46)
+ec7e597fcd0bf322: Unexpected connection ID, sending stateless reset.
+
+ec7e597fcd0bf322: Sending 845 bytes to 127.0.0.1:4988 at T=0.000000 (5c04c8a701f53)
+ec7e597fcd0bf322: Receiving 1232 bytes from 127.0.0.1:4988 at T=0.000000 (5c04c8a7226ca)
+ec7e597fcd0bf322: Unexpected connection ID, sending stateless reset.
+
+ec7e597fcd0bf322: Sending 882 bytes to 127.0.0.1:4988 at T=0.000000 (5c04c8a7226d3)
+ec7e597fcd0bf322: Receiving 1232 bytes from 127.0.0.1:4988 at T=0.000000 (5c04c8a74146b)
+ec7e597fcd0bf322: Unexpected connection ID, sending stateless reset.
+
+ec7e597fcd0bf322: Sending 57 bytes to 127.0.0.1:4988 at T=0.000000 (5c04c8a741473)
+ec7e597fcd0bf322: Receiving 1232 bytes from 127.0.0.1:4988 at T=0.000000 (5c04c8a75d81c)
+ec7e597fcd0bf322: Unexpected connection ID, sending stateless reset.
+
+ec7e597fcd0bf322: Sending 615 bytes to 127.0.0.1:4988 at T=0.000000 (5c04c8a75d824)
+d44ac370e3170166: Receiving 1232 bytes from 127.0.0.1:4988 at T=0.000000 (5c04c8a7a9ade)
+d44ac370e3170166: Unexpected connection ID, sending stateless reset.
+
+d44ac370e3170166: Sending 835 bytes to 127.0.0.1:4988 at T=0.000000 (5c04c8a7a9ae9)
+ec7e597fcd0bf322: Server CB, Stream: 0, 0 bytes, fin=5
+
+ec7e597fcd0bf322: Receiving 1232 bytes from 127.0.0.1:4988 at T=0.000000 (5c04c8a87c5f7)
+d44ac370e3170166: Server CB, Stream: 0, 0 bytes, fin=5
+

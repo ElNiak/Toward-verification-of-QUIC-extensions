@@ -17,7 +17,7 @@ import (
 
 	"github.com/lucas-clemente/quic-go"
 	"github.com/lucas-clemente/quic-go/interop/http09"
-	"github.com/lucas-clemente/quic-go/interop/utils"
+	//"github.com/lucas-clemente/quic-go/interop/utils"
 )
 
 type logger struct {

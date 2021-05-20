@@ -7,7 +7,8 @@
 # quic-go  segfault cause to picotls
 # quant CA ERRORS
 
-#TODO update quic-go .go
+#TODO update quic-go .go #TODODODODO
+# TODO Test all clients in local
 
 servers=(quant quinn mvfst picoquic quic-go aioquic quiche lsquic)
 alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
@@ -15,7 +16,9 @@ alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 #mvfst failed because of version negociation
 
 tests_client=(quic_client_test_max
+              quic_client_test_stream
               quic_client_test_tp_error
+              quic_client_test_tp_unknown
               quic_client_test_double_tp_error
               quic_client_test_tp_acticoid_error
               quic_client_test_tp_limit_acticoid_error

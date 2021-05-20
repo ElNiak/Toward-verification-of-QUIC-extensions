@@ -41,7 +41,10 @@ client_tests = [
     'quic_client_test_handshake_done_error',
     'quic_client_test_stateless_reset_token',
     'quic_client_test_ext_min_ack_delay',
-    'quic_client_test_no_odci'
+    'quic_client_test_no_odci',
+    'quic_client_test_tp_unknown',
+    'quic_client_test_stream'
+
 ]
 
 frame = pd.DataFrame(
@@ -60,8 +63,8 @@ def readlastline(filename):
     return last, second_last
 
 
-# "/home/chris/Toward-verification-of-QUIC-extensions/result/"
-foldername = "/home/student/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/temp/"
+# "/home/chris/Toward-verification-of-QUIC-extensions/result/" /home/student/Toward-verification-of-QUIC-extensions/installer/TVOQE
+foldername = "/results/temp/"
 subfolders = [f.path for f in scandir.scandir(foldername) if f.is_dir()]
 run = 0
 for fol in subfolders:

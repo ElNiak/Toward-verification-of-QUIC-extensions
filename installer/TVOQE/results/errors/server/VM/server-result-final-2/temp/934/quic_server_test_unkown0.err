@@ -1,0 +1,234 @@
+I0428 12:41:52.539927  6777 EventBase.cpp:308] EventBase(): Starting loop.
+I0428 12:41:52.540299  6778 EventBase.cpp:308] EventBase(): Starting loop.
+I0428 12:41:52.540491  6779 EventBase.cpp:308] EventBase(): Starting loop.
+I0428 12:41:52.540684  6780 EventBase.cpp:308] EventBase(): Starting loop.
+I0428 12:41:52.540899  6777 QuicServer.cpp:268] No valid takenover fd found for address=127.0.0.1:4443. binding on worker=0x56046c1a1350 workerId=0 processId=0
+I0428 12:41:52.541150  6778 QuicServer.cpp:268] No valid takenover fd found for address=127.0.0.1:4443. binding on worker=0x56046c1a1990 workerId=1 processId=0
+I0428 12:41:52.541321  6779 QuicServer.cpp:268] No valid takenover fd found for address=127.0.0.1:4443. binding on worker=0x56046c1a1dd0 workerId=2 processId=0
+I0428 12:41:52.541435  6780 QuicServer.cpp:268] No valid takenover fd found for address=127.0.0.1:4443. binding on worker=0x56046c1a2240 workerId=3 processId=0
+I0428 12:41:52.541484  6780 QuicServer.cpp:295] Initialized all workers in the eventbase
+I0428 12:41:52.541610  6774 EchoServer.h:90] Echo server started at: 127.0.0.1:4443
+I0428 12:41:52.541646  6774 EventBase.cpp:308] EventBase(): Starting loop.
+I0428 12:41:52.541652  6779 QuicServerWorker.cpp:134] Registered read on worker=0x56046c1a1dd0, thread=139764217038592, processId=0
+I0428 12:41:52.541744  6777 QuicServerWorker.cpp:134] Registered read on worker=0x56046c1a1350, thread=139764233824000, processId=0
+I0428 12:41:52.541754  6780 QuicServerWorker.cpp:134] Registered read on worker=0x56046c1a2240, thread=139764007171840, processId=0
+I0428 12:41:52.541666  6778 QuicServerWorker.cpp:134] Registered read on worker=0x56046c1a1990, thread=139764225431296, processId=0
+I0428 12:41:57.887956  6778 QuicServerWorker.cpp:227] Worker=0x56046c1a1990, Received data on thread=139764225431296, processId=0
+I0428 12:41:57.888023  6778 LogQuicStats.h:24] server onPacketReceived
+I0428 12:41:57.888046  6778 LogQuicStats.h:140] server onRead size=1232
+I0428 12:41:57.888087  6778 LogQuicStats.h:76] server onClientInitialReceived, version: QUIC_DRAFT
+I0428 12:41:57.888144  6778 QuicServerWorker.cpp:545] Creating new connection for client=127.0.0.1:4988, routingInfo=CID=0000000000000002, cidVersion=1, workerId=1, processId=0, hostId=0, threadId=139764225431296, 
+I0428 12:41:57.888638  6778 LogQuicStats.h:118] server onStatelessReset
+I0428 12:41:57.888756  6778 StateMachine-inl.h:41] Transition from Uninitialized to ExpectingClientHello
+I0428 12:41:57.889098  6778 LogQuicStats.h:32] server onOutOfOrderPacketReceived
+I0428 12:41:57.889117  6778 ServerStateMachine.cpp:952] Server received crypto data offset=0 len=242 currentReadOffset=0 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:57.889197  6778 RecordLayer.cpp:82] Received handshake message ClientHello
+I0428 12:41:57.889381  6778 ServerProtocol.cpp:771] ALPN mismatch
+I0428 12:41:57.889420  6778 ServerProtocol.cpp:1171] Did not find key share for x25519
+I0428 12:41:57.889494  6778 StateMachine-inl.h:41] Transition from ExpectingClientHello to ExpectingClientHello
+I0428 12:41:57.889549  6778 QuicStateFunctions.cpp:102] client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988 ack immediately because packet threshold pktHasCryptoData=1 pktHasRetransmittableData=1 numRxPacketsRecvd=0 numNonRxPacketsRecvd=0
+I0428 12:41:57.889571  6778 LogQuicStats.h:36] server onPacketProcessed
+I0428 12:41:57.889587  6778 QuicServerWorker.cpp:937] Adding into connectionIdMap_ for CID=4000005f5e1c6e8b client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:57.889640  6778 LogQuicStats.h:86] server onNewConnection
+I0428 12:41:57.889703  6778 QuicTransportFunctions.cpp:1416] Server needs write because of acks largestAck=[19,-,-] largestSentAck=[-,-,-] ackTimeoutSet=0 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:57.889750  6778 QuicLossFunctions.h:160] setLossDetectionAlarm unset alarm due to invalidated early retran timer
+I0428 12:41:57.889767  6778 QuicLossFunctions.h:165] setLossDetectionAlarm alarm not scheduled outstanding=0 initialPackets=0 handshakePackets=0 Server client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:57.889811  6778 QuicTransportBase.cpp:872] Stopping read looper client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:57.889837  6778 FunctionLooper.cpp:88] stop: ReadLooper
+I0428 12:41:57.889850  6778 QuicTransportBase.cpp:1196] Stopping peek looper client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:57.889865  6778 FunctionLooper.cpp:88] stop: PeekLooper
+I0428 12:41:57.889878  6778 QuicTransportFunctions.cpp:1416] Server needs write because of acks largestAck=[19,-,-] largestSentAck=[-,-,-] ackTimeoutSet=0 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:57.889895  6778 QuicTransportFunctions.cpp:1395] Server needs write because of ACKs client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:57.889911  6778 QuicTransportBase.cpp:1242] Server running write looper thisIteration=1 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:57.889927  6778 FunctionLooper.cpp:71] run: WriteLooper
+I0428 12:41:57.889967  6778 QuicTransportFunctions.cpp:1174] Server writing data using scheduler=CryptoAndAcksScheduler client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:57.890056  6778 QuicPacketScheduler.cpp:524] Wrote crypto frame offset=0 bytesWritten=56 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:57.890569  6778 LogQuicStats.h:144] server onWrite size=1252
+I0428 12:41:57.890612  6778 LogQuicStats.h:40] server onPacketSent
+I0428 12:41:57.890645  6778 QuicTransportFunctions.cpp:488] Server sent packetNum=9392841 in space=InitialSpace size=1252 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:57.890671  6778 QuicTransportFunctions.cpp:376] Server sent packetNum=9392841 space=InitialSpace client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:57.890702  6778 QuicTransportFunctions.cpp:544] Server sent packet with largestAcked=19 packetNum=9392841 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:57.890720  6778 QuicStateFunctions.cpp:153] client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988 unset ack immediately due to sending packet with acks
+I0428 12:41:57.890759  6778 QuicTransportFunctions.cpp:875] Server written crypto and acks data type=INITIAL packets=1 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:57.890779  6778 QuicLossFunctions.h:160] setLossDetectionAlarm unset alarm due to invalidated early retran timer
+I0428 12:41:57.890794  6778 QuicLossFunctions.h:176] setLossDetectionAlarm setting transmission alarm=100ms method=PTO haDataToWrite=0 outstanding=1 outstanding clone=0 packetEvents=0 initialPackets=1 handshakePackets=0 Server client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:57.890825  6778 QuicTransportBase.cpp:1251] Server stopping write looper client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:57.890841  6778 FunctionLooper.cpp:88] stop: WriteLooper
+I0428 12:41:57.890854  6778 FunctionLooper.cpp:44] commonLoopBody: WriteLooper fromTimer=0 hasBeenRunning=1 running_=0
+I0428 12:41:58.008401  6778 QuicLossFunctions.cpp:35] onPTOAlarm client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.008450  6778 LogQuicStats.h:135] server onPTO
+I0428 12:41:58.008466  6778 QuicLossFunctions.h:379] onLossDetectionAlarm setLossDetectionAlarm=1 outstanding=1 initialPackets=1 handshakePackets=0 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.008502  6778 QuicTransportFunctions.cpp:1174] Server writing data using scheduler=CloningScheduler client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.009080  6778 LogQuicStats.h:144] server onWrite size=1252
+I0428 12:41:58.009112  6778 LogQuicStats.h:40] server onPacketSent
+I0428 12:41:58.009130  6778 QuicTransportFunctions.cpp:488] Server sent packetNum=9392843 in space=InitialSpace size=1252 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.009151  6778 QuicTransportFunctions.cpp:544] Server sent packet with largestAcked=19 packetNum=9392843 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.009169  6778 QuicStateFunctions.cpp:153] client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988 unset ack immediately due to sending packet with acks
+I0428 12:41:58.009200  6778 QuicTransportFunctions.cpp:1339] Server writing probes using scheduler=CloningScheduler client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.009220  6778 QuicTransportFunctions.cpp:1174] Server writing data using scheduler=CryptoAndAcksScheduler client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.009239  6778 QuicTransportFunctions.cpp:875] Server written crypto and acks data type=INITIAL packets=1 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.009259  6778 QuicLossFunctions.h:176] setLossDetectionAlarm setting transmission alarm=200ms method=PTO haDataToWrite=0 outstanding=2 outstanding clone=2 packetEvents=1 initialPackets=1 handshakePackets=0 Server client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.009282  6778 QuicTransportBase.cpp:1251] Server stopping write looper client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.009299  6778 FunctionLooper.cpp:88] stop: WriteLooper
+I0428 12:41:58.017244  6778 QuicServerWorker.cpp:227] Worker=0x56046c1a1990, Received data on thread=139764225431296, processId=0
+I0428 12:41:58.017289  6778 LogQuicStats.h:24] server onPacketReceived
+I0428 12:41:58.017305  6778 LogQuicStats.h:140] server onRead size=1232
+I0428 12:41:58.017321  6778 LogQuicStats.h:76] server onClientInitialReceived, version: QUIC_DRAFT
+I0428 12:41:58.017340  6778 QuicServerWorker.cpp:512] Found existing connection for CID=4000005f5e1c6e8b client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.017416  6778 LogQuicStats.h:32] server onOutOfOrderPacketReceived
+I0428 12:41:58.017433  6778 ServerStateMachine.cpp:952] Server received crypto data offset=242 len=209 currentReadOffset=242 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.017464  6778 RecordLayer.cpp:82] Received handshake message ClientHello
+I0428 12:41:58.017510  6778 ServerProtocol.cpp:771] ALPN mismatch
+I0428 12:41:58.018067  6778 CertManager.cpp:65] Did not find match for SNI: servername
+I0428 12:41:58.018709  6778 StateMachine-inl.h:41] Transition from ExpectingClientHello to ExpectingFinished
+I0428 12:41:58.018765  6778 ServerStateMachine.cpp:160] Client advertised flow control 
+I0428 12:41:58.018785  6778 ServerStateMachine.cpp:161] conn=195341344
+I0428 12:41:58.018800  6778 ServerStateMachine.cpp:162]  stream bidi local=195341344 
+I0428 12:41:58.018815  6778 ServerStateMachine.cpp:164]  stream bidi remote=195341344 
+I0428 12:41:58.018828  6778 ServerStateMachine.cpp:166]  stream uni=195341344 
+I0428 12:41:58.018842  6778 ServerStateMachine.cpp:167] client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.018862  6778 ServerStateMachine.cpp:215] conn.partialReliabilityEnabled=0
+I0428 12:41:58.018879  6778 QuicStateFunctions.cpp:102] client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988 ack immediately because packet threshold pktHasCryptoData=1 pktHasRetransmittableData=1 numRxPacketsRecvd=0 numNonRxPacketsRecvd=0
+I0428 12:41:58.018909  6778 LogQuicStats.h:36] server onPacketProcessed
+I0428 12:41:58.018934  6778 QuicTransportFunctions.cpp:1416] Server needs write because of acks largestAck=[31,-,-] largestSentAck=[19,-,-] ackTimeoutSet=0 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.018956  6778 QuicTransportBase.cpp:872] Stopping read looper client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.018972  6778 FunctionLooper.cpp:88] stop: ReadLooper
+I0428 12:41:58.018987  6778 QuicTransportBase.cpp:1196] Stopping peek looper client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.019003  6778 FunctionLooper.cpp:88] stop: PeekLooper
+I0428 12:41:58.019017  6778 QuicTransportFunctions.cpp:1416] Server needs write because of acks largestAck=[31,-,-] largestSentAck=[19,-,-] ackTimeoutSet=0 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.019034  6778 QuicTransportFunctions.cpp:1395] Server needs write because of ACKs client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.019052  6778 QuicTransportBase.cpp:1242] Server running write looper thisIteration=1 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.019068  6778 FunctionLooper.cpp:71] run: WriteLooper
+I0428 12:41:58.019088  6778 QuicTransportFunctions.cpp:1174] Server writing data using scheduler=CryptoAndAcksScheduler client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.019116  6778 QuicPacketScheduler.cpp:524] Wrote crypto frame offset=56 bytesWritten=90 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.019510  6778 LogQuicStats.h:144] server onWrite size=1252
+I0428 12:41:58.019558  6778 LogQuicStats.h:40] server onPacketSent
+I0428 12:41:58.019575  6778 QuicTransportFunctions.cpp:488] Server sent packetNum=9392844 in space=InitialSpace size=1252 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.019624  6778 QuicTransportFunctions.cpp:376] Server sent packetNum=9392844 space=InitialSpace client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.019645  6778 QuicTransportFunctions.cpp:544] Server sent packet with largestAcked=31 packetNum=9392844 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.019663  6778 QuicStateFunctions.cpp:153] client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988 unset ack immediately due to sending packet with acks
+I0428 12:41:58.019699  6778 QuicTransportFunctions.cpp:875] Server written crypto and acks data type=INITIAL packets=1 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.019722  6778 QuicTransportFunctions.cpp:1174] Server writing data using scheduler=CryptoAndAcksScheduler client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.019752  6778 QuicPacketScheduler.cpp:524] Wrote crypto frame offset=0 bytesWritten=725 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.019829  6778 LogQuicStats.h:144] server onWrite size=774
+I0428 12:41:58.019846  6778 LogQuicStats.h:40] server onPacketSent
+I0428 12:41:58.019861  6778 QuicTransportFunctions.cpp:488] Server sent packetNum=9392841 in space=HandshakeSpace size=774 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.019881  6778 QuicTransportFunctions.cpp:376] Server sent packetNum=9392841 space=HandshakeSpace client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.019909  6778 QuicTransportFunctions.cpp:875] Server written crypto and acks data type=HANDSHAKE packets=1 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.019939  6778 QuicTransportFunctions.cpp:1174] Server writing data using scheduler=FrameScheduler client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.019961  6778 QuicLossFunctions.h:176] setLossDetectionAlarm setting transmission alarm=200ms method=PTO haDataToWrite=0 outstanding=4 outstanding clone=2 packetEvents=1 initialPackets=2 handshakePackets=1 Server client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.019985  6778 QuicTransportBase.cpp:1251] Server stopping write looper client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.020002  6778 FunctionLooper.cpp:88] stop: WriteLooper
+I0428 12:41:58.020016  6778 FunctionLooper.cpp:44] commonLoopBody: WriteLooper fromTimer=0 hasBeenRunning=1 running_=0
+I0428 12:41:58.171185  6778 QuicServerWorker.cpp:227] Worker=0x56046c1a1990, Received data on thread=139764225431296, processId=0
+I0428 12:41:58.171228  6778 LogQuicStats.h:24] server onPacketReceived
+I0428 12:41:58.171244  6778 LogQuicStats.h:140] server onRead size=100
+I0428 12:41:58.171264  6778 QuicServerWorker.cpp:512] Found existing connection for CID=4000005f5e1c6e8b client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.171309  6778 LogQuicStats.h:32] server onOutOfOrderPacketReceived
+I0428 12:41:58.171327  6778 ServerStateMachine.cpp:952] Server received crypto data offset=0 len=36 currentReadOffset=0 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.171352  6778 RecordLayer.cpp:82] Received handshake message Finished
+I0428 12:41:58.171461  6778 StateMachine-inl.h:41] Transition from ExpectingFinished to AcceptingData
+I0428 12:41:58.171553  6778 QuicStateFunctions.cpp:102] client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988 ack immediately because packet threshold pktHasCryptoData=1 pktHasRetransmittableData=1 numRxPacketsRecvd=0 numNonRxPacketsRecvd=0
+I0428 12:41:58.171624  6778 AckHandlers.cpp:109] processAckFrame acked packetNum=9392844 space=InitialSpace handshake=1 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.171674  6778 AckHandlers.cpp:109] processAckFrame acked packetNum=9392843 space=InitialSpace handshake=1 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.171706  6778 AckHandlers.cpp:109] processAckFrame acked packetNum=9392841 space=InitialSpace handshake=1 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.171839  6778 QuicLossFunctions.h:206] detectLossPackets outstanding=1 largestAcked=9392844 delayUntilLost=0us client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.171870  6778 QuicLossFunctions.h:420] handleAckForLoss largestAckedInPacket=9392844 setLossDetectionAlarm=1 outstanding=1 initialPackets=0 handshakePackets=1 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.171906  6778 LogQuicStats.h:36] server onPacketProcessed
+I0428 12:41:58.171926  6778 QuicServerWorker.cpp:962] Removing from sourceAddressMap_ address=127.0.0.1:4988
+I0428 12:41:58.171950  6778 QuicTransportFunctions.cpp:1416] Server needs write because of acks largestAck=[-,6,-] largestSentAck=[31,-,-] ackTimeoutSet=0 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.171973  6778 QuicLossFunctions.h:95] calculateAlarmDuration alarm already due method=PTO lastSentPacketNum=9392841 lastSentPacketTime=3551098402273358 now=3551098554385026 alarm=100000us deadline=3551098502273358 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.171993  6778 QuicLossFunctions.h:176] setLossDetectionAlarm setting transmission alarm=0ms method=PTO haDataToWrite=1 outstanding=1 outstanding clone=0 packetEvents=0 initialPackets=0 handshakePackets=1 Server client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.172027  6778 QuicTransportBase.cpp:872] Stopping read looper client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.172045  6778 FunctionLooper.cpp:88] stop: ReadLooper
+I0428 12:41:58.172060  6778 QuicTransportBase.cpp:1196] Stopping peek looper client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.172075  6778 FunctionLooper.cpp:88] stop: PeekLooper
+I0428 12:41:58.172091  6778 QuicTransportFunctions.cpp:1416] Server needs write because of acks largestAck=[-,6,-] largestSentAck=[31,-,-] ackTimeoutSet=0 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.172108  6778 QuicTransportFunctions.cpp:1395] Server needs write because of ACKs client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.172124  6778 QuicTransportBase.cpp:1242] Server running write looper thisIteration=1 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.172142  6778 FunctionLooper.cpp:71] run: WriteLooper
+I0428 12:41:58.172169  6778 QuicTransportFunctions.cpp:1174] Server writing data using scheduler=CryptoAndAcksScheduler client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.172245  6778 LogQuicStats.h:144] server onWrite size=50
+I0428 12:41:58.172266  6778 LogQuicStats.h:40] server onPacketSent
+I0428 12:41:58.172281  6778 QuicTransportFunctions.cpp:488] Server sent packetNum=9392842 in space=HandshakeSpace size=50 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.172300  6778 QuicTransportFunctions.cpp:544] Server sent packet with largestAcked=6 packetNum=9392842 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.172317  6778 QuicStateFunctions.cpp:153] client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988 unset ack immediately due to sending packet with acks
+I0428 12:41:58.172338  6778 QuicTransportFunctions.cpp:875] Server written crypto and acks data type=HANDSHAKE packets=1 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.172358  6778 QuicTransportFunctions.cpp:1174] Server writing data using scheduler=FrameScheduler client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.172412  6778 LogQuicStats.h:144] server onWrite size=30
+I0428 12:41:58.172430  6778 LogQuicStats.h:40] server onPacketSent
+I0428 12:41:58.172446  6778 QuicTransportFunctions.cpp:488] Server sent packetNum=9392841 in space=AppDataSpace size=30 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.172477  6778 QuicTransportFunctions.cpp:178] Server written data to socket packets=1 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.172497  6778 QuicLossFunctions.h:176] setLossDetectionAlarm setting transmission alarm=100ms method=PTO haDataToWrite=0 outstanding=2 outstanding clone=0 packetEvents=0 initialPackets=0 handshakePackets=1 Server client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.172536  6778 QuicTransportBase.cpp:1251] Server stopping write looper client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.172555  6778 FunctionLooper.cpp:88] stop: WriteLooper
+I0428 12:41:58.172570  6778 FunctionLooper.cpp:44] commonLoopBody: WriteLooper fromTimer=0 hasBeenRunning=1 running_=0
+I0428 12:41:58.281957  6778 QuicLossFunctions.cpp:35] onPTOAlarm client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.282006  6778 LogQuicStats.h:135] server onPTO
+I0428 12:41:58.282032  6778 QuicLossFunctions.h:379] onLossDetectionAlarm setLossDetectionAlarm=1 outstanding=2 initialPackets=0 handshakePackets=1 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.282058  6778 QuicTransportFunctions.cpp:1174] Server writing data using scheduler=CloningScheduler client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.282163  6778 LogQuicStats.h:144] server onWrite size=774
+I0428 12:41:58.282184  6778 LogQuicStats.h:40] server onPacketSent
+I0428 12:41:58.282202  6778 QuicTransportFunctions.cpp:488] Server sent packetNum=9392844 in space=HandshakeSpace size=774 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.282290  6778 LogQuicStats.h:144] server onWrite size=774
+I0428 12:41:58.282308  6778 LogQuicStats.h:40] server onPacketSent
+I0428 12:41:58.282325  6778 QuicTransportFunctions.cpp:488] Server sent packetNum=9392845 in space=HandshakeSpace size=774 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.282352  6778 QuicTransportFunctions.cpp:1339] Server writing probes using scheduler=CloningScheduler client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.282371  6778 QuicTransportFunctions.cpp:1174] Server writing data using scheduler=CryptoAndAcksScheduler client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.282389  6778 QuicTransportFunctions.cpp:875] Server written crypto and acks data type=HANDSHAKE packets=2 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.282409  6778 QuicTransportFunctions.cpp:1174] Server writing data using scheduler=FrameScheduler client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.282429  6778 QuicLossFunctions.h:176] setLossDetectionAlarm setting transmission alarm=200ms method=PTO haDataToWrite=0 outstanding=4 outstanding clone=3 packetEvents=1 initialPackets=0 handshakePackets=1 Server client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.282454  6778 QuicTransportBase.cpp:1251] Server stopping write looper client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.282470  6778 FunctionLooper.cpp:88] stop: WriteLooper
+I0428 12:41:58.371028  6778 QuicServerWorker.cpp:227] Worker=0x56046c1a1990, Received data on thread=139764225431296, processId=0
+I0428 12:41:58.371073  6778 LogQuicStats.h:24] server onPacketReceived
+I0428 12:41:58.371088  6778 LogQuicStats.h:140] server onRead size=1232
+I0428 12:41:58.371107  6778 QuicServerWorker.cpp:512] Found existing connection for CID=4000005f5e1c6e8b client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.372045  6778 QuicTransportBase.cpp:1870] onNetworkData Unknown frame, type=66 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.372113  6778 QuicTransportBase.cpp:400] Stopping read looper due to immediate close client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.372133  6778 FunctionLooper.cpp:88] stop: ReadLooper
+I0428 12:41:58.372146  6778 FunctionLooper.cpp:88] stop: PeekLooper
+I0428 12:41:58.372160  6778 FunctionLooper.cpp:88] stop: WriteLooper
+I0428 12:41:58.372185  6778 QuicTransportBase.cpp:2651] Clearing 0 peek callbacks
+I0428 12:41:58.372200  6778 QuicTransportBase.cpp:852] Stopping read looper client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.372216  6778 FunctionLooper.cpp:88] stop: ReadLooper
+I0428 12:41:58.372231  6778 QuicTransportBase.cpp:1196] Stopping peek looper client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.372246  6778 FunctionLooper.cpp:88] stop: PeekLooper
+I0428 12:41:58.372260  6778 QuicTransportBase.cpp:1233] Server stopping write looper because conn closed client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.372288  6778 FunctionLooper.cpp:88] stop: WriteLooper
+E0428 12:41:58.372308  6778 EchoHandler.h:53] Socket error=Frame format error
+I0428 12:41:58.372346  6778 QuicTransportFunctions.cpp:1063] Server sent close packetNum=9392842 in space=AppDataSpace client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.372457  6778 LogQuicStats.h:144] server onWrite size=55
+I0428 12:41:58.372555  6778 QuicTransportFunctions.cpp:1063] Server sent close packetNum=9392846 in space=HandshakeSpace client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.372625  6778 LogQuicStats.h:144] server onWrite size=70
+I0428 12:41:58.372678  6778 QuicTransportBase.cpp:852] Stopping read looper client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.372697  6778 FunctionLooper.cpp:88] stop: ReadLooper
+I0428 12:41:58.372711  6778 QuicTransportBase.cpp:1196] Stopping peek looper client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.372727  6778 FunctionLooper.cpp:88] stop: PeekLooper
+I0428 12:41:58.372741  6778 QuicTransportBase.cpp:1233] Server stopping write looper because conn closed client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.372757  6778 FunctionLooper.cpp:88] stop: WriteLooper
+I0428 12:41:58.591624  6778 QuicServerWorker.cpp:227] Worker=0x56046c1a1990, Received data on thread=139764225431296, processId=0
+I0428 12:41:58.591668  6778 LogQuicStats.h:24] server onPacketReceived
+I0428 12:41:58.591684  6778 LogQuicStats.h:140] server onRead size=1232
+I0428 12:41:58.591703  6778 QuicServerWorker.cpp:512] Found existing connection for CID=4000005f5e1c6e8b client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.591842  6778 QuicTransportBase.cpp:1870] onNetworkData Unknown frame, type=66 client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.591869  6778 QuicTransportBase.cpp:852] Stopping read looper client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.591886  6778 FunctionLooper.cpp:88] stop: ReadLooper
+I0428 12:41:58.591900  6778 QuicTransportBase.cpp:1196] Stopping peek looper client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.591917  6778 FunctionLooper.cpp:88] stop: PeekLooper
+I0428 12:41:58.591931  6778 QuicTransportBase.cpp:1233] Server stopping write looper because conn closed client CID=0000000000000001 server CID=4000005f5e1c6e8b peer address=127.0.0.1:4988
+I0428 12:41:58.591948  6778 FunctionLooper.cpp:88] stop: WriteLooper
+I0428 12:41:58.681161  6778 QuicServerWorker.cpp:975] Removing from sourceAddressMap_ address=127.0.0.1:4988
+I0428 12:41:58.681207  6778 LogQuicStats.h:91] server onConnectionClose reason=NONE
+I0428 12:41:58.681223  6778 QuicServerWorker.cpp:985] Removing CID from connectionIdMap_, routingInfo=CID=4000005f5e1c6e8b, cidVersion=1, workerId=1, processId=0, hostId=0, threadId=139764225431296, cidVersion in packet=1, workerId in packet=1, processId in packet=0, hostId in packet=0, 
+I0428 12:41:58.769315  6778 QuicServerWorker.cpp:227] Worker=0x56046c1a1990, Received data on thread=139764225431296, processId=0
+I0428 12:41:58.769359  6778 LogQuicStats.h:24] server onPacketReceived
+I0428 12:41:58.769376  6778 LogQuicStats.h:140] server onRead size=1232
+I0428 12:41:58.769394  6778 QuicServerWorker.cpp:516] Dropping non-long header packet with no connid match headerForm=false, routingInfo=CID=4000005f5e1c6e8b, cidVersion=1, workerId=1, processId=0, hostId=0, threadId=139764225431296, cidVersion in packet=1, workerId in packet=1, processId in packet=0, hostId in packet=0, 
+I0428 12:41:58.769420  6778 LogQuicStats.h:60] server onPacketDropped reason=CONNECTION_NOT_FOUND
+I0428 12:41:58.769546  6778 LogQuicStats.h:144] server onWrite size=1186
+I0428 12:41:58.769582  6778 LogQuicStats.h:40] server onPacketSent
+I0428 12:41:58.769630  6778 LogQuicStats.h:118] server onStatelessReset
+*** Aborted at 1619613721 (Unix time, try 'date -d @1619613721') ***
+*** Signal 15 (SIGTERM) (0x1a73) received by PID 6774 (pthread TID 0x7f1d68cd4ec0) (linux TID 6774) (maybe from PID 6771, UID 0) (code: 0), stack trace: ***
+(error retrieving stack trace)
