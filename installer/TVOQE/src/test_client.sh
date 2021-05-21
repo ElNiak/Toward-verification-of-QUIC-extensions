@@ -10,10 +10,12 @@
 #TODO update quic-go .go #TODODODODO
 # TODO Test all clients in local
 
-servers=(quant quinn mvfst picoquic quic-go aioquic quiche lsquic)
+servers=(quinn picoquic quic-go aioquic quiche lsquic) # quant mvfst 
 alpn=(hq-29 hq-29 hq-29 hq-29 hq-29 hq-29)
 
-#mvfst failed because of version negociation
+#quant => predaddr = 4
+#mvfst => cid = 1
+#other => 0
 
 tests_client=(quic_client_test_max
               quic_client_test_stream

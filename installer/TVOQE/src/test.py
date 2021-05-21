@@ -52,7 +52,7 @@ clients = [
     ['aioquic',[scdir + '/aioquic','python3 examples/http3_client.py -v  -i --insecure --legacy-http https://localhost:4443/index.html https://localhost:4443/index.html https://localhost:4443/index.html https://localhost:4443/index.html https://localhost:4443/index.html https://localhost:4443/index.html https://localhost:4443/index.html https://localhost:4443/index.html https://localhost:4443/index.html']],
     ['mvfst',[scdir + '/mvfst/_build/build/quic/samples/','./echo -mode=client -host=127.0.0.1 -port=4443 -v=10 -stop_logging_if_full_disk']],
     ['quinn',[scdir+ '/quinn/','cargo run  -vv --example client https://localhost:4443/index.html --keylog']],
-    ['lsquic',[scdir+ '/lsquic/bin/','./http_client -r 20 -i 1000 -Q hq-29 -s 127.0.0.1:4443 -l event=debug,engine=debug -p / -H 127.0.0.1 -o version=FF00001D']],
+    ['lsquic',[scdir+ '/lsquic/bin/','./http_client -r 6 -w 6 -Q hq-29 -s 127.0.0.1:4443 -l event=debug,engine=debug -p /1.html /2.html /3.html /4.html /5.html /6.html -H 127.0.0.1 -o version=FF00001D']],
 ]
 
 #List of available server's tests 
