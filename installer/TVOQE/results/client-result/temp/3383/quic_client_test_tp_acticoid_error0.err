@@ -1,0 +1,28 @@
+2021-05-22 02:26:33,580 DEBUG asyncio Using selector: EpollSelector
+2021-05-22 02:26:33,586 DEBUG quic [88956fd65d107e35] TLS State.CLIENT_HANDSHAKE_START -> State.CLIENT_EXPECT_SERVER_HELLO
+2021-05-22 02:26:33,825 DEBUG quic [88956fd65d107e35] QuicConnectionState.FIRSTFLIGHT -> QuicConnectionState.CONNECTED
+2021-05-22 02:26:33,827 DEBUG quic [88956fd65d107e35] TLS State.CLIENT_EXPECT_SERVER_HELLO -> State.CLIENT_EXPECT_ENCRYPTED_EXTENSIONS
+2021-05-22 02:26:33,919 DEBUG quic [88956fd65d107e35] TLS State.CLIENT_EXPECT_ENCRYPTED_EXTENSIONS -> State.CLIENT_EXPECT_CERTIFICATE_REQUEST_OR_CERTIFICATE
+2021-05-22 02:26:33,920 DEBUG quic [88956fd65d107e35] TLS State.CLIENT_EXPECT_CERTIFICATE_REQUEST_OR_CERTIFICATE -> State.CLIENT_EXPECT_CERTIFICATE_VERIFY
+2021-05-22 02:26:33,920 DEBUG quic [88956fd65d107e35] TLS State.CLIENT_EXPECT_CERTIFICATE_VERIFY -> State.CLIENT_EXPECT_FINISHED
+2021-05-22 02:26:33,922 DEBUG quic [88956fd65d107e35] TLS State.CLIENT_EXPECT_FINISHED -> State.CLIENT_POST_HANDSHAKE
+2021-05-22 02:26:33,923 WARNING quic [88956fd65d107e35] Error: 8, reason: active_connection_id_limit must be no less than 2, frame_type: QuicFrameType.CRYPTO
+2021-05-22 02:26:33,923 DEBUG quic [88956fd65d107e35] QuicConnectionState.CONNECTED -> QuicConnectionState.CLOSING
+2021-05-22 02:26:35,424 DEBUG quic [88956fd65d107e35] Discarding epoch Epoch.INITIAL
+2021-05-22 02:26:35,425 DEBUG quic [88956fd65d107e35] Discarding epoch Epoch.HANDSHAKE
+2021-05-22 02:26:35,425 DEBUG quic [88956fd65d107e35] Discarding epoch Epoch.ONE_RTT
+2021-05-22 02:26:35,426 DEBUG quic [88956fd65d107e35] QuicConnectionState.CLOSING -> QuicConnectionState.TERMINATED
+Traceback (most recent call last):
+  File "examples/http3_client.py", line 465, in <module>
+    zero_rtt=args.zero_rtt,
+  File "/usr/lib/python3.6/asyncio/base_events.py", line 484, in run_until_complete
+    return future.result()
+  File "examples/http3_client.py", line 313, in run
+    wait_connected=not zero_rtt,
+  File "/quic/aioquic/src/aioquic/asyncio/compat.py", line 17, in __aenter__
+    return await self.gen.__anext__()
+  File "/quic/aioquic/src/aioquic/asyncio/client.py", line 89, in connect
+    await protocol.wait_connected()
+  File "/quic/aioquic/src/aioquic/asyncio/protocol.py", line 127, in wait_connected
+    await asyncio.shield(self._connected_waiter)
+ConnectionError
