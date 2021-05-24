@@ -83,9 +83,9 @@ for j in "${tests_client[@]}"; do
             export RND=$RANDOM
             export TEST_ALPN=hq-29 #${alpn[cnt2]}
             printf "\n\Iteration => $k \n"
-            touch /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_client_${j}.pcap
-            chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_client_${j}.pcap
-            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_client_${j}.pcap -f "udp" &
+            touch /QUIC-Ivy/doc/examples/quic/test/temp/${count}_${i}_${j}.pcap
+            chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/${count}_${i}_${j}.pcap
+            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/${count}_${i}_${j}.pcap -f "udp" &
             python test.py iters=1 client=$i test=$j > res_client.txt 2>&1
             ((k++))
             kill $(lsof -t -i udp) >/dev/null 2>&1

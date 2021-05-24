@@ -22,7 +22,17 @@ server_tests = [
     'quic_server_test_unkown',
     'quic_server_test_tp_limit_newcoid',
     'quic_server_test_ext_min_ack_delay',
-    'quic_server_test_no_icid'
+    'quic_server_test_no_icid',
+    'quic_server_test_stream_limit_error',
+    'quic_server_test_crypto_limit_error',
+    'quic_server_test_newconnectionid_error',
+    'quic_server_test_newcoid_rtp_error',
+    'quic_server_test_newcoid_length_error',
+    'quic_server_test_new_token_error',
+    'quic_server_test_stop_sending_error',
+    'quic_server_test_unkown_tp',
+    'quic_server_test_max_limit_error',
+    'quic_server_test_max_error'
 ]
 
 # List of available client's tests
@@ -43,8 +53,10 @@ client_tests = [
     'quic_client_test_ext_min_ack_delay',
     'quic_client_test_no_odci',
     'quic_client_test_tp_unknown',
-    'quic_client_test_stream'
-
+    'quic_client_test_stream',
+    'quic_client_test_unkown_tp',
+    'quic_client_test_max_limit_error'
+    'quic_client_test_new_token_error'
 ]
 
 frame = pd.DataFrame(
