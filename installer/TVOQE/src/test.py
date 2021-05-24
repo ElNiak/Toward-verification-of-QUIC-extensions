@@ -55,8 +55,6 @@ clients = [
     ['lsquic',[scdir+ '/lsquic/bin/','./http_client -r 6 -w 6 -Q hq-29 -s 127.0.0.1:4443 -l event=debug,engine=debug -p /1.html /2.html /3.html /4.html /5.html /6.html -H 127.0.0.1 -o version=FF00001D']],
 ]
 
-#List of available server's tests 
-#Purpose of "test_completed"
 server_tests = [
     ['..',
       [
@@ -79,6 +77,16 @@ server_tests = [
 	  ['quic_server_test_ext_min_ack_delay','test_completed'],
 	  ['quic_server_test_tp_limit_newcoid','test_completed'],
 	  ['quic_server_test_unkown','test_completed'],
+      ['quic_server_test_stream_limit_error','test_completed'],
+      ['quic_server_test_crypto_limit_error','test_completed'],
+      ['quic_server_test_newconnectionid_error','test_completed'],
+      ['quic_server_test_newcoid_rtp_error','test_completed'],
+      ['quic_server_test_newcoid_length_error','test_completed'],
+      ['quic_server_test_new_token_error','test_completed'],
+      ['quic_server_test_stop_sending_error','test_completed'],
+      ['quic_server_test_unkown_tp','test_completed'],
+      ['quic_server_test_max_limit_error','test_completed'],
+      ['quic_server_test_max_error','test_completed'],
       ]
     ],
 ]
@@ -87,7 +95,9 @@ server_tests = [
 client_tests = [
     ['..',
       [
+      ['quic_client_test_stream','test_completed'],
       ['quic_client_test_max','test_completed'],
+	  ['quic_client_test_token_error','test_completed'],
 	  ['quic_client_test_tp_error','test_completed'],
 	  ['quic_client_test_double_tp_error','test_completed'],
 	  ['quic_client_test_tp_acticoid_error','test_completed'],
@@ -100,10 +110,15 @@ client_tests = [
 	  ['quic_client_test_no_odci','test_completed'],
 	  ['quic_client_test_ext_min_ack_delay','test_completed'],
 	  ['quic_client_test_stateless_reset_token','test_completed'],
-      ['quic_client_test_handshake_done_error','test_completed'],
+	  ['quic_client_test_handshake_done_error','test_completed'],
+
+      ['quic_client_test_unkown_tp','test_completed'],
+      ['quic_client_test_max_limit_error','test_completed'],
+      ['quic_client_test_new_token_error','test_completed'],
       ]
     ],
 ]
+
 import sys
 
 # @post print how to use test.py
