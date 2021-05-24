@@ -33,8 +33,8 @@ tests_server=(#quic_server_test_stream
               #quic_server_test_ext_min_ack_delay
 
               # No migration to see what happen
-              quic_server_test_stream_limit_error     # ~Good remve one requirement
-              #quic_server_test_crypto_limit_error     # Good
+              #quic_server_test_stream_limit_error     # ~Good remve one requirement
+              quic_server_test_crypto_limit_error     # Good
               #quic_server_test_retirecoid_error       # Good
               #quic_server_test_newcoid_rtp_error      # Good
               #quic_server_test_newcoid_length_error   # Good
