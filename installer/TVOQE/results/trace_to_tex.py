@@ -8,7 +8,7 @@ import scandir
 import pyshark
 
 
-foldername = "/results/temp/"
+foldername = "/home/student/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/pass/server/local/stream/"
 subfolders = [f.path for f in scandir.scandir(foldername) if f.is_dir()]
 run = 0
 for fol in subfolders:
