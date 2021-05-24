@@ -99,9 +99,9 @@ for j in "${tests_server[@]}"; do
             export CNT=$count
             export RND=$RANDOM
             export TEST_ALPN=hq-29
-            touch /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap
-            chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap
-            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/${count}_quic_server_${j}.pcap -f "udp" &
+            touch /QUIC-Ivy/doc/examples/quic/test/temp/${count}_${i}_${j}.pcap
+            chmod o=xw /QUIC-Ivy/doc/examples/quic/test/temp/${count}_${i}_${j}.pcap
+            tshark -i lo -w /QUIC-Ivy/doc/examples/quic/test/temp/${count}_${i}_${j}.pcap -f "udp" &
             python test.py iters=1 server=$i test=$j > res_server.txt 2>&1
             ((k++))
             printf "\n"
