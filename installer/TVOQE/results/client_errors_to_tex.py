@@ -79,7 +79,7 @@ def write_summary_line(writer , testname, results, line):
         else:
             color = "FE0000" # red
 
-        if impl != "quiche":
+        if impl != "lsquic":
             writer.write('\cellcolor[HTML]{'+ color +'} '+ str(results[impl]) +'\%  & \n')
         else:
             writer.write('\cellcolor[HTML]{'+ color +'} '+ str(results[impl]) +'\%  \\\\ '+ line +'\n')
