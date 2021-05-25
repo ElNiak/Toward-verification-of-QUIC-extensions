@@ -6,17 +6,103 @@ import os
 import scandir
 
 
-def write_header_tex(writer,implementation):
+global_test = [
+    'quic_server_test_stream',
+    'quic_server_test_max',
+    'quic_server_test_accept_maxdata',
+    'quic_server_test_reset_stream',
+    'quic_server_test_connection_close',
+    'quic_server_test_stop_sending',
+    'quic_server_test_ext_min_ack_delay',
+]
+
+unk_test = [
+    'quic_server_test_unknow',
+    'quic_server_test_unknow_tp',
+]
+
+tp_error_test = [
+    'quic_server_test_double_tp_error',
+    'quic_server_test_tp_error',
+    'quic_server_test_tp_acticoid_error',
+    'quic_server_test_no_icid_error',
+]
+
+prot_error_test = [
+    'quic_server_test_token_error',
+    'quic_server_test_new_token_error',
+    'quic_server_test_handshake_done_error',
+    'quic_server_test_newconnectionid_error',
+    'quic_server_test_max_limit_error',
+]
+
+field_error_test = [
+    'quic_server_test_blocked_streams_maxstream_error',
+    'quic_server_test_retirecoid_error',
+    'quic_server_test_stream_limit_error',
+    'quic_server_test_newcoid_limit_error',
+    'quic_server_test_newcoid_rtp_error',
+    'quic_server_test_max_error',
+]
+
+
+def write_header_results(writer,title):
+    writer.write('\\begin{table}[h!]\n')
+    writer.write('\centering\n')
+    writer.write('\label{tab:server-summary-'+ title + '}\n')
+    writer.write('\scriptsize\n')
+    writer.write('\\resizebox{\\textwidth}{!}{%\n')
+    writer.write('\\begin{tabular}{|l|ccccccc|}\n')
+    writer.write('\hline\n')
+    writer.write('\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & quiche \\\\ \hline  \n')
+
+def write_footer_results(writer, title):
+    writer.write('\end{tabular}%\n')
+    writer.write('}\n')
+    writer.write('\caption{Server - '+ title +'}')
+    writer.write('\end{table}\n')
+
+def write_summary_line(writer , testname, results, line):
+    testname = testname.replace("quic_server_test_", "")
+    testname = testname.replace("_",'\_')
+
+    implementation = ["quinn", "mvfst", "picoquic", "quic-go", "aioquic", "quant", "quiche"]
+
+    writer.write(testname + ' & \n')
+
+    for impl in implementation:
+        color = ""
+        if results[impl] > 90:
+            color = "009933" # Dark green
+        elif results[impl] > 75 and results[impl] <= 90 :
+            color = "00ff55" # green
+        elif results[impl] > 60 and results[impl] <= 75 :
+            color = "ffff00" # yellow
+        elif results[impl] > 40 and results[impl] <= 60 :
+            color = "ffbb33" # orange
+        elif results[impl] > 25 and results[impl] <= 40 :
+            color = "e69900" # dark orange
+        elif results[impl] > 10 and results[impl] <= 25 :
+            color = "ff6666" # light red
+        else:
+            color = "FE0000" # red
+
+        if impl != "quiche":
+            writer.write('\cellcolor[HTML]{'+ color +'} '+ results[impl] +'\%  & \n')
+        else:
+            writer.write('\cellcolor[HTML]{'+ color +'} '+ results[impl] +'\%  \\\\ '+ line +'\n')
+
+
+def write_header_tex(writer,implementation, title):
     writer.write('\\begin{table}[h!]\n')
     writer.write('\centering\n')
     writer.write('\label{tab:server-'+ implementation + '}\n')
     writer.write('\scriptsize\n')
-    writer.write('\caption{\lstinline{' + implementation +'} server errors}')
+    writer.write('\caption{\lstinline{' + implementation +'} server errors - '+ title +'}')
     writer.write('\\resizebox{\\textwidth}{!}{%\n')
     writer.write('\\begin{tabular}{llr}\n')
     #writer.write('\hline\n')
     writer.write('\multicolumn{1}{c}{\\textbf{Test}} & \multicolumn{1}{c}{\\textbf{Error code}} \multicolumn{1}{c}{\\textbf{\#}} \\\\ \n')
-
 
 def write_footer_tex(writer):
     writer.write('\end{tabular}%\n')
@@ -189,6 +275,69 @@ def pprint(str):
     print("==== " + str)
     print("="*50)
 
+def get_errors(train_df, tests, title, total, f):
+    servers = train_df.Implementation.unique() 
+    tests = train_df.TestName.unique()
+    for i in servers:
+        print(i)
+        subdf = train_df.loc[train_df['Implementation'] == i]
+        write_header_tex(f,i, title)
+        for t in tests:
+            print(t)
+            errors = {}
+            subsubdf = subdf.loc[subdf['TestName'] == t]
+            cnt = 0
+            for _ , row in subsubdf.iterrows():
+                err = row['ErrorIEV']
+                cnt += 1
+                if err in errors:
+                    errors[err] = errors[err] + 1
+                else :
+                    errors[err] = 1
+            print(errors)
+            first = True
+            if cnt > 0:
+                for error in errors:
+                    if not error == "No Error" :
+                        if first:
+                            write_test_line(f,t,error, errors[error])
+                            first = False
+                        else:
+                            write_line(f,error, errors[error])
+                print(i)
+                if (cnt - total[i+t]) > 0:
+                    write_result(f, cnt - total[i+t])
+                else:
+                    write_result_no_error(f, t)
+        write_footer_tex(f)
+
+    write_header_results(f,title)
+    last = tests[-1]
+    for t in tests:
+        subdf = train_df.loc[train_df['TestName'] == t]
+        summary = {
+            "quinn":0,
+            "mvfst":0,
+            "picoquic":0,
+            "quic-go":0, 
+            "aioquic":0, 
+            "quant":0, 
+            "quiche":0
+        }
+        for i in servers:
+            subsubdf = subdf.loc[subdf['Implementation'] == i]
+            errors = {}
+            cnt = 0
+            for _ , row in subsubdf.iterrows():
+                err = row['ErrorIEV']
+                if err == "No Error":
+                    summary[i] = summary[i] + 1
+        if t != last:
+            write_summary_line(f, t, summary, "\cline{1-1}")
+        else:
+            write_summary_line(f, t, summary, "\hline")
+    write_footer_results(f,title)
+
 
 foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/server/VM/server-result-final-2/" 
 #foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/"
@@ -240,34 +389,12 @@ outputFile = csv_name.replace("csv","txt")
 f = open(outputFile, "w")
 # Get total per implementation & test
 pprint("Get errors count")
-for i in servers:
-    print(i)
-    subdf = train_df.loc[train_df['Implementation'] == i]
-    write_header_tex(f,i)
-    for t in tests:
-        print(t)
-        errors = {}
-        subsubdf = subdf.loc[subdf['TestName'] == t]
-        cnt = 0
-        for _ , row in subsubdf.iterrows():
-            err = row['ErrorIEV']
-            cnt += 1
-            if err in errors:
-                errors[err] = errors[err] + 1
-            else :
-                errors[err] = 1
-        print(errors)
-        first = True
-        for error in errors:
-            if not error == "No Error" :
-                if first:
-                    write_test_line(f,t,error, errors[error])
-                    first = False
-                else:
-                    write_line(f,error, errors[error])
-        print(i)
-        if (cnt - total[i+t]) > 0:
-            write_result(f, cnt - total[i+t])
-        else:
-            write_result_no_error(f, t)
-    write_footer_tex(f)
+
+get_errors(train_df, global_test, "Global test", total, f)
+get_errors(train_df, unk_test, "Unknown situation", total, f)
+get_errors(train_df, tp_error_test, "Transport parameter errors tests", total, f)
+get_errors(train_df, field_error_test, "Invalid fields frames errors tests", total, f)
+get_errors(train_df, prot_error_test, "Protocol violation errors tests", total, f)
+
+f.close()
+
