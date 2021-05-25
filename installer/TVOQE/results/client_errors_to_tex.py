@@ -152,7 +152,7 @@ def extract_implementation(train_df):
         if "cargo run --manifest-path=tools/apps/Cargo.toml" in s:
             clients.append("quiche")
             train_df["Implementation"] = train_df["Implementation"].replace(s, "quiche")
-        elif "cargo run --example client" in s or "cargo run -vv --example client" in s:
+        elif "cargo run --example client" in s or "cargo run  -vv --example client https://localhost:4443/index.html --keylog" in s:
             clients.append("quinn")
             train_df["Implementation"] = train_df["Implementation"].replace(s, "quinn")
         elif "./http_client" in s:
@@ -161,10 +161,10 @@ def extract_implementation(train_df):
         elif "./picoquicdemo" in s:
             clients.append("picoquic")
             train_df["Implementation"] = train_df["Implementation"].replace(s, "picoquic")
-        elif "./client -c" in s or "/quant/Debug/bin/client" in s:
+        elif "./client -c" in s or "/quant/Debug/bin/client" in s or "./client -l /results/temp/quant_key.log -c false -r 20 -u  -t 3600 -v 5 -e 0xff00001" in s:
             clients.append("quant")
             train_df["Implementation"] = train_df["Implementation"].replace(s, "quant")
-        elif "./client -X" in s or "./client -p 4443 127.0.0.1" in s:
+        elif "./client -X" in s or "./client -p 4443 127.0.0.1" in s or "./client -G 5000000 -X /logs.txt" in s:
             clients.append("quic-go")
             train_df["Implementation"] = train_df["Implementation"].replace(s, "quic-go")
         elif "python3" in s:
@@ -367,7 +367,7 @@ def get_errors(train_df, tests, f):
 		    "aioquic":-1, 
 		    "quant":-1, 
 		    "quiche":-1,
-            "lsquic":-1
+            	    "lsquic":-1
 		}
             if t != last:
                 write_summary_line(f, t, summary, "\cline{1-1}")
@@ -411,7 +411,8 @@ def get_errors_split(train_df, tests,title, total, f):
 		    "quic-go":-1, 
 		    "aioquic":-1, 
 		    "quant":-1, 
-		    "quiche":-1
+		    "quiche":-1,
+            	    "lsquic":-1
 		}
             if t != last:
                 write_summary_line(f, t, summary, "\cline{1-1}")
@@ -425,7 +426,8 @@ def get_errors_split(train_df, tests,title, total, f):
             "quic-go":0, 
             "aioquic":0, 
             "quant":0, 
-            "quiche":0
+            "quiche":0,
+            "lsquic":0
         }
         for i in clients:
             subsubdf = subdf.loc[subdf['Implementation'] == i]
@@ -444,9 +446,9 @@ def get_errors_split(train_df, tests,title, total, f):
 
 
 
-foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/client/local/mvfst_client_newcoid/" 
+foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/client/VM/client-result-v1/" 
 #foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/"
-csv_name = "May-25-2021.csv"
+csv_name = "May-23-2021.csv"
 
 train_df = pd.read_csv(foldername + csv_name, index_col=0)
 print(train_df.head())
@@ -455,6 +457,7 @@ print(train_df.head())
 pprint("Filter test not working")
 train_df = filter_test(train_df)
 train_df = train_df[train_df["Implementation"].notna()]
+train_df = train_df[train_df["Mode"] == "client"]
 # Replace with correct implementation name
 pprint("Correct implementation name")
 clients = extract_implementation(train_df)

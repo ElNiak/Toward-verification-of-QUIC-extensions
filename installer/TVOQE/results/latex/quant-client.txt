@@ -1,0 +1,334 @@
+\begin{table}[h!]
+\centering
+\label{tab:client-quant}
+\scriptsize
+\caption{\lstinline{quant} client errors - Full}\resizebox{\textwidth}{!}{%
+\begin{tabular}{llr}
+\multicolumn{1}{c}{\textbf{Test}} & \multicolumn{1}{c}{\textbf{Error code}} \multicolumn{1}{c}{\textbf{\#}} \\ 
+quic\_client\_test\_accept\_maxdata & ivy\_return\_code(127)+ & 100  \\ 
+  &       & \textbf{100.0/100}      \\ 
+   &       &   \\ 
+quic\_client\_test\_no\_odci & require is\_transport\_parameter\_error; & 94  \\ 
+                           & require scid = the\_cid; & 6  \\ 
+  &       & \textbf{100.0/100}      \\ 
+   &       &   \\ 
+quic\_client\_test\_tp\_acticoid\_error & require scid = the\_cid; & 4  \\ 
+  &       & \textbf{4.0/100}      \\ 
+   &       &   \\ 
+quic\_client\_test\_tp\_error & require is\_transport\_parameter\_error; & 89  \\ 
+                           & require scid = the\_cid; & 11  \\ 
+  &       & \textbf{100.0/100}      \\ 
+   &       &   \\ 
+quic\_client\_test\_double\_tp\_error & require is\_transport\_parameter\_error | $\sim$handshake\_done\_send; & 97  \\ 
+                           & require scid = the\_cid; & 3  \\ 
+  &       & \textbf{100.0/100}      \\ 
+   &       &   \\ 
+quic\_client\_test\_ext\_min\_ack\_delay & require scid = the\_cid; & 3  \\ 
+  &       & \textbf{3.0/100}      \\ 
+   &       &   \\ 
+quic\_client\_test\_blocked\_streams\_maxstream\_error & require is\_frame\_encoding\_error | is\_stream\_limit\_error; & 92  \\ 
+                           & require scid = the\_cid; & 7  \\ 
+                           & require connected(dcid) -\textgreater connected\_to(dcid) = scid; & 1  \\ 
+  &       & \textbf{100.0/100}      \\ 
+   &       &   \\ 
+quic\_client\_test\_max & ivy\_return\_code(127)+ & 100  \\ 
+  &       & \textbf{100.0/100}      \\ 
+   &       &   \\ 
+quic\_client\_test\_unknown & ivy\_return\_code(127)+ & 100  \\ 
+  &       & \textbf{100.0/100}      \\ 
+   &       &   \\ 
+quic\_client\_test\_tp\_prefadd\_error & require is\_transport\_parameter\_error; & 94  \\ 
+                           & require scid = the\_cid; & 6  \\ 
+  &       & \textbf{100.0/100}      \\ 
+   &       &   \\ 
+\end{tabular}%
+}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:client-summary-Full}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|ccccccc|}
+\hline
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & quiche & lsquic \\ \hline  
+accept\_maxdata & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \cline{1-1}
+\cellcolor[HTML]{FE0000} 0\%  & 
+no\_odci & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \cline{1-1}
+\cellcolor[HTML]{FE0000} 0\%  & 
+tp\_acticoid\_error & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{009933} 96\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \cline{1-1}
+\cellcolor[HTML]{FE0000} 0\%  & 
+tp\_error & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \cline{1-1}
+\cellcolor[HTML]{FE0000} 0\%  & 
+double\_tp\_error & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \cline{1-1}
+\cellcolor[HTML]{FE0000} 0\%  & 
+ext\_min\_ack\_delay & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{009933} 97\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \cline{1-1}
+\cellcolor[HTML]{FE0000} 0\%  & 
+blocked\_streams\_maxstream\_error & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \cline{1-1}
+\cellcolor[HTML]{FE0000} 0\%  & 
+max & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \cline{1-1}
+\cellcolor[HTML]{FE0000} 0\%  & 
+unknown & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \cline{1-1}
+\cellcolor[HTML]{FE0000} 0\%  & 
+tp\_prefadd\_error & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \hline
+\cellcolor[HTML]{FE0000} 0\%  & 
+\end{tabular}%
+}
+\caption{client - Full}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:client-summary-Global test}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|ccccccc|}
+\hline
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & quiche & lsquic \\ \hline  
+stream & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+\cellcolor[HTML]{ffffff} -1\%  & 
+max & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \cline{1-1}
+\cellcolor[HTML]{FE0000} 0\%  & 
+accept\_maxdata & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \cline{1-1}
+\cellcolor[HTML]{FE0000} 0\%  & 
+ext\_min\_ack\_delay & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{009933} 97\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \hline
+\cellcolor[HTML]{FE0000} 0\%  & 
+\end{tabular}%
+}
+\caption{client - Global test}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:client-summary-Unknown situation}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|ccccccc|}
+\hline
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & quiche & lsquic \\ \hline  
+unknown & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \cline{1-1}
+\cellcolor[HTML]{FE0000} 0\%  & 
+unknown\_tp & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \hline
+\cellcolor[HTML]{ffffff} -1\%  & 
+\end{tabular}%
+}
+\caption{client - Unknown situation}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:client-summary-Transport parameter errors tests}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|ccccccc|}
+\hline
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & quiche & lsquic \\ \hline  
+double\_tp\_error & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \cline{1-1}
+\cellcolor[HTML]{FE0000} 0\%  & 
+tp\_error & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \cline{1-1}
+\cellcolor[HTML]{FE0000} 0\%  & 
+tp\_acticoid\_error & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{009933} 96\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \cline{1-1}
+\cellcolor[HTML]{FE0000} 0\%  & 
+no\_ocid & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \hline
+\cellcolor[HTML]{ffffff} -1\%  & 
+\end{tabular}%
+}
+\caption{client - Transport parameter errors tests}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:client-summary-Invalid fields frames errors tests}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|ccccccc|}
+\hline
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & quiche & lsquic \\ \hline  
+blocked\_streams\_maxstream\_error & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  & 
+\cellcolor[HTML]{FE0000} 0\%  \\ \cline{1-1}
+\cellcolor[HTML]{FE0000} 0\%  & 
+retirecoid\_error & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \hline
+\cellcolor[HTML]{ffffff} -1\%  & 
+\end{tabular}%
+}
+\caption{client - Invalid fields frames errors tests}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:client-summary-Protocol violation errors tests}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|ccccccc|}
+\hline
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & quiche & lsquic \\ \hline  
+new\_token\_error & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+\cellcolor[HTML]{ffffff} -1\%  & 
+max\_limit\_error & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \hline
+\cellcolor[HTML]{ffffff} -1\%  & 
+\end{tabular}%
+}
+\caption{client - Protocol violation errors tests}
+\end{table}
