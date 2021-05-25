@@ -17,15 +17,15 @@ global_test = [
 ]
 
 unk_test = [
-    'quic_server_test_unknow',
-    'quic_server_test_unknow_tp',
+    'quic_server_test_unknown',
+    'quic_server_test_unknown_tp',
 ]
 
 tp_error_test = [
     'quic_server_test_double_tp_error',
     'quic_server_test_tp_error',
     'quic_server_test_tp_acticoid_error',
-    'quic_server_test_no_icid_error',
+    'quic_server_test_no_icid',
 ]
 
 prot_error_test = [
@@ -59,7 +59,7 @@ def write_header_results(writer,title):
 def write_footer_results(writer, title):
     writer.write('\end{tabular}%\n')
     writer.write('}\n')
-    writer.write('\caption{Server - '+ title +'}')
+    writer.write('\caption{Server - '+ title +'}\n')
     writer.write('\end{table}\n')
 
 def write_summary_line(writer , testname, results, line):
@@ -84,13 +84,15 @@ def write_summary_line(writer , testname, results, line):
             color = "e69900" # dark orange
         elif results[impl] > 10 and results[impl] <= 25 :
             color = "ff6666" # light red
+        elif results[impl] == -1 :
+            color = "ffffff" # white
         else:
             color = "FE0000" # red
 
         if impl != "quiche":
-            writer.write('\cellcolor[HTML]{'+ color +'} '+ results[impl] +'\%  & \n')
+            writer.write('\cellcolor[HTML]{'+ color +'} '+ str(results[impl]) +'\%  & \n')
         else:
-            writer.write('\cellcolor[HTML]{'+ color +'} '+ results[impl] +'\%  \\\\ '+ line +'\n')
+            writer.write('\cellcolor[HTML]{'+ color +'} '+ str(results[impl]) +'\%  \\\\ '+ line +'\n')
 
 
 def write_header_tex(writer,implementation, title):
@@ -258,9 +260,11 @@ def multiple_output(train_df):
         if row['TestName'] == 'quic_server_test_token_error':
             if row["ErrorIEV"] == "Handshake not completed" or row["ErrorIEV"] == "Timeout":
                 train_df.loc[i, "isPass"] = 1.0
+                train_df.loc[i, "ErrorIEV"] = "No Error"
         elif row['TestName'] == 'quic_server_test_double_tp_error':
             if row["ErrorIEV"] == "Handshake not completed" or row["ErrorIEV"] == "Timeout":
                 train_df.loc[i, "isPass"] = 1.0
+                train_df.loc[i, "ErrorIEV"] = "No Error"
         elif row['TestName'] == 'quic_server_test_unkown':
             if "frame.connection_close:{err_code:0x7}" in row["ErrorIEV"]:
                 train_df.loc[i, "isPass"] = 1.0
@@ -275,9 +279,10 @@ def pprint(str):
     print("==== " + str)
     print("="*50)
 
-def get_errors(train_df, tests, title, total, f):
+def get_errors(train_df, tests, f):
     servers = train_df.Implementation.unique() 
-    tests = train_df.TestName.unique()
+    tests = train_df.TestName.unique() 
+    title = "Full"
     for i in servers:
         print(i)
         subdf = train_df.loc[train_df['Implementation'] == i]
@@ -311,10 +316,25 @@ def get_errors(train_df, tests, title, total, f):
                     write_result_no_error(f, t)
         write_footer_tex(f)
 
-    write_header_results(f,title)
     last = tests[-1]
+    write_header_results(f,title)
     for t in tests:
         subdf = train_df.loc[train_df['TestName'] == t]
+        if len(subdf) == 0:
+            summary = {
+		    "quinn":-1,
+		    "mvfst":-1,
+		    "picoquic":-1,
+		    "quic-go":-1, 
+		    "aioquic":-1, 
+		    "quant":-1, 
+		    "quiche":-1
+		}
+            if t != last:
+                write_summary_line(f, t, summary, "\cline{1-1}")
+            else:
+                write_summary_line(f, t, summary, "\hline")
+            continue   
         summary = {
             "quinn":0,
             "mvfst":0,
@@ -338,6 +358,48 @@ def get_errors(train_df, tests, title, total, f):
             write_summary_line(f, t, summary, "\hline")
     write_footer_results(f,title)
 
+def get_errors_split(train_df, tests,title, total, f):
+    last = tests[-1]
+    write_header_results(f,title)
+    for t in tests:
+        subdf = train_df.loc[train_df['TestName'] == t]
+        if len(subdf) == 0:
+            summary = {
+		    "quinn":-1,
+		    "mvfst":-1,
+		    "picoquic":-1,
+		    "quic-go":-1, 
+		    "aioquic":-1, 
+		    "quant":-1, 
+		    "quiche":-1
+		}
+            if t != last:
+                write_summary_line(f, t, summary, "\cline{1-1}")
+            else:
+                write_summary_line(f, t, summary, "\hline")
+            continue   
+        summary = {
+            "quinn":0,
+            "mvfst":0,
+            "picoquic":0,
+            "quic-go":0, 
+            "aioquic":0, 
+            "quant":0, 
+            "quiche":0
+        }
+        for i in servers:
+            subsubdf = subdf.loc[subdf['Implementation'] == i]
+            errors = {}
+            cnt = 0
+            for _ , row in subsubdf.iterrows():
+                err = row['ErrorIEV']
+                if err == "No Error":
+                    summary[i] = summary[i] + 1
+        if t != last:
+            write_summary_line(f, t, summary, "\cline{1-1}")
+        else:
+            write_summary_line(f, t, summary, "\hline")
+    write_footer_results(f,title)
 
 foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/server/VM/server-result-final-2/" 
 #foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/"
@@ -390,11 +452,14 @@ f = open(outputFile, "w")
 # Get total per implementation & test
 pprint("Get errors count")
 
-get_errors(train_df, global_test, "Global test", total, f)
-get_errors(train_df, unk_test, "Unknown situation", total, f)
-get_errors(train_df, tp_error_test, "Transport parameter errors tests", total, f)
-get_errors(train_df, field_error_test, "Invalid fields frames errors tests", total, f)
-get_errors(train_df, prot_error_test, "Protocol violation errors tests", total, f)
+get_errors(train_df, total, f)
+
+get_errors_split(train_df, global_test, "Global test", total, f)
+get_errors_split(train_df, unk_test, "Unknown situation", total, f)
+get_errors_split(train_df, tp_error_test, "Transport parameter errors tests", total, f)
+get_errors_split(train_df, field_error_test, "Invalid fields frames errors tests", total, f)
+get_errors_split(train_df, prot_error_test, "Protocol violation errors tests", total, f)
+
 
 f.close()
 
