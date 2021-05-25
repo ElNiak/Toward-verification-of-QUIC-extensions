@@ -44,7 +44,7 @@ def write_header_results(writer,title):
     writer.write('\\resizebox{\\textwidth}{!}{%\n')
     writer.write('\\begin{tabular}{|l|cccccccc|}\n')
     writer.write('\hline\n')
-    writer.write('\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & quiche & lsquic \\\\ \hline  \n')
+    writer.write('\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & \multicolumn{1}{c|}{quiche} & lsquic \\\\ \hline  \n')
 
 def write_footer_results(writer, title):
     writer.write('\end{tabular}%\n')
