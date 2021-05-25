@@ -75,9 +75,9 @@ def readlastline(filename):
     return last, second_last
 
 
-# foldername = "/home/chris/Toward-verification-of-QUIC-extensions/result/" 
+foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/server/local/mvfst_server_newcoid/temp/" 
 # foldername = "/home/student/Toward-verification-of-QUIC-extensions/installer/TVOQE"
-foldername = "/results/temp/"
+# foldername = "/results/temp/"
 subfolders = [f.path for f in scandir.scandir(foldername) if f.is_dir()]
 run = 0
 for fol in subfolders:
@@ -114,19 +114,22 @@ for fol in subfolders:
                             m = True
                     if not m :
                         with open(os.path.join(fol, err), "r") as f:
-                            content = f.read()
-                            if "Using selector: EpollSelector" in content:
-                                match = "aioquic"
-                            elif "EventBase.cpp" in content:
-                                match = "mvfst"
-                            elif "quant" in content:
-                                match = "quant"
-                            elif "quinn" in content:
-                                match = "quinn"
-                            elif "quiche" in content:
-                                match = "quiche"
-                            elif "[NOTICE] Document root is not set" in content:
-                                match = "lsquic"
+                            try:
+                                content = f.read()
+                                if "Using selector: EpollSelector" in content:
+                                    match = "aioquic"
+                                elif "EventBase.cpp" in content:
+                                    match = "mvfst"
+                                elif "quant" in content:
+                                    match = "quant"
+                                elif "quinn" in content:
+                                    match = "quinn"
+                                elif "quiche" in content:
+                                    match = "quiche"
+                                elif "[NOTICE] Document root is not set" in content:
+                                    match = "lsquic"
+                            except:
+                                  match = "quant"
 
             else:
                 for n in client_tests:
@@ -150,20 +153,22 @@ for fol in subfolders:
                             match = "quic-go"
                             m = True
                     if not m :
-                        with open(os.path.join(fol, err), "r") as f:
-                            content = f.read()
-                            if "Using selector: EpollSelector" in content:
-                                match = "aioquic"
-                            elif "EventBase.cpp" in content:
-                                match = "mvfst"
-                            elif "quant" in content:
-                                match = "quant"
-                            elif "quinn" in content:
-                                match = "quinn"
-                            elif "quiche" in content:
-                                match = "quiche"
-                            elif "[NOTICE] Document root is not set" in content:
-                                match = "lsquic"
+                            try:
+                                content = f.read()
+                                if "Using selector: EpollSelector" in content:
+                                    match = "aioquic"
+                                elif "EventBase.cpp" in content:
+                                    match = "mvfst"
+                                elif "quant" in content:
+                                    match = "quant"
+                                elif "quinn" in content:
+                                    match = "quinn"
+                                elif "quiche" in content:
+                                    match = "quiche"
+                                elif "[NOTICE] Document root is not set" in content:
+                                    match = "lsquic"
+                            except:
+                                  match = "quant"
             outPath = os.path.join(fol, out)
             err = file.replace(".iev", ".err")
             errPath = os.path.join(fol, err)

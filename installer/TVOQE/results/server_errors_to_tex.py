@@ -154,12 +154,15 @@ def filter_test(train_df):
 
 def extract_implementation(train_df):
     server_name = train_df.Implementation.unique()
+    print(server_name)
+    #pd.options.display.max_colwidth = 200
+    #print(train_df[train_df["Implementation"].isna()]["OutputFile"])
     servers = []
     for s in server_name:
         if "cargo run --manifest-path=tools/apps/Cargo.toml" in s:
             servers.append("quiche")
             train_df["Implementation"] = train_df["Implementation"].replace(s, "quiche")
-        elif "cargo run --example server" in s:
+        elif "cargo run --example server" in s or "cargo run -vv --example server" in s:
             servers.append("quinn")
             train_df["Implementation"] = train_df["Implementation"].replace(s, "quinn")
         elif "./http_server" in s:
@@ -168,10 +171,10 @@ def extract_implementation(train_df):
         elif "./picoquicdemo" in s:
             servers.append("picoquic")
             train_df["Implementation"] = train_df["Implementation"].replace(s, "picoquic")
-        elif "./server -d" in s:
+        elif "./server -d" in s or "/home/chris/TVOQE_UPGRADE_27/quic/quant/Debug/bin/server" in s:
             servers.append("quant")
             train_df["Implementation"] = train_df["Implementation"].replace(s, "quant")
-        elif "./server -c" in s:
+        elif "./server -c" in s or "./server -p 4443 127.0.0.1" in s:
             servers.append("quic-go")
             train_df["Implementation"] = train_df["Implementation"].replace(s, "quic-go")
         elif "python3" in s:
@@ -204,6 +207,51 @@ def extract_error(foldername, train_df):
                 start_index = content.rfind("frame.connection_close:")
                 end_index = content.find(",",start_index)
                 train_df.loc[i, "ErrorIEV"] = content[start_index:end_index+1].replace(",","") + "}"
+
+            elif "quic_packet.ivy: line 421" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require ~_generating & ~queued_non_ack(scid) -> ack_credit(scid) > 0;  # [5]'
+            elif "quic_packet.ivy: line 415" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require  conn_seen(dcid) -> hi_non_probing_endpoint(dcid,dst);  # [10]'
+            elif "quic_frame.ivy: line 597" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require connected(dcid) & connected_to(dcid) = scid;'
+            elif "quic_frame.ivy: line 1494" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require ~path_challenge_pending(dcid,f.data);'
+            elif "quic_frame.ivy: line 1468" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require connected(dcid) & connected_to(dcid) = scid;'
+            elif "quic_frame.ivy: line 1358" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require connected(dcid) & connected_to(dcid) = scid;'
+            elif "quic_frame.ivy: line 1358" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require connected(dcid) & connected_to(dcid) = scid;'
+            elif "test_completed" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'No Error'
+                 train_df.loc[i, "isPass"] = 1.0
+            elif "quic_server_test_new_token_error.ivy: line 281" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require is_protocol_violation;'
+            elif "quic_server_test_max_limit_error.ivy: line 527" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require is_stream_limit_error;'
+            elif "quic_server_test_max_error.ivy: line 517" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require is_stream_limit_error;'
+            elif "quic_server_test_newcoid_rtp_error.ivy: line" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require is_frame_encoding_error;'
+            elif "quic_server_test_newcoid_length_error.ivy: line 527" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require is_frame_encoding_error;'
+            elif "quic_server_test_unkown.ivy: line 571" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require is_frame_encoding_error;'
+            elif "quic_server_test_newconnectionid_error.ivy: line 504" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require conn_total_data(the_cid) > 0;'
+            elif "quic_server_test_retirecoid_error.ivy: line 507" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require is_protocol_violation;'
+            elif "quic_server_test_unkown_tp.ivy: line 568" in content:
+                 if row["Implementation"] == "quiche":
+                 #In fact we only do unidirectionnal with quiche
+                    if "stream.handle" in content: 
+                       train_df.loc[i, "ErrorIEV"] = "No error"
+                       train_df.loc[i, "isPass"] = 1.0
+                    else:
+                       train_df.loc[i, "ErrorIEV"] = 'require conn_total_data(the_cid) > 0;'
+                 else:
+                    train_df.loc[i, "ErrorIEV"] = 'require conn_total_data(the_cid) > 0;'
+
             elif "assumption_failed" in content:
                 start_index = content.find('assumption_failed(""')
                 end_index = content.find('"")',start_index)
@@ -401,9 +449,12 @@ def get_errors_split(train_df, tests,title, total, f):
             write_summary_line(f, t, summary, "\hline")
     write_footer_results(f,title)
 
-foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/server/VM/server-result-final-2/" 
+
+
+
+foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/server/local/mvfst_server_newcoid/" 
 #foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/"
-csv_name = "May-06-2021.csv"
+csv_name = "May-25-2021.csv"
 
 train_df = pd.read_csv(foldername + csv_name, index_col=0)
 print(train_df.head())
@@ -411,7 +462,7 @@ print(train_df.head())
 # Filter test not working
 pprint("Filter test not working")
 train_df = filter_test(train_df)
-
+train_df = train_df[train_df["Implementation"].notna()]
 # Replace with correct implementation name
 pprint("Correct implementation name")
 servers = extract_implementation(train_df)
@@ -435,6 +486,8 @@ print(train_df.head())
 pprint("Get total per implementation & test")
 tests = train_df.TestName.unique()
 servers = train_df.Implementation.unique() 
+print(tests)
+print(servers)
 total = {}
 for t in tests: 
     subdf = train_df.loc[train_df['TestName'] == t]
@@ -462,4 +515,50 @@ get_errors_split(train_df, prot_error_test, "Protocol violation errors tests", t
 
 
 f.close()
+
+
+
+            # Temporary
+'''
+            elif "quic_packet.ivy: line 421" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require ~_generating & ~queued_non_ack(scid) -> ack_credit(scid) > 0;  # [5]'
+            elif "quic_packet.ivy: line 415" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require  conn_seen(dcid) -> hi_non_probing_endpoint(dcid,dst);  # [10]'
+            elif "quic_frame.ivy: line 597" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require connected(dcid) & connected_to(dcid) = scid;'
+            elif "quic_frame.ivy: line 1468" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require connected(dcid) & connected_to(dcid) = scid;'
+            elif "quic_frame.ivy: line 1358" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require connected(dcid) & connected_to(dcid) = scid;'
+            elif "quic_frame.ivy: line 1358" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require connected(dcid) & connected_to(dcid) = scid;'
+            elif "test_completed" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'No Error'
+                 train_df.loc[i, "isPass"] = 1.0
+            elif "quic_server_test_new_token_error.ivy: line 281" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require is_protocol_violation;'
+            elif "quic_server_test_max_limit_error.ivy: line 527" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require is_stream_limit_error;'
+            elif "quic_server_test_max_error.ivy: line 517" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require is_stream_limit_error;'
+            elif "quic_server_test_newcoid_rtp_error.ivy: line" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require is_frame_encoding_error;'
+            elif "quic_server_test_newcoid_length_error.ivy: line 527" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require is_frame_encoding_error;'
+            elif "quic_server_test_newconnectionid_error.ivy: line 504" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require conn_total_data(the_cid) > 0;'
+            elif "quic_server_test_retirecoid_error.ivy: line 507" in content:
+                 train_df.loc[i, "ErrorIEV"] = 'require is_protocol_violation;'
+            elif "quic_server_test_unkown_tp.ivy: line 568" in content:
+                 if row["Implementation"] == "quiche":
+                 #In fact we only do unidirectionnal with quiche
+                    if "stream.handle" in content: 
+                       train_df.loc[i, "ErrorIEV"] = "No error"
+                       train_df.loc[i, "isPass"] = 1.0
+                    else:
+                       train_df.loc[i, "ErrorIEV"] = 'require conn_total_data(the_cid) > 0;'
+                 else:
+                    train_df.loc[i, "ErrorIEV"] = 'require conn_total_data(the_cid) > 0;'
+'''
+
 
