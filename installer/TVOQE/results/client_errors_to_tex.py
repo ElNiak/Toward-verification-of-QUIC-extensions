@@ -44,7 +44,7 @@ def write_header_results(writer,title):
     writer.write('\\resizebox{\\textwidth}{!}{%\n')
     writer.write('\\begin{tabular}{|l|ccccccc|}\n')
     writer.write('\hline\n')
-    writer.write('\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & quiche \\\\ \hline  \n')
+    writer.write('\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & quiche & lsquic \\\\ \hline  \n')
 
 def write_footer_results(writer, title):
     writer.write('\end{tabular}%\n')
@@ -56,7 +56,7 @@ def write_summary_line(writer , testname, results, line):
     testname = testname.replace("quic_client_test_", "")
     testname = testname.replace("_",'\_')
 
-    implementation = ["quinn", "mvfst", "picoquic", "quic-go", "aioquic", "quant", "quiche"]
+    implementation = ["quinn", "mvfst", "picoquic", "quic-go", "aioquic", "quant", "quiche", "lsquic"]
 
     writer.write(testname + ' & \n')
 
@@ -366,7 +366,8 @@ def get_errors(train_df, tests, f):
 		    "quic-go":-1, 
 		    "aioquic":-1, 
 		    "quant":-1, 
-		    "quiche":-1
+		    "quiche":-1,
+            "lsquic":-1
 		}
             if t != last:
                 write_summary_line(f, t, summary, "\cline{1-1}")
@@ -380,7 +381,8 @@ def get_errors(train_df, tests, f):
             "quic-go":0, 
             "aioquic":0, 
             "quant":0, 
-            "quiche":0
+            "quiche":0,
+            "lsquic":0
         }
         for i in clients:
             subsubdf = subdf.loc[subdf['Implementation'] == i]
