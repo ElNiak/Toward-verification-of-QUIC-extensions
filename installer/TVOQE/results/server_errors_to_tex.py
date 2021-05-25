@@ -11,9 +11,10 @@ def write_header_tex(writer,implementation):
     writer.write('\centering\n')
     writer.write('\label{tab:server-'+ implementation + '}\n')
     writer.write('\scriptsize\n')
+    writer.write('\caption{\lstinline{' + implementation +'} server errors}')
     writer.write('\\resizebox{\\textwidth}{!}{%\n')
     writer.write('\\begin{tabular}{llr}\n')
-    writer.write('\hline\n')
+    #writer.write('\hline\n')
     writer.write('\multicolumn{1}{c}{\\textbf{Test}} & \multicolumn{1}{c}{\\textbf{Error code}} \multicolumn{1}{c}{\\textbf{\#}} \\\\ \n')
 
 
@@ -23,21 +24,32 @@ def write_footer_tex(writer):
     writer.write('\end{table}\n')
 
 def write_result(writer, nb):
-    writer.write('  &       & \\textbf{' + str(nb) + '/100}      \\\n')
+    writer.write('  &       & \\textbf{' + str(nb) + '/100}      \\\\ \n')
+    writer.write('   &       &   \\\\ \n')
+
+def write_result_no_error(writer, testname):
+    testname = testname.replace("_",'\_')
+    writer.write(testname +' &       & \\textbf{0.0/100}      \\\\ \n')
     writer.write('   &       &   \\\\ \n')
 
 def write_line(writer, error, nb):
     error = error.replace("_",'\_')
+    error = error.replace("}",'\}')
+    error = error.replace("{",'\{')
+    error = error.replace("&",'\&')
     error = error.replace("~","$\sim$")
     error = error.replace(">","\\textgreater")
-    writer.write('                           & ' + error +    ' & ' +  str(nb)      + '  \\ \n')
+    writer.write('                           & ' + error +    ' & ' +  str(nb)      + '  \\\\ \n')
 
 def write_test_line(writer, testname, error, nb):
     error = error.replace("_",'\_')
+    error = error.replace("}",'\}')
+    error = error.replace("{",'\{')
     error = error.replace("~",'$\sim$')
+    error = error.replace("&",'\&')
     error = error.replace(">","\\textgreater")
     testname = testname.replace("_",'\_')
-    writer.write(  testname +' & ' + error +' & '+ str(nb)   + '  \\\n')
+    writer.write(  testname +' & ' + error +' & '+ str(nb)   + '  \\\\ \n')
 
 def filter_test(train_df):
     for i, row in train_df.iterrows():
@@ -49,6 +61,7 @@ def filter_test(train_df):
     train_df = train_df[train_df.TestName != 'quic_server_test_tp_limit_acticoid_error']
     train_df = train_df[train_df.TestName != 'quic_server_test_stop_sending_error']
     train_df = train_df[train_df.TestName != 'quic_server_test_crypto_limit_error']
+    train_df = train_df[train_df.TestName != 'quic_server_test_newcoid_zero_error']
     return train_df
 
 def extract_implementation(train_df):
@@ -82,12 +95,14 @@ def extract_implementation(train_df):
     return servers
 
 def extract_file_name(path):
-    return path.split["/"][-1]
+    splited = path.split("/")
+    filename = splited[-2]+ "/" + splited[-1] 
+    return filename
 
 def extract_error(foldername, train_df):
     for i, row in train_df.iterrows():
         if row["isPass"] == 0.0:
-            resultFile =  foldername + extract_file_name(row["OutputFile"])
+            resultFile =  foldername +"temp/" + extract_file_name(row["OutputFile"])
             f = open(resultFile, "r")
             content = f.read()
             if row["Implementation"] == "quiche":
@@ -114,7 +129,7 @@ def extract_error(foldername, train_df):
             elif "server_return_code(" in content:
                 start_index = content.find('server_return_code(')
                 end_index = content.find(')',start_index)
-                c = content[start_index:end_index-1]
+                c = content[start_index:end_index+1]
                 train_df.loc[i, "ErrorIEV"] = c
             elif "client_return_code(" in content:
                 start_index = content.find('client_return_code(')
@@ -125,24 +140,40 @@ def extract_error(foldername, train_df):
                 train_df.loc[i, "ErrorIEV"] = "Run out of cid"
             elif "timeout+> tls_recv_event({" in content:
                 train_df.loc[i, "ErrorIEV"] = "Handshake not completed"
-            elif "timeout+< undecryptable_packet_" in content:
-                train_df.loc[i, "ErrorIEV"] = "No decryption keys"
-            elif content.count("tls_recv_event") > 15:
-                # Approximation but can induce false positive
+            elif "timeout+> client_send_event({" in content:
                 train_df.loc[i, "ErrorIEV"] = "Handshake not completed"
+            elif "timeout+< undecryptable_packet_event" in content:
+                train_df.loc[i, "ErrorIEV"] = "No decryption keys"
+            elif "timeout+> tls_recv_event({" in row["ErrorIEV"]:
+                train_df.loc[i, "ErrorIEV"] = "Handshake not completed"
+            elif "timeout+> client_send_event({" in row["ErrorIEV"]:
+                train_df.loc[i, "ErrorIEV"] = "Handshake not completed"
+            elif "timeout+< undecryptable_packet_event" in row["ErrorIEV"]:
+                train_df.loc[i, "ErrorIEV"] = "No decryption keys"
+            elif "timeout+sending id:" in row["ErrorIEV"]:
+                train_df.loc[i, "ErrorIEV"] = "Timeout"
+            elif "timeout+sending id:" in content:
+                train_df.loc[i, "ErrorIEV"] = "Timeout"
+            elif "timeout+< show_pstats" in row["ErrorIEV"]:
+                train_df.loc[i, "ErrorIEV"] = "Timeout"
+            elif "timeout+< show_pstats" in content:
+                train_df.loc[i, "ErrorIEV"] = "Timeout"
+            #elif content.count("tls_recv_event") > 15:
+                # Approximation but can induce false positive
+            #    train_df.loc[i, "ErrorIEV"] = "Handshake not completed"
         else:
             train_df.loc[i, "ErrorIEV"] = "No Error"
     for i, row in train_df.iterrows():
         if row["isPass"] == 0.0:
-            train_df.loc[i, "ErrorIEV"]  = train_df.loc[i, "ErrorIEV"].replace("\n","").replace("    ","")
+            train_df.loc[i, "ErrorIEV"]  = train_df.loc[i, "ErrorIEV"].replace("\n","").replace("    ","").replace("\"","") #.replace('}',"\}").replace('{',"\{")
 
 def multiple_output(train_df):
     for i, row in train_df.iterrows():
         if row['TestName'] == 'quic_server_test_token_error':
-            if row["ErrorIEV"] == "Handshake not completed":
+            if row["ErrorIEV"] == "Handshake not completed" or row["ErrorIEV"] == "Timeout":
                 train_df.loc[i, "isPass"] = 1.0
         elif row['TestName'] == 'quic_server_test_double_tp_error':
-            if row["ErrorIEV"] == "Handshake not completed":
+            if row["ErrorIEV"] == "Handshake not completed" or row["ErrorIEV"] == "Timeout":
                 train_df.loc[i, "isPass"] = 1.0
         elif row['TestName'] == 'quic_server_test_unkown':
             if "frame.connection_close:{err_code:0x7}" in row["ErrorIEV"]:
@@ -155,12 +186,13 @@ def multiple_output(train_df):
 
 def pprint(str):
     print("="*50)
-    print("\n==== " + str)
+    print("==== " + str)
     print("="*50)
 
 
-foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/"
-csv_name = ".csv"
+foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/server/VM/server-result-final-2/" 
+#foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/"
+csv_name = "May-06-2021.csv"
 
 train_df = pd.read_csv(foldername + csv_name, index_col=0)
 print(train_df.head())
@@ -197,11 +229,11 @@ for t in tests:
     subdf = train_df.loc[train_df['TestName'] == t]
     for s in servers: 
         ssubdf = subdf.loc[subdf['Implementation'] == s]
-        total[s] = ssubdf["isPass"].sum()
+        total[s+t] = ssubdf["isPass"].sum()
         print(t)
         print(s)
         print(len(ssubdf.index))
-        print(total[s])
+        print(total[s+t])
         print()
 
 outputFile = csv_name.replace("csv","txt")
@@ -209,14 +241,17 @@ f = open(outputFile, "w")
 # Get total per implementation & test
 pprint("Get errors count")
 for i in servers:
+    print(i)
     subdf = train_df.loc[train_df['Implementation'] == i]
     write_header_tex(f,i)
     for t in tests:
         print(t)
         errors = {}
         subsubdf = subdf.loc[subdf['TestName'] == t]
-        for i, row in subsubdf.iterrows():
+        cnt = 0
+        for _ , row in subsubdf.iterrows():
             err = row['ErrorIEV']
+            cnt += 1
             if err in errors:
                 errors[err] = errors[err] + 1
             else :
@@ -224,10 +259,15 @@ for i in servers:
         print(errors)
         first = True
         for error in errors:
-            if first:
-                write_test_line(f,t,error, errors[error])
-                first = False
-            else:
-                write_line(f,error, errors[error])
-        write_result(f, len(subsubdf.iterrows())-total[s])
+            if not error == "No Error" :
+                if first:
+                    write_test_line(f,t,error, errors[error])
+                    first = False
+                else:
+                    write_line(f,error, errors[error])
+        print(i)
+        if (cnt - total[i+t]) > 0:
+            write_result(f, cnt - total[i+t])
+        else:
+            write_result_no_error(f, t)
     write_footer_tex(f)
