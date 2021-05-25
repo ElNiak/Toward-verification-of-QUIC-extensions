@@ -60,7 +60,7 @@ client_tests = [
 ]
 
 frame = pd.DataFrame(
-    columns=["Run", "Implementation", "Mode", "TestName", "Status", "ErrorIEV","OutputFile"])
+    columns=["Run", "Implementation", "Mode", "TestName", "Status", "ErrorIEV", "OutputFile"])
 
 
 def readlastline(filename):
@@ -75,8 +75,9 @@ def readlastline(filename):
     return last, second_last
 
 
-# "/home/chris/Toward-verification-of-QUIC-extensions/result/" /home/student/Toward-verification-of-QUIC-extensions/installer/TVOQE
-foldername = "/results/temp/"
+foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/server/local/mvfst_server_newcoid/temp/" 
+# foldername = "/home/student/Toward-verification-of-QUIC-extensions/installer/TVOQE"
+# foldername = "/results/temp/"
 subfolders = [f.path for f in scandir.scandir(foldername) if f.is_dir()]
 run = 0
 for fol in subfolders:
@@ -84,6 +85,7 @@ for fol in subfolders:
         if file.endswith(".iev"):
             fullPath = os.path.join(fol, file)
             out = file.replace(".iev", ".out")
+            err = file.replace(".iev", ".err")
             mode = "client"
             test_name = ""
             match = ""
@@ -93,21 +95,80 @@ for fol in subfolders:
                     if n in file:
                         test_name = file.replace('.iev', '')
                         break
-                with open(os.path.join(fol, "res_server.txt"), "r") as f:
-                    for li in f:
-                        if "implementation command:" in li:
-                            match = li.replace("implementation command:","")
-                            break
+                if os.path.isfile('res_server.txt'):
+                    with open(os.path.join(fol, "res_server.txt"), "r") as f:
+                        for li in f:
+                            if "implementation command:" in li:
+                                match = li.replace(
+                                    "implementation command:", "")
+                                break
+                else:
+                    m = False
+                    with open(os.path.join(fol, out), "r") as f:
+                        content = f.read()
+                        if "Picoquic" in content:
+                            match = "picoquic"
+                            m = True
+                        if "quic-go" in content:
+                            match = "quic-go"
+                            m = True
+                    if not m :
+                        with open(os.path.join(fol, err), "r") as f:
+                            try:
+                                content = f.read()
+                                if "Using selector: EpollSelector" in content:
+                                    match = "aioquic"
+                                elif "EventBase.cpp" in content:
+                                    match = "mvfst"
+                                elif "quant" in content:
+                                    match = "quant"
+                                elif "quinn" in content:
+                                    match = "quinn"
+                                elif "quiche" in content:
+                                    match = "quiche"
+                                elif "[NOTICE] Document root is not set" in content:
+                                    match = "lsquic"
+                            except:
+                                  match = "quant"
+
             else:
                 for n in client_tests:
                     if n in file:
                         test_name = file.replace('.iev', '')
                         break
-                with open(os.path.join(fol, "res_client.txt"), "r") as f:
-                    for li in f:
-                        if "implementation command:" in li:
-                            match = li.replace("implementation command:","")
-                            break
+                if os.path.isfile('res_client.txt'):
+                    with open(os.path.join(fol, "res_client.txt"), "r") as f:
+                        for li in f:
+                            if "implementation command:" in li:
+                                match = li.replace("implementation command:", "")
+                                break
+                else:
+                    m = False
+                    with open(os.path.join(fol, out), "r") as f:
+                        content = f.read()
+                        if "Picoquic" in content:
+                            match = "picoquic"
+                            m = True
+                        if "quic-go" in content:
+                            match = "quic-go"
+                            m = True
+                    if not m :
+                            try:
+                                content = f.read()
+                                if "Using selector: EpollSelector" in content:
+                                    match = "aioquic"
+                                elif "EventBase.cpp" in content:
+                                    match = "mvfst"
+                                elif "quant" in content:
+                                    match = "quant"
+                                elif "quinn" in content:
+                                    match = "quinn"
+                                elif "quiche" in content:
+                                    match = "quiche"
+                                elif "[NOTICE] Document root is not set" in content:
+                                    match = "lsquic"
+                            except:
+                                  match = "quant"
             outPath = os.path.join(fol, out)
             err = file.replace(".iev", ".err")
             errPath = os.path.join(fol, err)
@@ -116,25 +177,24 @@ for fol in subfolders:
                 if last in "test_completed\n":
                     frame = frame.append(
                         {"Run": run,
-                         "Implementation":match,
+                         "Implementation": match,
                          "Mode": mode,
                          "TestName": test_name,
                          "isPass": True,
                          "ErrorIEV": "",
-                         "NbPktSend":0, #TODO
+                         "NbPktSend": 0,  # TODO
                          "OutputFile": fullPath}, ignore_index=True)
                 else:
                     frame = frame.append(
                         {"Run": run,
-                         "Implementation":match, 
+                         "Implementation": match,
                          "Mode": mode,
                          "TestName": test_name,
                          "isPass": False,
                          "ErrorIEV": last+"+"+second_last,
-                         "NbPktSend":0, #TODO
+                         "NbPktSend": 0,  # TODO
                          "OutputFile": fullPath}, ignore_index=True)
                 run += 1
-        
 
 
 today = date.today()
