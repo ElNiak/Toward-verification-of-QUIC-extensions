@@ -42,7 +42,7 @@ def write_header_results(writer,title):
     writer.write('\label{tab:client-summary-'+ title + '}\n')
     writer.write('\scriptsize\n')
     writer.write('\\resizebox{\\textwidth}{!}{%\n')
-    writer.write('\\begin{tabular}{|l|ccccccc|}\n')
+    writer.write('\\begin{tabular}{|l|cccccccc|}\n')
     writer.write('\hline\n')
     writer.write('\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & quiche & lsquic \\\\ \hline  \n')
 
@@ -446,9 +446,9 @@ def get_errors_split(train_df, tests,title, total, f):
 
 
 
-foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/client/VM/client-result-v1/" 
+foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/client/VM/client-result-v3/" 
 #foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/"
-csv_name = "May-23-2021.csv"
+csv_name = "May-22-2021.csv"
 
 train_df = pd.read_csv(foldername + csv_name, index_col=0)
 print(train_df.head())
