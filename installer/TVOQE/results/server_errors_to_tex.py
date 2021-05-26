@@ -40,7 +40,7 @@ field_error_test = [
     'quic_server_test_blocked_streams_maxstream_error',
     'quic_server_test_retirecoid_error',
     'quic_server_test_stream_limit_error',
-    'quic_server_test_newcoid_limit_error',
+    'quic_server_test_newcoid_length_error',
     'quic_server_test_newcoid_rtp_error',
     'quic_server_test_max_error',
 ]
