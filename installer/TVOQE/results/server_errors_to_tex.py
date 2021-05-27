@@ -452,9 +452,9 @@ def get_errors_split(train_df, tests,title, total, f):
 
 
 
-foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/server/local/mvfst_server_newcoid/" 
+foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/server/local/server-go-errors/" 
 #foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/"
-csv_name = "May-25-2021.csv"
+csv_name = "May-26-2021.csv"
 
 train_df = pd.read_csv(foldername + csv_name, index_col=0)
 print(train_df.head())
