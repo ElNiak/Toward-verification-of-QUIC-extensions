@@ -75,7 +75,7 @@ def readlastline(filename):
     return last, second_last
 
 
-foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/server/local/mvfst_server_newcoid/temp/" 
+foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/stream_limit_error/temp/"  #"/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/server/local/mvfst_server_newcoid/temp/" 
 # foldername = "/home/student/Toward-verification-of-QUIC-extensions/installer/TVOQE"
 # foldername = "/results/temp/"
 subfolders = [f.path for f in scandir.scandir(foldername) if f.is_dir()]
@@ -122,7 +122,7 @@ for fol in subfolders:
                                     match = "mvfst"
                                 elif "quant" in content:
                                     match = "quant"
-                                elif "quinn" in content:
+                                elif "quinn" in content or "Running `target/debug/examples/server /QUIC-Ivy/doc/examples/quic/" in content:
                                     match = "quinn"
                                 elif "quiche" in content:
                                     match = "quiche"
