@@ -311,6 +311,10 @@ def multiple_output(train_df):
             if "frame.connection_close:{err_code:0x8}" in row["ErrorIEV"]:
                 train_df.loc[i, "isPass"] = 1.0
                 train_df.loc[i, "ErrorIEV"] = "No Error"
+        elif row['TestName'] in global_test:
+            if "frame.connection_close:{err_code:0x0}" in row["ErrorIEV"] or "frame.application_close:{err_code:0x0}":
+                train_df.loc[i, "isPass"] = 1.0
+                train_df.loc[i, "ErrorIEV"] = "No Error"
 
 def pprint(str):
     print("="*50)
