@@ -111,9 +111,9 @@ client_tests = [
 	  ['quic_client_test_ext_min_ack_delay','test_completed'],
 	  ['quic_client_test_stateless_reset_token','test_completed'],
 	  ['quic_client_test_handshake_done_error','test_completed'],
-
-      ['quic_client_test_unkown_tp','test_completed'],
-      ['quic_client_test_max_limit_error','test_completed'],
+      ['quic_client_test_unkown','test_completed'],
+      ['quic_client_test_tp_unkown','test_completed'],
+      ['quic_client_test_limit_max_error','test_completed'],
       ['quic_client_test_new_token_error','test_completed'],
       ]
     ],
