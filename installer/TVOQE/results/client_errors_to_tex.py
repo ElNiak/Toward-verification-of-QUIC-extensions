@@ -7,7 +7,7 @@ import scandir
 
 
 global_test = [
-    'quic_client_test_stream',
+    #'quic_client_test_stream',
     'quic_client_test_max',
     'quic_client_test_accept_maxdata',
     'quic_client_test_ext_min_ack_delay',
@@ -307,7 +307,7 @@ def multiple_output(train_df):
             if "frame.connection_close:{err_code:0x7}" in row["ErrorIEV"]:
                 train_df.loc[i, "isPass"] = 1.0
                 train_df.loc[i, "ErrorIEV"] = "No Error"
-        elif row['TestName'] == 'quic_client_test_no_icid':
+        elif row['TestName'] == 'quic_client_test_no_ocid':
             if "frame.connection_close:{err_code:0x8}" in row["ErrorIEV"]:
                 train_df.loc[i, "isPass"] = 1.0
                 train_df.loc[i, "ErrorIEV"] = "No Error"
