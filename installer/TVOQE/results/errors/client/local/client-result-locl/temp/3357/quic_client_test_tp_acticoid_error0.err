@@ -1,0 +1,28 @@
+2021-05-27 18:47:25,910 DEBUG asyncio Using selector: EpollSelector
+2021-05-27 18:47:25,917 DEBUG quic [b7dd5c2dd51f34c9] TLS State.CLIENT_HANDSHAKE_START -> State.CLIENT_EXPECT_SERVER_HELLO
+2021-05-27 18:47:26,222 DEBUG quic [b7dd5c2dd51f34c9] QuicConnectionState.FIRSTFLIGHT -> QuicConnectionState.CONNECTED
+2021-05-27 18:47:26,223 DEBUG quic [b7dd5c2dd51f34c9] TLS State.CLIENT_EXPECT_SERVER_HELLO -> State.CLIENT_EXPECT_ENCRYPTED_EXTENSIONS
+2021-05-27 18:47:26,373 DEBUG quic [b7dd5c2dd51f34c9] TLS State.CLIENT_EXPECT_ENCRYPTED_EXTENSIONS -> State.CLIENT_EXPECT_CERTIFICATE_REQUEST_OR_CERTIFICATE
+2021-05-27 18:47:26,373 DEBUG quic [b7dd5c2dd51f34c9] TLS State.CLIENT_EXPECT_CERTIFICATE_REQUEST_OR_CERTIFICATE -> State.CLIENT_EXPECT_CERTIFICATE_VERIFY
+2021-05-27 18:47:26,373 DEBUG quic [b7dd5c2dd51f34c9] TLS State.CLIENT_EXPECT_CERTIFICATE_VERIFY -> State.CLIENT_EXPECT_FINISHED
+2021-05-27 18:47:26,375 DEBUG quic [b7dd5c2dd51f34c9] TLS State.CLIENT_EXPECT_FINISHED -> State.CLIENT_POST_HANDSHAKE
+2021-05-27 18:47:26,375 WARNING quic [b7dd5c2dd51f34c9] Error: 8, reason: active_connection_id_limit must be no less than 2, frame_type: QuicFrameType.CRYPTO
+2021-05-27 18:47:26,375 DEBUG quic [b7dd5c2dd51f34c9] QuicConnectionState.CONNECTED -> QuicConnectionState.CLOSING
+2021-05-27 18:47:27,876 DEBUG quic [b7dd5c2dd51f34c9] Discarding epoch Epoch.INITIAL
+2021-05-27 18:47:27,876 DEBUG quic [b7dd5c2dd51f34c9] Discarding epoch Epoch.HANDSHAKE
+2021-05-27 18:47:27,876 DEBUG quic [b7dd5c2dd51f34c9] Discarding epoch Epoch.ONE_RTT
+2021-05-27 18:47:27,877 DEBUG quic [b7dd5c2dd51f34c9] QuicConnectionState.CLOSING -> QuicConnectionState.TERMINATED
+Traceback (most recent call last):
+  File "examples/http3_client.py", line 465, in <module>
+    zero_rtt=args.zero_rtt,
+  File "/usr/lib/python3.6/asyncio/base_events.py", line 484, in run_until_complete
+    return future.result()
+  File "examples/http3_client.py", line 313, in run
+    wait_connected=not zero_rtt,
+  File "/home/chris/TVOQE_UPGRADE_27/quic/aioquic/src/aioquic/asyncio/compat.py", line 17, in __aenter__
+    return await self.gen.__anext__()
+  File "/home/chris/TVOQE_UPGRADE_27/quic/aioquic/src/aioquic/asyncio/client.py", line 89, in connect
+    await protocol.wait_connected()
+  File "/home/chris/TVOQE_UPGRADE_27/quic/aioquic/src/aioquic/asyncio/protocol.py", line 127, in wait_connected
+    await asyncio.shield(self._connected_waiter)
+ConnectionError
