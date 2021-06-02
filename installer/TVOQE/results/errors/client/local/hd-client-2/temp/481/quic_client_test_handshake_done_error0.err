@@ -1,0 +1,25 @@
+2021-06-02 11:40:23,153 DEBUG asyncio Using selector: EpollSelector
+2021-06-02 11:40:23,160 DEBUG quic [f2f554110ffec5ca] TLS State.CLIENT_HANDSHAKE_START -> State.CLIENT_EXPECT_SERVER_HELLO
+2021-06-02 11:40:23,377 DEBUG quic [f2f554110ffec5ca] QuicConnectionState.FIRSTFLIGHT -> QuicConnectionState.CONNECTED
+2021-06-02 11:40:23,378 DEBUG quic [f2f554110ffec5ca] TLS State.CLIENT_EXPECT_SERVER_HELLO -> State.CLIENT_EXPECT_ENCRYPTED_EXTENSIONS
+2021-06-02 11:40:23,661 DEBUG quic [f2f554110ffec5ca] Loss detection triggered
+2021-06-02 11:40:24,423 WARNING quic [f2f554110ffec5ca] Error: 10, reason: Unexpected frame type, frame_type: 30
+2021-06-02 11:40:24,424 DEBUG quic [f2f554110ffec5ca] QuicConnectionState.CONNECTED -> QuicConnectionState.CLOSING
+2021-06-02 11:40:25,926 DEBUG quic [f2f554110ffec5ca] Discarding epoch Epoch.INITIAL
+2021-06-02 11:40:25,926 DEBUG quic [f2f554110ffec5ca] Discarding epoch Epoch.HANDSHAKE
+2021-06-02 11:40:25,926 DEBUG quic [f2f554110ffec5ca] Discarding epoch Epoch.ONE_RTT
+2021-06-02 11:40:25,926 DEBUG quic [f2f554110ffec5ca] QuicConnectionState.CLOSING -> QuicConnectionState.TERMINATED
+Traceback (most recent call last):
+  File "examples/http3_client.py", line 465, in <module>
+    zero_rtt=args.zero_rtt,
+  File "/usr/lib/python3.6/asyncio/base_events.py", line 484, in run_until_complete
+    return future.result()
+  File "examples/http3_client.py", line 313, in run
+    wait_connected=not zero_rtt,
+  File "/home/chris/TVOQE_UPGRADE_27/quic/aioquic/src/aioquic/asyncio/compat.py", line 17, in __aenter__
+    return await self.gen.__anext__()
+  File "/home/chris/TVOQE_UPGRADE_27/quic/aioquic/src/aioquic/asyncio/client.py", line 89, in connect
+    await protocol.wait_connected()
+  File "/home/chris/TVOQE_UPGRADE_27/quic/aioquic/src/aioquic/asyncio/protocol.py", line 127, in wait_connected
+    await asyncio.shield(self._connected_waiter)
+ConnectionError

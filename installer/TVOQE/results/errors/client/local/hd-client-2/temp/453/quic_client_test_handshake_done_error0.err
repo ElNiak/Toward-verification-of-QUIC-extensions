@@ -1,0 +1,33 @@
+2021-06-02 11:35:49,189 DEBUG asyncio Using selector: EpollSelector
+2021-06-02 11:35:49,195 DEBUG quic [49aabdd4cd4fa17f] TLS State.CLIENT_HANDSHAKE_START -> State.CLIENT_EXPECT_SERVER_HELLO
+2021-06-02 11:35:49,368 DEBUG quic [49aabdd4cd4fa17f] Decryption key is not available
+2021-06-02 11:35:49,560 DEBUG quic [49aabdd4cd4fa17f] Decryption key is not available
+2021-06-02 11:35:49,697 DEBUG quic [49aabdd4cd4fa17f] Loss detection triggered
+2021-06-02 11:35:49,710 DEBUG quic [49aabdd4cd4fa17f] Decryption key is not available
+2021-06-02 11:35:49,837 DEBUG quic [49aabdd4cd4fa17f] Decryption key is not available
+2021-06-02 11:35:50,387 DEBUG quic [49aabdd4cd4fa17f] Decryption key is not available
+2021-06-02 11:35:50,699 DEBUG quic [49aabdd4cd4fa17f] Loss detection triggered
+2021-06-02 11:35:50,732 DEBUG quic [49aabdd4cd4fa17f] Decryption key is not available
+2021-06-02 11:35:50,973 DEBUG quic [49aabdd4cd4fa17f] Decryption key is not available
+2021-06-02 11:35:51,182 DEBUG quic [49aabdd4cd4fa17f] QuicConnectionState.FIRSTFLIGHT -> QuicConnectionState.CONNECTED
+2021-06-02 11:35:51,183 DEBUG quic [49aabdd4cd4fa17f] TLS State.CLIENT_EXPECT_SERVER_HELLO -> State.CLIENT_EXPECT_ENCRYPTED_EXTENSIONS
+2021-06-02 11:35:51,464 WARNING quic [49aabdd4cd4fa17f] Error: 10, reason: Unexpected frame type, frame_type: 30
+2021-06-02 11:35:51,464 DEBUG quic [49aabdd4cd4fa17f] QuicConnectionState.CONNECTED -> QuicConnectionState.CLOSING
+2021-06-02 11:35:52,967 DEBUG quic [49aabdd4cd4fa17f] Discarding epoch Epoch.INITIAL
+2021-06-02 11:35:52,967 DEBUG quic [49aabdd4cd4fa17f] Discarding epoch Epoch.HANDSHAKE
+2021-06-02 11:35:52,967 DEBUG quic [49aabdd4cd4fa17f] Discarding epoch Epoch.ONE_RTT
+2021-06-02 11:35:52,967 DEBUG quic [49aabdd4cd4fa17f] QuicConnectionState.CLOSING -> QuicConnectionState.TERMINATED
+Traceback (most recent call last):
+  File "examples/http3_client.py", line 465, in <module>
+    zero_rtt=args.zero_rtt,
+  File "/usr/lib/python3.6/asyncio/base_events.py", line 484, in run_until_complete
+    return future.result()
+  File "examples/http3_client.py", line 313, in run
+    wait_connected=not zero_rtt,
+  File "/home/chris/TVOQE_UPGRADE_27/quic/aioquic/src/aioquic/asyncio/compat.py", line 17, in __aenter__
+    return await self.gen.__anext__()
+  File "/home/chris/TVOQE_UPGRADE_27/quic/aioquic/src/aioquic/asyncio/client.py", line 89, in connect
+    await protocol.wait_connected()
+  File "/home/chris/TVOQE_UPGRADE_27/quic/aioquic/src/aioquic/asyncio/protocol.py", line 127, in wait_connected
+    await asyncio.shield(self._connected_waiter)
+ConnectionError
