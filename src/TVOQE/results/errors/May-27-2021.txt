@@ -1,0 +1,371 @@
+\begin{table}[h!]
+\centering
+\label{tab:server-quinn}
+\scriptsize
+\caption{\lstinline{quinn} server errors - Full}\resizebox{\textwidth}{!}{%
+\begin{tabular}{llr}
+\multicolumn{1}{c}{\textbf{Test}} & \multicolumn{1}{c}{\textbf{Error code}} \multicolumn{1}{c}{\textbf{\#}} \\ 
+quic\_server\_test\_stream\_limit\_error &       & \textbf{0.0/100}      \\ 
+   &       &   \\ 
+\end{tabular}%
+}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:server-quic-go}
+\scriptsize
+\caption{\lstinline{quic-go} server errors - Full}\resizebox{\textwidth}{!}{%
+\begin{tabular}{llr}
+\multicolumn{1}{c}{\textbf{Test}} & \multicolumn{1}{c}{\textbf{Error code}} \multicolumn{1}{c}{\textbf{\#}} \\ 
+quic\_server\_test\_stream\_limit\_error & require stream\_id\_allowed(dcid,f.id);  # [6] & 2  \\ 
+                           & frame.connection\_close:\{err\_code:0x3\} & 83  \\ 
+  &       & \textbf{85.0/100}      \\ 
+   &       &   \\ 
+\end{tabular}%
+}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:server-aioquic}
+\scriptsize
+\caption{\lstinline{aioquic} server errors - Full}\resizebox{\textwidth}{!}{%
+\begin{tabular}{llr}
+\multicolumn{1}{c}{\textbf{Test}} & \multicolumn{1}{c}{\textbf{Error code}} \multicolumn{1}{c}{\textbf{\#}} \\ 
+quic\_server\_test\_stream\_limit\_error &       & \textbf{0.0/100}      \\ 
+   &       &   \\ 
+\end{tabular}%
+}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:server-picoquic}
+\scriptsize
+\caption{\lstinline{picoquic} server errors - Full}\resizebox{\textwidth}{!}{%
+\begin{tabular}{llr}
+\multicolumn{1}{c}{\textbf{Test}} & \multicolumn{1}{c}{\textbf{Error code}} \multicolumn{1}{c}{\textbf{\#}} \\ 
+quic\_server\_test\_stream\_limit\_error & require $\sim$\_generating \& $\sim$queued\_non\_ack(scid) -\textgreater ack\_credit(scid) \textgreater 0;  # [5] & 1  \\ 
+                           & frame.connection\_close:\{err\_code:0x3\} & 1  \\ 
+  &       & \textbf{2.0/100}      \\ 
+   &       &   \\ 
+\end{tabular}%
+}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:server-mvfst}
+\scriptsize
+\caption{\lstinline{mvfst} server errors - Full}\resizebox{\textwidth}{!}{%
+\begin{tabular}{llr}
+\multicolumn{1}{c}{\textbf{Test}} & \multicolumn{1}{c}{\textbf{Error code}} \multicolumn{1}{c}{\textbf{\#}} \\ 
+quic\_server\_test\_stream\_limit\_error & frame.connection\_close:\{err\_code:0x7\} & 7  \\ 
+                           & require is\_flow\_control\_error | is\_frame\_encoding\_error; & 22  \\ 
+                           & require $\sim$\_generating \& $\sim$queued\_non\_ack(scid) -\textgreater ack\_credit(scid) \textgreater 0;  # [5] & 4  \\ 
+                           & frame.connection\_close:\{err\_code:0xc\} & 1  \\ 
+  &       & \textbf{34.0/100}      \\ 
+   &       &   \\ 
+\end{tabular}%
+}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:server-quant}
+\scriptsize
+\caption{\lstinline{quant} server errors - Full}\resizebox{\textwidth}{!}{%
+\begin{tabular}{llr}
+\multicolumn{1}{c}{\textbf{Test}} & \multicolumn{1}{c}{\textbf{Error code}} \multicolumn{1}{c}{\textbf{\#}} \\ 
+quic\_server\_test\_stream\_limit\_error & require is\_flow\_control\_error | is\_frame\_encoding\_error; & 72  \\ 
+                           & ivy\_return\_code(134) & 12  \\ 
+                           & Handshake not completed & 2  \\ 
+                           & frame.connection\_close:\{err\_code:0xa\} & 1  \\ 
+                           & require path\_challenge\_pending(scid,f.data); & 1  \\ 
+                           & frame.connection\_close:\{err\_code:0x3\} & 1  \\ 
+  &       & \textbf{89.0/100}      \\ 
+   &       &   \\ 
+\end{tabular}%
+}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:server-quiche}
+\scriptsize
+\caption{\lstinline{quiche} server errors - Full}\resizebox{\textwidth}{!}{%
+\begin{tabular}{llr}
+\multicolumn{1}{c}{\textbf{Test}} & \multicolumn{1}{c}{\textbf{Error code}} \multicolumn{1}{c}{\textbf{\#}} \\ 
+quic\_server\_test\_stream\_limit\_error & Timeout & 1  \\ 
+  &       & \textbf{1.0/100}      \\ 
+   &       &   \\ 
+\end{tabular}%
+}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:server-summary-Full}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|ccccccc|}
+\hline
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & quiche \\ \hline  
+stream\_limit\_error & 
+\cellcolor[HTML]{009933} 100\%  & 
+\cellcolor[HTML]{ffff00} 66\%  & 
+\cellcolor[HTML]{009933} 98\%  & 
+\cellcolor[HTML]{ff6666} 15\%  & 
+\cellcolor[HTML]{009933} 100\%  & 
+\cellcolor[HTML]{ff6666} 11\%  & 
+\cellcolor[HTML]{009933} 99\%  \\ \hline
+\end{tabular}%
+}
+\caption{Server - Full}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:server-summary-Global test}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|ccccccc|}
+\hline
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & quiche \\ \hline  
+stream & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+max & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+accept\_maxdata & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+reset\_stream & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+connection\_close & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+stop\_sending & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+ext\_min\_ack\_delay & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \hline
+\end{tabular}%
+}
+\caption{Server - Global test}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:server-summary-Unknown situation}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|ccccccc|}
+\hline
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & quiche \\ \hline  
+unknown & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+unknown\_tp & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \hline
+\end{tabular}%
+}
+\caption{Server - Unknown situation}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:server-summary-Transport parameter errors tests}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|ccccccc|}
+\hline
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & quiche \\ \hline  
+double\_tp\_error & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+tp\_error & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+tp\_acticoid\_error & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+no\_icid & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \hline
+\end{tabular}%
+}
+\caption{Server - Transport parameter errors tests}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:server-summary-Invalid fields frames errors tests}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|ccccccc|}
+\hline
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & quiche \\ \hline  
+blocked\_streams\_maxstream\_error & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+retirecoid\_error & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+stream\_limit\_error & 
+\cellcolor[HTML]{009933} 100\%  & 
+\cellcolor[HTML]{ffff00} 66\%  & 
+\cellcolor[HTML]{009933} 98\%  & 
+\cellcolor[HTML]{ff6666} 15\%  & 
+\cellcolor[HTML]{009933} 100\%  & 
+\cellcolor[HTML]{ff6666} 11\%  & 
+\cellcolor[HTML]{009933} 99\%  \\ \cline{1-1}
+newcoid\_length\_error & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+newcoid\_rtp\_error & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+max\_error & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \hline
+\end{tabular}%
+}
+\caption{Server - Invalid fields frames errors tests}
+\end{table}
+\begin{table}[h!]
+\centering
+\label{tab:server-summary-Protocol violation errors tests}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|ccccccc|}
+\hline
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{quinn} & \multicolumn{1}{c|}{mvfst} & \multicolumn{1}{c|}{picoquic} & \multicolumn{1}{c|}{quic-go} & \multicolumn{1}{c|}{aioquic} & \multicolumn{1}{c|}{quant} & quiche \\ \hline  
+token\_error & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+new\_token\_error & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+handshake\_done\_error & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+newconnectionid\_error & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \cline{1-1}
+max\_limit\_error & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  & 
+\cellcolor[HTML]{ffffff} -1\%  \\ \hline
+\end{tabular}%
+}
+\caption{Server - Protocol violation errors tests}
+\end{table}

@@ -1,0 +1,46 @@
+2021-05-28 03:36:32,235 DEBUG asyncio Using selector: EpollSelector
+2021-05-28 03:36:32,241 DEBUG quic [92695440476d6961] TLS State.CLIENT_HANDSHAKE_START -> State.CLIENT_EXPECT_SERVER_HELLO
+2021-05-28 03:36:32,541 DEBUG quic [92695440476d6961] QuicConnectionState.FIRSTFLIGHT -> QuicConnectionState.CONNECTED
+2021-05-28 03:36:32,542 DEBUG quic [92695440476d6961] TLS State.CLIENT_EXPECT_SERVER_HELLO -> State.CLIENT_EXPECT_ENCRYPTED_EXTENSIONS
+2021-05-28 03:36:32,662 DEBUG quic [92695440476d6961] TLS State.CLIENT_EXPECT_ENCRYPTED_EXTENSIONS -> State.CLIENT_EXPECT_CERTIFICATE_REQUEST_OR_CERTIFICATE
+2021-05-28 03:36:32,662 DEBUG quic [92695440476d6961] TLS State.CLIENT_EXPECT_CERTIFICATE_REQUEST_OR_CERTIFICATE -> State.CLIENT_EXPECT_CERTIFICATE_VERIFY
+2021-05-28 03:36:32,662 DEBUG quic [92695440476d6961] TLS State.CLIENT_EXPECT_CERTIFICATE_VERIFY -> State.CLIENT_EXPECT_FINISHED
+2021-05-28 03:36:32,663 DEBUG quic [92695440476d6961] TLS State.CLIENT_EXPECT_FINISHED -> State.CLIENT_POST_HANDSHAKE
+2021-05-28 03:36:32,664 ERROR asyncio Exception in callback _SelectorDatagramTransport._read_ready()
+handle: <Handle _SelectorDatagramTransport._read_ready()>
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/asyncio/events.py", line 145, in _run
+    self._callback(*self._args)
+  File "/usr/lib/python3.6/asyncio/selector_events.py", line 1068, in _read_ready
+    self._protocol.datagram_received(data, addr)
+  File "/home/chris/TVOQE_UPGRADE_27/quic/aioquic/src/aioquic/asyncio/protocol.py", line 135, in datagram_received
+    self._quic.receive_datagram(cast(bytes, data), addr, now=self._loop.time())
+  File "/home/chris/TVOQE_UPGRADE_27/quic/aioquic/src/aioquic/quic/connection.py", line 923, in receive_datagram
+    context, plain_payload
+  File "/home/chris/TVOQE_UPGRADE_27/quic/aioquic/src/aioquic/quic/connection.py", line 2058, in _payload_received
+    frame_handler(context, frame_type, buf)
+  File "/home/chris/TVOQE_UPGRADE_27/quic/aioquic/src/aioquic/quic/connection.py", line 1420, in _handle_crypto_frame
+    self._parse_transport_parameters(ext_data)
+  File "/home/chris/TVOQE_UPGRADE_27/quic/aioquic/src/aioquic/quic/connection.py", line 2109, in _parse_transport_parameters
+    quic_transport_parameters = pull_quic_transport_parameters(Buffer(data=data))
+  File "/home/chris/TVOQE_UPGRADE_27/quic/aioquic/src/aioquic/quic/packet.py", line 362, in pull_quic_transport_parameters
+    assert buf.tell() == param_start + param_len
+AssertionError
+2021-05-28 03:36:32,742 DEBUG quic [92695440476d6961] Loss detection triggered
+2021-05-28 03:36:32,742 DEBUG quic [92695440476d6961] Discarding epoch Epoch.INITIAL
+2021-05-28 03:36:32,958 DEBUG quic [92695440476d6961] Discarding epoch Epoch.HANDSHAKE
+2021-05-28 03:36:33,742 DEBUG quic [92695440476d6961] Loss detection triggered
+2021-05-28 03:36:33,742 DEBUG quic [92695440476d6961] Sending PING (probe) in packet 4
+2021-05-28 03:36:34,180 DEBUG quic [92695440476d6961] Received PING (probe) response
+2021-05-28 03:36:35,079 DEBUG quic [92695440476d6961] Loss detection triggered
+2021-05-28 03:36:35,079 DEBUG quic [92695440476d6961] Sending PING (probe) in packet 5
+2021-05-28 03:36:36,688 DEBUG quic [92695440476d6961] Received PING (probe) response
+2021-05-28 03:36:37,516 DEBUG quic [92695440476d6961] Loss detection triggered
+2021-05-28 03:36:37,516 DEBUG quic [92695440476d6961] Sending PING (probe) in packet 6
+2021-05-28 03:36:38,512 DEBUG quic [92695440476d6961] Received PING (probe) response
+2021-05-28 03:36:40,106 DEBUG quic [92695440476d6961] Loss detection triggered
+2021-05-28 03:36:40,107 DEBUG quic [92695440476d6961] Sending PING (probe) in packet 7
+2021-05-28 03:36:41,794 DEBUG quic [92695440476d6961] Received PING (probe) response
+2021-05-28 03:36:43,597 DEBUG quic [92695440476d6961] Loss detection triggered
+2021-05-28 03:36:43,597 DEBUG quic [92695440476d6961] Sending PING (probe) in packet 8
+2021-05-28 03:36:46,150 DEBUG quic [92695440476d6961] Received PING (probe) response
