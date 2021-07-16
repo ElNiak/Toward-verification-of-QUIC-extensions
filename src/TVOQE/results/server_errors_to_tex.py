@@ -253,10 +253,10 @@ def extract_error(foldername, train_df):
                     train_df.loc[i, "ErrorIEV"] = 'require conn_total_data(the_cid) > 0;'
 
             elif "assumption_failed" in content:
-                start_index = content.find('assumption_failed')
-                end_index = content.find(')',start_index)
+                start_index = content.find('assumption_failed(""')
+                end_index = content.find('"")',start_index)
                 c = content[start_index:end_index+1]
-                #c = c.replace('assumption_failed(""',"")
+                c = c.replace('assumption_failed(""',"")
                 train_df.loc[i, "ErrorIEV"] = c
             elif "ivy_return_code(139)" in content:
                 train_df.loc[i, "ErrorIEV"] = "ivy_return_code(139)"
@@ -452,9 +452,9 @@ def get_errors_split(train_df, tests,title, total, f):
 
 
 
-foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/server/local/server-stream-limit/" 
+foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/server/local/server-go-errors/" 
 #foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/"
-csv_name = "May-30-2021.csv"
+csv_name = "May-26-2021.csv"
 
 train_df = pd.read_csv(foldername + csv_name, index_col=0)
 print(train_df.head())

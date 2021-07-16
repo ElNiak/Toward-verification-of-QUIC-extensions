@@ -32,8 +32,7 @@ server_tests = [
     'quic_server_test_stop_sending_error',
     'quic_server_test_unkown_tp',
     'quic_server_test_max_limit_error',
-    'quic_server_test_max_error',
-    "quic_server_test_max_limit_error"
+    'quic_server_test_max_error'
 ]
 
 # List of available client's tests
@@ -54,13 +53,10 @@ client_tests = [
     'quic_client_test_ext_min_ack_delay',
     'quic_client_test_no_odci',
     'quic_client_test_tp_unknown',
-    'quic_client_test_unkown',
     'quic_client_test_stream',
     'quic_client_test_unkown_tp',
-    'quic_client_test_tp_unkown',
-    'quic_client_test_max_limit_error',
-    'quic_client_test_new_token_error',
-    'quic_client_test_limit_max_error'
+    'quic_client_test_max_limit_error'
+    'quic_client_test_new_token_error'
 ]
 
 frame = pd.DataFrame(
@@ -79,7 +75,7 @@ def readlastline(filename):
     return last, second_last
 
 
-foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/server/local/server-stream-limit/temp/"  #"/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/server/local/mvfst_server_newcoid/temp/" 
+foldername = "/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/stream_limit_error/temp/"  #"/home/chris/Toward-verification-of-QUIC-extensions/installer/TVOQE/results/errors/server/local/mvfst_server_newcoid/temp/" 
 # foldername = "/home/student/Toward-verification-of-QUIC-extensions/installer/TVOQE"
 # foldername = "/results/temp/"
 subfolders = [f.path for f in scandir.scandir(foldername) if f.is_dir()]
@@ -99,7 +95,7 @@ for fol in subfolders:
                     if n in file:
                         test_name = file.replace('.iev', '')
                         break
-                if os.path.isfile(os.path.join(fol, "res_server.txt")):
+                if os.path.isfile('res_server.txt'):
                     with open(os.path.join(fol, "res_server.txt"), "r") as f:
                         for li in f:
                             if "implementation command:" in li:
@@ -138,11 +134,9 @@ for fol in subfolders:
             else:
                 for n in client_tests:
                     if n in file:
-                        test_name = file.replace('.iev', '').split("/")[-1]
-                        print(test_name)
+                        test_name = file.replace('.iev', '')
                         break
-                if os.path.isfile(os.path.join(fol, "res_client.txt")):
-                    #print("Good")
+                if os.path.isfile('res_client.txt'):
                     with open(os.path.join(fol, "res_client.txt"), "r") as f:
                         for li in f:
                             if "implementation command:" in li:
@@ -167,7 +161,7 @@ for fol in subfolders:
                                     match = "mvfst"
                                 elif "quant" in content:
                                     match = "quant"
-                                elif "quinn" in content or "Running `target/debug/examples/client" in content:
+                                elif "quinn" in content:
                                     match = "quinn"
                                 elif "quiche" in content:
                                     match = "quiche"
